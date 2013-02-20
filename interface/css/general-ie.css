@@ -1,0 +1,23 @@
+#idSection
+{}
+#idSection .cMenu
+{}
+#idPage ul li
+{
+	height: 24px;
+	line-height: 24px;
+	margin: 4px;
+	padding: 5px;
+}
+.fieldFile
+{
+	height: 18px;
+	width: 180px;
+	border-color: #999999;
+	border-style: solid;
+	border-width: 1px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #656565;
+	background-color: #FFFFFF;	
+}

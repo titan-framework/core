@@ -1,0 +1,20 @@
+Title: Directory structure
+
+---
+
+The TypeFriendly project must have a proper directory structure. Create somewhere a new directory - in this manual we will mark it as `/`. Then, add some new directories and files to it:
+
+    /input
+        /en
+    /output
+    /sort_hints.txt
+    /settings.ini
+
+The rules are simple. The `/input` directory contains the subdirectories representing the various language versions of the book. Inside them, we place text files with the content. TypeFriendly generates the output files to the `/output` directory, so it must have some write access there. Directly in the main directory, we put the configuration files common to all the language versions. The most important is `settings.ini` with the configuration. `sort_hints.txt` contains our own sorting rules. Their structure will be introduced in the next chapters.
+
+Optionally, the language version subdirectories may also contain `/input/LANGUAGE/media` and `/input/LANGUAGE/templates` directories for:
+
++ media files (images, charts, etc.)
++ content templates
+
+They will be also described later.

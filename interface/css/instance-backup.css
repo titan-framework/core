@@ -1,0 +1,35 @@
+table.instanceBackup tr td
+{
+	text-align: left;
+	line-height: 20px;
+	padding: 5px 0px;
+}
+
+table.instanceBackup tr td label
+{
+	color: #090;
+	font-size: 26px;
+	font-weight: bold;
+}
+
+table.instanceBackup tr td.warning
+{
+	font-size: 12px;
+	font-weight: bold;
+	color: #000;
+}
+
+.instanceBackup input.button
+{
+	width: 70px;
+	transition: all 0.25s ease-in-out;
+	-webkit-transition: all 0.25s ease-in-out;
+	-moz-transition: all 0.25s ease-in-out;
+}
+
+.instanceBackup input.button:hover
+{
+	box-shadow: 0 0 5px #090;
+	-webkit-box-shadow: 0 0 5px #090; 
+	-moz-box-shadow: 0 0 5px #090;
+}

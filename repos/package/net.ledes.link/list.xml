@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view table="cms.[_TABLE_]" primary="id" paginate="20">
+	<field type="String" column="title" id="_TITLE_" label="Título" required="true" max-lenght="256" />
+	<field type="Select" column="category" label="Categoria" link-table="link_tipo" link-column="id" link-view="title" />
+	<field type="Select" column="_user" link-column="_id" link-table="_user" link-view="_name" label="Autor" />
+	<order id="_TITLE_" invert="false" />
+	<icon action="view" image="view.gif" label="Visualizar" default="true" />
+	<icon action="edit" image="edit.gif" label="Editar" />
+	<icon action="delete" image="delete.gif" label="Apagar" />
+	<icon action="version" label="Controle de Versões" />
+</view>
+<search table="cms.[_TABLE_]">
+	<field type="String" column="title" label="Título" />
+	<field type="Select" column="category" label="Categoria" link-table="link_tipo" link-column="id" link-view="title" />
+</search>

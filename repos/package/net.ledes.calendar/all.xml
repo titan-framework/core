@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form table="cms.[_TABLE_]" primary="id">
+	<go-to flag="success" action="[default]" />
+	<go-to flag="fail" action="[same]" />
+	<field type="String" column="title" label="Título" required="true" max-lenght="256" help="Insira um título de chamada para seu evento." />
+	<field type="Date" column="date_start" label="Data Inicial" />
+	<field type="Date" column="date_end" label="Data Final" />
+	<field type="Fck" column="text" label="Texto" help="Descrição do evento." />
+	<field type="Text" column="local" label="Local" help="Coloque o local e endereço onde acontecerá o evento." />
+</form>

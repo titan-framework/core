@@ -1,0 +1,249 @@
+Title: Lists
+SeeAlso:
+ - docs.syntax.advanced
+
+---
+
+Markdown supports unordered and ordered lists. They are block elements, so they must be surrounded by at least one empty line.
+
+An ordered list is really easy to make:
+
+~~~
+Text
+
+1. Element 1
+2. Element 2
+3. Element 3
+
+Text
+~~~
+
+> Text
+>
+> 1. Element 1
+> 2. Element 2
+> 3. Element 3
+>
+> Text
+
+The numbers do not matter. You may write them in any order you want, they may repeat etc. because their only purpose is to make the source text look nice. The list below will give you the same effect:
+
+~~~
+3.  Element 1
+3.  Element 2
+68. Element 3
+~~~
+
+* * *
+
+To produce an unordered list, we use asterisks `*`, pluses `+` or pauses `-`:
+
+~~~
++  Element 1
++  Element 2
++  Element 3
+
+text
+
+*  Element 1
+*  Element 2
+*  Element 3
+
+text
+
+-  Element 1
+-  Element 2
+-  Element 3
+~~~
+
+> * Element 1
+> * Element 2
+> * Element 3
+
+We can use any of these symbols and the result will be the same.
+
+* * *
+
+The list symbols must be separated from the beginning of a line with 0 to 3 spaces. After the symbol, we write a text which must be followed with at least one space or tabulation.
+
+The list element texts can be broken. To make the list look better, you can move the new lines to the same distance, as the first one, from the left text border:
+
+~~~
+ *  Lorem ipsum dolor sit amet sapien pede dictum sapien massa sit amet
+    sapien varius egestas, dapibus aliquam id, neque. Donec facilisis diam
+    elit, gravida turpis. Nullam at ligula. Aenean urna a purus fermentum
+ *  libero quis ipsum. Fusce ullamcorper ut, semper turpis egestas. Cum
+    sociis natoque penatibus et ultrices bibendum, sem in lacus tellus
+~~~
+
+However, this is optional and Markdown will accept also the following text:
+
+~~~
+ *  Lorem ipsum dolor sit amet sapien pede dictum sapien massa sit amet
+sapien varius egestas, dapibus aliquam id, neque. Donec facilisis diam
+elit, gravida turpis. Nullam at ligula. Aenean urna a purus fermentum
+ *  libero quis ipsum. Fusce ullamcorper ut, semper turpis egestas. Cum
+sociis natoque penatibus et ultrices bibendum, sem in lacus tellus
+~~~
+
+> *  Lorem ipsum dolor sit amet sapien pede dictum sapien massa sit amet
+> sapien varius egestas, dapibus aliquam id, neque. Donec facilisis diam
+> elit, gravida turpis. Nullam at ligula. Aenean urna a purus fermentum
+> *  libero quis ipsum. Fusce ullamcorper ut, semper turpis egestas. Cum
+> sociis natoque penatibus et ultrices bibendum, sem in lacus tellus
+
+* * *
+
+If the list elements are separated with one empty line, their content will be put into paragraph tags `<p>`. Take a look at the example. The text:
+
+~~~
+*  Element 1
+*  Element 2
+*  Element 3
+~~~
+
+will produce:
+
+> *  Element 1
+> *  Element 2
+> *  Element 3
+
+The same version with empty lines between list elements:
+
+~~~
+*  Element 1
+
+*  Element 2
+
+*  Element 3
+~~~
+
+Will give us:
+
+> *  Element 1
+> 
+> *  Element 2
+> 
+> *  Element 3
+
+Markdown allows to make more paragraphs in the list element. They must be surrounded with empty lines and begin with four spaces or a tabulation.
+
+~~~
+ *  Lorem ipsum dolor sit amet sapien pede dictum sapien massa sit amet
+    sapien varius egestas, dapibus aliquam id, neque. Donec facilisis diam
+
+    elit, gravida turpis. Nullam at ligula. Aenean urna a purus fermentum
+
+ *  libero quis ipsum. Fusce ullamcorper ut, semper turpis egestas. Cum
+    sociis natoque penatibus et ultrices bibendum, sem in lacus tellus
+~~~
+
+> *  Lorem ipsum dolor sit amet sapien pede dictum sapien massa sit amet
+>    sapien varius egestas, dapibus aliquam id, neque. Donec facilisis diam
+>
+>    elit, gravida turpis. Nullam at ligula. Aenean urna a purus fermentum
+>
+> *  libero quis ipsum. Fusce ullamcorper ut, semper turpis egestas. Cum
+>    sociis natoque penatibus et ultrices bibendum, sem in lacus tellus
+
+<!-- # -->
+
+> [warning]
+> The paragraphs connected with lists produce some side effects. It is impossible to put two lists, one after another, because they will be merged:
+> 
+>     1. Element 1
+>     2. Element 2
+>     3. Element 3
+>     
+>     1. Element 1
+>     2. Element 2
+>     3. Element 3
+> 
+> > 1. Element 1
+> > 2. Element 2
+> > 3. Element 3
+> >    
+> > 1. Element 1
+> > 2. Element 2
+> > 3. Element 3
+> 
+> The issue is still discussed and currently the recommended solution is to use a HTML comment `<!-- # -->` between the lists to split them.
+
+Nested lists
+============
+
+The nesting levels must be followed with spaces or tabulations.
+
+#### Example:
+
+~~~
+1. Element 1
+   - Element 1.1
+   - Element 1.2
+     1. Element 1.2.1
+   - Element 1.3
+2. Element 2
+   * Element 2.1
+   * Element 2.2
+3. Element 3
+~~~
+
+#### Effect:
+
+> 1. Element 1
+>    - Element 1.1
+>    - Element 1.2
+>      1. Element 1.2.1
+>    - Element 1.3
+> 2. Element 2
+>    * Element 2.1
+>    * Element 2.2
+> 3. Element 3
+
+Lists with other elements of Markdown syntax
+============================================
+
+To use other elements of Markdown syntax in a list, they must be followed by four spaces or a tabulation, like paragraphs. Remember that a codeblock must be indented like other list elements, apart from its own indentation.
+
+~~~
+1.  Lorem ipsum dolor sit amet sapien pede dictum sapien massa sit amet
+    sapien varius egestas, dapibus aliquam id, neque. Donec facilisis diam
+    
+        sample codeblock
+
+    elit, gravida turpis. Nullam at ligula. Aenean urna a purus fermentum
+    
+    *   Element 1
+    
+            sample codeblock
+    
+    *   Element 2
+
+    libero quis ipsum. Fusce ullamcorper ut, semper turpis egestas. Cum
+    sociis natoque penatibus et ultrices bibendum, sem in lacus tellus
+    
+2.  Something more.
+~~~
+
+> 1.  Lorem ipsum dolor sit amet sapien pede dictum sapien massa sit amet
+>     sapien varius egestas, dapibus aliquam id, neque. Donec facilisis diam
+>     
+>         sample codeblock
+> 
+>     elit, gravida turpis. Nullam at ligula. Aenean urna a purus fermentum
+>     
+>     *   Element 1
+>     
+>             sample codeblock
+>     
+>     *   Element 2
+> 
+>     libero quis ipsum. Fusce ullamcorper ut, semper turpis egestas. Cum
+>     sociis natoque penatibus et ultrices bibendum, sem in lacus tellus
+>     
+> 2.  Something more.
+
+<!-- # -->
+
+> [warning]
+> Pay attention to the number of spaces in the beginning of each line.

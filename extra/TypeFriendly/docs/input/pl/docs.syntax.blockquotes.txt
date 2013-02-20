@@ -1,0 +1,131 @@
+Title: Bloki cytatu i ramki informacyjne
+
+---
+
+Bloki cytatu ze specyfikacji składni Markdown mają trochę inne znaczenie, od tych, które wprowadzone zostały w TypeFriendly. Przyjrzyjmy się jednak najpierw, jak one wyglądają.
+
+Jeżeli korzystałeś trochę z tekstowych maili, musiałeś spotkać się z cytowaniem treści poprzednich maili przy użyciu nawiasu kierunkowego `>` przed każdą linijką. W taki sam sposób robi się do w Markdownie.
+
+~~~
+> To jest cytat z dwoma akapitami. Lorem ipsum dolor sit amet,
+> consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+> Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+> 
+> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
+> id sem consectetuer libero luctus adipiscing.
+~~~
+
+> To jest cytat z dwoma akapitami. Lorem ipsum dolor sit amet,
+> consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+> Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+> 
+> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
+> id sem consectetuer libero luctus adipiscing.
+
+Oczywiście, nie musisz ręcznie łamać każdej linjki:
+
+~~~
+> To jest cytat z dwoma akapitami. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+
+> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.
+~~~
+
+> [warning]
+> Ten "leniwy" sposób wstawiania cytatów uniemożliwia proste oddzielenie dwóch osobnych cytatów od siebie, gdyż niezależnie od ilości pustych linijek pomiędzy blokami, zostaną one połączone w jeden. Sprawa cały czas jest dyskutowana podczas opracowywania specyfikacji języka i - póki co - zalecanym rozwiązaniem jest skorzystanie z HTML-owego komentarza `<!-- # -->` pomiędzy blokami.
+
+Bloki można zagnieżdżać w sobie, dodając kolejne nawiasy `>`:
+
+~~~
+> To jest pierwszy poziom cytatu.
+>
+> > A to zagnieżdżony cytat.
+>
+> I tu wracamy do pierwszego poziomu.
+~~~
+
+> To jest pierwszy poziom cytatu.
+>
+> > A to zagnieżdżony cytat.
+>
+> I tu wracamy do pierwszego poziomu.
+
+Bloki cytatu mogą zawierać również inne elementy składni Markdown, jak nagłówki, listy, bloki kodu itd.
+
+~~~
+> ### To jest nagłówek ###
+> 
+> 1.  To jest pierwszy element listy.
+> 2.  A to drugi element.
+> 
+> Przykład kodu źródłowego:
+> 
+>     return shell_exec("echo $input | $markdown_script");
+~~~
+
+> [warning]
+> Należy uważać na ilość spacji przed każdym elementem. 
+
+Ramki informacyjne
+==================
+
+Ramki informacyjne już wielokrotnie spotkałeś w tej dokumentacji. (- Tak, te jasnożółte pola z ikonką po lewej stronie.) Możesz tam zawrzeć przeróżne informacje, ważne lub konieczne do przekazania dla czytelnika dokumentacji. 
+
+Ramki te korzystają ze składni bloków cytatu. Różnią się tylko tym, że w pierwszej linijce znajduje się specjalny znacznik, podobny do do tych z kolorowania składni bloków kodu: `[rodzaj]`. Przykładowa ramka informacyjna może wyglądać tak:
+
+~~~
+> [information]
+> ### Informacja ###
+> 
+> To jest jakaś ważna informacja dla czytelnika dokumentacji.
+~~~
+
+> [information]
+> ### Informacja ###
+> 
+> To jest jakaś ważna informacja dla czytelnika dokumentacji.
+
+## Rodzaje ramek informacyjnych ##
+
+> [error]
+> `[error]`
+
+<!-- # -->
+
+> [help]
+> `[help]`
+
+<!-- # -->
+
+> [important]
+> `[important]`
+
+<!-- # -->
+
+> [information]
+> `[information]`
+
+<!-- # -->
+
+> [steps]
+> `[steps]`
+
+<!-- # -->
+
+> [stop]
+> `[stop]`
+
+<!-- # -->
+
+> [warning]
+> `[warning]`
+
+***
+
+> [important]
+> ### Wyłączanie ramek ###
+> 
+> Jeśli z jakichś powodów potrzebujesz wstawić w pierwszej linijce tekst, który wygląda jak znacznik ramki, wystarczy poprzedzić go backslashem `\`.
+> 
+>     > \[important]
+> 
+> Oczywiście tyczy się to tylko pierwszej linijki bloku cytatu.

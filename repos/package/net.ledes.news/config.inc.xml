@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-mapping>
+	<action
+		name="list"
+		label="Listar Notícias"
+		default="true"
+		description="">
+		<menu action="create" />
+		<menu function="search" />
+		<menu action="graph" />
+		<menu function="rss" />
+	</action>
+	
+	<action
+		name="create"
+		label="Criar Notícia"
+		description=""
+		index-to="view">
+		<menu function="save" />
+		<menu action="list" image="close.png" />
+	</action>
+	
+	<action
+		name="edit"
+		label="Editar Notícia"
+		description=""
+		index-to="view">
+		<menu function="save" />
+		<menu action="list" image="close.png" />
+	</action>
+	
+	<action
+		name="delete"
+		label="Apagar Notícia"
+		description=""
+		index-to="view">
+		<menu function="save" image="delete.png" />
+		<menu action="list" image="close.png" />
+	</action>
+	
+	<action
+		name="view"
+		label="Visualizar Notícia"
+		description="">
+		<menu action="list" />
+		<menu function="print" />
+		<menu action="edit" />
+		<menu action="delete" />
+	</action>
+
+	<action
+		name="graph"
+		label="Gráficos">
+		<menu function="search" />
+		<menu action="list" />
+	</action>
+
+	<action
+		name="version"
+		label="Controle de Versões">
+		<menu function="search" />
+		<menu action="list" />
+	</action>
+</action-mapping>

@@ -1,0 +1,284 @@
+Title: File tags
+
+---
+
+Below, you can find a description of all the tags available in the chapter files. Most of them takes a string as a value, but some of them also support a group of values (an array). We specify them in the following way:
+
+~~~
+TagName:
+ - Value 1
+ - Value 2
+ - Value 3
+~~~
+
+Basic tags
+==========
+
+Title
+:   a full title of the chapter (required tag)
+
+ShortTitle
+:   Alternative version of the title, contrary to the name it does not need to be shorter. This tag is used by TypeFriendly in following situations:
+
+    * As a document title and in breadcrumbs,
+    * In tags: **SeeAlso**, **Extends**, **Implements**, **ExtendedBy**, **ImplementedBy**, **Throws**, **MultiExtends** and **Arguments**,
+    * As HTML "title" attribute in links to other chapters.
+
+    If not set, the value is taken from **Title**.
+
+SeeAlso
+:   an array of identifiers to generate the "See also" section.
+
+SeeAlsoExternal
+:   like above, but allows to put external URLs. The address can be separated with a space from the URL text.
+
+Author
+:   document author
+
+Example:
+
+~~~
+Title: Function foo()
+ShortTitle: foo()
+SeeAlso:
+ - reference.functions.bar
+SeeAlsoExternal:
+ - http://www.example.com/ A sample website
+~~~
+
+Document status
+===============
+
+Status
+:	displays a `Status` field in the output with the specified text. It may be used for various purposes.
+
+FeatureInformation
+:	prepends the specified content template to the beginning of a chapter. You can find out more about content templates [here][docs.templates] together with the example.
+
+API References
+==============
+
+These tags are very helpful for making various Application Programming Interface references: function, class definitions, interfaces etc.
+
+Construct
+:	the programming construct the chapter describes. You may either enter your own construct name or use the predefined one. In the second case, TypeFriendly automatically translates the construct name to the other languages and checks what others tags can be used.
+:	Note that this tag is not obligatory. If you do not use it, TypeFriendly does not perform any extra checks and validations.
+
+Type
+:	shows the element type (may be used for various purposes)
+
+Visibility
+:	the element visibility (*public*, *private* etc.)
+
+Namespace
+:	allows to specify the element namespace.
+:	expects the identifier of a chapter that describes the namespace.
+:	`ENamespace` expects the plain name of the namespace that does not have its own chapter in the documentation.
+
+Extends
+:	base class.
+:	the tag cannot be used together with `MultiExtends` in the same chapter
+:	expects the identifier of a chapter that describes the base class
+:	`EExtends` expects the plain class name that does not have its own chapter in the documentation.
+
+MultiExtends
+:	base classes (for languages that support multiple inheritance).
+:	the tag cannot be used together with `Extends` in the same chapter
+:	expects the list of chapter identifiers that describe the base classes.
+:	`EMultiExtends` expects the list of plain class names that do not have their own chapters in the documentation.
+
+Implements
+:	implemented interfaces (for languages that support interfaces)
+:	expects the list of chapter identifiers that describe the interfaces.
+:	`EImplements` expects the list of plain interface names that do not have their own chapters in the documentation.
+
+ExtendedBy
+:	derived classes.
+:	expects the list of chapter identifiers that describe the classes that extend the current one.
+:	`EExtendedBy` expects the list of plain class names that do not have their own chapters in the documentation.
+
+ImplementedBy
+:	classes implementing the specified interface.
+:	expects the list of chapter identifiers that describe the classes that implement the current interface.
+:	`EImplementedBy` expects the list of plain class names that do not have their own chapters in the documentation.
+
+Mixins
+:	list of mixins used by the class.
+:	expects the list of chapter identifiers that describe the mixins.
+:	`EMixins` expects the list of plain mixin names that do not have their own chapters in the documentation.
+
+Traits
+:	list of traits used by the class.
+:	expects the list of chapter identifiers that describe the traits.
+:	`ETraits` expects the list of plain trait names that do not have their own chapters in the documentation.
+
+Throws
+:	the exceptions thrown.
+:	expects the list of chapter identifiers that describe the thrown exception classes.
+:	`EThrows` expects the list of plain exception class names that do not have their own chapters in the documentation.
+
+PartOf
+:	used with the `internal class` construct to specify the top-level class that contains the current class.
+:	expects an identifier of a chapter that describes the master class.
+:	`EPartOf` expects the plain class name that does not have its own chapter in the documentation.
+
+Reference
+:	the function reference, i.e. `void foo(int a, int b [, int c])`
+
+Arguments
+:	the list of function/method arguments
+:	the expected argument format: `Name: arg_name | Type: arg.type.chapter | EType: arg_type_name | Desc: argument description`
+:	the `Type` and `EType` tags are optional, however - if you decide to use them, they must be specified in all the arguments.
+
+Returns
+:	the description what the function or method returns.
+
+File
+:	the file that contains the described item.
+
+Files
+:	the list of file names
+:	variant of `File` that allows to specify more file names.
+
+Package
+:	a package that contains the element.
+:	expects an identifier of a chapter that describes the package.
+:	`EPackage` expects the plain package name that does not have its own chapter in the documentation.
+
+TimeComplexity
+:	specifies the time complexity of an function or algorithm.
+
+MemoryComplexity
+:	specifies the memory complexity of an function or algorithm.
+
+Sample use:
+
+~~~
+Title: Class "foo"
+Construct: class
+Extends: reference.bar
+Implements:
+ - reference.foo-interface
+ - reference.bar-interface
+ExtendedBy:
+ - reference.joe
+~~~
+
+As you can see, the tags require the chapter identifiers by default. To specify the classes, interfaces etc. that are defined by some external libraries and your book does not cover them, you may use the extra tags prepended with the `E` letter:
+
+~~~
+Title: Class "foo"
+EExtends: PDO
+Implements:
+ - reference.my-interface
+EImplements:
+ - Countable
+ - IteratorAggregate
+~~~
+
+As you can see, both of the versions can be used simultaneously in the same chapter.
+
+The available predefined programming constructs for `Construct` tag:
+
++ `class` - a class
++ `interface` - an interface
++ `abstract class` - an abstract class
++ `final class` -a final class
++ `exception class` - an exception class
++ `internal class` - a nested internal class
++ `function` - a function
++ `method` - a method
++ `static method` - a static method
++ `abstract method` - an abstract method
++ `accessor method` - an accessor method (i.e. `setSomething()`, `getSomething()`).
++ `final method` - a final method
++ `final static method` - a final static method
++ `final accessor method` - a final accessor method
++ `optional method` - an empty method that can be optionally implemented by the programmer
++ `constructor` - a class constructor
++ `destructor` - a class destructor
++ `magic method` - a magic method (i.e. `__call()` in PHP)
++ `operator` - an overloaded operator
++ `variable` - a variable
++ `static variable` - a static variable
++ `module` - a module
++ `package` - a package
++ `namespace` - a namespace
++ `datatype` - a datatype
++ `structure` - a structure (like in C or C++)
++ `macro` - a macro
++ `mixin` - a mixin
++ `trait` - a trait
++ `executable` - an executable file
++ `script` - a script
+
+Behaviour description tags
+==========================
+
+They allow to document the expected element behaviour by defining side effects, start conditions, limitations, etc.
+
+StartConditions
+:	a list of descriptions of the start conditions.
+
+EndConditions
+:	a list of descriptions of the end conditions.
+
+SideEffects
+:	a list of descriptions of the side effects.
+
+Limitations
+:	a list of descriptions of the limitations.
+
+DataSources
+:	a list of data sources used by the element.
+:	expects the list of chapter identifiers that describe the data sources.
+:	`EDataSources` expects the list of plain data source names or descriptions that do not have their own chapters in the documentation.
+
+Sample use:
+
+~~~~
+Title: Returning a list of elements
+StartConditions:
+ - at least one element exists
+SideEffects:
+ - increasing the view counter by 1
+EDataSources:
+ - "Elements" table
+
+----
+
+Description...
+~~~~
+
+Version control tags
+====================
+
+Information about the versions and version control.
+
+VCSKeywords
+:	specified a place where the version control system keywords can be expanded. The content of this tag is displayed in the output, if the `versionControlInfo` option is enabled in the project configuration.
+
+VersionSince
+:	the first version that contains the described item
+
+VersionTo
+:	the last version that contains the described item
+
+Sample use of the tags:
+
+~~~
+Title: A sample page
+VCSKeywords: $Id$
+VersionSince: 1.0.2
+VersionTo: 1.4.6
+~~~
+
+Now the version control systems, like Subversion, can expand their special keywords in the header, and moreover, if we enable one option, such information will be included in the generated output.
+
+Document type tags
+==================
+
+These are functional tags that help TypeFriendly to determine the chapter type.
+
+Appendix
+:	accepts a boolean value (*true*, *false*, *yes*, *no*). The tag helps creating appendices, providing the alphabetical enumeration for them according to the ordinary chapter order settings, and prepends the "Appendix" word to the title. 

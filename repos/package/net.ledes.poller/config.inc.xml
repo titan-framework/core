@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-mapping>
+	<action
+		name="list"
+		label="Listar pollers"
+		default="true"
+		description="">
+		<menu action="create" />
+		<menu function="search" />
+		<menu function="rss" />
+	</action>
+	
+	<action
+		name="create"
+		label="Criar pollers"
+		description="">
+	</action>
+	
+	<action
+		name="edit"
+		label="Editar pollers"
+		description="">
+	</action>
+	
+	<action
+		name="answer"
+		label="Editar Respostas"
+		description="">
+	</action>
+	
+	<action
+		name="delete"
+		label="Apagar pollers"
+		description="">
+	</action>
+	
+	<action
+		name="view"
+		label="Visualizar pollers"
+		description="">
+		<menu action="list" />
+		<menu function="print" />
+		<menu action="edit" />
+		<menu action="delete" />
+	</action>
+</action-mapping>

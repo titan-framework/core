@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="pt_BR">
+	<!-- _ajax -->
+	<message from="Sort successfully performed!" to="Ordenação realizada com sucesso!" />
+	<message from="Invalid Document!" to="Documento inválido!" />
+	<message from="There is no support for link files in this section. The DSM must contain table [ [1] ] for offer support to this." to="Não há suporte para vínculo de arquivos nesta seção. O SGBD deve possuir a tabela [ [1] ] para oferecer suporte." />
+
+	<!-- _js -->
+	<message from="Select a group which the user will be linked." to="Selecione um grupo ao qual o usuário será vinculado." />
+
+	<!-- gallery -->
+	<message from="Send Photos" to="Enviar Fotos" />
+	<message from="Move the photos to sort them or a double-click to view them." to="Mova as fotos para ordená-las ou de um duplo-clique para visualizá-las." />
+	<message from="Show image in fullsize" to="Visualizar imagem em tamanho real" />
+	<message from="Edit image data" to="Editar dados da imagem" />
+	<message from="Edit image" to="Editar imagem" />
+	<message from="Remove image" to="Remover imagem" />
+	<message from="Under development!" to="Em desenvolvimento!" />
+
+	<!-- graph -->
+	<message from="Filter" to="Filtro" />
+
+	<!-- function -->
+	<message from="Missing ZIP file [ [1] ]!" to="Arquivo ZIP [ [1] ] inexistente!" />
+	<message from="Unable create directory [ [1] ]!" to="Impossível criar diretório [ [1] ]!" />
+	<message from="The file can not be copied into folder [ [1] ]!" to="O arquivo não pode ser copiado na pasta [ [1] ]!" />
+
+	<!-- script/upload -->
+	<message from="This file type ( [1] ) is not accept by the system!" to="Este tipo de arquivo não é aceito pelo sistema ( [1] )!" />
+	<message from="Send photos with success!" to="Foto(s) enviada(s) com sucesso!" />
+	<message from="No photos could be sent!" to="Nenhuma foto pôde ser enviada!" />
+	<message from="Supported files: JPG, GIF, PNG and ZIP" to="Arquivos suportados: JPG, GIF, PNG e ZIP" />
+
+	<!-- script/thumb -->
+	<message from="The photo [ [1] ] does not exist into DB!" to="A foto [ [1] não existe no BD!" />
+	<message from="" to="" />
+
+	<!-- relation -->
+	<message from="Unable link items: [1]" to="Impossível vincular itens: [1]" />
+
+	<!-- calendar -->
+	<message from="Jan"  to="Jan" />
+	<message from="Feb"  to="Fev" />
+	<message from="Mar"  to="Mar" />
+	<message from="Apr"  to="Abr" />
+	<message from="May"  to="Mai" />
+	<message from="Jun"  to="Jun" />
+	<message from="Jul"  to="Jul" />
+	<message from="Aug"  to="Ago" />
+	<message from="Sep"  to="Set" />
+	<message from="Oct"  to="Out" />
+	<message from="Nov"  to="Nov" />
+	<message from="Dec"  to="Dez" />
+
+	<message from="from [1] to [2]" to="[1] à [2]" />
+
+</i18n>

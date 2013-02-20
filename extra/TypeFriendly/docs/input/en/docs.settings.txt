@@ -1,0 +1,88 @@
+Title: settings.ini file
+
+---
+
+This is the main configuration file that specifies the general properties of our project. It is an ordinary INI file with the syntax similar to the one listed below:
+
+~~~
+[ini]
+option1 = "value 1"
+option2 = "value 2"
+option3 = "value 3"
+; comment
+~~~
+
+The semicolon begins a new comment which ends at the end of the line.
+
+#### The base options are:
+
+title
+:   the project title.
+
+version
+:   project version.
+
+copyright
+:   copyrights to the project.
+
+license
+:   documentation license name.
+
+projectType
+:	the project type
+:	available values: `manual` (default), `documentation`, `article`, `book`
+
+#### Additional options:
+
+copyrightLink
+:   an URL to the copyright holder website.
+
+licenseLink
+:   an URL to the license text.
+
+#### Project technical options:
+
+outputs
+:   the output list you are going to use in the project. They must be separated with commas.
+
+baseLanguage
+:   each documentation must choose its base language, which the original content is written in. It is important that the identifier of the language must be the same, as the language directory name.
+
+navigation
+:   defines the way, how to generate "Previous" and "Next" links. **Available values are**:
+    
+    tree
+    :   "Previous" and "Next" always point to the neighbors of the current chapter. If such a neighbor does not exist, the link is not displayed. This is the default value.
+
+    book
+    :   the "Previous" and "Next" links allow to travel across the whole documentation (like a book).
+    
+showNumbers
+:   whether to display chapter numbers (values are *true* or *false*).
+
+versionControlInfo
+:	whether to display version control information from document tags (*false* by default).
+
+***
+
+Below, we can see a sample file. It is used to generate TypeFriendly manual:
+
+~~~
+[ini]
+; Base options
+
+title = "TypeFriendly"
+version = "0.1"
+copyright = "Invenzzia Group 2008-2009"
+copyrightLink = "http://www.invenzzia.org/"
+license = "GNU Free Documentation License 2.1"
+licenseLink = "http://www.gnu.org/licenses/fdl.html"
+projectType = "manual"
+
+; Some rendering settings etc.
+
+outputs = "xhtml, xhtml_single"
+baseLanguage = "en"
+navigation = "book"
+showNumbers = true
+~~~

@@ -1,0 +1,79 @@
+Title: Headers
+
+---
+
+Markdown supports two header systems: **Setext** and **atx**. Like paragraphs, they are block elements, which means that they must be separated with at least one empty line from other elements of the same type.
+
+Setext notation
+---------------
+
+Here, the headers are "optically" underlined with equality characters `=` (first level) or pauses `-` (second level).
+
+~~~
+Header 1
+========
+
+Header 2
+--------
+~~~
+
+The number of underline characters has no matter.
+
+atx notation
+-----------
+
+This method supports all the header levels, using one to six hash symbols `#` before the header text.
+
+~~~
+# Header 1
+
+## Header 2
+
+##### Header 5
+~~~
+
+The text may be optionally ended with the same characters to make the header look better. The number of the characters does not have to match the header level.
+
+~~~
+# Header 1 #
+
+## Header 2 ####
+
+##### Header 5 #
+~~~
+
+> [important]
+>
+> TypeFriendly makes a small change to the original parser. The header level in the XHTML output is always decreased by 1, because the first level (`<h1>`) is reserved for the chapter title. So, the header written as the first level will be the second level and so on. As a result, TypeFriendly supports up to 5 levels, not 6.
+
+Sample headers:
+
+> # Header 1
+> 
+> ## Header 2
+> 
+> ### Header 3
+>
+> #### Header 4
+> 
+> ##### Header 5 
+
+Anchors in headers {#headers_anchors}
+==================
+
+Headers allow to create anchors, which can be used to [make a link][docs.syntax.links#links_anchors] from other parts of documentation to a particular fragment of a chapter.
+
+The tag looks like this: `{#anchor}`. It is places after header's text in setext notation or on the end of a line in atx notation.
+
+~~~
+Header {#anchor}
+========
+
+### Header ### {#anchor}
+
+##### Header {#anchor}
+~~~
+
+> [important]
+>
+> To make header anchors unique in whole documentation, TypeFriendly adds a prefix: `h:chapter_id:` to each of them. So making a direct link to an anchor in this way: `[link](#anchor)` will not work.

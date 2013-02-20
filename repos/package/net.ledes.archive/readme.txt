@@ -1,0 +1,1 @@
+Instancia uma seção de gerenciamento de arquivos (uploads).

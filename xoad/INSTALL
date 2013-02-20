@@ -1,0 +1,57 @@
+INSTALL
+--------
+
+1) Make sure XOAD has both read and write access to
+   the /var directory. You should chmod it to 777.
+
+2) For security reasons, please edit the XOAD_SERIALIZER_SKIP_STRING
+   constant (in 'config/xoad.config.php', line 43). Append
+   '<![xoadSerializer:skipString[' with some random string (at least
+   10 characters long). Example:
+
+   define('XOAD_SERIALIZER_SKIP_STRING', '<![xoadSerializer:skipString[-envLOOPwHaT-[');
+
+3) If you would like to use the MySQL provider for the
+   Client Event System (XOAD Events) you should run the
+   following SQL code in your database:
+
+   CREATE TABLE `xoad_events`
+   (
+
+   	`id`		BIGINT			UNSIGNED	NOT NULL	AUTO_INCREMENT,
+   	`event`		VARCHAR(100)				NOT NULL,
+   	`className`	VARCHAR(100)				NOT NULL,
+   	`filter`	VARCHAR(100)				NULL,
+   	`sender`	TEXT						NULL,
+   	`data`		TEXT						NULL,
+   	`time`		DOUBLE			UNSIGNED	NOT NULL,
+   	`endTime`	DOUBLE			UNSIGNED	NOT NULL,
+
+   	PRIMARY KEY(`id`),
+
+   	INDEX(`event`, `className`, `filter`, `time`, `endTime`)
+
+   );
+
+   If you're going to use another provider (not MySQL) please refer to
+   the README or INSTALL file included in it. Note, that some providers
+   do not require installation.
+
+4) If you would like to use the MySQL provider for XOAD_Cache
+   you should run the following SQL code in your database:
+
+   CREATE TABLE `xoad_cache` (
+
+   	`id`		VARCHAR(32)				NOT NULL,
+   	`expire`	INT			UNSIGNED	NOT NULL,
+   	`data`		TEXT					NOT NULL,
+
+   	PRIMARY KEY(`id`),
+
+   	INDEX(`expire`)
+
+   );
+
+   If you're going to use another provider (not MySQL) please refer to
+   the README or INSTALL file included in it. Note, that some providers
+   do not require installation.

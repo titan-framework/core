@@ -1,0 +1,285 @@
+Title: Tagi plików
+
+---
+
+W rozdziale tym opisane są wszystkie dostępne tagi, jakich można używać w plikach rozdziałów. Większość z nich przyjmuje wartość tekstową, lecz niektóre mogą także obsługiwać zespół wartości (tablicę), którą podajemy w następujący sposób:
+
+~~~
+NazwaTagu:
+ - Wartość 1
+ - Wartość 2
+ - Wartość 3
+~~~
+
+Pola podstawowe
+===============
+
+Title
+:   pełny tytuł danego rozdziału
+
+ShortTitle
+:   Alternatywna wersja tytułu, wbrew nazwie wcale nie musi być krótsza. Tag ten przez TypeFriendly używany jest w następujących sytuacjach:
+
+    * W tytule dokumentu i "okruchach chleba" (breadcrumbs),
+    * W tagach: **SeeAlso**, **Extends**, **Implements**, **ExtendedBy**, **ImplementedBy**, **Throws**, **MultiExtends** i **Arguments**,
+    * Jako HTML-owy atrybut "title" w odnośnikach do innych rozdziałów.
+    
+    Jeżeli **ShortTitle** nie jest ustawiony, brana jest wartość z **Title**.
+
+SeeAlso
+:   tablica identyfikatorów rozdziałów na potrzeby rubryki "Zobacz także".
+
+SeeAlsoExternal
+:   jak wyżej, lecz umożliwia podanie zewnętrznych odnośników. Po spacji można wpisać tekst odnośnika
+
+Author
+:   autor dokumentu
+
+
+Przykład:
+
+~~~
+Title: Funkcja foo()
+ShortTitle: foo()
+SeeAlso:
+ - reference.functions.bar
+ SeeAlsoExternal:
+ - http://www.example.com/ Przykładowa strona
+~~~
+
+Status dokumentu
+================
+
+Status
+:	wyświetla pole `Status` w dokumencie wynikowym wraz z towarzyszącą treścią, które można wykorzystać do różnych celów.
+
+FeatureInformation
+:	dokleja na początek rozdziału szablon treści. Więcej o szablonach treści możesz dowiedzieć się z [tego rozdziału][docs.templates]. Znajdziesz tam także przykład użycia tego tagu.
+
+Opis interfejsu programistycznego
+=================================
+
+Poniższe tagi są użyteczne w tworzeniu opisów interfejsów programowania aplikacji (ang. `API`) zawierających klasy, funkcje, interfejsy itd.
+
+Construct
+:	konstrukcja programistyczna opisywana przez rozdział. Możesz wpisać tutaj zarówno swoją własną nazwę, jak i jedną z predefiniowanych przez TypeFriendly (wykaz znajduje się niżej). W tym drugim przypadku, TF automatycznie przetłumaczy ich nazwy na wybrany język dokumentacji i sprawdzi możliwość stosowania pozostałych tagów.
+:	Użycie tego tagu nie jest obowiązkowe. Jeśli nie dodasz go do rozdziału, TypeFriendly nie będzie wykonywać żadnych dodatkowych czynności związanych z użytymi tagami.
+
+Type
+:	typ elementu (może być użyty w różnych celach)
+
+Visibility
+:	widoczność/dostęp do elementu (np. *public*, *private*)
+
+Namespace
+:	pozwala określić przestrzeń nazw elementu.
+:	wymaga podania identyfikatora rozdziału opisującego podaną przestrzeń nazw.
+:	`ENamespace` wymaga podania nazwy przestrzeni nazw w sytuacji, gdy nasza dokumentacja jej nie opisuje.
+
+Extends
+:	bazowa klasa.
+:	tag nie może być używany jednocześnie z `MultiExtends` w tym samym rozdziale.
+:	wymaga podania identyfikatora rozdziału, który opisuje klasę bazową.
+:	`EExtends` wymaga podania nazwy klasy bazowej w sytuacji, gdy nasza dokumentacja jej nie opisuje.
+
+MultiExtends
+:	bazowe klasy dla języków wspierających wielokrotne dziedziczenie.
+:	tag nie może być używany jednocześnie z `Extends` w tym samym rozdziale.
+:	wymaga podania listy identyfikatorów rozdziałów opisujących poszczególne klasy bazowe.
+:	`EMultiExtends` wymaga podania listy z nazwami klas bazowych, gdy nie obejmuje ich nasza dokumentacja.
+
+Implements
+:	zaimplementowane interfejsy dla języków, które obsługują tę opcję.
+:	wymaga podania listy identyfikatorów rozdziałów opisujących poszczególne interfejsy.
+:	`EImplements` wymaga podania listy z nazwami interfejsów, gdy nie obejmuje ich nasza dokumentacja.
+
+ExtendedBy
+:	klasy/interfejsy rozszerzające aktualną.
+:	wymaga podania listy identyfikatorów rozdziałów opisujących poszczególne klasy.
+:	`EExtendedBy` wymaga podania listy z nazwami klas, gdy nie obejmuje ich nasza dokumentacja.
+
+ImplementedBy
+:	klasy implementujące podany interfejs.
+:	wymaga podania listy identyfikatorów rozdziałów opisujących poszczególne klasy.
+:	`EImplementedBy` wymaga podania listy z nazwami klas, gdy nie obejmuje ich nasza dokumentacja.
+
+Mixins
+:	lista domieszek (ang. **mixin**) używanych w klasie.
+:	wymaga podania listy identyfikatorów rozdziałów opisujących poszczególne domieszki.
+:	`EMixins` wymaga podania listy z nazwami domieszek, gdy nie obejmuje ich nasza dokumentacja.
+
+Traits
+:	lista cech (ang. **trait**) używanych w klasie.
+:	wymaga podania listy identyfikatorów rozdziałów opisujących poszczególne cechy.
+:	`ETraits` wymaga podania listy z nazwami cech, gdy nie obejmuje ich nasza dokumentacja.
+
+Throws
+:	rzucane wyjątki.
+:	wymaga podania listy identyfikatorów rozdziałów opisujących poszczególne klasy wyjątków.
+:	`EThrows` wymaga podania listy z nazwami klas wyjątków, gdy nie obejmuje ich nasza dokumentacja.
+
+PartOf
+:	używany z konstrukcją `internal class` do określenia klasy zawierającej podaną klasę wewnętrzną.
+:	wymaga podania identyfikatora rozdziału opisującego daną klasę.
+:	`EPartOf` wymaga podania nazwy klasy, gdy nie obejmuje jej nasza dokumentacja.
+
+Reference
+:	prototyp funkcji, np. `void foo(int a, int b [, int c])`
+
+Arguments
+:	lista argumentów funkcji/metody
+:	spodziewany format pojedynczego argumentu: `Name: nazwa_arg | Type: rozdzial.typu.argumentu | EType: nazwa_typu_argumentu | Desc: opis`
+:	tagi `Type` oraz `EType` są opcjonalne, jeśli jednak decydujesz się na ich użycie, muszą być zastosowane we wszystkich wymienionych argumentach.
+
+Returns
+:	opis tego, co funkcja zwraca.
+
+File
+:	plik zawierający omawiany element.
+
+Files
+:	lista nazw plików
+:	odmiana tagu `File` pozwalająca wymienić kilka plików.
+
+Package
+:	pakiet zawierający klasę
+:	wymaga podania identyfikatora rozdziału opisującego dany pakiet.
+:	`EPackage` wymaga podania nazwy pakietu.
+
+TimeComplexity
+:	pozwala podać złożoność czasową algorytmu lub funkcji.
+
+MemoryComplexity
+:	pozwala podać złożoność pamięciową algorytmu lub funkcji.
+
+Przykładowe użycie:
+
+~~~
+Title: Class "foo"
+Construct: class
+Extends: reference.bar
+Implements:
+ - reference.foo-interface
+ - reference.bar-interface
+ExtendedBy:
+ - reference.joe
+~~~
+
+Jak widać, tagi wymagają domyślnie podania identyfikatorów rozdziałów opisujących wybraną opcję. Jeśli jednak pochodzi ona z jakiejś zewnętrznej biblioteki i nie jest ujęta w naszej dokumentacji, możemy utworzyć dodatkowe tagi z nazwą poprzedzoną dużą literą `E` do ich wymienienia:
+
+~~~
+Title: Klasa "foo"
+EExtends: PDO
+Implements:
+ - reference.my-interface
+EImplements:
+ - Countable
+ - IteratorAggregate
+~~~
+
+Obie wersje tagów mogą być użyte jednocześnie w obrębie tego samego rozdziału.
+
+Dostępne konstrukcje programistyczne rozpoznawane przez tag `Construct`:
+
++ `class` - klasa
++ `interface` - interfejs
++ `abstract class` - klasa abstrakcyjna
++ `final class` - klasa finalna
++ `exception class` - klasa wyjątku
++ `internal class` - zagnieżdżona klasa wewnętrzna
++ `function` - funkcja
++ `method` - metoda
++ `static method` - metoda statyczna
++ `abstract method` - metoda abstrakcyjna
++ `accessor method` - metoda dostępowa (np. `setSomething()`, `getSomething()`).
++ `final method` - metoda finalna
++ `final static method` - finalna metoda statyczna
++ `final accessor method` - finalna metoda dostępowa
++ `optional method` - pusta metoda, która może być opcjonalnie rozszerzona przez programistę
++ `constructor` - konstruktor klasy
++ `destructor` - destruktor klasy
++ `magic method` - magiczna metoda (np. `__call()` w PHP)
++ `operator` - przeciążony operator
++ `variable` - zmienna
++ `static variable` - zmienna statyczna
++ `module` - moduł
++ `package` - pakiet
++ `namespace` - przestrzeń nazw
++ `datatype` - typ danych
++ `structure` - struktura (w stylu C lub C++)
++ `macro` - makrodefinicja
++ `mixin` - domieszka
++ `trait` - cecha
++ `executable` - plik wykonywalny
++ `script` - skrypt
+
+Tagi opisujące zachowanie
+=========================
+
+Pozwalają na udokumentowanie spodziewanego zachowania elementu poprzez zdefiniowanie efektów ubocznych, warunków początkowych, końcowych, ograniczeń itd.
+
+StartConditions
+:	lista warunków początkowych opisanych słownie.
+
+EndConditions
+:	lista warunków końcowych opisanych słownie.
+
+SideEffects
+:	lista efektów ubocznych opisanych słownie.
+
+Limitations
+:	lista ograniczeń opisanych słownie.
+
+DataSources
+:	lista źródeł danych wykorzystywanych przez element.
+:	wymagana lista identyfikatorów rozdziałów opisujących wybrane źródła danych.
+:	`EDataSources` wymaga listy źródeł danych opisanych słownie w sytuacji, gdy nie opisuje ich nasza dokumentacja.
+
+Przykładowe użycie:
+
+~~~~
+Title: Pobranie listy elementów
+StartConditions:
+ - istnieje co najmniej jeden element
+SideEffects:
+ - zwiększenie ilości wyświetleń elementów o 1
+EDataSources:
+ - tabela "Elementy"
+
+----
+
+Opis...
+~~~~
+
+Tagi kontroli wersji
+====================
+
+Informacje o wersjach oraz z systemów kontroli wersji.
+
+VCSKeywords
+:	miejsce, gdzie system kontroli wersji może rozwijać swoje słowa kluczowe. Są one uwzględniane w dokumencie wynikowym, gdy włączymy opcję `versionControlInfo` w konfiguracji projektu.
+
+VersionSince
+:	pierwsza wersja, która zawiera opisywaną opcję.
+
+VersionTo
+:	ostatnia wersja, która zawiera opisywaną opcję.
+
+Przykładowe użycie:
+
+~~~
+Title: Przykładowa strona
+VCSKeywords: $Id$
+VersionSince: 1.0.2
+VersionTo: 1.4.6
+~~~
+
+Teraz systemy kontroli wersji takie, jak Subversion, mogą rozwijać swoje słowa kluczowe w nagłówku, a ponadto mamy możliwość ich uwzględnienia przy generowaniu dokumentów wynikowych.
+
+Typy rozdziałów
+===============
+
+Poniższe tagi pomagają TypeFriendly identyfikować rodzaje poszczególnych rozdziałów.
+
+Appendix
+:	akceptuje wartość logiczną (*true*, *false*, *yes*, *no*). Oznacza dany rozdział jako "Dodatek", co powoduje, że otrzymuje on zamiast tradycyjnej numeracji kolejną literę alfabetu zgodnie z ustawieniami kolejności TypeFriendly. Ponadto tytuł rozdziału zostaje poprzedzony słowem "Dodatek".

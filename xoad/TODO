@@ -1,0 +1,16 @@
+TODO
+-----
+
+- XOAD Controls Library.
+
+- Error: [Exception... "Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsIXMLHttpRequest.status]"  nsresult: "0x80040111 (NS_ERROR_NOT_AVAILABLE)"  location: "JS frame :: http://demo.xoad.org/js/xoad_optimized.js :: anonymous :: line 423"  data: no]
+  Source File: http://demo.xoad.org/js/xoad_optimized.js
+  Line: 423
+
+  Error: [Exception... "Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsIXMLHttpRequest.status]"  nsresult: "0x80040111 (NS_ERROR_NOT_AVAILABLE)"  location: "JS frame :: http://demo.xoad.org/js/xoad_optimized.js :: anonymous :: line 266"  data: no]
+  Source File: http://demo.xoad.org/js/xoad_optimized.js
+  Line: 266
+
+  Error: [Exception... "'Permission denied to get property XULElement.selectedIndex' when calling method: [nsIAutoCompletePopup::selectedIndex]"  nsresult: "0x8057001e (NS_ERROR_XPC_JS_THREW_STRING)"  location: "JS frame :: http://demo.xoad.org/examples/chatAdvanced/ :: sendMessage :: line 262"  data: no]
+  Source File: http://demo.xoad.org/examples/chatAdvanced/
+  Line: 262

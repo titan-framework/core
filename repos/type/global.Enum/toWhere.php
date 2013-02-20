@@ -1,0 +1,1 @@
+<? return $field->getTable () .'.'. $field->getColumn () ." = '". addslashes ($field->getValue ()) ."'" ?>

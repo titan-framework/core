@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view table="_contact" primary="_id" paginate="20">
+	<field type="String" column="_actor_subject" id="_TITLE_" label="Assunto" />
+	<field type="String" column="_actor_name" label="Autor" />
+	<field type="Date" column="_send_date" label="Data de Envio" show-time="true" />
+	<field type="Boolean" column="_responsed" label="Respondida" />
+	<field type="Select" column="_responser" link-column="_id" link-table="_user" link-view="_name" label="Respondida por" />
+	<field type="Date" column="_response_date" label="Respondida em" show-time="true" />
+	<!-- <field type="Select" column="instituicao" label="Instituição" link-table="instituicao" link-column="id" link-view="nome" /> -->
+	<order id="_contact__send_date" invert="true" />
+	<icon action="view" image="view.gif" label="Visualizar" default="true" />
+	<icon action="delete" image="delete.gif" label="Apagar" />
+	<icon action="reply" image="reply.gif" label="Responder" />
+</view>
+<search table="_contact">
+	<field type="String" column="_actor_subject" label="Assunto" />
+	<field type="String" column="_actor_name" label="Autor" />
+	<field type="Boolean" column="_responsed" label="Respondida?" />
+	<field type="Date" column="_send_date" label="Data de Envio" />
+	<field type="Date" column="_response_date" label="Respondida em" />
+	<!-- <field type="Select" column="instituicao" label="Instituição" id="_INSTITUICAO_" link-table="instituicao" link-column="id" link-view="nome" /> -->
+</search>

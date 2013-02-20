@@ -1,0 +1,258 @@
+Title: Listy porządkowe
+SeeAlso:
+ - docs.syntax.advanced
+
+---
+
+Markdown wspiera listy wypunktowane oraz numeryczne. Listy są elementami blokowymi, należy je więc poprzedzać i kończyć co najmniej jedną pustą linijką.
+
+Dodanie listy numerowanej jest niezwykle proste:
+
+~~~
+Tekst
+
+1. Element 1
+2. Element 2
+3. Element 3
+
+Tekst
+~~~
+
+> Tekst
+>
+> 1. Element 1
+> 2. Element 2
+> 3. Element 3
+>
+> Tekst
+
+Wpisane numery nie mają znaczenia - mogą być w innej kolejności, mogą się powtarzać, tworzą jedynie walor estetyczny podczas przeglądania kodu dokumentu. Poniższa lista da taki sam efekt jak podana wyżej:
+
+~~~
+3.  Element 1
+3.  Element 2
+68. Element 3
+~~~
+
+* * *
+
+Do tworzenia listy wypunktowanej, linijka musi zaczynać się od znaku gwiazdki `*`, plusa `+` lub minusa (pauzy) `-`:
+
+~~~
++  Element 1
++  Element 2
++  Element 3
+
+tekst
+
+*  Element 1
+*  Element 2
+*  Element 3
+
+tekst
+
+-  Element 1
+-  Element 2
+-  Element 3
+~~~
+
+> * Element 1
+> * Element 2
+> * Element 3
+
+To, którego znaku użyjemy, nie ma znaczenia - może to być którykolwiek z nich.
+
+* * *
+
+Znaczniki list mogą być oddzielone od tekstu jedną, bądź więcej spacją lub tabulacją. Znaczniki list powinny zaczynać się na początku linijek, można jednak odsunąć je od brzegu maksymalnie trzema spacjami. 
+
+Linijki w elementach listy można przełamywać, możesz je również odsunąć dla estetyki na tą samą odległość co pierwsza linijka:
+
+~~~
+ *  Litwo! Ojczyzno moja! ty jesteś jak zdrowie.
+    Ile cię trzeba cenić, ten tylko się dowie,
+    Kto cię stracił. Dziś piękność twą w całej ozdobie
+    Widzę i opisuję, bo tęsknię po tobie.
+ *  Panno Święta, co jasnej bronisz Częstochowy
+    I w Ostrej świecisz Bramie! Ty, co gród zamkowy...
+~~~
+
+Jeśli jesteś jednak leniwy, nie musisz tego robić:
+
+~~~
+ *  Litwo! Ojczyzno moja! ty jesteś jak zdrowie.
+Ile cię trzeba cenić, ten tylko się dowie,
+Kto cię stracił. Dziś piękność twą w całej ozdobie
+Widzę i opisuję, bo tęsknię po tobie.
+ *  Panno Święta, co jasnej bronisz Częstochowy
+I w Ostrej świecisz Bramie! Ty, co gród zamkowy...
+~~~
+
+> *  Litwo! Ojczyzno moja! ty jesteś jak zdrowie.
+> Ile cię trzeba cenić, ten tylko się dowie,
+> Kto cię stracił. Dziś piękność twą w całej ozdobie
+> Widzę i opisuję, bo tęsknię po tobie.
+> *  Panno Święta, co jasnej bronisz Częstochowy
+> I w Ostrej świecisz Bramie! Ty, co gród zamkowy...
+
+* * *
+
+Jeśli elementy listy oddzielone są jedną pustą linijką, Markdown ich treść zawrze w znacznikach akapitu `<p>`.
+
+Gdy wpiszesz:
+
+~~~
+*  Element 1
+*  Element 2
+*  Element 3
+~~~
+
+Otrzymasz:
+
+> *  Element 1
+> *  Element 2
+> *  Element 3
+
+Ale oddzielenie elementów pustymi linijkami:
+
+~~~
+*  Element 1
+
+*  Element 2
+
+*  Element 3
+~~~
+
+Da efekt w postaci:
+
+> *  Element 1
+> 
+> *  Element 2
+> 
+> *  Element 3
+
+Możesz w elementach listy zawrzeć kolejne akapity. Muszą być one otoczone pustymi linijkami oraz zaczynać się czterema spacjami bądź tabulacją.
+
+~~~
+*   Litwo! Ojczyzno moja! ty jesteś jak zdrowie.
+    Ile cię trzeba cenić, ten tylko się dowie,
+
+    Kto cię stracił. Dziś piękność twą w całej ozdobie
+    Widzę i opisuję, bo tęsknię po tobie.
+
+*   Panno Święta, co jasnej bronisz Częstochowy
+    I w Ostrej świecisz Bramie! Ty, co gród zamkowy...
+~~~
+
+> *   Litwo! Ojczyzno moja! ty jesteś jak zdrowie.
+>     Ile cię trzeba cenić, ten tylko się dowie,
+> 
+>     Kto cię stracił. Dziś piękność twą w całej ozdobie
+>     Widzę i opisuję, bo tęsknię po tobie.
+> 
+> *   Panno Święta, co jasnej bronisz Częstochowy
+>     I w Ostrej świecisz Bramie! Ty, co gród zamkowy...
+
+<!-- # -->
+
+> [warning]
+> System wstawiania akapitów niesie ze sobą pewne konsekwencje. Niemożliwe jest umieszczenie bezpośrednio pod sobą osobnych list, gdyż zamienione zostają one w jedną:
+> 
+>     1. Element 1
+>     2. Element 2
+>     3. Element 3
+>     
+>     1. Element 1
+>     2. Element 2
+>     3. Element 3
+> 
+> > 1. Element 1
+> > 2. Element 2
+> > 3. Element 3
+> >    
+> > 1. Element 1
+> > 2. Element 2
+> > 3. Element 3
+> 
+> Sprawa ta nadal dyskutowana jest podczas opracowywania specyfikacji języka Markdown. Jedynym zalecanym rozwiązaniem jest skorzystanie z HTML-owego komentarza `<!-- # -->` i wstawienie go między listami, co spowoduje ich rozdzielenie.
+
+Zagnieżdżone listy
+==================
+
+Kolejne poziomy zagnieżdżonych list należy poprzedzać spacjami bądź tabulacjami.
+
+#### Wpisanie:
+
+~~~
+1. Element 1
+   - Element 1.1
+   - Element 1.2
+     1. Element 1.2.1
+   - Element 1.3
+2. Element 2
+   * Element 2.1
+   * Element 2.2
+3. Element 3
+~~~
+
+#### Da nam:
+
+> 1. Element 1
+>    - Element 1.1
+>    - Element 1.2
+>      1. Element 1.2.1
+>    - Element 1.3
+> 2. Element 2
+>    * Element 2.1
+>    * Element 2.2
+> 3. Element 3
+
+Listy z innymi elementami składni Markdown
+==========================================
+
+W listach można umieścić inne elementy składni Markdown. Tak jak akapity, muszą one być poprzedzone czterema spacjami bądź tabulacją. W przypadku bloku kodu należy pamiętać o tym, że prócz konieczności jego poprzedzenia przez cztery spację lub tabulację, trzeba jeszcze dodać wcięcie listy.
+
+~~~
+1.  Litwo! Ojczyzno moja! ty jesteś jak zdrowie.
+    Ile cię trzeba cenić, ten tylko się dowie,
+    
+        przykładowy blok kodu
+
+    Kto cię stracił. Dziś piękność twą w całej ozdobie
+    Widzę i opisuję, bo tęsknię po tobie.
+    
+    *   Element 1
+    
+            przykładowy blok kodu
+    
+    *   Element 2
+
+    Panno Święta, co jasnej bronisz Częstochowy
+    I w Ostrej świecisz Bramie! Ty, co gród zamkowy...
+
+2.  Cośtam dalej.
+~~~
+
+> 1.  Litwo! Ojczyzno moja! ty jesteś jak zdrowie.
+>     Ile cię trzeba cenić, ten tylko się dowie,
+>     
+>         przykładowy blok kodu
+> 
+>     Kto cię stracił. Dziś piękność twą w całej ozdobie
+>     Widzę i opisuję, bo tęsknię po tobie.
+>     
+>     *   Element 1
+>     
+>             przykładowy blok kodu
+>     
+>     *   Element 2
+> 
+>     Panno Święta, co jasnej bronisz Częstochowy
+>     I w Ostrej świecisz Bramie! Ty, co gród zamkowy...
+> 
+> 2.  Cośtam dalej.
+
+<!-- # -->
+
+> [warning]
+> Należy uważać na ilość spacji przed każdym elementem. 

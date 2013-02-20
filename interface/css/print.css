@@ -1,0 +1,20 @@
+body
+{
+	background-image: none;
+}
+
+#idSection .cPath
+{
+	position: relative;
+	float: left;
+	padding: 0px 8px 4px 4px;
+}
+
+#idSection .cMenu
+{
+	position: relative;
+	float: right;
+	text-align: right;
+	margin-top: 3px;
+	padding: 0px 4px 0px 0px;
+}

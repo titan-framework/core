@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ -x `which php` ]; then
+	php typefriendly.php $@
+else
+	echo "Cannot find a PHP language interpreter."
+	echo "Please download and install PHP from <http://www.php.net>"
+	echo "or configure your PATH variable properly."
+fi

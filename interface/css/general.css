@@ -1,0 +1,1475 @@
+body
+{
+	background: #FEFEFE url(titan.php?target=loadFile&file=interface/back/gradient.png) repeat-x top;
+}
+
+td
+{
+	color: #656565;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	text-align: left;
+}
+
+a
+{
+	font-weight: normal;
+	text-decoration: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000;
+}
+
+a:hover
+{
+	text-decoration: underline;
+}
+
+noscript div
+{
+	position: relative;
+	margin: 2px;
+	border: #900 1px solid;
+	padding: 6px;
+	background-color: #EBCCCC;
+	color: #900;
+	font-weight: bold;
+}
+
+.button
+{
+	border-style: solid;
+	border-width: 1px;
+	font-family: Verdana;
+	font-size: 10px;
+	font-weight: bold;
+	background-color: #FFFFFF;
+	height: 20px;
+	border-color: #999999;
+	color: #999999;
+}
+
+.button:hover
+{
+	border-color: #656565;
+	color: #656565;
+	cursor: pointer;
+}
+
+.buttonOk
+{
+	color: #009900;
+	border: #009900 1px solid;
+	width: 160px;
+	background-color: #CCEBCC;
+	height: 30px;
+}
+
+.buttonCancel
+{
+	color: #900;
+	border: #900 1px solid;
+	width: 160px;
+	background-color: #EBCCCC;
+	height: 30px;
+}
+
+.field
+{
+	float: left;
+	border: #AAA 1px solid;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	width: 500px;
+	padding: 2px;
+	color: #575556;
+	background: #FFF url(titan.php?target=loadFile&file=interface/back/field.gif) top left no-repeat;
+	outline: none;
+	transition: all 0.25s ease-in-out;
+	-webkit-transition: all 0.25s ease-in-out;
+	-moz-transition: all 0.25s ease-in-out;
+}
+
+select.field
+{
+	width: 505px;
+}
+
+.field:hover
+{
+	border: #888 1px solid;
+}
+
+.field:focus
+{
+	box-shadow: 0 0 5px #000;
+	-webkit-box-shadow: 0 0 5px #000; 
+	-moz-box-shadow: 0 0 5px #000; 
+}
+
+.fieldTip
+{
+	float: left;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	padding: 3px 8px;
+	background-color: #92CAE4;
+	color: #FFF;
+	margin-left: 7px;
+	width: auto;
+}
+
+a.fieldLimit
+{
+	float: left;
+	padding: 3px 8px;
+	background-color: #D6D6D6;
+	margin-left: 7px;
+	width: auto;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #FFF;
+}
+a.fieldLimit:hover
+{
+	text-decoration: none;
+}
+
+fieldset
+{
+	text-align: justify;
+	background-color: #F4F4F4;
+	border: #D9D9D9 1px solid;
+	padding: 10px;
+	padding-top: 0px;
+	padding-left: 10px;
+	margin: 10px;
+	margin-top: 0px;
+}
+
+legend
+{
+	color: #000000;
+	font-size: 10px;
+	font-weight: bold;
+	background-color: #F4F4F4;
+	border: #D9D9D9 1px solid;
+	padding: 10px;
+	margin-left: 10px;
+	vertical-align: middle;
+}
+
+legend img
+{
+	float: left;
+	display: block;
+}
+
+legend a
+{
+	float: right;
+	display: block;
+}
+
+div
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000;
+	font-size: 10px;
+	text-align: justify;
+}
+
+.formGroup
+{
+	text-align: justify;
+	border: #D9D9D9 1px solid;
+	padding: 10px;
+	margin: 0px 0px 8px 0px;
+}
+
+.formGroup div.info
+{
+	margin: 0px 0px 20px 0px;
+	padding: 8px 0px 8px 38px;
+	border-bottom: #D9D9D9 1px solid;
+	font-size: 11px;
+	color: #000;
+	background: url(titan.php?target=loadFile&file=interface/image/info.png) left bottom no-repeat;
+}
+
+.formGroup legend
+{
+	color: #000;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #F4F4F4;
+	border: #D9D9D9 0px solid;
+	padding: 10px;
+	padding-left: 28px;
+	margin-left: 10px;
+	vertical-align: middle;
+	cursor: pointer;
+	background: url(titan.php?target=loadFile&file=interface/icon/display.up.gif) left no-repeat;
+}
+
+.formGroup div
+{
+	display: block;
+}
+
+.formGroupCollapse
+{
+	text-align: justify;
+	border: #D9D9D9 1px solid;
+	padding: 0px;
+	margin: 0px 0px 8px 0px;
+}
+
+.formGroupCollapse legend
+{
+	color: #000000;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #F4F4F4;
+	border: #D9D9D9 0px solid;
+	padding: 10px;
+	padding-left: 28px;
+	margin-left: 20px;
+	vertical-align: middle;
+	cursor: pointer;
+	background: url(titan.php?target=loadFile&file=interface/icon/display.down.gif) left no-repeat;
+}
+
+.formGroupCollapse div
+{
+	display: none;
+}
+
+#idSection
+{
+	clear: both;
+	position: relative;
+	height: 52px;
+}
+
+#idSection .cPath
+{
+	position: relative;
+	float: left;
+	margin: 8px;
+}
+
+#idSection .cTitle,
+#idSection .cTitle a
+{
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight: bold;
+	color: #900;
+	font-size: 14px;
+	margin: 0px;
+	padding: 0px;
+}
+#idSection .cTitle a
+{
+	color: #333;
+	text-decoration: none;
+}
+#idSection .cTitle a:hover
+{
+	text-decoration: underline;
+}
+
+#idSection .cTitle .cBreadcrumb a
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	color: #000;
+	font-size: 9px;
+}
+
+#idMenu
+{
+	clear: both;
+	height: 30px;
+}
+
+#idMenu .cSystem
+{
+	float: left;
+	position: relative;
+	padding-top: 0px;
+	text-align: left;
+	margin: 7px;
+}
+
+#idMenu .cDate
+{
+	padding: 8px;
+	position: relative;
+	float: right;
+	text-align: right;
+}
+
+#idMessage
+{
+	clear: both;
+	position: relative;
+}
+
+#idMessage .cError
+{
+	position: relative;
+	margin: 0px 8px 8px 8px;
+	border: #990000 1px solid;
+	padding: 6px;
+	background-color: #EBCCCC;
+	color: #990000;
+	font-weight: bold;
+}
+
+#idMessage .cMessage
+{
+	position: relative;
+	margin: 0px 8px 8px 8px;
+	border: #009900 1px solid;
+	padding: 6px;
+	background-color: #CCEBCC;
+	color: #009900;
+	font-weight: bold;
+}
+
+#idBody
+{
+	position: relative;
+	clear: both;
+	margin: 0px;
+	overflow: auto;
+	width: 100%;
+}
+
+#idBody .cBody
+{
+	float: left;
+	width: 100%;
+}
+
+#idSection .cMenu
+{
+	float: right;
+	margin: 0px;
+	padding: 0px;
+	text-align: right;
+	height: 34px;
+	margin: 5px 8px;
+	vertical-align: central;
+}
+
+#idSection .cMenu ul
+{
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+	display: inline;
+	height: 34px;
+	line-height: 34px;
+}
+
+#idSection .cMenu ul li
+{
+	display: block;
+	float: left;
+	list-style: none;
+	line-height: 34px;
+	height: 34px;
+	margin: 0px 0px 0px 8px;
+}
+
+#idSection .cMenu img
+{
+	border: none;
+}
+
+#idSection .cItem
+{
+	position: relative;
+	padding: 3px 3px 2px 3px;
+	margin-left: 8px;
+	border: #CCC 1px solid;
+	opacity: .75;
+	filter: alpha(opacity=75);
+	-moz-opacity: 0.75;
+	background: url(titan.php?target=loadFile&file=interface/back/aba.gif);
+	width: 34px;
+	height: 34px;
+	overflow: hidden;
+}
+
+#idSection .cItem:hover
+{
+	cursor: pointer;
+	opacity: 1;
+	filter: none;
+	-moz-opacity: 1;
+	background: #B8E0DC;
+	border: #36817C 1px solid;
+}
+
+#idSection .cItemDisabled
+{
+	position: relative;
+	padding: 3px 3px 2px 3px;
+	margin-left: 8px;
+	border: #CCC 1px solid;
+	opacity: .75;
+	filter: alpha(opacity=75);
+	-moz-opacity: 0.75;
+	background-color: #EEE;
+	width: 34px;
+	height: 34px;
+	overflow: hidden;
+}
+
+#idSection .cItemLong
+{
+	position: relative;
+	padding: 3px 6px 3px 3px;
+	margin-left: 8px;
+	width: auto;
+	height: 34px;
+	text-align: left;
+	line-height: 34px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-image: none;
+	background-color: #ededed;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #dcdcdc;
+	display: inline-block;
+	color: #777777;
+	text-shadow: 1px 1px 0px #ffffff;
+	text-wrap: none;
+}
+
+#idSection .cItemLong:hover
+{
+	cursor: pointer;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color: #dfdfdf;
+}
+
+#idSection .cItemLongDisabled
+{
+	position: relative;
+	padding: 3px 6px 3px 3px;
+	margin-left: 8px;
+	width: auto;
+	height: 34px;
+	text-align: left;
+	line-height: 34px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-image: none;
+	background-color: #ededed;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #dcdcdc;
+	display: inline-block;
+	color: #CCC;
+	text-shadow: 1px 1px 0px #ffffff;
+	text-wrap: none;
+}
+
+#idSection .cItemLong img,
+#idSection .cItemLongDisabled img
+{
+	margin-right: 6px;
+}
+
+#idSection .cMenu .dul
+{
+	position: fixed;
+}
+
+#idSection .cMenu ul li .dul ul li div
+{
+	margin: 1px;
+	padding: 4px;
+	height: 14px;
+	width: 240px;
+	color: #575556;
+	background-color: #FFF;
+}
+
+#idSection .cMenu ul li .dul ul li div:hover
+{
+	background-color: #36817C;
+	color: #FFF;
+}
+
+#idSection .cMenu li .dul
+{
+	position: absolute;
+	visibility: hidden;
+	margin-top: 1px;
+}
+
+#idSection .cMenu li .dul ul li
+{
+	float: none;
+	white-space: nowrap;
+	display: inline;
+}
+
+#idSection .cMenu li:hover .dul, #idBody .cMenu li.over .dul
+{
+	visibility: visible;
+}
+
+#idSection .cMenu ul li .dul
+{
+	width: 256px;
+	height: 100px;
+	left: -254px;
+	top: -1px;
+}
+
+#idSection .cMenu ul li .dul ul
+{
+	width: 250px;
+	background-color: #FFF;
+	border: 1px solid #36817C;
+}
+
+#idList
+{
+	width: auto;
+	margin: 0px 8px 8px 8px;
+}
+
+#idList table
+{
+	width: 100%;
+	border-spacing: 0px;
+	border-collapse: collapse;
+	border: #CCC 1px solid;
+}
+
+#idList .cTableItem
+{
+	background-color: #F4F4F4;
+}
+
+#idList .cTableItem:hover
+{
+	background-color: #EEE;
+}
+
+#idList .cTableItemActive
+{
+	background-color: #D4D4D4;
+}
+
+#idList .cTableItemActive:hover
+{
+	background-color: #D4D4D4;
+}
+
+#idList .cTableItem td,
+#idList .cTableItemActive td
+{
+	width: auto;
+	padding: 2px 5px;
+}
+
+#idList .cTableItemActive td a
+{
+	color: #000;
+}
+
+#idList .cTableItem td.icon,
+#idList .cTableItemActive td.icon
+{
+	text-align: right;
+	padding: 2px 5px;
+}
+
+#idList .cTableItem td.standard,
+#idList .cTableItemActive td.standard
+{
+	padding: 5px;
+}
+
+#idList .cSeparator
+{
+	height: 10px;
+	border: 0;
+}
+
+#idList .cSeparatorHalf
+{
+	height: 5px;
+	border: 0;
+}
+
+#idList .cTableHeader
+{
+	border-bottom: #CCCCCC 1px solid;
+	border-spacing: 2px;
+	border-collapse: separate;
+	font-weight: bold;
+	color: #575556;
+	padding: 5px;
+}
+
+#idSearch
+{
+	width: auto;
+	margin: 0px 8px 8px 8px;
+}
+
+#idSearch .cTitle
+{
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #575556;
+	padding: 5px;
+}
+
+#idSearchParams
+{
+	width: auto;
+	margin: 0px 8px 8px 8px;
+}
+
+#idSearchParams .cTitle
+{
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #575556;
+	padding: 5px;
+}
+
+#idSearchParams .cClear
+{
+	text-align: right;
+	font-weight: normal;
+	background-color: #575556;
+	text-decoration: none;
+	padding: 5px;
+	color: #FFFFFF;
+}
+
+#idSearchParams .cClear a
+{
+	color: #CCC;
+}
+
+#idSearchParams .cClear a:hover
+{
+	color: #FFFFFF;
+}
+
+#idChangePasswd .cTitle
+{
+	font-weight: bold;
+	color: #FFF;
+	background-color: #575556;
+	padding: 5px;
+}
+
+#idForm
+{
+	position: relative;
+	width: auto;
+	margin: 0px 8px 8px 8px;
+}
+
+#idForm .description,
+#idList .description
+{
+	margin: 0px 0px 8px 0px;
+	border: 2px #CCC solid;
+	background-color: #F4F4F4;
+	padding: 10px;
+}
+
+#idForm .description a,
+#idList .description a
+{
+	color: #900;
+	text-decoration: underline;
+}
+
+#idForm .warning,
+#idList .warning
+{
+	margin: 0px 0px 8px 0px;
+	border: 2px #900 solid;
+	background-color: #F4F4F4;
+	padding: 10px;
+}
+
+#idForm .warning a,
+#idList .warning a
+{
+	color: #090;
+	text-decoration: underline;
+}
+
+#idForm table tr td
+{
+	padding: 3px;
+}
+
+#idChangePasswd
+{
+	width: auto;
+	margin: 0px 8px 8px 8px;
+}
+
+#idResult
+{
+	float: right;
+	margin: 0px 12px 0px 12px;
+}
+
+#idBase
+{
+	clear: both;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	border-top: #36817C 3px solid;
+	background-color: #575556;
+	height: 23px;
+	width: 100%;
+	z-index: 3;
+}
+
+#idBase .cPowered
+{
+	float: left;
+	position: relative;
+	padding: 5px;
+	font-size: 9px;
+	color: #FFFFFF;
+}
+
+#idBase .cPowered img
+{
+	float: left;
+	cursor: pointer;
+}
+
+#idBase .cPowered label
+{
+	float: left;
+	margin-left: 5px;
+}
+
+#idBase .cResources
+{
+	float: right;
+	position: relative;
+	padding: 3px;
+	margin-right: 5px;
+}
+
+#idBase .cResources img
+{
+	cursor: pointer;
+}
+
+#idBase a
+{
+	color: #FFFFFF;
+}
+
+#idBottomMenu
+{
+	clear: both;
+	position: fixed;
+	bottom: 23px;
+	left: 0px;
+	border-top: #36817C 1px dotted;
+	background-color: #FFFFFF;
+	height: 31px;
+	width: 100%;
+	z-index: 3;
+}
+
+#idBottomMenu .cWait
+{
+	float: left;
+	position: relative;
+	color: #990000;
+	font-weight: bold;
+}
+
+#idBottomMenu img
+{
+	float: left;
+	margin: 6px;
+}
+
+#idBottomMenu label
+{
+	float: left;
+	margin: 8px;
+}
+
+#idBottomMenu .cMenu
+{
+	float: right;
+	position: relative;
+	padding-top: 0px;
+	height: 30px;
+	width: 120px;
+	background: url(titan.php?target=loadFile&file=interface/image/menu.png) center no-repeat;
+}
+
+#idBottomMenu .cMenu:hover
+{
+	cursor: pointer;
+	background: url(titan.php?target=loadFile&file=interface/image/menu.over.png) center no-repeat;
+}
+
+#idBottomMenu select
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #555555;
+	width: 250px;
+	margin: 6px;
+}
+
+#idBaseSpace
+{
+	position: relative;
+	height: 54px;
+}
+
+#idMenuSection
+{
+	clear: both;
+}
+
+#idMenuSection ul
+{
+	margin: 13px 16px 0px 0px;
+	list-style-type: none;
+}
+
+#idMenuSection li
+{
+	margin-right: 8px;
+	border: #575556 0px solid;
+	border-width: 3px 1px 0px 1px;
+	padding: 5px 12px 4px 12px;
+	background: #FFFFFF;
+	color: #555555;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+#idMenuSection li:hover
+{
+	cursor: pointer;
+	border-top-color: #36817C;
+}
+
+#idMenuSection .selected
+{
+	border-top-color: #990000;
+	padding-bottom: 5px;
+	color: #000000;
+}
+
+#idMenuSection ul li
+{
+	display: inline;
+}
+
+#idFilter
+{
+	width: auto;
+	margin: 5px 1px 0px 1px;
+}
+
+#idFilter select
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #555555;
+	width: 250px;
+	margin: 6px;
+}
+
+#idPage
+{
+	margin: 0 auto;
+	text-align: center;
+	height: 30px;
+}
+
+#idPage ul
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+#idPage ul li
+{
+	display: inline;
+	border: #999999 1px solid;
+	line-height: 20px;
+	height: 20px;
+	list-style: none;
+	padding: 5px;
+	margin: 3px;
+	cursor: pointer;
+}
+
+#idPage ul li.enabled
+{	
+	border-color: #999999;
+	color: #999999;
+}
+
+#idPage .enabled:hover
+{
+	border-color: #333333;
+	color: #333333;
+}
+
+#idPage .disabled
+{
+	border-color: #CCCCCC;
+	color: #CCCCCC;
+}
+
+#idPage .selected
+{
+	border-color: #333333;
+	color: #333333;
+}
+
+.divHelpHeader
+{
+	padding: 3px;
+	font-weight: bold;
+	border: 1px solid #36817C;
+	background: #575556;
+	color: #FFFFFF;
+}
+
+.labelView
+{
+	font-weight: bold;
+	text-decoration: none;
+	color: #575556;
+}
+
+.labelView:hover
+{
+	text-decoration: underline;
+}
+
+.divHelpBody
+{
+	padding: 3px;
+	border: 1px dotted #CCCCCC;
+	text-align: justify;
+	border-top-width: 0;
+	color: #656565;
+	background: #FFFFFF;
+	width: 300px;
+}
+
+.pFile
+{
+	margin: 0.1em 0em;
+	padding: 0px;
+}
+
+.pFile .labelFile
+{
+	clear: both;
+	width: 7em;
+	float: left;
+	text-align: right;
+	margin-right: 0.5em;
+	display: block;
+	padding: 0px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #656565;
+}
+
+.pFile .infoFile
+{
+	margin-left: 8.3em;
+	font-size: 9px;
+	color: #656565;
+}
+
+.pFile .fieldFile
+{
+	height: 18px;
+	width: 200px;
+	border-color: #999;
+	border-style: solid;
+	border-width: 1px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #656565;
+	background-color: #FFFFFF;	
+}
+
+.buttonFile
+{
+	border-style: solid;
+	border-width: 1px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	background-color: #FFFFFF;
+	height: 18px;
+	border-color: #999999;
+	color: #999999;
+	margin-left: 7.5em;
+}
+
+.borderFile
+{
+	border: #CCCCCC 1px solid;
+	padding: 2px;
+	width: 345px;
+	background-color: #FFF;	
+}
+
+.iframeFile
+{
+	overflow: hidden;
+	width: 340px;
+	height: 106px;
+	border-width: 0;
+}
+
+.borderSearch
+{
+	border: #CCCCCC 1px solid;
+	padding: 2px;
+	width: 345px;
+}
+
+.iframeSearch
+{
+	overflow: auto;
+	width: 100%;
+	height: 300px;
+	border-width: 0;
+}
+
+.icon:hover
+{
+	cursor: pointer;
+}
+
+.aTitle
+{
+	font-weight: bold;
+	text-decoration: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #333333;
+}
+
+.aTitle:hover
+{
+	color: #000;
+}
+
+.inPlace
+{
+	padding: 0px 3px 4px 3px;
+	border-width: 0px;
+	height: 30px;
+	background: #D4D4D4 url(titan.php?target=loadFile&file=interface/image/loader.gif) center no-repeat;
+}
+
+.inPlace .inPlaceAction
+{
+	width: 100%;
+	overflow: auto;
+	border: #D4D4D4 3px solid;
+	border-width: 0px;
+}
+
+.inPlace .inPlaceStatus
+{
+	width: 100%;
+	margin: 0px;
+	background-color: #FFF;
+	border-width: 0px;
+}
+
+.inPlace .inPlaceStatus td
+{
+	padding: 5px;
+}
+
+.inPlace .inPlaceStatus td input
+{
+	height: 30px;
+	width: 150px;
+	margin-left: 10px;
+}
+
+.inPlace .inPlaceStatus td input:hover
+{
+	background-color: #F4F4F4;
+	color: #000;
+	border-color: #000;
+}
+
+.flag
+{
+	float: left;
+	width: 48px;
+	height: 36px;
+	margin: 7px 6px;
+	background-position: bottom;
+	cursor: pointer;
+}
+
+.flag:hover
+{
+	background-position: top;
+}
+
+.tooltip
+{
+	margin-top: -50px;
+	padding: 0px 0px 15px 0px;
+	background: url(titan.php?target=loadFile&file=interface/image/arrow.down.large.png) center bottom no-repeat;
+}
+.tooltip span
+{
+	background: #606060;
+	color: #FFF;
+	border: #606060 5px solid;
+	text-decoration: none;
+}
+
+#idRegister
+{
+	padding-top: 10px;
+}
+#idRegister .field
+{
+	width: 300px;
+}
+#idRegister select.field
+{
+	width: 305px;
+}
+
+ul.alert
+{
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+	display: inline;
+	height: 40px;
+	line-height: 34px;
+	width: 100%;
+}
+
+ul.alert li
+{
+	display: block;
+	float: left;
+	list-style: none;
+	line-height: 40px;
+	height: 40px;
+	vertical-align: middle;
+	border-bottom: #CCC 1px solid;
+	width: 100%;
+}
+
+ul.alert li div
+{
+	float: left;
+	width: 521px;
+	margin: 5px 0px 5px 40px;
+	height: 30px;
+	padding: 0px;
+	vertical-align: middle;
+	font: "Lucida Grande", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 30px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+ul.alert li img
+{
+	float: left;
+	width: 24px;
+	height: 40px;
+	cursor: pointer;
+}
+
+ul.alert li.unread div
+{
+	font-weight: bold;
+}
+
+ul.alert li.read div
+{
+	font-weight: normal;
+}
+
+ul.alert li:last-child
+{
+	border-bottom-width: 0px;
+}
+
+ul.shopCar
+{
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+	display: inline;
+	height: 40px;
+	line-height: 34px;
+	width: 100%;
+}
+
+ul.shopCar li
+{
+	display: block;
+	float: left;
+	list-style: none;
+	line-height: 40px;
+	height: 40px;
+	vertical-align: middle;
+	border-bottom: #CCC 1px solid;
+	width: 100%;
+}
+
+ul.shopCar li.header
+{
+	font-weight: bold;
+}
+
+ul.shopCar li div
+{
+	float: left;
+	margin: 5px 5px 5px 0px;
+	height: 30px;
+	padding: 0px;
+	vertical-align: middle;
+	font: "Lucida Grande", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 30px;
+	overflow: hidden;
+	text-align: center;
+}
+
+ul.shopCar li div.description
+{
+	text-align: left;
+	width: 550px;
+}
+
+ul.shopCar li div.quantity
+{
+	width: 120px;
+}
+
+ul.shopCar li div.value
+{
+	width: 100px;
+}
+
+ul.shopCar li div.total
+{
+	width: 100px;
+}
+
+ul.shopCar li img
+{
+	float: left;
+	width: 24px;
+	height: 40px;
+	cursor: pointer;
+}
+
+ul.shopCar li:last-child
+{
+	border-bottom-width: 0px;
+}
+
+ul.shopCar li.lineOfButtons
+{
+	height: 75px;
+	border-width: 0px;
+	line-height: 75px;
+}
+
+ul.shopCar li.lineOfButtons div.clearShopCar
+{
+	width: 184px;
+	height: 69px;
+	cursor: pointer;
+}
+
+ul.shopCar li.lineOfButtons div.checkout
+{
+	width: 400px;
+	height: 69px;
+	cursor: pointer;
+}
+
+ul.shopCar li div.final
+{
+	height: 55px;
+	width: 310px;
+	float: right;
+	border: #900 1px solid;
+	margin: 12px 0px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 0px 0px 5px 1px #900;
+	-webkit-box-shadow: 0px 0px 5px 1px #900;
+	box-shadow: 0px 0px 5px 1px #900;
+	
+}
+ul.shopCar li div.final div
+{
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 14px;
+	line-height: 22px;
+	width: 300px;
+	height: 45px;
+	vertical-align: middle;
+	color: #900;
+	margin-left: 30px;
+	background-color: #EBCCCC;
+	margin: 5px;
+	border-radius: 10px;
+}
+
+.cMenuInPlace
+{
+	clear: both;
+	position: relative;
+	padding: 0px;
+	height: 34px;
+	line-height: 34px;
+	margin: 10px auto 15px;
+}
+
+.cMenuInPlace ul,
+.cMenuInPlace ul li
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+.cMenuInPlace ul li.cItemLong img
+{
+	border: none;
+	margin-right: 6px;
+}
+
+.cMenuInPlace ul li.cItem
+{
+	position: relative;
+	padding: 3px 3px 2px 3px;
+	margin-left: 8px;
+	border: #CCC 1px solid;
+	opacity: .75;
+	filter: alpha(opacity=75);
+	-moz-opacity: 0.75;
+	background: url(titan.php?target=loadFile&file=interface/back/aba.gif);
+	width: 34px;
+	height: 34px;
+	overflow: hidden;
+}
+
+.cMenuInPlace ul li.cItem:hover
+{
+	cursor: pointer;
+	opacity: 1;
+	filter: none;
+	-moz-opacity: 1;
+	background: #B8E0DC;
+	border: #36817C 1px solid;
+}
+
+.cMenuInPlace ul li.cItemLong
+{
+	display: inline;
+	list-style-type: none;
+	position: relative;
+	padding: 3px 6px 3px 3px;
+	margin-left: 8px;
+	width: auto;
+	height: 34px;
+	text-align: left;
+	line-height: 34px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-image: none;
+	background-color: #ededed;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #dcdcdc;
+	display: inline-block;
+	color: #777777;
+	text-shadow: 1px 1px 0px #ffffff;
+	text-wrap: none;
+}
+
+.cMenuInPlace ul li.cItemLong:hover
+{
+	cursor: pointer;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color: #dfdfdf;
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mail-mapping>
+	<mail name="CREATE" label="Aviso de item criado" subject="[[_SYSTEM_]] Novo item de [_LABEL_] criado">
+Olá [_USER_],
+
+O usuário [_ACTOR_] criou um novo item de [_LABEL_]. 
+
+Para visualizar o novo item, clique no link abaixo:
+
+[_LINK_]
+
+Sem mais,
+
+Equipe [_SYSTEM_]
+	</mail>
+	<mail name="EDIT" label="Aviso de item modificado" subject="[[_SYSTEM_]] Um item de [_LABEL_] foi modificado">
+Olá [_USER_],
+
+O usuário [_ACTOR_] modificou um item de [_LABEL_]. 
+
+Para visualizar o item, clique no link abaixo:
+
+[_LINK_]
+
+Sem mais,
+
+Equipe [_SYSTEM_]
+	</mail>
+	<mail name="DELETE" label="Aviso de item apagado" subject="[[_SYSTEM_]] Item de [_LABEL_] apagado">
+Olá [_USER_],
+
+O usuário [_ACTOR_] apagou um item de [_LABEL_]. 
+
+Veja informações sobre o item apagado:
+
+--
+
+[_RESUME_]
+
+--
+
+Sem mais,
+
+Equipe [_SYSTEM_]
+	</mail>
+</mail-mapping>

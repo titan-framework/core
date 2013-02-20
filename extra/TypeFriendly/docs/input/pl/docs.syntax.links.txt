@@ -1,0 +1,150 @@
+Title: Linki
+
+---
+
+Markdown pozwala wstawiać linki do innych stron na trzy sposoby: bezpośrednio *liniowo* w tekście, poprzez referencję oraz automatycznie.
+
+Dwa pierwsze sposoby korzystają z nawiasów kwadratowych `[ ]` do otoczenia fragmentu tekstu, który ma stać się linkiem.
+
+Bezpośrednio w tekście
+----------------------
+
+By wstawić odnośnik bezpośrednio w tekście wystarczy wstawić zwykłe nawiasy bezpośrednio po kwadratowych. Możesz również podać opcjonalnie tytuł linku (umieszczony zostanie w atrybucie `title` w HTML-u wyjściowym) po spacji, otoczony cudzysłowami.
+
+~~~
+TypeFriendly zostało stworzone przez [grupę Invenzzia](http://www.invenzzia.org)
+
+TypeFriendly zostało stworzone przez [grupę Invenzzia](http://www.invenzzia.org "Invenzzia")
+~~~
+
+> TypeFriendly zostało stworzone przez [grupę Invenzzia](http://www.invenzzia.org)
+> 
+> TypeFriendly zostało stworzone przez [grupę Invenzzia](http://www.invenzzia.org "Invenzzia")
+
+Poprzez referencje
+------------------
+
+Referencja do odnośnika używa również nawiasów kwadratowych, które umieszczamy tuż po nawiasach nazwy linku. W referencji podaje się nazwę etykiety do której później można się odnieść. Można opcjonalnie oddzielić spacją referencję od nazwy linku.
+
+~~~
+To jest [przykład][id] linków z referencją.
+
+To jest [przykład] [id] linków z referencją.
+~~~
+
+Definicja referencji wygląda następująco:
+
+    [id]: http://www.example.org/ "Opcjonalny tytuł"
+   
+Są to kolejno:
+   
+1. Nawiasy kwadratowe, w których umieszczona jest nazwa etykiety referencji
+2. Dwukropek
+3. Co najmniej jedna spacja lub tabulacja
+4. Adres URL, do którego odnosi się referencja
+5. Opcjonalnie, po spacji, bądź w nowej linijce wcięty spacjami lub tabulacją, otoczony cudzysłowami, apostrofami lub nawiasami tytuł linku
+
+Poniższe linijki oznaczają to samo:
+
+    [id]: http://www.example.org/ "Opcjonalny tytuł"
+    [id]: http://www.example.org/ 'Opcjonalny tytuł'
+    [id]: http://www.example.org/ (Opcjonalny tytuł)
+    [id]: http://www.example.org/ 
+          "Opcjonalny tytuł"
+    
+Możesz również opcjonalnie otoczyć link nawiasami kierunkowymi (`< >`):
+
+    [id]: <http://www.example.org/>
+    
+> [information]
+> Definicje referencji używane są tylko przez parser Markdowna i wycinane z treści wynikowego dokumentu.
+
+Etykiety referencji mogą się składać z liter, cyfr, spacji, znaków interpunkcyjnych, ale nazwa nie zależy od wielkości liter.
+
+Poniższe linijki odnoszą się do tej samej referencji:
+
+    [tekst odnośnika][a]
+    [tekst odnośnika][A]
+    
+Można również pominąć nazwę etykiety, poprzez umieszczenie pustych nawiasów klamrowych `[]` - wtedy za etykietę przyjęta zostaje nazwa odnośnika.
+
+Możesz np. napisać:
+
+    [Invenzzia][]
+
+I utworzyć definicję:
+
+    [Invenzzia]: http://www.invenzzia.org
+    
+W podobny sposób można tworzyć referencje nawet do nazw linków składających się z kilku słów!
+
+    [Grupa Invenzzia][]
+    
+    [Grupa Invenzzia]: http://www.invenzzia.org
+    
+Definicje referencji mogą być umieszczone gdziekolwiek w dokumencie, oddzielone od elementów blokowych (akapity, listy..) pustymi linijkami. Można je umieścić np. pod akapitem, w którym zostały użyte referencje, albo na końcu dokumentu.
+
+#### Przykład użycia referencji:
+
+~~~
+Mamy 10 razy więcej ruchu z wyszukiwarki [Google][1] niż z [Netsprint][2] lub [Onet][3].
+
+W rzeczywistości, [Google][1] jest najpopularniejszą wyszukiwarką.
+
+ [1]: http://www.google.pl
+ [2]: http://www.netsprint.pl
+ [3]: http://szukaj.onet.pl
+~~~
+
+#### Z użyciem automatycznych etykiet:
+
+~~~
+Mamy 10 razy więcej ruchu z wyszukiwarki [Google][] niż z [Netsprint][] lub [Onet][].
+
+ [google]:    http://www.google.pl
+ [netsprint]: http://www.netsprint.pl
+ [onet]:      http://szukaj.onet.pl
+~~~
+
+### Po co używać referencji?
+
+Tekst źródłowy staje się dzięki temu czytelniejszy. Linki umieszczone są w osobnych linijkach pod akapitami i nie mieszają się z tekstem (szczególnie te bardzo długie).
+
+Automatycznie
+-------------
+
+Markdown umożliwia również wstawienie bezpośrednio linków do tekstu w bardzo prosty sposób, przy użyciu nawiasów kierunkowych `< >`, w których umieszczony zostaje link.
+
+    Zajrzyj na naszą stronę: <http://www.invenzzia.org/>
+    
+> Zajrzyj na naszą stronę: <http://www.invenzzia.org/>
+
+W podobny sposób można postąpić a adresami e-mail. W tym przypadku jednak parser Markdown zamieni je w wyjściowym HTML-u na "sieczkę" HTML-owych encji.
+
+    Adres kontaktowy: <kontakt@example.org>
+    
+> Adres kontaktowy: <kontakt@example.org>
+
+
+Odnośniki do pozostałych rozdziałów dokumentacji
+================================================
+
+TypeFriendly definiuje listę domyślnych referencji do wszystkich rozdziałów generowanej dokumentacji przy użyciu ich identyfikatorów. Jeżeli chcemy odnieść się do rozdziału `api.klasy.jakas-klasa` wystarczy napisać:
+
+    Zajrzyj do [tego rozdziału][api.klasy.jakas-klasa]
+    
+Spowoduje to automatyczne utworzenie linku do żądanego rodziału.
+
+Odnośniki do kotwic {#links_anchors}
+-------------------
+
+Od wersji 0.1.3 TypeFriendly można odnosić się do [kotwic][docs.syntax.headers#headers_anchors] w innych rozdziałach.
+
+Składnia jest taka sama jak normalnie do rozdziału, dodaje się tylko po identyfikatorze odnośnik kotwicy: `#kotwica`:
+
+    Zajrzyj do [tego fragmentu rozdziału][api.klasy.jakas-klasa#kotwica]
+    
+> [important]
+>
+> Aby odnieść się do kotwicy w tym samym rozdziale nadal należy stosować powyższą składnię i **nie używać** `[odnośnik](#kotwica)`. Jest tak z powodu tego, że TypeFriendly do każdej kotwicy nagłówka dodaje prefiks `h:id_rodziału:`, tak, aby kotwice były unikalne w całej dokumentacji.
+

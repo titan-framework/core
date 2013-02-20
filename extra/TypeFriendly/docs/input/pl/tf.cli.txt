@@ -1,0 +1,71 @@
+Title: Interfejs wiersza poleceń
+
+---
+
+TypeFriendly jest obsługiwany wyłącznie z wiersza poleceń systemu operacyjnego. Współpracuje zarówno z rozmaitymi odmianami Uniksa, jak i z systemem Windows. Wywołanie jest następujące:
+
+~~~
+[console]
+# Windows oraz systemy uniksowe
+php typefriendly.php
+
+# Systemy uniksowe (od wersji TF 0.1.2)
+./typefriendly
+~~~
+
+TypeFriendly 0.1.0 i 0.1.1
+==========================
+
+Niezbędnym parametrem jest zawsze ścieżka do katalogu, w którym znajduje się dokumentacja (tj. zawierającego plik `settings.ini` i inne), np.
+
+~~~
+[console]
+php typefriendly.php "./docs/"
+~~~
+
+Dostępne są następujące opcje, które podajemy w kolejności alfabetycznej przed ścieżką:
+
+`-c JĘZYK`
+:   narzędzie dla dokumentacji wielojęzycznych. Porównuje czas modyfikacji plików źródłowych podanego języka z plikami języka bazowego. Wyświetla wszystkie pliki, które mają wersję bazową nowszą, niż tę w danym języku, a także różnice w rodzaju brakujących plików.
+
+`-l JĘZYK`
+:   generuje dokumentację w podanym języku (domyślnie wybierany jest język bazowy).
+
+`-o WYJSCIE`
+:   generuje dokumentację, korzystając jedynie z podanego wyjścia. Musi ono być zdefiniowane na liście dostępnych wyjść dokumentacji.
+
+Przykład:
+
+~~~
+[console]
+php typefriendly.php "./docs/" -l en -o xhtml
+~~~
+
+Aby wyświetlić informacje o TypeFriendly, należy wywołać skrypt bez żadnych parametrów.
+
+TypeFriendly 0.1.2 i nowsze
+===========================
+
+W TypeFriendly 0.1.2 interfejs linii komend został ulepszony, a jego użycie zmienione. Jako pierwszy argument podajemy zawsze akcję, którą chcemy wykonać. Następnie podajemy ścieżkę do dokumentacji i na końcu ewentualne opcje.
+
+Dostępne komendy:
+
+1. **create** - zakłada w podanym (pustym) katalogu nową dokumentację na podstawie szablonu. TypeFriendly zadaje cztery pytania, a odpowiedzi używa do wygenerowania pliku konfiguracyjnego. Użycie
+
+        [console]
+        ./typefriendly create "/sciezka/do/dokumentacji"
+
+2. **build** - tworzy wynikowy dokument z plików źródłowych. Dostępne opcje to `-l` (język) oraz `-o` (system wyjścia). Użycie:
+ 
+        [console]
+        ./typefriendly build "/sciezka/do/dokumentacji" -l pl -o xhtml
+
+3. **compare** - porównuje tłumaczenie dokumentacji z wersją oryginalną. Komenda wymaga podania opcji `-l` do wybrania tłumaczenia.
+     
+        [console]
+        ./typefriendly compare "/path/to/directory" -l en
+
+4. **version** - wyświetla wersję TypeFriendly.
+     
+        [console]
+        ./typefriendly version

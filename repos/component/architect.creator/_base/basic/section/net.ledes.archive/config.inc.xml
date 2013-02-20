@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-mapping>
+	<action
+		name="list"
+		label="Lista de Arquivos"
+		default="true"
+		description="">
+		<menu action="create" />
+	</action>
+	
+	<action
+		name="create"
+		label="Enviar Arquivo"
+		description="">
+	</action>
+</action-mapping>

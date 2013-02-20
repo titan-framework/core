@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mail-mapping>
+	<mail name="EDIT" label="Aviso de modificação" subject="[[_SYSTEM_]] A seção [_LABEL_] foi modificada">
+Olá [_USER_],
+
+O usuário [_ACTOR_] modificou o conteúdo de [_LABEL_]. 
+
+Para visualizar, clique no link abaixo:
+
+[_LINK_]
+
+Sem mais,
+
+Equipe [_SYSTEM_]
+	</mail>
+</mail-mapping>

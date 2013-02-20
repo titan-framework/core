@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search table="log">
+	<field type="String" column="user_name" label="Autor" />
+	<field type="String" column="section_name" label="Seção" />
+	<field type="String" column="action_name" label="Ação" />
+	<field type="String" column="message" label="Conteúdo" />
+	<field type="String" column="ip" label="IP" />
+</search>
+<view table="log" primary="id" paginate="50">
+	<field type="String" column="user_name" label="Usuário" />
+	<field type="Date" column="date" label="Data" show-time="true" id="_DATE_" />
+	<order id="_DATE_" invert="true" />
+	<icon function="[ajax]" action="logView" image="view.gif" label="Visualizar Log" />
+</view>

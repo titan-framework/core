@@ -1,0 +1,28 @@
+; $Id: constructs.txt 52 2009-07-03 08:57:01Z extremo $
+; The translations of available programming constructs
+; Translation authors:
+; - Tomasz Jędrzejewski <http://www.zyxist.com>
+;
+; Pozor: Slovencina neje moj matersky jazyk. Ako si najdete nejake chyby,
+; bol by som vdacny ak by ste opravili je a poslali vasu versiu skupine
+; Invenzzia <http://www.invenzzia.org>
+
+class = "Trieda"
+interface = "Interface"
+abstract_class = "Abstraktná trieda"
+function = "Funkcia"
+method = "Metóda"
+static_method = "Statická metóda"
+abstract_method = "Abstraktná metóda"
+accessor_method = "Nastavovač"
+variable = "Premenná"
+static_variable = "Statická premenná"
+module = "Modul"
+package = "Balíček"
+constructor = "Konstruktor"
+destructor = "Deštruktor"
+magic_method = "Magická metóda"
+namespace = "Menný priestor"
+datatype = "Data type"
+structure = "Structure"
+macro = "Macro"

@@ -1,0 +1,51 @@
+Title: Przypisy
+
+---
+
+Przypisy działają w podobny sposób do referencji odnośników. Na przypis składają się dwie rzeczy: odnośnik w tekście, którzy otrzyma indeks górny oraz objaśnienie przypisu, które wyląduje na końcu dokumentu. 
+
+~~~
+To jest trochę tekstu z przypisem[^1].
+
+[^1]: I to jest przypis.
+~~~
+
+> To jest trochę tekstu z przypisem[^1].
+
+[^1]: I to jest przypis.
+
+Objaśnienia przypisów mogą znaleźć się w dowolnym miejscu w dokumencie, ale i tak będą wyświetlone na końcu dokumentu w kolejności dodania odnośników.
+
+> [important]
+> Nie da się stworzyć dwóch odnośników do jednego przypisu. Jeśli to zrobisz, kolejne odnośniki nie będą po prostu zamieniane.
+
+Każdy przypis musi mieć unikalną nazwę, którą nie musi być wcale liczba - może być to też etykieta tekstowa.
+
+> [important]
+> Nazwa odnośnika służy tylko do adresów i **nie ma wpływu na numerację** przypisów w tekście.
+
+Nazwa odnośnika musi być prawidłową nazwą atrybutów `ID` w HTML-u.
+
+> [information]
+> TypeFriendly do nazw odnośników dodaje identyfikator rozdziału.
+
+Przypisy również mogą zawierać elementy blokowe, co oznacza, że mogą zawierać akapity, listy, bloki kodu itd. Wystarczy poprzedzić je czterema spacjami bądź tabulacją.
+
+~~~
+To jest trochę tekstu z przypisem[^1].
+
+[^1]: I to jest przypis.
+
+    A to jest kolejny akapit.
+~~~
+
+Dla celów estetycznych, pierwszą linijkę przypisu można pozostawić pustą:
+
+~~~
+To jest trochę tekstu z przypisem[^1].
+
+[^1]: 
+    I to jest przypis.
+
+    A to jest kolejny akapit.
+~~~

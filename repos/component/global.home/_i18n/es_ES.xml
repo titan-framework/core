@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="es_ES">
+	<!-- home -->
+	<message from="Insert New Feed RSS" to="Agregar nuevo Feed RSS" />
+	<message from="URL of Feed RSS" to="URL del Feed RSS" />
+	<message from="Quantity" to="Cantidad" />
+	<message from="Update on each" to="Actualizar a cada" />
+	<message from="Height (0 = auto)" to="Altura (0 = auto)" />
+	<message from="items" to=" 	itenes" />
+	<message from="minutes" to="minutos" />
+
+	<!-- _js -->
+	<message from="Name" to="Nombre" />
+	<message from="User since" to="Usuário desde" />
+	<message from="Last Logon" to="Última sesión" />
+	<message from="Never had logged." to="Nunca había iniciado sesión." />
+	<message from="minutes" to="minutos" />
+</i18n>

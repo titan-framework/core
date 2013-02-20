@@ -1,0 +1,201 @@
+0.6.0.0 (major)
+-----------------------------------------------------
+
+ fixed: XOAD_HTML is included when XOAD is loaded;
+        in previous version XOAD_HTML was included
+        only on callback;
+
+ fixed: XOAD_Client::register(...); nested objects
+        were not serialized as objects, but as the
+        string "object";
+
+ added: XOAD_HTML::cssQuery; Example:
+
+        $a =& XOAD_HTML::cssQuery('div + div + div');
+        $a->style['color'] = 'red';
+
+ added: Prototype support; Big thanks to Ronald Nikel;
+
+
+0.5.5.0 (major, 0.6.0.0 preview)
+-----------------------------------------------------
+
+ note:  please read the INSTALL file; there are some
+        security notes;
+
+ note:  extensions are turned off by default; you
+        should manually edit
+        'config/extensions.config.php' to enable only
+        the extension you'll use;
+
+ added: XOAD_Controls extension; this extension
+        allows you to register custom client
+        controls;
+
+ added: XOAD Controls Library initial version;
+
+ added: after a lot of thinking, I've decided to add
+        support for Internet Explorer 5.
+
+ fixed: the Cache extension directory was renamed to
+        cache (all lower-case); extensions should not
+        include upper-case letters.
+
+ fixed: several JS warnings under Firefox (thanks
+        humeniuc);
+
+
+0.5.0.0 (major)
+-----------------------------------------------------
+
+ major: NAJAX has been renamed to XOAD - XmlHttp
+        Object oriented Application Development;
+
+ added: XOAD_Cache extension; you can cache callback
+        requests to the server so the next time you
+        execute them again they will be loaded from
+        the cache;
+
+ fixed: GET parameters were not exported to the
+        client;
+
+0.4.1.0 (minor)                         09/20/2005
+-----------------------------------------------------
+
+ fixed: small bug-fixes in the chatAdvanced example -
+        the error dialog was removed;
+
+ added: xoad.html.importForm (imports an associative
+        array to the corresponding form elements)
+        and xoad.html.exportForm (exports form values
+        to an associative array);
+
+ added: support for asynchronous calls canceling;
+
+
+0.4.0.0 (major)                         09/18/2005
+-----------------------------------------------------
+
+ fixed: serious bug in XOAD Events; some events were
+        posted more than once in case of a slow
+        connection to the server;
+
+ added: support for Server Extensions and
+        Client observers; you can extend XOAD
+        as much as you want;
+
+ added: XOAD_HTML extension - tutorial coming
+        soon;
+
+ added: new example scripts - Exam and HTML;
+        new tutorial - XOAD Page Skeleton;
+
+ added: XOAD Events providers now support the 'port'
+        parameter; big thanks to Jurriën Stutterheim;
+
+ fixed: the new client error handling introduced in
+        0.3.0.0 RC1 - instead of 'onMethodName' it
+        was calling 'OnmethodName';
+
+
+0.3.0.0 RC1 (major)                     08/29/2005
+-----------------------------------------------------
+
+ added: XOAD Client Event System (XOAD Events);
+
+ added: MySQL provider for XOAD Events; you can configure
+        it from xoad.config.php;
+
+ added: XOAD_Server::allowClasses(...);
+
+ added: XOAD_Server::denyClasses(...);
+
+ added: xoad.asyncCall in xoad.js (xoad_optimized.js);
+        pass it as last argument to function calls and
+        they'll be called asynchronously:
+
+        client.Test();					//  Synchronous
+        client.Test(xoad.asyncCall);	//	Asynchronous
+
+ added: better client error handling; you can create
+        custom method error handlers, like this:
+
+        client.onTestError = function(error) {
+        	alert(error.message);
+        	return true;
+        };
+
+        client.setTimeout(2500);
+        client.Test(xoad.asyncCall);
+
+        Note that you must return true to suppress
+        exception bubbling;
+
+ fixed: when a class performs a callback,
+        XOAD_Server::runServer(...) validates the
+        callback - checks if the class is allowed
+        and if the called method is public;
+
+
+0.2.1.2 (minor)                         08/08/2005
+-----------------------------------------------------
+
+ comment: JavaScript functions have been renamed to
+          xoad.functionName(...);
+
+ fixed:   XOAD_Server::initializeCallback(...) now
+          checks if the called method is public;
+
+ comment: XOAD_SERIALIZER_SKIP_STRING and
+          XOAD_CLIENT_METADATA_METHOD_NAME have
+          been moved to xoad.config.php;
+
+ comment: publicMethods(...), privateMethods(...),
+          publicVariables(...), privateVariables(...)
+          and mapMethods(...) have been moved from
+          XOAD_Utilities to XOAD_Client;
+
+
+0.2.1.0	(minor)                         08/04/2005
+-----------------------------------------------------
+
+ added:   XOAD_Server support for server side events;
+
+ fixed:   xoad_optimized.js has been compressed using
+          http://dean.edwards.name/packer/;
+
+ fixed:   Package documentation has been updated;
+
+ comment: XOAD_Server::initialize(...) has been renamed
+          to XOAD_Server::runServer(...);
+
+
+0.2.0.2 (minor)                         08/01/2005
+-----------------------------------------------------
+
+ added: XOAD_Server::mapClass(...); use this method
+        to map class names to the files where they are
+        defined; only the class that is the source of the
+        callback will be loaded;
+
+ added: The Chat example now supports emoticons and
+        hyperlinks;
+
+ fixed: __clone is now using xoadClone(...) to merge
+        two objects; when a method deletes a member
+        it's value will be null; when a method adds
+        a new member it will be available immediately
+        after the call ends;
+
+
+0.2.0.1 (minor)                         07/31/2005
+-----------------------------------------------------
+
+ fixed: The Chat example; the class name is 'Explorer',
+        but the script was using 'explorer';
+
+
+0.2.0.0 (initial)                       07/31/2005
+-----------------------------------------------------
+
+ comment: First public release;

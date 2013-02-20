@@ -1,0 +1,3 @@
+<?
+return String::purify ($value);
+?>

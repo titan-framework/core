@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form table="poller" primary="id">
+	<go-to flag="success" action="answer" />
+	<go-to flag="fail" action="[same]" />
+	<field type="String" column="answer" label="Pergunta" required="true" max-lenght="256" help="Enunciado da poller." />
+	<field type="Enum" column="_graphic" id="_GRAPHIC_" label="Gráfico" help="Selecione o tipo de gráfico que deverá aparecer.">
+		<enum-mapping column="_PIZZA_">Pizza</enum-mapping>
+		<enum-mapping column="_HORIZONTAL_">Barras horizontais</enum-mapping>
+		<enum-mapping column="_VERTICAL_">Barras verticais</enum-mapping>
+		<enum-mapping column="_PERCENTAGE_">Apenas porcentagens</enum-mapping>
+	</field>
+</form>

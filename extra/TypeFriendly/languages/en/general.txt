@@ -1,0 +1,15 @@
+; $Id: general.txt 52 2009-07-03 08:57:01Z extremo $
+; Translations of the main messages used across the book.
+; Translation authors:
+; - Tomasz Jędrzejewski <http://www.zyxist.com>
+
+table_of_contents = "Table of Contents"
+documentation = "Documentation"
+manual = "User manual"
+book = "Book"
+article = "Article"
+generated_in = "Generated: %s"
+doc_license = "Available under the terms of license: %s"
+
+period_since = "since"
+period_to = "to"

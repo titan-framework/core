@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-mapping>
+	<permission
+		name="SET_ADMIN"
+		label="Pode definir grupos com status de Administrador, ou seja, acesso permanente a este módulo de Controle de Acesso." 
+	/>
+	
+	<action
+		name="list"
+		label="Listar Grupos"
+		default="true"
+		description="">
+		<menu action="create" />
+		<menu function="search" />
+		<menu action="userGroup" image="group.png" />
+		<menu action="typeGroup" image="type.png" />
+		<menu function="rss" />
+	</action>
+	
+	<action
+		name="create"
+		label="Inserir Grupo"
+		description="">
+	</action>
+	
+	<action
+		name="edit"
+		label="Editar Grupo"
+		description="">
+	</action>
+	
+	<action
+		name="delete"
+		label="Apagar Grupo"
+		description="">
+	</action>
+	
+	<action
+		name="view"
+		label="Visualizar Grupo"
+		description="">
+		<menu action="list" />
+		<menu action="edit" />
+		<menu action="delete" />
+		<menu function="print" />
+	</action>
+	
+	<action
+		name="permissionGroup"
+		label="Associar Permissões a Grupos"
+		description="">
+	</action>
+	
+	<action
+		name="userGroup"
+		label="Associar Usuários a Grupos"
+		description="">
+	</action>
+	
+	<action
+		name="typeGroup"
+		label="Associar Grupos a Tipos de Usuários"
+		description="">
+	</action>
+	
+	<action
+		name="mailGroup"
+		label="Associar Alertas a Grupos"
+		description="">
+	</action>
+</action-mapping>

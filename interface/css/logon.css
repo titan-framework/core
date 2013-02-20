@@ -1,0 +1,353 @@
+body
+{
+	margin: 0px;
+}
+div
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #555;
+	font-size: 10px;
+	text-align: justify;
+}
+abbr
+{
+	cursor: help;
+}
+.cTitle
+{
+	position: relative;
+	margin: 0px 0px 20px 0px;
+	width: 600px;
+	font-family: Georgia, serif;
+	font-size: 24px;
+	color: #4E443C;
+	font-variant: small-caps;
+	text-transform: none;
+	font-weight: 100;
+}
+form
+{
+	font-size: 10px;
+}
+input
+{
+	border: #A18669 1px solid;
+	font-size: 10px;
+	width: 122px;
+	padding: 3px;
+	color: #575556;
+	background: #FFF;
+	outline: none;
+	transition: all 0.25s ease-in-out;
+	-webkit-transition: all 0.25s ease-in-out;
+	-moz-transition: all 0.25s ease-in-out;
+}
+input.button
+{
+	font-family: Arial, Helvetica, sans-serif;
+	border: #A18669 1px solid;
+	font-size: 10px;
+	color: #A18669;
+	margin-left: 108px;
+	font-weight: bold;
+	width: auto;
+	cursor: pointer;
+}
+input:focus
+{
+	box-shadow: 0 0 5px #000;
+	-webkit-box-shadow: 0 0 5px #000; 
+	-moz-box-shadow: 0 0 5px #000;
+}
+input.button:hover
+{
+	border: #36817C 1px solid;
+	background-color: #36817C;
+	color: #FFF;
+	box-shadow: 0 0 5px #36817C;
+	-webkit-box-shadow: 0 0 5px #36817C; 
+	-moz-box-shadow: 0 0 5px #36817C;
+}
+.labelForm
+{
+	display: block;
+	width: 100px;
+	float: left;
+	color: #333;
+	font-weight: bold;
+	text-align: right;
+	padding: 5px 8px 0px 0px;
+	font-size: 10px;
+	line-height: 10px;
+}
+#idMain
+{
+	position: relative;
+	width: 100%;
+	height: 55px;
+}
+#idMain .cLogoApp
+{
+	float: left;
+	margin: 0px;
+}
+#idMain .cLogoApp h1
+{
+	color: #FFF;
+	margin-left: 5px;
+}
+#idMain .cName
+{
+	float: right;
+	position: relative;
+	padding: 5px;
+	color: #FFFFFF;
+	text-align: right;
+}
+#idMain a
+{
+	color: #CCC;
+	text-decoration: none;
+}
+#idBody
+{
+	clear: both;
+	width: 100%;
+	vertical-align: middle;
+}
+#idBody .cRegister
+{
+	margin: 50px 0px 0px 0px;
+	width: 600px;
+	float: left;
+	margin-left: 5px;
+}
+#idBody .cTerm
+{
+	margin: 50px 0px 0px 0px;
+	width: 600px;
+	float: left;
+	margin-left: 5px;
+}
+#idBody .cLogin
+{
+	width: 375px;
+	margin: 50px 0px 50px 0px;
+}
+#idBody .cMain
+{
+	position: relative;
+	border: #DDD 1px solid;
+	width: 350px;
+	height: 215px;
+	padding: 10px;
+}
+#idBody .cError
+{
+	position: relative;
+	margin-bottom: 2px;
+	border: #990000 1px solid;
+	width: 350px;
+	padding: 10px;
+	background-color: #EBCCCC;
+	color: #990000;
+	font-weight: bold;
+}
+#idBody .cWarning
+{
+	position: relative;
+	margin-bottom: 2px;
+	border: #FFD324 1px solid;
+	width: 350px;
+	padding: 10px;
+	background-color: #FFF6BF;
+	color: #514721;
+	font-weight: bold;
+}
+#idBody .cMessage
+{
+	position: relative;
+	margin-bottom: 2px;
+	border: #009900 1px solid;
+	width: 350px;
+	padding: 10px;
+	background-color: #CCEBCC;
+	color: #009900;
+	font-weight: bold;
+}
+#idLogon, #idLost
+{
+	position: absolute;
+	top: 100px;
+	left: 110px;
+	width: 250px;
+	height: 125px;
+	border: #CCC 1px solid;
+	background-color: #F4F4F4;
+}
+#idWait, #idWaitLost
+{
+	position: absolute;
+	top: 100px;
+	left: 120px;
+	width: 230px;
+	height: 100px;
+	border: #CCC 1px solid;
+	background-color: #F4F4F4;
+	padding: 5px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #990000;
+	font-weight: bold;
+}
+#idBase
+{
+	clear: both;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	border-top: #36817C 3px solid;
+	background-color: #575556;
+	height: 23px;
+	width: 100%;
+	z-index: 3;
+}
+#idBase .cPowered
+{
+	float: left;
+	position: relative;
+	padding: 5px;
+	font-size: 9px;
+	color: #FFFFFF;
+}
+#idBase .cPowered img
+{
+	float: left;
+}
+#idBase .cPowered label
+{
+	float: left;
+	margin-left: 5px;
+}
+#idBase .cResources
+{
+	float: right;
+	position: relative;
+	padding: 5px;
+	color: #FFFFFF;
+}
+#idBase a
+{
+	color: #FFFFFF;
+}
+#idMenuSection
+{
+	clear: both;
+}
+#idMenuSection ul
+{
+	margin: 0;
+	list-style-type: none;
+	text-align: right;
+}
+#idMenuSection li
+{
+	margin-left: 10px;
+}
+#idMenuSection ul li
+{
+	display: inline;
+}
+#idMenuSection ul li a
+{
+	text-decoration: none;
+	color: #555555;
+	font-weight: normal;
+}
+#idMenuSection a:hover
+{
+	text-decoration: underline;
+}
+div.row
+{
+	clear: both;
+	padding-top: 10px;
+}
+a
+{    
+	text-decoration: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #650000;
+	font-weight: normal;
+}
+a:hover
+{
+	text-decoration: underline;
+}
+div.cUserType
+{
+	border: #575556 2px solid;
+	margin-bottom: 10px;
+}
+div.cUserType div
+{
+	text-align: left;
+	padding: 5px 10px;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+}
+div.cUserType iframe
+{
+	width: 595px;
+	height: 400px;
+	border: 0px;
+}
+div.cValidateMethod
+{
+	border: #575556 2px solid;
+	margin-bottom: 10px;
+}
+div.cValidateMethod div
+{
+	text-align: left;
+	padding: 5px 10px;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+}
+div.cValidateMethod iframe
+{
+	width: 595px;
+	height: 350px;
+	border: 0px;
+}
+div.selected div
+{
+	background-color: #575556;
+	color: #FFF;
+}
+div.selected iframe
+{
+	display: block;
+}
+div.unselected div
+{
+	background-color: #FFF;
+	color: #656565;
+}
+div.unselected div:hover
+{
+	background-color: #575556;
+	color: #FFF;
+	box-shadow: 0 0 10px #575556;
+	-webkit-box-shadow: 0 0 10px #575556; 
+	-moz-box-shadow: 0 0 10px #575556;
+}
+div.unselected iframe
+{
+	display: none;
+}

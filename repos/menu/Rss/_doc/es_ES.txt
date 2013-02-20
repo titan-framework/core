@@ -1,0 +1,1 @@
+Va a generar una fuente RSS que acompañan a los cambios en los datos de la sección. Además, permite el seguimiento de estos cambios por el propio sistema, cuando una sección de monitoreo está activado.

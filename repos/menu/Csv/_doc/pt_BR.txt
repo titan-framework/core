@@ -1,0 +1,1 @@
+Irá gerar um arquivo do tipo CSV (Comma-Separated Values) com os itens listados. Este arquivo pode ser importado no Microsoft Excel ou outros programas de planilha para que os dados sejam trabalhados.

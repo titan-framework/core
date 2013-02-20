@@ -1,0 +1,35 @@
+.menuMain ul
+{
+	padding: 0px;
+	margin: 0px;
+}
+.menuMain li
+{
+	list-style: none;
+	height: 22px;
+	vertical-align: middle;
+	background: url(titan.php?target=loadFile&file=interface/image/arrow.right.gif) right no-repeat;
+}
+.menuMain li:hover
+{
+	background-color: #36817C;
+	cursor: pointer;
+}
+.menuMain label
+{
+	float: left;
+	color: #FFFFFF;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	margin-top: 4px;
+	margin-left: 20px;
+}
+.menuMain label:hover
+{
+	cursor: pointer;
+}
+.menuMain img
+{
+	float: right;
+	margin-top: 4px;
+}

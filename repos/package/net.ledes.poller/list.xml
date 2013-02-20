@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view table="poller" primary="id" paginate="20">
+	<field type="String" column="answer" label="Pergunta" />
+	<field type="Enum" column="_graphic" label="Gráfico">
+		<enum-mapping column="_PIZZA_">Pizza</enum-mapping>
+		<enum-mapping column="_HORIZONTAL_">Barras horizontais</enum-mapping>
+		<enum-mapping column="_VERTICAL_">Barras verticais</enum-mapping>
+		<enum-mapping column="_PORCENTAGEM_">Apenas porcentagens</enum-mapping>
+	</field>
+	<field type="Select" column="_user" link-column="_id" link-table="_user" link-view="_name" label="Autor" />
+	<order id="poller_answer" invert="false" />
+	<icon action="view" image="view.gif" label="Visualizar" default="true" />
+	<icon action="edit" image="edit.gif" label="Editar" />
+	<icon action="delete" image="delete.gif" label="Apagar" />
+	<icon action="answer" image="form.gif" label="Editar Respostas" />
+</view>
+<search table="poller">
+	<field type="String" column="title" label="Título" />
+	<field type="Date" column="date" label="Data" />
+</search>

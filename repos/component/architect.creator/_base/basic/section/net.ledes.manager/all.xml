@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form table="_user" primary="_id">
+	<go-to flag="success" action="[default]" />
+	<go-to flag="fail" action="[same]" />
+	<go-to flag="cancel" action="[default]" />
+	<group label="Dados Pessoais">
+		<field type="String" column="_name" label="Nome" required="true" help="Preencha corretamente o nome completo do usuário." />
+		<field type="String" column="_login" label="Login" required="true" unique="true" help="Login utilizado pelo usuário para acessar esta área restrita. Ele deverá ser único e náo poderá ser modificado." />
+		<field type="String" column="_email" label="E-mail" required="true" help="O e-mail será fundamental para o envio da senha." />
+		<field type="File" column="photo" label="Foto" owner-only="true">
+			<mime-type>image/jpeg</mime-type>
+			<mime-type>image/gif</mime-type>
+			<mime-type>image/pjpeg</mime-type>
+			<mime-type>image/png</mime-type>
+			<mime-type>image/x-bitmap</mime-type>
+			<mime-type>image/photoshop</mime-type>
+			<mime-type>image/bmp</mime-type>
+		</field>
+		<field type="Date" column="birth_date" label="Data de Nascimento" first-year="1900" />
+		<field type="Phone" column="phone" label="Telefone" />
+		<field type="Phone" column="mobile" label="Celular" />
+		<field type="String" column="url" label="Página Pessoal" value="http://" />
+	</group>
+	<group label="Endereço">
+		<field type="String" column="street" label="Logradouro" />
+		<field type="Integer" column="number" label="Número" />
+		<field type="String" column="quarter" label="Bairro" />
+		<field type="String" column="complement" label="Complemento" />
+		<field type="Cep" column="cep" label="CEP" />
+		<field type="State" column="state" label="Estado" city-id="_CITY_" />
+		<field type="City" column="city" label="Município" id="_CITY_" />
+	</group>
+</form>

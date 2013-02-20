@@ -1,0 +1,84 @@
+Title: Instalacja
+
+---
+
+TypeFriendly jest narzędziem napisanym w PHP5 obsługiwanym z wiersza poleceń systemu operacyjnego. Aby móc z niego korzystać, musisz posiadać zainstalowane PHP 5.2 z obsługą trybu wiersza poleceń (*CLI*).
+
+Instalacja PHP
+==============
+
+PHP jest popularnym skryptowym językiem programowania wykorzystywanym powszechnie do tworzenia dynamicznych stron internetowych. Jest jednak wykorzystywany również do tworzenia tradycyjnych aplikacji. W tym rozdziale krótko opiszemy, jak zainstalować PHP na własnym komputerze.
+
+> [information]
+> Jeśli jesteś programistą PHP, interpreter powinien już być zainstalowany na Twoim komputerze. W tym przypadku pozostaje Ci tylko sprawdzić, czy Twoja instalacja posiada obsługę interfejsu wiersza poleceń.
+
+System Windows
+--------------
+
+Binarne wersje PHP 5.2 dla systemu Windows są dostępne do ściągnięcia w formie archiwów ZIP ze strony [www.php.net](http://www.php.net/). Rozpakuj ściągnięte archiwum ZIP gdzieś na dysk twardy, np. `C:\php\`. Właściwie to już jest wszystko, jednak póki co korzystanie z interpretera będzie dość niewygodne, gdyż będziesz musiał podawać pełną ścieżkę dostępu do pliku `php.exe`. Aby usunąć tę nieprzyjemność, musisz dodać `C:\php` do zmiennej środowiskowej `PATH` w Twoim systemie.
+
+Otwórz *Panel sterowania* i uruchom aplet *System*. W zakładce *Zaawansowane* wybierz przycisk *Zmienne środowiskowe*. W nowo otwartym oknie, w sekcji *Zmienne środowiskowe* znajdź zmienną `PATH`, zaznacz ją i kliknij przycisk *Edytuj*, aby zmodyfikować jej wartość. **Po znaku średnika `;`** dopisz ścieżkę do katalogu z PHP, np. 
+
+    ...;C:\php\
+
+Zapisz wszystko i zamknij panel sterowania.
+
+Systemy uniksowe
+----------------
+
+Instalacja PHP jest dużo prostsza w systemach uniksowych, ponieważ najczęściej wyposażone są one w rozmaite narzędzia do zarządzania pakietami. Przykładowo, w Debian Linux możesz zainstalować PHP z konsoli przy pomocy następujących poleceń:
+
+~~~
+[console]
+apt-get install php5-common
+apt-get install php5-cli
+~~~
+
+Szczegółowe polecenia do Twojej dystrybucji mogą być inne, dlatego musisz zajrzeć do jej dokumentacji po dokładne instrukcje.
+
+Zazwyczaj pakiety PHP są odpowiednio skonfigurowane tak, żeby nie trzeba było modyfikować zmiennej środowiskowej `PATH`.
+
+Testowanie instalacji
+---------------------
+
+Aby przetestować swoją instalację PHP, otwórz konsolę (w Windowsie: *wiersz poleceń*) i wpisz:
+
+~~~
+[console]
+php --version
+~~~
+
+Jeśli zobaczysz wynik podobny do poniższego, oznacza to, że wszystko zostało prawidłowo zainstalowane.
+
+~~~
+[console]
+PHP 5.2.10RC2-dev (cli) (built: May 27 2009 18:48:36)
+Copyright (c) 1997-2009 The PHP Group
+Zend Engine v2.2.0, Copyright (c) 1998-2009 Zend Technologies
+~~~
+
+Instalacja TypeFriendly
+=======================
+
+Ściągnij najnowszą wersję TypeFriendly ze strony [www.invenzzia.org](http://www.invenzzia.org) i rozpakuj ją gdzieś na swoim dysku twardym. Właściwie jest to już wszystko, o ile PHP jest poprawnie zainstalowane. Uruchom wiersz poleceń i przejdź do katalogu z TypeFriendly poleceniem `cd`:
+
+~~~
+[console]
+cd /sciezka/do/TypeFriendly
+~~~
+
+Aby przetestować instalację, spróbuj zbudować podręcznik użytkownika do samego TypeFriendly dołączony do instalacji:
+
+~~~
+[console]
+php typefriendly.php build "./docs/"
+~~~
+
+Użytkownicy systemów uniksowych mogą także przetestować skróconą formę, o ile ścieżka do interpretera w ich systemie to `/usr/bin/php`:
+
+~~~
+[console]
+./typefriendly build "./docs/"
+~~~
+
+TypeFriendly powinien teraz przebudować swój własny podręcznik, a wygenerowany wynik powinien być dostępny w katalogu `./docs/output/`.

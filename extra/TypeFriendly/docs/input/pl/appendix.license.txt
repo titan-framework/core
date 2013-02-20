@@ -1,0 +1,23 @@
+Title: Licencja i autorzy
+Appendix: Yes
+
+---
+
+Skrypt TypeFriendly został stworzony przez [grupę Invenzzia](http://www.invenzzia.org/). Odpowiedzialne za niego osoby to:
+
+* Tomasz "Zyx" Jędrzejewski - projekt, kod silnika, dokumentacja.
+* Jacek "eXtreme" Jędrzejewski - systemy wyjścia, dostosowanie Markdowna, szereg poprawek, dokumentacja.
+
+W projekcie został użyty parser PHP Markdown Extra napisany przez Michela Fortina i bazujący na kodzie Johna Grubera. Dostępny jest on na zmodyfikowanej licencji BSD.
+
+W projekcie został użyty parser GeSHi napisany przez Benny'ego Baumanna i dostępny na licencji GNU GPL.
+
+W szablonie dokumentacji użyto ikonek zestawu [Tango Icon Library](http://tango.freedesktop.org), części projektu Tango Desktop Project dostępnej na licencji Creative Commons Attribution-ShareAlike 2.5.
+
+Opis składni markdown jest adaptacją oryginalnego dokumentu [Markdown Syntax page](http://daringfireball.net/projects/markdown/syntax) napisanego przez Daringa Fireballa oraz opisu składni [PHP Markdown Extra](http://michelf.com/projects/php-markdown/extra/) Michela Fortina.
+
+TypeFriendly dostępny jest na zasadach licencji GNU General Public License 3. Treść tej licencji dołączona jest do pakietu w katalogu `info/COPYING`, a w razie jej braku możesz zapoznać się z nią pod adresem [http://www.gnu.org/licenses/gpl.html](http://www.gnu.org/licenses/gpl.html).
+
+Niniejsza dokumentacja dostępna jest na zasadach licencji GNU Free Documentation License 1.2. Treść tej licencji dołączona jest do pakietu w katalogu `info/COPYING_DOCS`, a w razie jej braku możesz zapoznać się z nią pod adresem [http://www.gnu.org/licenses/fdl.html](http://www.gnu.org/licenses/fdl.html).
+
+Licencje te w żaden sposób nie stosują się do dokumentacji stworzonych przez Ciebie i przetwarzanych przez TypeFriendly tak samo, jak grafika stworzona w programie na licencji GNU GPL nie jest automatycznie obejmowana tą samą licencją.

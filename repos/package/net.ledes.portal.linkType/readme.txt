@@ -1,0 +1,1 @@
+Instancia uma seção de Categorização de Links.

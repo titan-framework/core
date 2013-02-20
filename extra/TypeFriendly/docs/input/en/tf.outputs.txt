@@ -1,0 +1,61 @@
+Title: Output interface
+
+---
+
+TypeFriendly allows to create your own output interfaces that can be used to generate the documentation. Some knowledge about PHP language is required in order to write them.
+
+Parsing rules
+=============
+
+TypeFriendly starts with creating a project object that allows to manipulate various aspects of the documentation. Then, the configuration is read and later, TF scans the input directory and puts the chapters in the correct order. At the end, the script loads the outputs and requests to generate the pre-processed results.
+
+Each output is saved in a separate PHP file in the `/outputs` directory. It is a class named after the output that extends the `standardOutput` class and overwrites three methods described below. The class has one task: to pack the meta-data provided by the TypeFriendly into the HTML code. Unfortunately, the current version of Markdown supports only XHTML and it is not possible to generate, for example, LaTeX output. This feature will appear in the future versions of TypeFriendly.
+
+The output system must take care of saving the result to the files. TypeFriendly provides only a directory path, where the result must be stored, but does not limit you in any other way. The programmer may use some of script interfaces.
+
+API
+===
+
+`standardOutput`
+----------------
+
+An abstract class that must be extended by the output class. The methods:
+
++ `init($project, $path)` - called before the pages are processed. It takes the project object and the output directory path, where the result files should be saved.
++ `generate($page)` - called for every chapter. The method takes an array `$page` that contains all the chapter meta-data. The indexes correspond to the tags used in the source file. The additional "tags" defined by TypeFriendly are described below.
++ `close()` - called, when all the chapters have already been processed.
+
+Additional tags in the meta-data defined by TypeFriendly:
+
+* `Id` - chapter identifier
+* `Content` - chapter content, already processed by Markdown
+* `Next` - an identifier of the next page or NULL
+* `Prev` - an identifier of the previous page or NULL
+* `Parent` - an identifier of the parent page or NULL
+
+`tfTranslate`
+-------------
+
+It is used to translate the documentation messages to other languages.
+
++ `tfTranslate::get()` - returns the `tfTranslate` object.
++ `_($group, $id, ...)` - returns a text `$id` in the group `$group`. Optionally, more parameters can be provided - their values will be placed in the message, if it contains necessary tags.
+
+`tfProject`
+-----------
+
+The project object.
+
++ `$fs` - the `tfFilesystem` object that describes the project directory.
++ `$tree` - a public structure with the chapter tree. As an index, we provide the chapter identifier and we get an array with the meta-data of all the sub-chapters.
++ `getMetaInfo($name[, $exception = true])` - returns the meta-data of the specified chapter. `$name` is the chapter identifier. If the last parameter is set to **false**, the method throws an exception, if the requested page has not been found. Otherwise, it returns **NULL**.
+
+`tfFilesystem`
+--------------
+
+This class represents the file system inside a directory. It allows fast and easy file/directory manipulation. We assume that *filesystem* means the directory mapped by an object of this class, where we can do the manipulations.
+
++ `get($name)` - returns the real path to the specified file in the file system. If the file does not exist, `SystemException` is thrown.
++ `read($name)` - returns the content of the specified file in the file system. If the file does not exists, `SystemException` is thrown.
++ `readAsArray($name)` - like above, but returns an entire file into an array.
++ `write($name, $content)` - saves the `$content` in the `$name` file in the filesystem.

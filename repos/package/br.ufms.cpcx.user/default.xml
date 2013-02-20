@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form table="_user" primary="_id">
+	<go-to flag="success" action="[default]" />
+	<go-to flag="fail" action="[same]" />
+	<go-to flag="cancel" action="[default]" />
+	<field type="String" column="_name" label="Nome" required="true" max-size="256" help="Digite o nome completo do usuário." />
+	<field type="String" column="_login" label="Login" required="true" max-size="64" unique="true" help="Digite o login para acesso ao sistema." />
+	<field type="String" column="_email" label="Email" required="true" max-size="512" help="Digite o e-mail do usuário." />
+	<field type="File" column="photo" label="Foto" owner-only="true">
+		<mime-type>image/jpeg</mime-type>
+		<mime-type>image/gif</mime-type>
+		<mime-type>image/pjpeg</mime-type>
+		<mime-type>image/png</mime-type>
+		<mime-type>image/x-bitmap</mime-type>
+		<mime-type>image/photoshop</mime-type>
+		<mime-type>image/bmp</mime-type>
+	</field>
+	<field type="Enum" column="_language" label="Idioma">
+		<item value="pt_BR" label="Português" />
+		<item value="en_US" label="English" />
+		<item value="es_ES" label="Español" />
+	</field>
+	<field type="Date" column="birthday" label="Data de Nascimento" first-year="1900" />
+	<field type="Enum" column="gender" label="Sexo">
+		<item value="_M_" label="Masculino" />
+		<item value="_F_" label="Feminino" />
+	</field>
+	<field type="Enum" column="marriage" label="Estado Civil">
+		<item value="_MARRI_" label="Casado" />
+		<item value="_SINGL_" label="Solteiro" />
+		<item value="_OTHER_" label="Outro" />
+	</field>
+	<field type="String" column="phone" label="Telefone" max-size="64" />
+	<field type="String" column="mobile" label="Celular" max-size="64" />
+	<field type="String" column="street" label="Endereço" max-size="256" />
+	<field type="Amount" column="number" label="Número" />
+	<field type="String" column="quarter" label="Bairro" max-size="256" />
+	<field type="String" column="complement" label="Complemento" max-size="512" />
+	<field type="Cep" column="cep" label="CEP" />
+	<field type="City" column="city" label="Cidade" id="_CITY_" />
+	<field type="State" column="state" label="Estado" city-id="_CITY_" />
+	<field type="String" column="msn" label="MSN" max-size="256" />
+	<field type="String" column="skype" label="Skype" max-size="256" />
+	<field type="String" column="url" label="Página Pessoal" max-size="256" />
+	<field type="String" column="orkut" label="Orkut" max-size="256" />
+</form>

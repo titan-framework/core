@@ -1,0 +1,1 @@
+Esta acción permite la inclusión de todos los ítems y la búsqueda de datos específicos. Usted también puede ordenar ítems por criterios específicos y marca de la lista del control.

@@ -1,0 +1,40 @@
+Title: Grafika i obrazki
+SeeAlso:
+ - docs.syntax.links
+
+---
+
+Wstawianie obrazków do tekstu w składni Markdown jest bardzo podobne do wstawiania linków i różni się tylko tym, że zaczyna się od znaku wykrzyknika `!`. Składnia wstawiania obrazków również umożliwia używanie referencji.
+
+~~~
+![Tekst alternatywny](/sciezka/do/obrazka.jpg)
+
+![Tekst alternatywny](/sciezka/do/obrazka.jpg "Opcjonalny tytuł")
+~~~
+
+Tekst alternatywny jest tym, co znajdzie się w atrybucie `alt` w wyjściowym kodzie HTML.
+
+Referencja w obrazkach wygląda analogicznie do linków:
+
+    ![Tekst alternatywny][id]
+    
+gdzie "id" jest etykietą referencji. Definicja referencji jest identyczna z linkami:
+
+    [id]: /sciezka/do/obrazka.jpg  "Opcjonalny tytuł"
+    
+Więcej informacji na temat referencji znaleźć można w [rozdziale o linkach][docs.syntax.links].
+
+Grafika i obrazki w TypeFriendly
+================================
+
+Odnoszenie się do obrazków znajdujących się w internecie w przypadku dokumentacji nie ma najmniejszego sensu. Dlatego TypeFriendly umożliwia umieszczenie obrazków w folderze `media/` znajdującym się w katalogu z rozdziałami dokumentacji w danym języku (`/input/JĘZYK/media`). Podczas procesu budowania dokumentacji, katalog ten zostanie przeniesiony do folderu `output/`.
+
+~~~
+![Wykres](media/graph.png)  
+**Przykład wstawienia obrazka**
+~~~
+
+> ![Wykres](media/graph.png)  
+> **Przykład wstawienia obrazka**
+
+W naszej dokumentacji powyższy plik `graph.png` znajduje się w katalogu `/input/en/media/`.

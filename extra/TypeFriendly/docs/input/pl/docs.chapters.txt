@@ -1,0 +1,67 @@
+Title: Rozdziały
+SeeAlso:
+ - docs.directories
+
+---
+
+W TypeFriendly poszczególne rozdziały dokumentacji tworzysz jako pliki tekstowe w katalogu `/input/jezyk/`. Każdy taki plik składa się z dwóch części:
+
+1. Nagłówek
+2. Treść
+
+W nagłówku znajduje się kilka opcji, które pozwalają ustawić np. właściwy tytuł danego rozdziału lub powiązania z innymi częściami dokumentacji. Pod nagłówkiem umieszczana jest treść w formacie Markdown. Dokładny opis składni tych plików znajduje się dalej, gdyż tutaj pragniemy omówić inną rzecz związaną z rozdziałami, mianowicie ustalanie ich kolejności.
+
+W każdej publikacji rozdziały ułożone są w pewnym, określonym porządku i mogą zawierać dodatkowe podrozdziały. Niekiedy pragniemy nadać im alfabetyczną kolejność, np. gdy podrozdziały są indeksem dostępnych funkcji. W innych przypadkach, będziemy chcieli, aby czytelnik zapoznawał się z rozdziałami w żądanym przez nas porządku, gdyż późniejsze rozdziały mogą bazować na informacjach podanych w tych początkowych. TypeFriendly pozwala osiągnąć wszystkie te efekty.
+
+Pliki rozdziałów wykorzystują rozszerzenie `*.txt`, natomiast pozostała część nazwy używana jest do określenia zależności między rozdziałami. Każdy rozdział ma swój własny identyfikator zbudowany z liter, cyfr, pauz i podkreśleń. Aby zaznaczyć, że B i C są podrozdziałami A, dodajemy identyfikator rozdziału A do B i C, a obie części oddzielamy kropką. Poniżej przedstawiamy przykładową listę rozdziałów:
+
+1. `wstep.txt`
+2. `instalacja.txt`
+3. `instalacja.prosta.txt`
+4. `instalacja.zlozona.txt`
+5. `api.txt`
+6. `api.klasa.txt`
+7. `api.klasa.funkcja1.txt`
+8. `api.klasa.funkcja2.txt`
+9. `api.interfejs.txt`
+10. `api.interfejs.funkcja1.txt`
+11. `api.interfejs.funkcja2.txt`
+
+Przyjrzyjmy się np. rozdziałowi poświęconemu instalacji. Jest stworzony plik tekstowy dla niego, w którym możemy zamieścić jakieś wprowadzenie. Jednocześnie umieszczamy w nim dwa podrozdziały: `instalacja.prosta` i `instalacja.zlozona`. TypeFriendly na podstawie nazw pliku powiąże jedno z drugim i wygeneruje odpowiednią nawigację. Opis API jest już bardziej złożony, ponieważ mamy tutaj aż trzy poziomy. Po słowie wstępu w pliku `api.txt` tworzymy wprowadzenie do opisu pierwszej z klas (`api.klasa.txt`). Klasa ma jakieś funkcje, tak więc opisujemy każdą z nich jako osobny podrozdział. Pamiętaj, że jeżeli chcesz stworzyć plik o nazwie `foo.bar.joe.txt`, w dokumentacji muszą również istnieć `foo.txt` i `foo.bar.txt` - inaczej TypeFriendly zwróci błąd.
+
+Domyślnie TypeFriendly sortuje poziomy zagnieżdżeń alfabetycznie:
+
+1. `api.txt`
+2. `api.interfejs.txt`
+3. `api.interfejs.funkcja1.txt`
+4. `api.interfejs.funkcja2.txt`
+5. `api.klasa.txt`
+6. `api.klasa.funkcja1.txt`
+7. `api.klasa.funkcja2.txt`
+8. `instalacja.txt`
+9. `instalacja.prosta.txt`
+10. `instalacja.zlozona.txt`
+11. `wstep.txt`
+
+Jest to trochę bez sensu, ponieważ o ile super, że funkcje są sortowane automatycznie, o tyle wstęp na końcu publikacji może już wzbudzić u czytelników zdumienie. Aby zmienić kolejność, musimy w głównym katalogu publikacji utworzyć plik `sort_hints.txt` z paroma wskazówkami:
+
+    wstep
+    instalacja
+    instalacja.prosta
+    instalacja.zlozona
+    api
+    api.klasa
+    api.interfejs
+
+Plik zawiera listę rozdziałów w żądanym przez nas porządku. Zauważ, że nie wymieniliśmy tu wszystkich plików. Jeśli w jakimś poziomie zagnieżdżeń pasuje nam alfabetyczna kolejność, po prostu nie wymieniamy tych podrozdziałów na liście (np. nie wypisaliśmy tutaj żadnych funkcji z `api.klasa` i `api.interfejs`).
+
+> [warning]
+> Musisz albo określić kolejność wszystkich podrozdziałów na danym poziomie, albo nie określać jej w ogóle. Jeżeli wymienisz tylko część podrozdziałów, TypeFriendly zgłosi błąd.
+
+Wskazówki:
+
+1. Plik ze wskazówkami jest jeden dla wszystkich języków, dlatego bardzo ważne jest, aby w każdej wersji językowej odpowiadające sobie rozdziały miały tę samą nazwę pliku.
+
+2. Nazwa pliku jest też wykorzystywana do identyfikowania rozdziałów przy tworzeniu ręcznym odnośników w tekście. Dlatego wybieraj nazwy krótkie i intuicyjne, trzymając się jakichś reguł. Ułatwi to późniejsze odnalezienie się w tym wszystkim.
+
+3. TypeFriendly pomija pliki z innym rozszerzeniem lub kończące się np. tyldą, tak więc nie trzeba wyłączać opcji tworzenia kopii zapasowej w edytorze, aby tworzyć publikację.

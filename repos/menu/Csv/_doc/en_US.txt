@@ -1,0 +1,1 @@
+It generates a CSV file (Comma-Separated Values) with the listed items. This file can be imported into Microsoft Excel or other spreadsheet programs.

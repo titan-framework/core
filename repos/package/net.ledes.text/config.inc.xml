@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-mapping>
+	<directive
+		name="_ID_"
+		value="[_UNIQUE_KEY_]"
+	/>
+	
+	<action
+		name="edit"
+		label="Editar"
+		description=""
+		index-to="view">
+		<menu function="save" />
+		<menu action="view" image="close.png" />
+	</action>
+	
+	<action
+		name="view"
+		label="Visualizar"
+		description=""
+		default="true">
+		<menu function="print" />
+		<menu action="edit" />
+	</action>
+</action-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="pt_BR">
+	<!-- home -->
+	<message from="Insert New Feed RSS" to="Inserir Novo Feed RSS" />
+	<message from="URL of Feed RSS" to="URL do Feed RSS" />
+	<message from="Quantity" to="Quantidade" />
+	<message from="Update on each" to="Atualizar a cada" />
+	<message from="Height (0 = auto)" to="Altura (0 = auto)" />
+	<message from="items" to="itens" />
+	<message from="minutes" to="minutos" />
+
+	<!-- _js -->
+	<message from="Name" to="Nome" />
+	<message from="User since" to="Usuário desde" />
+	<message from="Last Logon" to="Último logon" />
+	<message from="Never had logged." to="Nunca havia logado." />
+	<message from="minutes" to="minutos" />
+	
+	<!-- _ajax -->
+	<message from="Sequences of characters [[1]] may not be used in the password!" to="As sequências de caracteres [[1]] não podem ser utilizadas na senha!" />
+	<message from="The current password you entered is incorrect!" to="A senha atual digitada esta incorreta!" />
+	<message from="It was not possible to change the password." to="Não foi possível modificar a senha." />
+	<message from="Password successfully changed." to="Senha modificada com sucesso." />
+</i18n>

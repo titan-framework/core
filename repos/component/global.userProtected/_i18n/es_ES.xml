@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="es_ES">
+
+	<!-- function -->
+	<message from="Unable to recover user data from database!" to="¡Imposible recuperar datos del usuario del Banco de Datos!" />
+	<message from="Unable to load your private data from user [1] [ [2] ]" to="No fue posible cargar los datos de registro del usuario [1] [ [2] ]" />
+	<message from="Unable to load LDAP server data to the user [1] [ [2] ]" to="No fue posible cargar los datos del servidor LDAP para el usuario [1] [ [2] ]" />
+	<message from="Unable to save the database data from LDAP server to the user [1] [ [2] ]" to="No fue posible guardar en el Banco de Datos del servidor LDAP para el usuario [1] [ [2] ]" />
+
+	<!-- view -->
+	<message from="Unable to load the data of the item!" to="No fue posible cargar los datos del iten" />
+
+	<!-- graph -->
+	<message from="Filter" to="Filtro" />
+
+	<!-- edit -->
+	<message from="Unable to save the data into LDAP server!" to="No fue posible grabar los datos del servidor LDAP!" />
+	<message from="Attention! As the type of user was modified it was released from groups of which belonged and it was bound into default group permission of the your new type." to="¡Atención! Como el tipo de usuario fue modificado, él fue desvinculado de los grupos a los que pertenecía y vinculado a los grupos de permiso estándar de su nuevo tipo." />
+	<message from="Unable to bind new type of default groups to the user. You should manually set the groups of new user or it will already continue with the same permissions. [ [1] ]" to=" 	Imposible vincular los nuevos grupos estándares del nuevo tipo al usuario. Deberá configurar manualmente los grupos del nuevo usuario o él continuará con los permisos que ya tenía. [ [1] ]" />
+
+	<!-- delete -->
+	<message from="Unable to load the user data!" to="¡No fue posible cargar datos del usuario!"/>
+	<message from="Clean" to="Borrar"/>
+	<message from="You can not delete you own user!" to="¡Usted no puede borrar su propio usuario!"/>
+	<message from="Unable to delete the user data from LDAP server!" to="¡No fue posible borrar al usuario del servidor LDAP!"/>
+	<message from="Unable to delete the user!" to="¡No fue posible borrar al usuario!"/>
+	<message from="User deleted with success!" to="¡Usuario borrado con éxito!"/>
+
+	<!-- create  -->
+	<message from="User registered with success!" to="¡Usuario registrado con éxito!"/>
+	<message from="A link to register the password was sent to the e-mail of the new user." to="Un link para registro de contraseña se envió al e-mail del nuevo usuario"/>
+	<message from="Unable to send the e-mail with the link to register a password. This link can be obtained through the option &quot;Forgogot my password&quot;, at logon page." to=" 	Imposible vincular grupos iniciales al usuario. Deberá configurar manualmente los grupos del nuevo usuario. [[1]]"/>
+	<message from="Unable to bind initial groups to the user. You should manually set the groups of the new user. [ [1] ]" to="No fue posible enviar el e-mail con el link para registro de contraseña. Este link podrá obtenerse a través de opción &quot;Olvidé mi contraseña&quot;, en la página de inicio de sesión."/>
+
+</i18n>

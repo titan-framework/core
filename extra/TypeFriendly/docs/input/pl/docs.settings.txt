@@ -1,0 +1,88 @@
+Title: Plik settings.ini
+
+---
+
+Jest to główny plik konfiguracyjny z listą opcji. Jak sama nazwa pliku wskazuje, jest to typowa składnia plików INI:
+
+~~~
+[ini]
+opcja1 = "wartosc1"
+opcja2 = "wartosc2"
+opcja3 = "wartosc3"
+; komentarz
+~~~
+
+Znak średnika rozpoczyna komentarz, który ciągnie się aż do końca linii. 
+
+#### Podstawowe opcje, jakie należy ustawić, to:
+
+title
+:   tytuł publikacji
+
+version
+:   wersja publikacji
+
+copyright
+:   prawa autorskie do publikacji
+
+license
+:   licencja, na jakiej udostępniana jest publikacja
+
+projectType
+:	rodzaj publikacji
+:	dostępne wartości: `manual` (domyślna), `documentation`, `article`, `book`
+
+#### Dodatkowe opcje:
+
+copyrightLink
+:   odnośnik do strony posiadacza praw autorskich
+
+licenseLink
+:   odnośnik do strony z treścią licencji
+
+#### Opcje techniczne związane z projektem:
+
+outputs
+:   lista formatów, w jakich chcesz generować dokumentację, odseparowanych przecinkami.
+
+baseLanguage
+:   dla każdej publikacji musi zostać wybrany podstawowy język, w którym powstaje oryginalna treść. Tutaj możesz go ustawić. Ważne, aby nazwa pokrywała się z nazwą katalogu, w którym znajduje się wersja publikacji w tym języku.
+
+navigation
+:   określa sposób łączenia stron w pasku nawigacyjnym "Poprzedni/Następny". **Dozwolone wartości to:**
+    
+    tree
+    :   linki "Poprzedni" i "Następny" zawsze wskazują na sąsiada danego rozdziału. Jeżeli sąsiad nie istnieje, link nie jest wyświetlany. Jest to domyślna wartość.
+
+    book
+    :   rozdziały są tak łączone, aby klikając "Poprzedni" lub "Następny" można było przejść całą publikację (jak w książce).
+    
+showNumbers
+:   czy włączyć numerowanie rozdziałów (wartości *true* lub *false*).
+
+versionControlInfo
+:   czy wyświetlać wartości tagów dotyczących systemu kontroli wersji? (domyślnie *false*)
+
+***
+
+Przykładowy plik konfiguracyjny, który służy do wygenerowania tego podręcznika, wygląda następująco:
+
+~~~
+[ini]
+; Opcje podstawowe
+
+title = "TypeFriendly"
+version = "0.1"
+copyright = "Invenzzia Group 2008-2009"
+copyrightLink = "http://www.invenzzia.org/"
+license = "GNU Free Documentation License 2.1"
+licenseLink = "http://www.gnu.org/licenses/fdl.html"
+projectType = "manual"
+
+; Ustawienia wyświetlania itd...
+
+outputs = "xhtml, xhtml_single"
+baseLanguage = "en"
+navigation = "book"
+showNumbers = true
+~~~

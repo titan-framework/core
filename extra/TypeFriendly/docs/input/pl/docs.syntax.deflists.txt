@@ -1,0 +1,112 @@
+Title: Listy definicji
+
+---
+
+Składnia obsługuje specjalny format list, nazywany listą definicji. Składa się na nią termin i wyjaśnienia, coś podobnego do słownika.
+
+Typowa lista definicji składa się z jednolinijkowego terminu, po którym w nowej linijce znajduje się dwukropek `:` oraz objaśnienie.
+
+~~~
+Jabłko
+:   Owoc drzewa jabłoni, z rodziny różowatych.
+
+Pomarańcza
+:   Owoc cytrusowy, zwykle o pomarańczowej skórce i włóknistym miąższu.
+~~~
+
+> Jabłko
+> :   Owoc drzewa jabłoni, z rodziny różowatych.
+> 
+> Pomarańcza
+> :   Owoc cytrusowy, zwykle o pomarańczowej skórce i włóknistym miąższu.
+
+Listy definicji mogą mieć więcej wyjaśnień do jednego terminu, lub kilka terminów do jednego objaśnienia:
+
+~~~
+Jabłko
+:   Owoc drzewa jabłoni, z rodziny różowatych.
+:   Złocista kula z krzyżem na wierzchu, jedno z insygniów władzy królewskiej i cesarskiej.
+
+Oranż
+Pomarańczowy
+:   Kolor pomiędzy żółcią i czerwienią, pochodzi od koloru owocu pomarańczy.
+~~~
+
+> Jabłko
+> :   Owoc drzewa jabłoni, z rodziny różowatych.
+> :   Złocista kula z krzyżem na wierzchu, jedno z insygniów władzy królewskiej i cesarskiej.
+> 
+> Oranż
+> Pomarańczowy
+> :   Kolor pomiędzy żółcią i czerwienią, pochodzi od koloru owocu pomarańczy.
+
+Oddzielenie definicji od terminów jedną pustą linijką zawrze je w akapity.
+
+~~~
+Jabłko
+
+:   Owoc drzewa jabłoni, z rodziny różowatych.
+
+Pomarańcza
+
+:   Owoc cytrusowy, zwykle o pomarańczowej skórce i włóknistym miąższu.
+~~~
+
+> Jabłko
+> 
+> :   Owoc drzewa jabłoni, z rodziny różowatych.
+> 
+> Pomarańcza
+> 
+> :   Owoc cytrusowy, zwykle o pomarańczowej skórce i włóknistym miąższu.
+
+Tak jak zwykłe listy porządkowe, listy definicji również mogą zawierać inne elementy blokowe: akapity, listy porządkowe, bloki kodu. Muszą być one poprzedzone czterema spacjami bądź tabulacją.
+
+~~~
+Termin 1
+
+:   To jest definicja z dwoma akapitami. Lorem ipsum 
+    dolor sit amet, consectetuer adipiscing elit. Aliquam 
+    hendrerit mi posuere lectus.
+
+    Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+    vitae, risus.
+
+:   Druga definicja dla terminu 1., również w akapicie, gdyż
+    poprzedzona jest pustą linijką.
+
+Termin 2
+
+:   Ta definicja posiada blok kodu i listę wypunktowaną.
+
+        jakiś kod
+
+    1.  element pierwszy
+    2.  element drugi
+~~~
+
+> Termin 1
+> 
+> :   To jest definicja z dwoma akapitami. Lorem ipsum 
+>     dolor sit amet, consectetuer adipiscing elit. Aliquam 
+>     hendrerit mi posuere lectus.
+> 
+>     Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+>     vitae, risus.
+> 
+> :   Druga definicja dla terminu 1., również w akapicie, gdyż
+>     poprzedzona jest pustą linijką.
+> 
+> Termin 2
+> 
+> :   Ta definicja posiada blok kodu i listę wypunktowaną.
+> 
+>         jakiś kod
+> 
+>     1.  element pierwszy
+>     2.  element drugi
+
+<!-- # -->
+
+> [warning]
+> Należy uważać na ilość spacji przed każdym elementem. 

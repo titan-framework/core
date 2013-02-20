@@ -1,0 +1,1 @@
+This action allows listing of all itens and the search for specific data. You can too sort itens by specific criteria and mark the list for monitoring.

@@ -1,0 +1,85 @@
+Title: Code blocks
+SeeAlso:
+ - docs.syntax.codespans
+
+---
+
+There are two ways of making pre-formatted code blocks. The first one is to insert four spaces or a tabulation before every line of the code:
+
+~~~
+Some paragraph here...
+
+    <?php
+    $part = "of our source code";
+    if($condition)
+    {
+        of_script('that we write');
+    }
+    ?>
+
+Some other paragraph....
+~~~
+
+Alternatively, we can insert at least three consecutive tildes `~` before and after the code block.
+
+> [important]
+> It is very important to write the same number of tildes in those two places.
+
+~~~~~~
+Some paragraph here...
+
+~~~
+<?php
+$part = "of our source code";
+of_script('that we write');
+?>
+~~~
+
+Some other paragraph.
+~~~~~~
+
+However, this method does not allow to insert a code block into information frames or lists.
+
+Syntax highlighting
+===================
+
+TypeFriendly extends the code blocks with a feature of syntax highlighting. It is produced by [GeSHi](http://qbnz.com/highlighter/). The list of supported languages is available at the library website.
+
+To turn on the syntax highlighting, we put the name of the language in square brackets: `[language]` in the line just before the code block. The language name must correspond to the language rule file in the `/vendor/geshi/geshi` directory.
+
+#### Sample use
+
+~~~~~~
+~~~
+[php]
+<?php
+$part = "of our source code";
+of_script('that we write');
+?>
+~~~
+~~~~~~
+
+#### Result
+
+~~~
+[php]
+<?php
+$part = "of our source code";
+of_script('that we write');
+?>
+~~~
+
+The additional "language" is `console`, which changes the layout of the frame with the code to look like a operating system command line (dark background, white text):
+
+    [console]
+    php typefriendly.php build "./docs/"
+
+> [important]
+> ### How to turn off the highlighting? ###
+> 
+> If a code block already contains a text enclosed in square brackets in the first line (for example, in INI files), follow it with a backslash symbol and the line will be displayed as a part of the code, not as turning on the syntax highlighting:
+> 
+>     \\[group]
+>     key = "in ini file"
+> 
+> Of course, this applies only to the first line of the code block.

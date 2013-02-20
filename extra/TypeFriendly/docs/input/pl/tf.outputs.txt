@@ -1,0 +1,61 @@
+Title: Interfejs wyjścia
+
+---
+
+TypeFriendly pozwala łatwo tworzyć własne systemy wyjścia, które będą mogły być później użyte do generowania dokumentacji. Do ich tworzenia wymagana jest pewna znajomość języka PHP.
+
+Zasada parsowania
+=================
+
+TypeFriendly rozpoczyna działanie od utworzenia obiektu projektu, za pomocą którego możliwe są wszelkie manipulacje na dokumentacji. Odczytywana jest konfiguracja, a następnie wszystkie rozdziały są przetwarzane i układane w odpowiedniej kolejności. Na końcu skrypt ładuje wszystkie wyjścia, które będa wykorzystywane i nakazuje każdemu z nich przetwarzać wstępnie obrobione wyniki.
+
+Każde wyjście zapisane jest w niezależnym pliku PHP w katalogu `outputs/`. Ma postać klasy o takiej samej nazwie, jak nazwa pliku (z pominięciem rozszerzenia) i musi rozszerzać klasę `standardOutput` definiującą trzy metody opisane niżej. Zadaniem wyjścia jest opakowanie meta-danych w kod HTML lub inny bazujący na nim format. Niestety, obecnie wykorzystywany parser Markdown nie potrafi generować kodu wynikowego w niczym innym, stąd póki co niemożliwe jest napisanie wyjścia np. do formatu LaTeX. Prace nad umożliwieniem tego zostaną podjęte w niedalekiej przyszłości.
+
+Wyjście samo musi dbać o zapisanie wyniku do odpowiednich plików - TypeFriendly nie narzuca tu żadnych ograniczeń i jedynie przekazuje katalog, w którym wszystko ma się znaleźć. Do dyspozycji programisty jest kilka interfejsów skryptu.
+
+API
+===
+
+`standardOutput`
+----------------
+
+Jest to klasa abstrakcyjna, którą musi rozszerzać i implementować klasa wyjścia. Zawiera metody:
+
++ `init($project, $path)` - wywoływana przed rozpoczęciem przetwarzania podstron. Jako parametry dostaje obiekt projektu oraz ścieżkę, do której należy zapisać pliki wynikowe.
++ `generate($page)` - wywoływana dla każdego rozdziału. Wyjście dostaje tablicę `$page` ze wszystkimi meta-danymi dotyczącymi rozdziału. Indeksy odpowiadają nazwom użytych tagów w pliku. Dodatkowe tagi opisane są niżej.
++ `close()` - wywoływana na zakończenie przetwarzania danego wyjścia.
+
+Dodatkowe tagi w meta-danych rozdziału
+
+* `Id` - identyfikator rozdziału
+* `Content` - przetworzona treść rozdziału
+* `Next` - identyfikator następnej strony dokumentacji lub NULL
+* `Prev` - identyfikator poprzedniej strony dokumentacji lub NULL
+* `Parent` - identyfikator rozdziału nadrzędnego lub NULL
+
+`tfTranslate`
+-------------
+
+Obiekt tej klasy służy do tłumaczenia interfejsu dokumentacji na różne języki.
+
++ `tfTranslate::get()` - zwraca obiekt interfejsu tłumaczeń.
++ `_($group, $id, ...)` - pobiera tekst w danym języku o identyfikatorze `$id` w grupie `$group`. Opcjonalnie można podać więcej argumentów, które zostaną umieszczone w komunikacie, o ile zawiera on odpowiednie do tego celu pola.
+
+`tfProject`
+-----------
+
+Obiekt projektu.
+
++ `$fs` - obiekt klasy `tfFilesystem` obrazujący katalog projektu.
++ `$tree` - publiczna struktura opisująca drzewo. Jako indeks podajemy identyfikator żądanego rozdziału i otrzymujemy tablicę z pełnymi danymi wszystkich zawartych w nim podstron.
++ `getMetaInfo($name[, $exception = true])` - zwraca wszystkie meta-informacje dotyczące rozdziału o nazwie `$name`. Domyślnie w przypadku nieznalezienia generowany jest wyjątek. Jeżeli ostatni argument ustawiony jest na **false**, wtedy w przypadku braku zwracana jest wartość **NULL**.
+
+`tfFilesystem`
+--------------
+
+Klasa reprezentująca system plików w obrębie podanego katalogu. Umożliwia szybką i prostą manipulację plikami oraz katalogami. W opisie przez ''system plików'' będziemy rozumieć folder, na który został ustawiony obiekt tej klasy i w obrębie którego możemy dokonywać manipulacji.
+
++ `get($name)` - zwraca rzeczywistą ścieżkę do podanego pliku w systemie plików. W razie nieznalezienia generowany jest wyjątek `SystemException`.
++ `read($name)` - zwraca zawartość podanego pliku w systemie plików. W razie nieznalezienia generowany jest wyjątek.
++ `readAsArray($name)` - jw. lecz zwraca tablicę z poszczególnymi linijkami pliku pozbawionymi końcowych białych znaków.
++ `write($name, $content)` - zapisuje podaną zawartość do podanego pliku w obrębie systemu plików.

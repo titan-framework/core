@@ -1,0 +1,15 @@
+Title: Wprowadzenie
+
+---
+
+Markdown został stworzony, by być zarówno łatwy w użyciu, jak i przyjazny w czytaniu plików źródłowych. Pliki źródłowe dokumentacji TypeFriendly mogą dzięki temu służyć za pomoc nawet bez przepuszczenia ich przez generator. Przyjęte jest założenie, że znaki formatujące powinny jak najmniej rzucać się w oczy czytelnikowi i mieć zbliżone zastosowanie do tego, jakiego już się używa np. w poczcie elektronicznej czy plikach README. Zauważyć można też podobieństwa do składni reStructuredText. Oprócz podstawowego formatowania, do użytku dopuszczony jest także HTML i modyfikacje TypeFriendly czasem z tego faktu korzystają. W kolejnych rozdziałach opisane zostały szczegółowo wszystkie elementy tego języka. 
+
+TypeFriendly korzysta z bardziej rozbudowanej składni **Markdown Extra**, której rozwojem zajmuje się [Michel Fortin](http://www.michelf.com/). 
+
+> [information]
+> TypeFriendly jako podstawę swojego parsera źródeł rozdziałów korzysta z oryginalnego parsera Michela Fortina o nazwie **PHP Markdown Extra**. Do kolejnych wydań TypeFriendly zamieszczać będziemy najaktualniejsze jego wersje.
+
+<!-- # -->
+
+> [warning]
+> Dokładna specyfikacja języka Markdown jest cały czas w trakcie opracowywania i do języka mogą dojść nowe elementy i rozwiązania. Autorzy planują zachować kompatybilność wsteczną.

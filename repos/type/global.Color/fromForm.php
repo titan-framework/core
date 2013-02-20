@@ -1,0 +1,3 @@
+<?
+return Color::validate ($value);
+?>

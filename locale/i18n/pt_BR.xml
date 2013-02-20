@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="pt_BR">
+
+	<!-- 1. General Expressions -->
+
+	<message from="Create" to="Criar" />
+	<message from="Search" to="Buscar" />
+	<message from="Filter" to="Filtrar" />
+	<message from="Cancel" to="Cancelar" />
+	<message from="Select an item" to="Selecione um item" />
+	<message from="Select..." to="Selecione..." />
+	<message from="Add" to="Adicionar" />
+	<message from="Retire" to="Retirar" />
+	<message from="Remove" to="Remover" />
+	<message from="Delete" to="Apagar" />
+	<message from="Save" to="Salvar" />
+	<message from="File" to="Arquivo" />
+	<message from="Informations" to="Informações" />
+	<message from="Wait! Working on your request..." to="Aguarde! Trabalhando em sua requisição..." />
+	<message from="Attention!" to="Atenção!" />
+	<message from="Wait..." to="Aguarde..." />
+	<message from="Loading..." to="Carregando..." />
+	<message from="Thank you!" to="Obrigado!" />
+	<message from="Description" to="Descrição" />
+	<message from="Date" to="Data" />
+	<message from="Logoff" to="Deslogar" />
+	<message from="Start Page" to="Início" />
+	<message from="Back" to="Voltar" />
+	<message from="and" to="e" />
+	<message from="Attention!" to="Atenção!" />
+	<message from="Yes" to="Sim" />
+	<message from="No" to="Não" />
+	<message from="Disable" to="Desabilitar" />
+	<message from="You" to="Você" />
+	<message from="Now" to="Agora" />
+	<message from="of" to="de" />
+	<message from="in" to="no" />
+	<message from="Alerts" to="Alertas" />
+	<message from="No alerts!" to="Nenhum alerta!" />
+	<message from="Choose Your Language" to="Selecione Seu Idioma" />
+
+	<message from="January" to="Janeiro" />
+	<message from="February" to="Fevereiro" />
+	<message from="March" to="Março" />
+	<message from="April" to="Abril" />
+	<message from="May" to="Maio" />
+	<message from="June" to="Junho" />
+	<message from="July" to="Julho" />
+	<message from="August" to="Agosto" />
+	<message from="September" to="Setembro" />
+	<message from="October" to="Outubro" />
+	<message from="November" to="Novembro" />
+	<message from="December" to="Dezembro" />
+
+	<message from="Sunday" to="Domingo" />
+	<message from="Monday" to="Segunda" />
+	<message from="Tuesday" to="Terça" />
+	<message from="Wednesday" to="Quarta" />
+	<message from="Thursday" to="Quinta" />
+	<message from="Friday" to="Sexta" />
+	<message from="Saturday" to="Sábado" />
+
+	<!-- 2. General Errors/Messages -->
+
+	<message from="Error! Data losted." to="Houve perda de variáveis!" />
+	<message from="User register" to="Casdatro de Usuário" />
+	<message from="Unable to load data!" to="Não foi possível carregar os dados!" />
+	<message from="Unable to load the data of the item!" to="Não foi possível carregar os dados do item!" />
+	<message from="Unable to delete the item!" to="Não foi possível apagar o item!" />
+	<message from="Unable to retrieve the data submitted!" to="Não foi possível recuperar os dados submetidos!" />
+	<message from="Unable to save the data submitted!" to="Não foi possível salvar os dados submetidos!" />
+	<message from="Unable to duplicate item!" to="Não foi possível duplicar o item!" />
+	<message from="Data modified with success!" to="Dados modificados com sucesso!" />
+	<message from="Data saved with success!" to="Dados salvos com sucesso!" />
+	<message from="Item deleted with success!" to="Item apagado com sucesso!" />
+	<message from="You dont have permission to access, edit or delete this item!" to="Você não possui as permissões necessárias para acessar, editar ou apagar este item!" />
+	<message from="You need save form before use this field!" to="Você precisa salvar o formulário antes de utilizar este campo!" />
+	<message from="The status has been changed!" to="A situação foi alterada!" />
+
+	<message from="Archives Linked" to="Arquivos Vinculados" />
+	<message from="Archive linked with success!" to="Arquivo vinculado com sucesso!" />
+	<message from="Archive unlinked with success!" to="Arquivo desvinculado com sucesso!" />
+	<message from="Items linked with success!" to="Itens vinculados com sucesso!" />
+
+	<!-- 3. Core -->
+
+	<!-- 3.1 Output -->
+
+	<!-- output/body.php -->
+	<message from="Welcome <b>[1]</b>" to="Bem vindo <b>[1]</b>" />
+	<message from="Group(s):" to="Grupo(s):" />
+	<message from="Welcome to <b>[1]</b> manager!" to="Bem vindo ao gestor do <b>[1]</b>!" />
+	<message from="Bug Report" to="Reportar Problema Técnico" />
+	<message from="Use bellow fields to report application erros for developer team. You can send report as anonimous user, but this is not recomended if you want feedback." to="Utilize os campos abaixo para reportar erros da aplicação. Você pode enviar os erros de forma anônima, mas isto não é recomendado." />
+	<message from="Your Name" to="Seu Nome" />
+	<message from="Your E-mail" to="Seu E-mail" />
+	<message from="Type" to="Tipo" />
+	<message from="Unspecified" to="Não especificado" />
+	<message from="Database Error" to="Erro de Banco de Dados" />
+	<message from="Login Error" to="Erro de Login" />
+	<message from="Browser" to="Navegador" />
+	<message from="Close" to="Fechar" />
+	<message from="Submit" to="Enviar" />
+	<message from="Select bellow the artifacts that you want make backup." to="Selecione abaixo os artefatos que deverão ser copiados." />
+	<message from="The space available on server is <b>~[1] MB</b>." to="O espaço disponível no servidor é de <b>~[1] MB</b>." />
+	<message from="Entire Database [~[1] MB]" to="O Banco de Dados na íntegra [~[1] MB]" />
+	<message from="All Uploaded Files [~[1] MB]" to="Arquivos enviados por upload [~[1] MB]" />
+	<message from="All Cached Files (includes auditing database) [~[1] MB]" to="Arquivos de cache (inclui o Banco de Dados de auditoria) [~[1] MB]" />
+	<message from="The links for backup download will be sent to <b>[1]</b>." to="Os links para download do backup serão enviados para <b>[1]</b>." />
+	<message
+		from="The backup process has started in background! The system can still be used normally. Depending on the size, the process may take from few seconds to several hours. When finished you will receive a e-mail with download links."
+		to="O processo de backup foi iniciado em segundo plano! O sistema pode continuar a ser utilizado normalmente. Dependendo do tamanho, o processo pode levar de alguns segundos até várias horas. Quando finalizar você receberá um e-mail com os links para download."
+	/>
+
+	<!-- output/firefox.php -->
+	<message from="Attention" to="Atenção" />
+	<message from="Navigator unfit for the system" to="Navegador impróprio para o sistema." />
+
+	<!-- output/top.php -->
+	<message from="Unable to load your register data!" to="Não foi possível carregar os seus dados cadastrais!" />
+	<message from="Unable to load your data from the server LDAP!" to="Não foi possível carregar os seus dados do servidor LDAP!" />
+	<message from="Unable to save in Database!" to="Não foi possível salvar no Banco de Dados!" />
+	<message from="Logoff successfully executed!" to="Deslogado com sucesso!" />
+	<message from="Search..." to="Pesquisar..." />
+	<message from="Language" to="Idioma" />
+	<message from="Get Help" to="Ajuda" />
+	<message from="Profile" to="Perfil" />
+	<message from="alert(s)!" to="alerta(s)!" />
+
+	<!-- output/upload.php -->
+	<message from="This type of file is not accepted by the system !" to="Este tipo de arquivo não é aceito pelo sistema !" />
+	<message from="Uploading file.&lt;br /&gt;Wait!" to="Fazendo upload do arquivo.&lt;br /&gt;Aguarde!" />
+	<message from="Send File" to="Enviar Arquivo" />
+	<message from="This type of file is not accept at this field! Files accepts are : [1]" to="Este tipo de arquivo não é aceito neste campo! Arquivos aceitos: [1]" />
+	<message from="Unable copy file to directory [ [1] ]!" to="O arquivo não pode ser copiado para a pasta [ [1] ]!" />
+	<message from="Unlink File" to="Desvincular Arquivo" />
+	<message from="Maximum file size" to="Tamanho máximo do arquivo" />
+
+	<!-- output/main.php -->
+	<message from="You browser does not support frames!" to="Seu navegador não suporta frames!" />
+
+	<!-- output/login.php -->
+	<message from="You will receive a new message with a link into your e-mail. You can register the new password with this." to="Você receberá um e-mail, no endereço cadastrado no sistema, com um link. Através deste poderá ser cadastrada uma nova senha." />
+	<message from="Recovery Password" to="Recuperar Senha" />
+	<message from="You must <abbr title=&quot;Insert your login and password and press Access.&quot;>logon</abbr> to continue." to="Você precisa efetuar <abbr title=&quot;Insira seu login e senha nos campos abaixo e pressione Acessar.&quot;>logon</abbr> para continuar." />
+	<message from="Login" to="Login" />
+	<message from="Login or e-Mail" to="Login ou e-Mail" />
+	<message from="Password" to="Senha" />
+	<message from="Access" to="Acesso" />
+	<message from="Forget your password?" to="Esqueci minha senha" />
+	<message from="<b style=&quot;color: #990000;&quot;>Important!</b> For recovery password insert your login and click in &quot;Recovery password&quot;." to="<b style=&quot;color: #990000;&quot;>Atenção!</b> Para recuperar sua senha insira seu login no campo abaixo e clique em &quot;Recuperar Senha&quot;." />
+	<message from="Important! CapsLock is active." to="Atenção! O CapsLock está ativado." />
+	<message from="I want to register..." to="Quero me cadastrar..." />
+	<message from="I'm already registered" to="Já sou cadastrado..." />
+	<message from="Authenticate documents and certificates..." to="Autenticar documentos e certificados..." />
+	<message from="Using the document's QR Code" to="Utilizando o QR Code do documento" />
+	<message from="Using document information" to="Utilizando informações do documento" />
+	<message from="Register as &quot;[1]&quot;" to="Cadastrar-se como &quot;[1]&quot;" />
+
+	<!-- output/password.php -->
+	<message from="Insert/Register Password" to="Cadastro/Recadastro de Senha" />
+	<message from="The password cannot be empty and neither contain empty spaces!" to="A senha não pode ser vazia e nem conter apenas espaços!" />
+	<message from="The password cannot be equal with your login!" to="A senha não pode ser igual ao seu login!" />
+	<message from="The both field values (&quot;New Password&quot; and &quot;Confirm Password&quot;) must be equal" to="Os valores de ambos os campos (&quot;Nova Senha&quot; e &quot;Confirmar Senha&quot;) devem ser iguais!" />
+	<message from="Password registered with success! Use the fields below to access the system." to="Senha cadastrada com sucesso! Utilize os campos abaixo para acessar o sistema." />
+	<message from="Click here" to="Clique aqui" />
+	<message from="&nbsp;to go logon page." to="&nbsp;para ir para a página de logon." />
+	<message from="Name" to="Nome" />
+	<message from="New Password" to="Nova Senha" />
+	<message from="Confirm Password" to="Confirmar Senha" />
+	<message from="Attention! Probably attack detected. Access Denied!" to="Atenção! Provável ataque detectado. Acesso negado!" />
+	<message from="Login from invalid user." to="Login de usuário inválido." />
+	<message from="Your user is inactive into the system! If you registered recently, wait for one register avaliation." to="Seu usuário está inativo no sistema! Se você tiver realizado recentemente o cadastro no sistema, aguarde pois este deve estar sob avaliação." />
+	<message from="Invalid link! Use the link &quot;Recovery Password&quot; at the logon page for receive a valid link." to="Link inválido! Utilize o link &quot;Recuperar Senha&quot; na página de logon para receber um link válido." />
+
+	<!-- output/error.php -->
+	<message from="Unknow error in system! Try again more later." to="Erro desconhecido no sistema! Tente novamente mais tarde." />
+	
+	<!-- output/alert.php -->
+	<message from="You no longer receive e-mail alert messages from&lt;br /&gt;&lt;a href=&quot;[1]&quot;&gt;[2]&lt;/a&gt;!" to="Você não irá mais receber mensagens de alerta por e-mail do&lt;br /&gt;&lt;a href=&quot;[1]&quot;&gt;[2]&lt;/a&gt;!" />
+	<message from="To change this configuration, &lt;a href=&quot;[1]&quot;&gt;log in&lt;/a&gt; to system and modify your profile." to="Para alterar esta configuração, faça &lt;a href=&quot;[1]&quot;&gt;log in&lt;/a&gt; no sistema e modifique seu perfil." />
+	<message from="Success to disable e-mail alert messages!" to="Mensagens de alerta por e-mail desabilitadas com sucesso!" />
+	
+	<!-- 3.2 Class -->
+
+	<!-- class/AjaxLogon.php -->
+	<message from="Fill correct all fields to logon!" to="Preencha corretamente todos os campos para efetuar logon!" />
+	<message from="Insert your login for recover the password!" to="Insira seu login para recuperar a senha!" />
+	<message from="This login does not register in your database or User was disabled." to="Este Login não consta em nosso Banco de Dados ou o usuário foi desabilitado." />
+	<message from="The e-mail cannot be sent. Maybe the server has problems at moment! Please, try again more later." to="Não foi possível enviar o e-mail. Talvez o servidor esteja enfrentando problemas no momento, por favor, tente novamente mais tarde." />
+	<message from="The message with the link to register the password was send for e-mail that you registered into website." to="O link para recadastramento de senha foi enviado para o e-mail que você cadastrou no site." />
+
+	<!-- class/AjaxPasswd -->
+	<message from="Invalid Password! The system cannot permit using special characters: \', &quot, \\, --, /*, */." to="Senha inválida! O sistema não permite a utilização de certas sequências de caracteres, tais como: \', &quot, \\, --, /*, */." />
+	<message from="Invalid Password! Verify if JavaScript support is active in your browser." to="Senha inválida! Verifique se o suporte a JavaScript está devidamente ativado no seu browser." />
+	<message from="Non-existent, Deleted or Inactive User!" to="'Usuário inexistente, apagado ou inativo!'" />
+	<message from="Invalid Hash! Use the link &quotRecovery Password&quot at the login page for receive a valid hash into your e-mail." to="Hash inválida! Utilize o link &quot;Recuperar Senha&quot; na página de logon para receber um hash válida em seu e-mail." />
+	<message from="Unable to change the password." to="Não foi possível modificar a senha." />
+
+	<!-- class/Archive -->
+	<message from="The property [data-path] was not found or its empty in the tag <archive></archive> from file [configure/titan.xml]!" to="Não foi encontrada a propriedade [data-path] ou ela é vazia na tag <archive></archive> do arquivo [configure/titan.xml]!" />
+	<message from="The property [xml-path] was not found in the tag <archive></archive> of file [configure/titan.xml]!" to="Não foi encontrada a propriedade [xml-path] na tag <archive></archive> do arquivo [configure/titan.xml]!" />
+	<message from="The Titan configuration file system does not exist at path [ [1] ]" to="O arquivo de configuração do Sistema de Arquivos do Titan não existe no caminho [ [1] ]" />
+
+	<!-- class/User.php -->
+	<message from="Incorrect User or Password!" to="Usuário ou senha incorreto!" />
+	<message from="This user is inactive into the system!" to="Este usuário esta inativo no sistema!" />
+	<message from="Fail in the recover the updated data!" to="Falha na recuperação dos dados atualizados!" />
+	
+	<!-- class/Manual.php -->
+	<message from="This action contains the fowlling fields" to="Esta ação contêm os seguintes campos" />
+	<message from="Menu Actions" to="Opções do Menu" />
+	<message from="Menu button" to="Botão" />
+	<message from="Action by clicking" to="Ação" />
+	<message from="Unlabed field" to="Campo sem rótulo" />
+	<message from="Tip: [1]" to="Dica: [1]" />
+	
+	<!-- class/Menu.php -->
+	<message from="Research" to="Pesquisar" />
+	
+	<!-- class/Type.php -->
+	<message from="This field contains, by default, the value &quot;**[1]**&quot;." to="Este campo contém, por padrão, o valor &quot;**[1]**&quot;." />
+	<message from="This field is, by default, **empty**." to="Este campo é, por padrão, **vazio**." />
+	<message from="This field will **update LDAP data**." to="Este campo irá **modificar dados no diretório LDAP**." />
+	<message from="This field is **read only**." to="O valor deste campo **não poderá ser alterado**." />
+	<message from="This field is **required**. You need fill value to save form." to="Este campo é **obrigatório**. Você precisará preenchê-lo para salvar o formulário." />
+	<message from="The content of this field need be **unique**." to="O valor deste campo precisa ser **único**." />
+	<message from="Is necessary a special permission to edit this field." to="É necessário possuir algumas permissões especiais para alterar o valor deste campo." />
+	
+	<!-- class/View.php -->
+	<message from="Next" to="Próximo" />
+	<message from="Previous" to="Anterior" />
+	<message from="First" to="Primeira" />
+	<message from="Last" to="Última" />
+	
+	<!-- class/UserType.php -->
+	<message from="Dont exists a valid LDAP host for this user type! Verify [configure/security.xml] if user type configuration use a valid LDAP host seted on [configure/ldap.xml]." to="Nao há um host LDAP válido setado para este tipo de usuário! Verifique o arquivo [configure/security.xml] e veja se a configuracaçao deste tipo de usuário esta utilizando um servidor LDAP válido que tenha sido configurado no arquivo [configure/ldap.xml]." />
+	
+	<!-- class/Xoad.php -->
+	<message from="Report has been send! Comming soon you will receive a feedback." to="Relatório de erros enviado! Em breve você receberá uma resposta da equipe de manutenção" />
+	
+	<!-- 3.3 System -->
+	
+	<!-- system/control.php -->
+	<message from="You has desconnected for security reasons! You user is long time inactive." to="Você foi deslogado por medidas de segurança! Seu usuário ficou ocioso no sistema por muito tempo." />
+	<message from="Query execution error: [1]" to="Erro na execuçao de query no BD: [1]" />
+
+	<!-- 4. Repository -->
+
+	<!-- 4.1 Template -->
+
+	<!-- global.search -->
+	<message from="Click here to search the items." to="Clique aqui para buscar os itens." />
+	<message from="Search Itens" to="Buscar Itens" />
+	<message from="Items Found" to="Itens Encontrados" />
+
+	<!-- global.list -->
+	<message from="Search Criteria Selected" to="Critérios de Busca Selecionados" />
+	<message from="Clean Criteria" to="Limpar Critérios" />
+	<message from="Change Criteria" to="Mudar Critérios" />
+
+	<!-- global.deleted -->
+	<message from="The item will be deleted permanently. Are you sure you want to proceed?" to="O item será apagado permanentemente. Tem certeza que deseja prosseguir?" />
+	
+	<!-- 4.2 Type -->
+	
+	<!-- global.Twitter -->
+	<message from="Original Text: [[1]] / Encrypted: [[2]]" to="Texto Original: [[1]] / Criptografado: [[2]]" />
+	
+	<!-- 4.3 Menu -->
+	<message from="You do not have permission to access the action [1]!" to="Você não possui as permissões necessárias para acessar a ação [1]!" />
+	<message from="Permission Denied" to="Permissão Negada" />
+	<message from="This functionality is inactive!" to="Esta funcionalidade está inativa!" />
+	<message from="Functionality Inactive" to="Funcionalidade Inativa" />
+	<message from="Print" to="Imprimir" />
+	<message from="Build PDF" to="Gerar PDF" />
+	<message from="Export in CSV" to="Exportar em CSV" />
+</i18n>

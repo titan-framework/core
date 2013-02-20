@@ -1,0 +1,1 @@
+Instancia uma seção de gerencia de Usuários Gestores (cadastro privado).

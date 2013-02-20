@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form table="_user" primary="_id">
+	<go-to flag="success" action="[default]" />
+	<go-to flag="fail" action="[same]" />
+	<go-to flag="cancel" action="[default]" />
+	<field type="String" column="_name" label="Nome" required="True" unique="True" help="" on-ldap-as="" />
+	<field type="String" column="_login" label="Login" required="True" unique="True" help="" on-ldap-as="" />
+	<field type="String" column="_email" label="Email" required="True" unique="True" help="" on-ldap-as="" />
+	<field type="File" column="photo" label="Foto" required="False" unique="False" help="" on-ldap-as="" />
+</form>

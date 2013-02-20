@@ -1,0 +1,45 @@
+Title: Templates
+SeeAlso:
+ - docs.tags
+
+----
+
+TypeFriendly 0.1.2 introduces the concept of content templates. The templates are extra text files with some Markdown-formatted text that can be inserted into the book chapters. They can be used to save some commonly used text parts in one place so that they can be easily modified.
+
+The templates are stored in `/input/LANGUAGE/templates/` directory as plain text files with name `templateIdentifier.txt`. They do not contain any header, just a plain Markdown-formatted content. For example, we can create a sample template `experimental.txt`:
+
+~~~
+> [warning]
+> This is an experimental feature and the implementation details may be changed in the future.
+~~~
+
+Then, we may prepend this warning to our chapter:
+
+~~~
+Title: Sample chapter
+FeatureInformation: experimental
+
+---
+
+Some text
+~~~
+
+Which will produce the following result:
+
+> Sample chapter
+> ==============
+> 
+> > [warning]
+> > This is an experimental feature and the implementation details may be changed in the future.
+>
+> Some text
+
+Currently supported features
+============================
+
+Currently, the content templates can be only prepended to the chapters with the `FeatureInformation` tag. Passing arguments to the templates is not allowed.
+
+Future extensions
+=================
+
+In the future versions, the implementation is going to be extended with the possibility of placing the templates in any part of the chapter and passing extra arguments that will improve the usability and spread the possible use of this feature. The exact date depends on the time required to create the necessary modifications to Markdown parser used in TypeFriendly.

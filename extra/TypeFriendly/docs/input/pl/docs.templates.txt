@@ -1,0 +1,45 @@
+Title: Szablony
+SeeAlso:
+ - docs.tags
+
+----
+
+TypeFriendly 0.1.2 wprowadza pojęcie szablonów treści. Szablony takie są dodatkowymi plikami tekstowymi z fragmentami tekstu sformatowanego w Markdownie, które mogą zostać doklejone do dowolnego rozdziału. Mogą być stosowane do zapisania w jednym miejscu często wykorzystywanych stałych fragmentów tekstu (np. ostrzeżeń), które można później łatwo modyfikować bez konieczności poprawiania ich z osobna w każdym rozdziale.
+
+Szablony są przechowywane w katalogu `/input/JEZYK/templates/` jako zwykłe pliki tekstowe o nazwie `identyfikatorSzablonu.txt`. Nie zawierają żadnego nagłówka, a jedynie czysty tekst sformatowany Markdownem. Przyjrzyjmy się, jak to działa w praktyce i utwórzmy szablon `experimental.txt`: 
+
+~~~
+> [warning]
+> Ta funkcjonalność ma status eksperymentalny i szczegóły jej działania mogą w przyszłości ulec zmianie.
+~~~
+
+Następnie możemy dokleić ten szablon do dowolnego rozdziału przy pomocy tagu `FeatureInformation`:
+
+~~~
+Title: Przykładowy rozdział
+FeatureInformation: experimental
+
+---
+
+Jakiś tekst
+~~~
+
+TypeFriendly wyprodukuje wtedy następujący rezultat:
+
+> Przykładowy rozdział
+> ====================
+> 
+> > [warning]
+> > Ta funkcjonalność ma status eksperymentalny i szczegóły jej działania mogą w przyszłości ulec zmianie.
+>
+> Jakiś tekst
+
+Obecnie wspierana funkcjonalność
+================================
+
+Na dzień dzisiejszy, szablony treści mogą być doklejane wyłącznie do początku rozdziału przy pomocy tagu `FeatureInformation`. Przekazywanie argumentów do szablonów nie jest obsługiwane.
+
+Przyszłe rozszerzenia
+=====================
+
+W następnych wersjach implementacja szablonów treści zostanie wzbogacona o możliwość umieszczania szablonów w dowolnym miejscu rozdziału oraz przekazywania dodatkowych argumentów. Znacznie poszerzy to zakres ich stosowania. Dokładna data wprowadzenia tych planów w życie zależy od czasu potrzebnego na odpowiednią rozbudowę parsera Markdown używanego w TypeFriendly.

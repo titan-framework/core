@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<go-to flag="success" action="[default]" />
+	<go-to flag="fail" action="[same]" />
+	<field type="Fck" column="text" id="_TEXT_" label="Texto" />
+</form>

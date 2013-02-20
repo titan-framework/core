@@ -1,0 +1,131 @@
+Title: Blockquotes and information frames
+
+---
+
+Blockquotes known from the Markdown syntax specification behave a bit differently in TypeFriendly. But to begin with, let's see, how they look like.
+
+If you saw some text e-mails, you are probably familiar with text quotes created with a chevron symbol `>` that starts every line. The same syntax has been applied to Markdown.
+
+~~~
+> This is a quote with two paragraphs. Lorem ipsum dolor sit amet,
+> consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+> Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+> 
+> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
+> id sem consectetuer libero luctus adipiscing.
+~~~
+
+> This is a quote with two paragraphs. Lorem ipsum dolor sit amet,
+> consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+> Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+> 
+> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
+> id sem consectetuer libero luctus adipiscing.
+
+You do not have to quote empty separating lines:
+
+~~~
+> This is a quote with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+
+> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.
+~~~
+
+> [warning]
+> Since the empty lines are included into a quote block, there is a problem with creating two blockquotes one after another. No matter how many empty lines you put, the two blocks will be always connected into one. Currently, an elegant solution of this problem is not known yet and for this moment we recommend to use an empty HTML comment as a separator, like `<!-- # -->` which is used in our own documentation.
+
+Blockquotes can be nested by adding more `>` characters at the beginning of a line:
+
+~~~
+> This is the first level of the quote.
+>
+> > A nested quote.
+>
+> We back to the first level.
+~~~
+
+> This is the first level of the quote.
+>
+> > A nested quote.
+>
+> We back to the first level.
+
+Blockquotes can also contain other Markdown syntax elements, such as headers, lists, code blocks etc.
+
+~~~
+> ### A header ###
+> 
+> 1.  Element 1
+> 2.  Element 2
+> 
+> Sample source code:
+> 
+>     return shell_exec('echo '.$input.' | '.$markdown_script);
+~~~
+
+> [warning]
+> Beware of the number of spaces after each element. It plays very important role in Markdown.
+
+Information frames
+==================
+
+In this manual, information frames are very common and you must have noticed them (yes, we mean those light yellow fields with an icon on the left). They are used to provide various information in a nice graphical form.
+
+The frames use the blockquote syntax. The only difference is a special tag similar to those ones used in syntax highlighting: `[type]`. It specifies the type of the frame:
+
+~~~
+> [information]
+> ### Information ###
+> 
+> This is some important information for the documentation reader.
+~~~
+
+> [information]
+> ### Information ###
+> 
+> This is some important information for the documentation reader.
+
+## Available frame types ##
+
+> [error]
+> `[error]`
+
+<!-- # -->
+
+> [help]
+> `[help]`
+
+<!-- # -->
+
+> [important]
+> `[important]`
+
+<!-- # -->
+
+> [information]
+> `[information]`
+
+<!-- # -->
+
+> [steps]
+> `[steps]`
+
+<!-- # -->
+
+> [stop]
+> `[stop]`
+
+<!-- # -->
+
+> [warning]
+> `[warning]`
+
+***
+
+> [important]
+> ### Disabling frames ###
+> 
+> If we do not want for some reason to display some text that looks like a frame tag in the first line, follow it with backslash `\`.
+> 
+>     > \[important]
+> 
+> Of course, this applies only to the first line of the quote.

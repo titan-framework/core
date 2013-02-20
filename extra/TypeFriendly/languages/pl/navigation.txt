@@ -1,0 +1,10 @@
+; $Id: navigation.txt 52 2009-07-03 08:57:01Z extremo $
+; The navigation messages
+; The translations of available programming constructs
+; Translation authors:
+; - Tomasz Jędrzejewski <http://www.zyxist.com>
+
+next = "Następny"
+prev = "Poprzedni"
+to_up = "Do góry"
+see_also = "Zobacz także"

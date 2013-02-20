@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<go-to flag="success" action="[default]" />
+	<go-to flag="fail" action="[same]" />
+	<group label="Cabeçalho">
+		<field type="File" column="image" label="Imagem" id="_IMAGE_">
+			<mime-type>image/jpeg</mime-type>
+			<mime-type>image/gif</mime-type>
+			<mime-type>image/pjpeg</mime-type>
+			<mime-type>image/png</mime-type>
+		</field>
+		<field type="String" column="header" label="Texto" id="_HEADER_" />
+	</group>
+	<group label="Solicitação">
+		<field type="String" column="request_header" label="Cabeçalho" id="_REQUEST_HEADER_" />
+		<field type="Text" column="request_content" label="Conteúdo" id="_REQUEST_CONTENT_" />
+	</group>
+	<group label="Unidade">
+		<field type="String" column="unity_header" label="Cabeçalho" id="_UNITY_HEADER_" />
+		<field type="Text" column="unity_content" label="Conteúdo" id="_UNITY_CONTENT_" />
+	</group>
+	<group label="Identificação">
+		<field type="String" column="id_header" label="Cabeçalho" id="_ID_HEADER_" />
+		<field type="Text" column="id_content" label="Conteúdo" id="_ID_CONTENT_" />
+	</group>
+	<group label="Período">
+		<field type="String" column="period_header" label="Cabeçalho" id="_PERIOD_HEADER_" />
+		<field type="Text" column="period_content" label="Conteúdo" id="_PERIOD_CONTENT_" />
+	</group>
+	<group label="Supervisor">
+		<field type="String" column="supervisor_header" label="Cabeçalho" id="_SUPERVISOR_HEADER_" />
+		<field type="Text" column="supervisor_content" label="Orientações" id="_SUPERVISOR_CONTENT_" />
+	</group>
+	<group label="Justificativa Técnica">
+		<field type="String" column="justify_header" label="Cabeçalho" id="_JUSTIFY_HEADER_" />
+		<field type="Text" column="justify_content" label="Conteúdo" id="_JUSTIFY_CONTENT_" />
+	</group>
+	<group label="Autorização da Chefia">
+		<field type="String" column="auth_header" label="Cabeçalho" id="_AUTH_HEADER_" />
+		<field type="Text" column="auth_content" label="Conteúdo" id="_AUTH_CONTENT_" />
+		<field type="Text" column="auth_assign" label="Assinatura" id="_AUTH_ASSIGN_" />
+	</group>
+	<group label="Parecer">
+		<field type="String" column="feedback_header" label="Cabeçalho" id="_FEEDBACK_HEADER_" />
+		<field type="Text" column="feedback_content" label="Conteúdo" id="_FEEDBACK_CONTENT_" />
+		<field type="Text" column="feedback_assign" label="Assinatura" id="_FEEDBACK_ASSIGN_" />
+	</group>
+	<group label="Rodapé">
+		<field type="Text" column="footer_1" label="Esquerdo" id="_FOOTER_1_" />
+		<field type="Text" column="footer_2" label="Direito" id="_FOOTER_2_" />
+	</group>
+</form>

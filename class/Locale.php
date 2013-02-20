@@ -1,0 +1,4 @@
+<?
+class Locale extends Localization
+{}
+?>

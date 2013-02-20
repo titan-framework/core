@@ -1,0 +1,94 @@
+Title: Advanced use
+
+---
+
+Markdown is very sensitive to the number of spaces used for formatting complex block elements such as ordered lists and information frames. If you still have problems with some functions, check if you have used the correct number of spaces and line breaks. A good example too see, how to write in Markdown, is TypeFriendly manual itself.
+
+Separating lists, quote and code blocks
+=======================================
+
+If we want to create for example two ordered lists or code samples one after another, we have to make some tricks. By default, Markdown will connect them into one and this behavior comes from the specification. However, an elegant solution of this problem is not known yet and for this moment we recommend to use an empty HTML comment, like `<!-- # -->` which is used in our own documentation. Any other comment may be used, too.
+
+~~~
+1.  Element 1
+2.  Element 2
+3.  Element 3
+
+<!-- # -->
+
+1.  Element 1
+2.  Element 2
+3.  Element 3
+
+> quote
+
+<!-- # -->
+
+> another quote
+~~~
+
+> 1.  Element 1
+> 2.  Element 2
+> 3.  Element 3
+
+> <!-- # -->
+
+> 1.  Element 1
+> 2.  Element 2
+> 3.  Element 3
+
+> > quote
+
+> <!-- # -->
+
+> > another quote
+
+Character escaping
+==================
+
+Sometimes we do not want Markdown to parse certain characters in our text. We can escape them in a standard way by putting a backslash symbol `\` before them. Here are some samples:
+
+    This is our paragraph \[ which contains \]() some code that would be interpreted as a link if not escaped.
+
+    ~~~
+    \[the_section]
+    of_an = "ini file"
+    ; will also not be highlighted
+    ~~~
+        
+    1410\. - a date of the Battle of Grunwald, not the ordered list beginning.
+    
+    \> this will not produce a quote, too.
+    
+> This is our paragraph \[ which contains \]() some code that would be interpreted as a link if not escaped.
+>
+> ~~~
+> \[the_section]
+> of_an = "ini file"
+> ; will also not be highlighted
+> ~~~
+>  
+> 1410\. - a date of the Battle of Grunwald, not the ordered list beginning.
+> 
+> \> this will not produce a quote, too.
+
+Of course, backslashes are removed from the output text.
+
+#### Characters that can be escaped:
+
+    \   backslash
+    `   backtick quote
+    *   asterisk
+    _   underline
+    {}  curly brackets
+    []  square brackets
+    ()  round brackets
+    >   right chevron
+    #   hash
+    +   plus
+    -   minus (pause)
+    .   dot
+    !   exclamation mark
+    ~   tilde
+    :   colon
+    |   vertical bar

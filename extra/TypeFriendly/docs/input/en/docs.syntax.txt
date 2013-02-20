@@ -1,0 +1,26 @@
+Title: File syntax
+SeeAlso:
+ - docs.tags
+
+---
+
+A sample chapter file looks like this:
+
+~~~
+Title: Some title
+Option1: Some value
+Option2: Some value
+OptionList:
+ - value 1
+ - value 2
+
+---
+
+Chapter content
+~~~
+
+In the header section, we put the tags in the way showed above. The *Title* is compulsory, but TypeFriendly recognizes much more. In fact, their list depends on the used output, because usually it's it which makes use of them. You can easily create a new output and start to use your own tags. It will be described later.
+
+The header must be separated from the content by at least three pause characters `---` surrounded with two single empty lines.
+
+The content is formatted using the ["PHP Markdown Extra"](http://michelf.com/projects/php-markdown/) syntax with some extensions and modifications. You can find it in many websites, because the parsers are simple in use and very popular, so there is a chance you already know it. However, whether you know it or not, we encourage you to take a look at our syntax description, to see what improvements have been introduced by TypeFriendly. Similar documents can be also found at the parser website mentioned above.

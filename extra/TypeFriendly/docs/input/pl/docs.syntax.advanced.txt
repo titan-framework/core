@@ -1,0 +1,96 @@
+Title: Zaawansowane użycie
+
+---
+
+W Markdownie bezwzględnie należy przestrzegać ilości spacji, których używamy do formatowania rozbudowanych, zagnieżdżonych elementów blokowych, jak powyższa listy wypunktowania z blokami kodu, czy ramki.
+
+Jeśli nadal masz problemy z prawidłowym sformatowaniem jakiegoś fragmentu tekstu, upewnij się, czy wstawiłeś odpowiednią liczbę spacji, czy dałeś przejścia do nowej linii. 
+
+Dobrą wprawką jest również kod źródłowy tej dokumentacji.
+
+Rozdzielanie list, bloków cytatu i kodu
+=======================================
+
+Może zdarzyć się sytuacja, gdy chcemy mieć np. dwie osobne listy porządkowe albo dwa przykłady kodu źródłowego bezpośrednio pod sobą. Praser Markdown połączy jednak je jednak, co wynika ze specyfikacji. Nie zostało jeszcze opracowane "ładne" rozwiązanie tego problemu i zaleca się stosowanie HTML-owego komentarza, np. w postaci `<!-- # -->` (taką stosujemy w naszej dokumentacji). Oczywiście może to być dowolny inny, prawidłowy komentarz.
+
+~~~
+1.  Element 1
+2.  Element 2
+3.  Element 3
+
+<!-- # -->
+
+1.  Element 1
+2.  Element 2
+3.  Element 3
+
+> cytat
+
+<!-- # -->
+
+> cytat
+~~~
+
+> 1.  Element 1
+> 2.  Element 2
+> 3.  Element 3
+
+> <!-- # -->
+
+> 1.  Element 1
+> 2.  Element 2
+> 3.  Element 3
+
+> > cytat
+
+> <!-- # -->
+
+> > cytat
+
+Wyłączanie formatowania
+=======================
+
+Jeśli w jakiejś sytuacji nie chcemy, aby wpisane znaki zamieniane były przez parser Markdown, można je escape'ować w powszechny w językach programowania sposób, przy użyciu backslasha `\`. Poniżej przedstawiamy kilka przykładów:
+
+    To jest nasz paragraf \[ a w nim \]() znaczniki odnośników, które nie zostaną sparsowane.
+
+    ~~~
+    \[sekcja]
+    pliku = "ini"
+    ; również nie zostanie pokolorowana
+    ~~~
+        
+    1410\. - to rok bitwy pod Grunwaldem, a nie początek listy numerowanej.
+    
+    \> również nam nie zacznie cytatu
+    
+> To jest nasz paragraf \[ a w nim \]() znaczniki odnośników, które nie zostaną sparsowane.
+> 
+>     \[sekcja]
+>     pliku = "ini"
+>     ; również nie zostanie pokolorowana
+> 
+> 1410\. - to rok bitwy pod Grunwaldem, a nie początek listy numerowanej.
+> 
+> \> również nam nie zacznie cytatu
+
+Oczywiście, backslashe są wtedy usuwane z tekstu wyjściowego.
+
+#### Lista znaków, które można escape'ować:
+
+    \   backslash
+    `   odwrócony apostrof
+    *   gwiazdka
+    _   podkreślenie
+    {}  nawiasy klamrowe
+    []  nawiasy kwadratowe
+    ()  nawiasy zwykłe
+    >   nawias kierunkowy w prawo
+    #   hash
+    +   plus
+    -   minus (pauza)
+    .   kropka
+    !   wykrzyknik
+    ~   tylda
+    :   dwukropek
+    |   kreska

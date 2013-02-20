@@ -1,0 +1,15 @@
+Title: Introduction
+
+---
+
+Markdown was designed to be both easy in use and friendly in reading the source text. The source files can be helpful even without parsing them with TypeFriendly. We assume that the formatting characters should not dominate over the content and they should look like the formatting conventions used in e-mails or README files. There are also some similarities to the reStructuredText syntax. Markdown allows to use HTML and TypeFriendly modifications sometimes make use of it. In the next chapters, you will find a description of all the syntax elements.
+
+TypeFriendly recognizes an extension to the original format, called  **Markdown Extra** and created by [Michel Fortin](http://www.michelf.com/). 
+
+> [information]
+> TypeFriendly uses the **PHP Markdown Extra** original parser written by Michel Fortin. Future releases of TF are going to include the newest versions of this parser.
+
+<!-- # -->
+
+> [warning]
+> The exact Markdown specification is currently under development. The new additions and solutions are expected to be added in the future, but the authors are going to keep the backward compatibility.

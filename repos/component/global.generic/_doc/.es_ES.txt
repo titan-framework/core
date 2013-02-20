@@ -1,0 +1,1 @@
+Se trata de una típica sección de CRUD (acrónimo de *Create, Retrieve, Update y Delete*). Esta sección le permite gestionar los datos mediante la creación de nuevos ítems y la edición, borrado y visualización de los ítems existentes.

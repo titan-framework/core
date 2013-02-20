@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form table="_user" primary="_id">
+	<go-to flag="success" action="[default]" />
+	<go-to flag="fail" action="[same]" />
+	<go-to flag="cancel" action="[default]" />
+	<field type="String" column="_name" label="Nome" required="true" help="Preencha corretamente seu nome completo." />
+	<field type="String" column="_login" label="Login" read-only="true" />
+	<field type="String" column="_email" label="E-mail" required="true" help="O e-mail do usuário é fundamental para o envio de senha e outros avisos." />
+	<field type="String" column="logradouro" label="Endereço" />
+	<field type="Integer" column="numero" label="Número" />
+	<field type="String" column="bairro" label="Bairro" />
+	<field type="String" column="complemento" label="Complemento" />
+	<field type="Cep" column="cep" label="CEP" />
+	<field type="State" column="estado" label="Estado" city-id="_user_cidade" />
+	<field type="City" column="cidade" label="Município" />
+	<field type="String" column="telefone" label="Telefone" />
+	<field type="String" column="celular" label="Celular" />
+</form>

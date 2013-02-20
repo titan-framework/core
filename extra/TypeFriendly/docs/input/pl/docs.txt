@@ -1,0 +1,23 @@
+Title: Tworzenie własnej publikacji
+
+---
+
+W tym rozdziale opiszemy, jak stworzyć swoją własną publikację.
+
+
+Ręczne tworzenie
+================
+
+W następnych rozdziałach zakładamy, że chcesz utworzyć nową publikację ręcznie. Cały proces jest dość prosty i trwa tylko kilka minut. Jeśli używasz TypeFriendly po raz pierwszy, zalecamy rozpoczęcie swej przygody właśnie od tego, aby zapoznać się z budową wersji źródłowej publikacji.
+
+Kreator nowych publikacji
+=========================
+
+Od wersji 0.1.2 TypeFriendly udostępnia kreator nowych publikacji uruchamiany z wiersza poleceń. Kreator samodzielnie tworzy całą niezbędną strukturę katalogów w podanym folderze, używając domyślnych szablonów oraz dostarczonych przez Ciebie informacji. Aby uruchomić kreator, stwórz nowy, pusty katalog i uruchom następującą komendę:
+
+~~~
+[console]
+php typefriendly.php create "/path/to/directory"
+~~~
+
+TypeFriendly zada Ci kilka pytań dotyczących nowego projektu, a następnie utworzy wszystkie wymagane pliki.

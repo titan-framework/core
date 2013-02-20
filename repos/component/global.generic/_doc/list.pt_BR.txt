@@ -1,0 +1,1 @@
+Esta ação permite a listagem de todos os itens e a busca por dados específicos. Você pode também ordenar a lista por critérios específicos e enviar a lista para o sistema de monitoramento.

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="es_ES">
+
+	<!-- list -->
+	<message from="Files to send (&lt;i&gt;upload&lt;/i&gt;)" to="Archivos que serán enviados (&lt;i&gt;upload&lt;/i&gt;)" />
+	<message from="Delete Selected" to="Borrar Seleccionados" />
+
+	<!-- js -->
+	<message from="Attention! It is necessery to insert a valid name for file!" to="¡Atención! Es necesario agregar un nombre válido para el archivo" />
+
+
+</i18n>

@@ -1,0 +1,144 @@
+#floatingBoxParentContainer
+{
+	margin: 0px 0px 0px 10px;
+}
+
+#mainContainer{
+	width:100%;
+	margin:0 auto;
+	text-align:left;
+	height:100%;		
+	padding-bottom:30px;
+}
+
+#header{	/* Header at the top of the demo */
+	/*background-image:url('titan.php?target=loadFile&file=extra/dragable-boxes/images/bg_heading.gif');
+	background-repeat:repeat-x;
+	height:99px;*/		
+}	/* Logo image */
+/*
+#header img{
+	float:left;
+}
+*/
+
+.dragableBox{	/* The RSS box */
+	
+	background-color:#FFF;
+	margin:5px;
+	border-right:2px solid #AAA;	/* "Shadow "*/
+	border-bottom:2px solid #AAA;	/* "Shadow " */
+}
+/* A div inside the rss box - with a blue border */
+.dragableBoxInner{
+	/*border:1px solid #317082;*/
+	border:1px solid #36817C;
+}
+.dragableBoxHeader{	/* Header inside RSS box */
+	background-color: #575556; /*#E2EBED;*/
+	font-size: 10px;
+	height:15px;
+	font-weight:bold;
+	color: #FFFFFF; /* #317082;*/
+	padding: 2px;
+	border-bottom: 3px solid #36817C;
+}
+.dragableBoxHeader td {
+	color: #FFFFFF;
+}
+.dragableBoxHeader span{	/* Text inside header of RSS box */
+	color: #FFFFFF;
+}
+.dragableBoxHeader img,.dragableBoxHeader span{	/* Text and reload image inside RSS box */
+	float:left;
+}
+.boxItemHeader{	/* Title of items inside dragable boxes */
+	/*font-weight:bold;*/
+	margin:0px;
+	color:#000000;
+	text-decoration:none;
+	overflow:hidden;
+}	
+.boxItemHeader:hover{	/* Title of items inside dragable boxes - mouseover*/
+	/*font-weight:bold;*/
+	margin:0px;
+	color:#990000;
+	text-decoration:underline;
+}
+.dragableBoxHeader input{	/* text inputs that gets visible when you click on the "edit" link at the top of a rss box */
+	font-size:10px;	
+}
+
+.rssNumberOfItems{	/* Number of RSS items in header - the one inside parantheses */
+	font-weight: normal;
+	color:#FFFFFF;
+}
+.dragableBoxContent{	/* DIV holding data inside dragable boxes */
+	padding:3px;
+	clear:both;
+}
+#rectangleDiv{	/* Dotted rectangle indicating where objects will be dropped */
+	border:1px dotted red;
+	margin:5px;
+}
+
+.closeButton{	/* Close button */
+	/*padding:1px;*/
+	/*border:0px solid #FFFFFF; #317082;*/
+	line-height:9px;
+	height:9px;
+	margin:2px;
+	/*color:#317082;*/
+	color: #FFFFFF;
+	padding:1px;
+	padding-bottom:2px;
+}
+.closeButton_over{	/* Close button - mouse over */
+	/*padding:2px;
+	border:0px solid #317082;
+	line-height:9px;
+	padding:2px;
+	padding-bottom:3px;
+	margin:2px;*/
+	line-height:9px;
+	height:9px;
+	margin:2px;
+	padding:1px;
+	padding-bottom:2px;
+	background-color:#FFFFFF;
+	color:#575556;
+}
+.dragableBoxStatusBar{	/* Status bar at the bottom of rss boxes */
+	display: none;
+	border-top:3px double #317082;
+	height:14px;
+	background-color:#E2EBED;
+	padding:2px;
+}
+
+.dragableBoxEditLink{	/* Edit link on top of a box */
+	/*color:#317082;*/
+	color: #FFFFFF;
+	text-decoration:none;
+	/*padding-top:1px;*/
+}
+.dragableBoxEditLink:hover{	/* Edit link - mouse over */
+	text-decoration:underline;
+}
+/*
+form{	/* No borders in forms */
+/*	display:inline;
+}*/
+#addNewFeed{	/* The white box at the top right corner where you can add a new RSS feed */
+	float:right;
+	width:300px;
+	background-color:#FFF;
+	border:2px solid #317082;
+	padding:2px;
+	margin-right:2px;
+	margin-top:2px;
+}
+
+img{
+	border:0px;
+	}

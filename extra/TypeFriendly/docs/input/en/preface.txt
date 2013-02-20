@@ -1,0 +1,17 @@
+Title: Preface
+
+---
+
+TypeFriendly is an utility tool written in PHP5 designed to generate and publish various texts in HTML formats, such as project documentations, user manuals, books and articles. It has been designed to be easy in use and it allows to achieve the first results immediately, a couple of minutes after you start the work. The script contains everything you need to write a clear, multilingual user manual or book, so that you do not have to implement the whole content generation framework from scratch.
+
+The most important features of TypeFriendly:
+
+1. Modular project structure - the output book it is generated from text files and the structure and navigation are generated from the file names.
+2. Simple syntax - the text is written in intuitive and clean Markdown syntax.
+3. Multilingual tools - TypeFriendly allows you to create your projects in many language versions. It also contains a tool that shows whether the derived languages are up-to-date.
+4. Configurable output formats - currently, TypeFriendly is able to generate the documentation in *XHTML (many pages)* and *XHTML (single page)*.
+5. Various add-ons such as syntax highlighting, references, class description fields.
+6. Navigation generators.
+7. It is portable - works under Linux, FreeBSD and Windows. All you need is the PHP interpreter available.
+
+TypeFriendly is distributed under the terms of GNU General Public License 3, which means that you can use, modify and share it for free.

@@ -1,0 +1,1 @@
+Se genera un archivo CSV (Comma-Separated Values) con los elementos mencionados. Este archivo se puede importar a Microsoft Excel u otros programas de hoja de cálculo.

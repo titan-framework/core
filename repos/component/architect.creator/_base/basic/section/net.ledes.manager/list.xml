@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search table="_user">
+	<field type="String" column="_name" label="Nome" />
+</search>
+<view table="_user" primary="_id" paginate="15">
+	<field type="String" column="_name" label="Nome" />
+	<field type="String" column="_email" label="E-mail" />
+	<field type="Phone" column="phone" label="Telefone" />
+	<field type="Phone" column="mobile" label="Celular" />
+	<icon action="view" image="view.gif" label="Visualizar Dados do Usuário" default="true" />
+	<icon action="edit" image="edit.gif" label="Editar Dados do Usuário" />
+	<icon action="delete" image="delete.gif" label="Apagar Usuário" />
+</view>

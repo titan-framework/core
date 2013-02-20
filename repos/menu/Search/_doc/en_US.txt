@@ -1,0 +1,1 @@
+Allows to filter the items shown based on user-defined criteria.

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-mapping>
+	<action
+		name="list"
+		label="Listar Mensagens"
+		default="true"
+		description="">
+		<menu function="search" />
+		<menu function="rss" />
+	</action>
+	
+	<action
+		name="reply"
+		label="Responder Mensagem"
+		description="">
+	</action>
+	
+	<action
+		name="delete"
+		label="Apagar Mensagem"
+		description="">
+	</action>
+	
+	<action
+		name="view"
+		label="Visualizar Mensagem"
+		description="">
+		<menu action="list" />
+		<menu function="print" />
+		<menu action="reply" />
+		<menu action="delete" />
+	</action>
+</action-mapping>

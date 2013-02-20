@@ -1,0 +1,58 @@
+Title: Inline HTML
+
+---
+
+If Markdown syntax lacks of some functionality we need, we still can write some parts of the chapter in pure HTML. You do not need any special syntax, etc. - just write in HTML, if you need it.
+
+The only constraint is that the HTML block tags, such as `<div>`, `<table>`, `<pre>`, `<p>` etc. must be separated with an empty line from the rest of the text and they must not be followed with spaces or tabulation. Otherwise, they would be wrapped with a paragraph. Here is a sample of a HTML table:
+
+~~~
+A paragraph
+
+<table>
+    <tr>
+        <td>Something</td>
+    </tr>
+</table>
+
+Another paragraph
+~~~
+
+Beware - in this case the Markdown syntax **is not parsed inside the tags**. You have to use for example, `<strong>` instead of `**emphasis**`.
+
+Span elements, like `<span>`, `<del>` or `<sup>` can be used everywhere. They can also replace some Markdown syntax - feel free to use `<a>` and `<img>` if you do not like the Markdown way.
+
+Markdown syntax is still enabled in the span tags.
+
+Markdown syntax in block elements
+=================================
+
+The original Markdown syntax does not allow to parse its own symbols inside block HTML tags. However, the parser has been extended with a special option which turns on the parsing on demand. You must add a special HTML attribute `markdown` whose value is `1`:
+
+~~~
+<div markdown="1">
+This *Markdown text* is still parsed! Yeah!
+</div>
+~~~
+
+#### The result:
+
+~~~
+<div>
+
+<p>This <em>Markdown text</em> is still parsed! Yeah!</p>
+
+</div>
+~~~
+
+The parser recognizes various tag types. For example, if you turn on the syntax for `<p>`, only the span elements will be formatted, and the lists or quote blocks will remain unparsed. In some cases this may lead to problems:
+
+~~~
+<table>
+<tr>
+<td markdown="1">This *Markdown text* is still parsed!</td>
+</tr>
+</table>
+~~~
+
+The table cell accepts both block and span elements, but Markdown will parse only the second ones. If you need some block elements there, use `markdown="block"` attribute instead.

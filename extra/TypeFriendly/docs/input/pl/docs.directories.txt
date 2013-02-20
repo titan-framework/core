@@ -1,0 +1,20 @@
+Title: Struktura katalogowa
+
+---
+
+Publikacja TypeFriendly musi mieć odpowiednią strukturę katalogową. Utwórz gdzieś na dysku twardym nowy, pusty folder - my oznaczymy go przez `/`, a w nim dodaj następujące podkatalogi:
+
+    /input
+        /pl
+    /output
+    /sort_hints.txt
+    /settings.ini
+
+Zasady są bardzo proste: w katalogu `/input` znajdują się podkatalogi reprezentujące poszczególne wersje językowe, a w nich umieszczamy charakterystyczne dla każdej z nich pliki tekstowe. W `/output` TypeFriendly będzie zapisywać wygenerowaną wersję HTML dokumentów, dlatego upewnij się, że nadałeś mu uprawnienia do zapisu. Bezpośrednio w głównym katalogu zapisywane są pliki z ustawieniami, w których możesz wpływać na różne aspekty publikacji. Najważniejszym z nich jest `settings.ini` zawierający ustawienia główne. `sort_hints.txt` zawiera wskazówki dotyczące kolejności rozdziałów. Dokładna budowa każdego z plików wyjaśniona jest dalej.
+
+Opcjonalnie, każdy katalog z wersją językową może zawierać dwa dodatkowe foldery: `/input/JEZYK/media` oraz `/input/JEZYK/templates` do przechowywania:
+
++ plików graficznych
++ szablonów treści
+
+Zostaną one omówione dalej.

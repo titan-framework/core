@@ -1,0 +1,3 @@
+<?
+return Slug::format ($value);
+?>

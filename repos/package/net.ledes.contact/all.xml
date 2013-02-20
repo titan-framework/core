@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form table="_contact" primary="_id">
+	<go-to flag="success" action="[same]" />
+	<go-to flag="fail" action="[same]" />
+	<field type="String" column="_actor_subject" id="_SUBJECT_" label="Assunto" read-only="true" />
+	<field type="String" column="_actor_name" label="Autor" read-only="true" />
+	<field type="String" column="_actor_email" id="_EMAIL_" label="E-mail" read-only="true" />
+	<field type="Text" column="_actor_message" id="_MSG_" label="Mensagem" read-only="true" />
+	<field type="Date" column="_send_date" label="Data de Envio" show-time="true" read-only="true" />
+	<field type="Boolean" column="_responsed" label="Respondida" read-only="true" />
+	<field type="Select" column="_responser" label="Respondida por" link-table="_user" link-column="_id" link-view="_name" read-only="true" />
+	<field type="Date" column="_response_date" label="Respondida em" show-time="true" read-only="true" />
+	<field type="Text" column="_response" id="_RESPONSE_" label="Resposta" />
+</form>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-mapping>
+	<action
+		name="list"
+		label="Listar Itens"
+		default="true"
+		description="">
+		<menu action="create" />
+		<menu action="sort" />
+		<menu function="search" />
+		<menu function="rss" />
+	</action>
+	
+	<action
+		name="create"
+		label="Criar Itens"
+		description="">
+		<menu function="save" />
+		<menu action="list" image="close.png" />
+	</action>
+	
+	<action
+		name="edit"
+		label="Editar Itens"
+		description="">
+		<menu function="save" />
+		<menu action="list" image="close.png" />
+	</action>
+	
+	<action
+		name="delete"
+		label="Apagar Itens"
+		description="">
+		<menu function="delete" image="delete.png" />
+		<menu action="list" />
+	</action>
+	
+	<action
+		name="view"
+		label="Visualizar Itens"
+		description="">
+		<menu action="list" />
+		<menu function="print" />
+		<menu action="edit" />
+		<menu action="delete" />
+	</action>
+	
+	<action
+		name="sort"
+		label="Ordenar Itens"
+		description="">
+		<menu action="list" />
+	</action>
+</action-mapping>

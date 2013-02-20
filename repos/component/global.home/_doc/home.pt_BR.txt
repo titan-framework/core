@@ -1,0 +1,1 @@
+Use esta ação para acessar seus dados pessoais no sistema, ler feeds RSS e para monitorar mudanças em outras seções do sistema.

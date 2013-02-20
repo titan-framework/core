@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type-mapping>
+	<type name="String" component="global.String" />
+	<type name="Integer" component="global.Integer" />
+	<type name="Select" component="global.Select" />
+	<type name="Boolean" component="global.Boolean" />
+	<type name="Date" component="global.Date" />
+	<type name="Time" component="global.Time" />
+	<type name="Float" component="global.Float" />
+	<type name="File" component="global.File" />
+	<type name="Amount" component="global.Amount" />
+	<type name="Cep" component="global.Cep" />
+	<type name="City" component="global.City" />
+	<type name="State" component="global.State" />
+	<type name="Cnpj" component="global.Cnpj" />
+	<type name="Cpf" component="global.Cpf" />
+	<type name="Edit" component="global.Edit" />
+	<type name="Enum" component="global.Enum" />
+	<type name="Radio" component="global.Radio" />
+	<type name="Fck" component="global.Fck" />
+	<type name="Money" component="global.Money" />
+	<type name="Password" component="global.Password" />
+	<type name="Rga" component="global.Rga" />
+	<type name="Text" component="global.Text" />
+	<type name="Collection" component="global.Collection" />
+	<type name="Multiply" component="global.Multiply" />
+	<type name="Coordinate" component="global.Coordinate" />
+	<type name="Twitter" component="global.Twitter" />
+	<type name="Slug" component="global.Slug" />
+	<type name="Color" component="global.Color" />
+	<type name="Cascade" component="global.Cascade" />
+	<type name="Passport" component="global.Passport" />
+	<type name="Login" component="global.Login" />
+	<type name="Email" component="global.Email" />
+	<type name="Document" component="global.Document" />
+	<type name="Phone" component="global.Phone" />
+	<type name="TimeZone" component="global.TimeZone" />
+	<type name="Url" component="global.Url" />
+	<type name="ShoppingGateway" component="global.ShoppingGateway" />
+</type-mapping>

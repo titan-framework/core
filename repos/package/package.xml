@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package-mapping>
+	<!-- net.ledes -->
+	<package name="net.ledes.news" component="global.generic" label="Notícias">
+		<property name="_TABLE_" default="news" label="Nome da Tabela" help="Nome da tabela no Banco de Dados. Se já houver uma tabela com o nome escolhido ela NÃO será apagada, a seção será configurada para utilizar a tabela existente." />
+	</package>
+	<package name="net.ledes.calendar" component="global.generic" label="Agenda">
+		<property name="_TABLE_" default="calendar" label="Nome da Tabela" help="Nome da tabela no Banco de Dados. Se já houver uma tabela com o nome escolhido ela NÃO será apagada, a seção será configurada para utilizar a tabela existente." />
+	</package>
+	<package name="net.ledes.contact" component="global.contact" label="Fale Conosco" />
+	<package name="net.ledes.archive" component="global.archive" label="Banco de Arquivos" />
+	<package name="net.ledes.home" component="global.home" label="Página Principal" />
+	<package name="net.ledes.link" component="global.generic" label="Links">
+		<property name="_TABLE_" default="link" label="Nome da Tabela" help="Nome da tabela no Banco de Dados. Se já houver uma tabela com o nome escolhido ela NÃO será apagada, a seção será configurada para utilizar a tabela existente." />
+	</package>
+	<package name="net.ledes.download" component="global.generic" label="Downloads">
+		<property name="_TABLE_" default="download" label="Nome da Tabela" help="Nome da tabela no Banco de Dados. Se já houver uma tabela com o nome escolhido ela NÃO será apagada, a seção será configurada para utilizar a tabela existente." />
+	</package>
+	<package name="net.ledes.about" component="global.generic" label="Institucional">
+		<property name="_TABLE_" default="about" label="Nome da Tabela" help="Nome da tabela no Banco de Dados. Se já houver uma tabela com o nome escolhido ela NÃO será apagada, a seção será configurada para utilizar a tabela existente." />
+	</package>
+	<package name="net.ledes.text" component="global.simple" label="Texto">
+		<property name="_UNIQUE_KEY_" default="_TEXT_" label="Chave Única" help="Nome da chave única. Cada instância deste pacote deve ter uma chave única, diferenciada das demais." />
+	</package>
+	<package name="net.ledes.architect" component="architect.creator" label="Titan Architect" />
+	
+	<!-- net.ledes.portal -->
+	<package name="net.ledes.portal.news" component="global.generic" label="Notícias">
+		<property name="_TABLE_" default="news" label="Nome da Tabela" help="Nome da tabela no Banco de Dados. Se já houver uma tabela com o nome escolhido ela NÃO será apagada, a seção será configurada para utilizar a tabela existente." />
+	</package>
+	<package name="net.ledes.portal.link" component="global.generic" label="Links" depends="net.ledes.portal.linkType">
+		<property name="_TABLE_" default="link" label="Nome da Tabela" help="Nome da tabela no Banco de Dados. Se já houver uma tabela com o nome escolhido ela NÃO será apagada, a seção será configurada para utilizar a tabela existente." />
+	</package>
+	<package name="net.ledes.portal.linkType" component="global.generic" label="Categorias de Links">
+		<property name="_TABLE_TYPE_" default="link_category" label="Nome da Tabela" help="Nome da tabela no Banco de Dados. Se já houver uma tabela com o nome escolhido ela NÃO será apagada, a seção será configurada para utilizar a tabela existente." />
+	</package>
+</package-mapping>

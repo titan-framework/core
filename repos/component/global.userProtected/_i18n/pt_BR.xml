@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="pt_BR">
+
+	<!-- function -->
+	<message from="Unable to recover user data from database!" to="Impossí­vel recuperar dados do usuário do Banco de Dados!" />
+	<message from="Unable to load your private data from user [1] [ [2] ]" to="Não foi possí­vel carregar os seus dados cadastrais do usuário [1] [ [2] ]" />
+	<message from="Unable to load LDAP server data to the user [1] [ [2] ]" to="Não foi possí­vel carregar os dados do servidor LDAP para o usuário [1] [ [2] ]" />
+	<message from="Unable to save the database data from LDAP server to the user [1] [ [2] ]" to="Não foi possí­vel salvar no Banco de Dados os dados do servidor LDAP para o usuário [1] [ [2] ]" />
+
+	<!-- view -->
+	<message from="Unable to load the data of the item!" to="Não foi possível carregar os dados do item!" />
+
+	<!-- graph -->
+	<message from="Filter" to="Filtro" />
+
+	<!-- edit -->
+	<message from="Unable to save the data into LDAP server!" to="Não foi possível salvar os dados no servidor LDAP!" />
+	<message from="Attention! As the type of user was modified it was released from groups of which belonged and it was bound into default group permission of the your new type." to="Atenção! Como o tipo do usuário foi modificado ele foi desvinculado dos grupos aos quais pertencia e vinculado aos grupos de permissão padrão de seu novo tipo." />
+	<message from="Unable to bind new type of default groups to the user. You should manually set the groups of new user or it will already continue with the same permissions. [ [1] ]" to="Impossível vincular grupos padrões do novo tipo ao usuário. Você deverá configurar manualmente os grupos do novo usuário ou ele continuará com as permissões que já tinha. [ [1] ]" />
+
+	<!-- delete -->
+	<message from="Unable to load the user data!" to="Não foi possível carregar dados do usuário!"/>
+	<message from="Clean" to="Apagar"/>
+	<message from="You can not delete you own user!" to="Você não pode apagar seu próprio usuário!"/>
+	<message from="Unable to delete the user data from LDAP server!" to="Não foi possível apagar o usuário do servidor LDAP!"/>
+	<message from="Unable to delete the user!" to="Não foi possível apagar o usuário!"/>
+	<message from="User deleted with success!" to="Usuário apagado com sucesso!"/>
+
+	<!-- create  -->
+	<message from="User registered with success!" to="Usuário cadastrado com sucesso!"/>
+	<message from="A link to register the password was sent to the e-mail of the new user." to="Um link para cadastro de senha foi enviado para o e-mail do novo usuário."/>
+	<message from="Unable to send the e-mail with the link to register a password. This link can be obtained through the option &quot;Forgogot my password&quot;, at logon page." to="Não foi possível enviar o e-mail com o link para cadastro de senha. Este link poderá ser obtido através da opção &quot;Esqueci minha senha&quot;, na página de logon."/>
+	<message from="Unable to bind initial groups to the user. You should manually set the groups of the new user. [ [1] ]" to="Impossível vincular grupos iniciais ao usuário. Você deverá configurar manualmente os grupos do novo usuário. [ [1] ]"/>
+	
+	<!-- register -->
+	<message from="You must correctly enter the string image of the end of the form on the indicated field. Try again!" to="Você deve inserir corretamente a sequência de caracteres da imagem do fim do formulário no campo indicado. Tente novamente!" />
+	<message from="To proceed, enter the characters of image into the field below" to="Para prosseguir, digite corretamente os caracteres da imagem no campo abaixo" />
+	<message from="Proceed Register" to="Efetuar Cadastro" />
+
+	<!-- _ajax -->
+	<message from="Sequences of characters [[1]] may not be used in the password!" to="As sequências de caracteres [[1]] não podem ser utilizadas na senha!" />
+	<message from="The current password you entered is incorrect!" to="A senha atual digitada esta incorreta!" />
+	<message from="It was not possible to change the password." to="Não foi possível modificar a senha." />
+	<message from="Password successfully changed." to="Senha modificada com sucesso." />
+</i18n>

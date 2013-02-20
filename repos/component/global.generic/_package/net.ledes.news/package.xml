@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package
+	label="Notícias">
+	
+	<property
+		name="_TABLE_" 
+		default="cms.news" 
+		label="Nome da Tabela" 
+		help="Nome da tabela no Banco de Dados precedida pelo esquema. Se já houver uma tabela com o nome escolhido ela NÃO será apagada ou sobreescrita, a seção será configurada para utilizar a tabela existente."
+	/>
+</package>

@@ -1,0 +1,81 @@
+Title: Multilingual books
+
+---
+
+This chapter describes, how to use multilingual tools available in TypeFriendly.
+
+TypeFriendly assumes that one language works as a primary (base) language which is used to create the original text. The other languages are the translations (called derived languages). We set the primary language in the project configuration, using the **baseLanguage** option. Each language has a two-letter code, for example **en**, **de**, **pl**.
+
+Translating chapters
+====================
+
+In order to create a translation of our book, we create a folder in the `/input` directory whose name is the language code. Then we simply save there the translated versions of the original chapters. Note that the translated book must have the same structure, as the original one and you are not allowed to add extra chapters to it (they will be simply ignored). Below, you can find a correct chapter structure:
+
+~~~
+/input/en/  (our primary language)
+preface.txt
+chapter1.txt
+chapter1.subchapter1.txt
+chapter1.subchapter2.txt
+chapter2.txt
+chapter2.subchapter1.txt
+chapter2.subchapter2.txt
+
+/input/de/  (our translation to German)
+preface.txt
+chapter1.txt
+chapter1.subchapter1.txt
+chapter1.subchapter2.txt
+chapter2.txt
+chapter2.subchapter1.txt
+chapter2.subchapter2.txt
+~~~
+
+The chapter identifiers in all the translations must be the same, as in the original book. There is no possibility to translate them, too.
+
+You do not have to translate all the chapters at once. If TypeFriendly notices that the chapter is not translated, it uses the original content instead. Below, you can see an unfinished translation of the same book to French:
+
+~~~
+/input/fr/
+preface.txt
+chapter1.txt
+chapter1.subchapter1.txt
+chapter2.txt
+~~~
+
+In this case, the contents of `chapter1.subchapter2.txt`, `chapter2.subchapter1.txt` and `chapter2.subchapter2.txt` is taken from the primary language directory, that is `/input/en/`. This allows the maintainers of the primary language to introduce the new contents to the book that will be immediately visible in the translations and their maintainers may translate them later.
+
+Translating the media files
+===========================
+
+Each language version of the book contains its own `/media` directory with the graphics etc. Similarly to the chapters, TypeFriendly takes the missing images to the translation from the primary language `/media` directory.
+
+Translating the content templates
+=================================
+
+Each language version of the book contains its own `/templates` directory with the content template files. Similarly to the chapters, TypeFriendly takes the missing templates to the translation from the primary language `/templates` directory.
+
+Translating the book interface
+==============================
+
+TypeFriendly also translates the book navigation messages, such as "Table of contents". The texts assigned to the messages are defined in the global `/languages` directory. The subdirectories represent each language currently available. The message is a part of a group and has its own unique ID used to find it. The groups are located in separate files that look like this:
+
+~~~
+[ini]
+; a comment
+
+identifier1 = "Text 1"
+identifier2 = "Text 2"
+identifier3 = "Text 3"
+; etc.
+~~~
+
+To translate the book interface, create a new directory in `/languages` using the language code as the name, take the files from one of existing languages and simply replace the message texts. Remember - if one of the messages required by the book is missing, TypeFriendly tries to load it from the base language selected for the book. The exception is generated, if the message is missing there, too.
+
+Currently, TypeFriendly provides the translated messages for three languages:
+
++ English
++ Polish
++ Slovak
+
+If you created a new translation, we would be grateful for sending it so that we could include it to the official TypeFriendly distribution and allow the rest of the world to use it.

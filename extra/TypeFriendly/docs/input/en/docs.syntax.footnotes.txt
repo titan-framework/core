@@ -1,0 +1,52 @@
+Title: Footnotes
+
+---
+
+Footnotes work like the link references. They consist of two elements: the superscripted link in the text and the footnote definition at the end of the document.
+
+~~~
+This is a text with a footnote[^1].
+
+[^1]: This is a footnote.
+~~~
+
+> This is a text with a footnote[^1].
+
+[^1]: This is a footnote.
+
+The footnote definitions can be located in any place, but they will be always displayed at the end of the document in the order they have been specified.
+
+
+> [important]
+> It is not possible to create two references to the same note. If you do this, the next notes will not be replaced.
+
+Each footnote must have an unique name. It doesn't have to be a number - it can be also a text label.
+
+> [important]
+> The footnote name is used in the addresses and **it does not influence** the footnotes in the text.
+
+The footnote name must be a valid value of an `ID` attribute in HTML.
+
+> [information]
+> TypeFriendly includes a chapter name to the footnote names.
+
+Footnotes accept block elements, like paragraphs, lists, code blocks etc. All we need is to follow them with four spaces or a tabulation:
+
+~~~
+This is a text with a footnote[^1].
+
+[^1]: This is a footnote.
+
+    Another paragraph of the footnote.
+~~~
+
+Markdown allows the first line to remain empty:
+
+~~~
+This is a text with a footnote[^1].
+
+[^1]: 
+    This is a footnote.
+
+    Another paragraph of the footnote.
+~~~

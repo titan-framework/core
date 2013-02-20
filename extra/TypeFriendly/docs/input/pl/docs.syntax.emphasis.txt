@@ -1,0 +1,49 @@
+Title: Wyróżnienia
+
+---
+
+Markdown do pogrubiania i pochylania tekstu wykorzystuje znaki gwiazdki `*` oraz podkreślenia `_` przed i po fragmencie, który chcemy sformatować. Fragment tekstu otoczony jednym znakiem `*` lub `_` zostanie pochylony HTML-owym znacznikiem `<em>`. Podwójne użycie tych znaków wstawi znacznik `<strong>` i pogrubi tekst.
+
+~~~
+*pojedyncze gwiazdki*  
+_pojedyncze podkreślenia_
+
+**podwójne gwiazdki**  
+__podwójne podkreślenia__
+~~~
+
+> *pojedyncze gwiazdki*  
+> _pojedyncze podkreślenia_
+> 
+> **podwójne gwiazdki**  
+> __podwójne podkreślenia__
+
+Możesz użyć którego znaku chcesz, jednym wymogiem jest użycie tego samego znaku do otworzenia i zamknięcia wyróżnienia.
+
+Jeśli chcesz, aby fragment był i pogrubiony, i pochylony, użyj trzech znaków.
+
+    ***potrójne gwiazdki***
+    
+> ***potrójne gwiazdki***
+
+Wyróżnienia możesz użyć również wewnątrz słowa:
+
+    Litwo*Ojczyzno*Moja
+    
+> Litwo*Ojczyzno*Moja
+
+<!-- # -->
+
+> [help]
+> Powyższa reguła stosuje się jedynie do gwiazdek. Znaki podkreślenia wyróżnią tekst tylko jeśli odnoszą się do całego słowa, możesz więc bez obaw pisać:
+> 
+>     Użyj funkcji mysql_escape_string
+    
+Jeśli otoczysz _ lub * przez pojedyncze spacje, tekst nie zostanie sformatowany, a znaki potraktowane po prostu jak gwiazdki lub podkreślenia.
+
+> [information]
+> Gdy nie chcesz, by wstawione _ lub * przed i po fragmencie zostały potraktowane jako wyróżnienie, wystarczy poprzedzić je znakiem backslashu `\`:
+> 
+>     \*ten tekst jest otoczony zwykłymi gwiazdkami\*
+>     
+> > \*ten tekst jest otoczony zwykłymi gwiazdkami\*

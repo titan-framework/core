@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form table="cms.[_TABLE_]" primary="id">
+	<go-to flag="success" action="[default]" />
+	<go-to flag="fail" action="[same]" />
+	<field type="String" column="title" label="Título" required="true" max-lenght="256" help="Título da página." />
+	<field type="String" column="language" label="Idioma" required="true" max-lenght="256" help="Idioma do site." />
+	<field type="String" column="url" label="URL" value="http://" required="true" max-lenght="256" help="URL do site." />
+	<field type="Fck" column="text" label="Descrição" help="Texto do item." />
+	<field type="Select" column="category" label="Categoria" link-table="link_tipo" link-column="id" link-view="title" />
+</form>

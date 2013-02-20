@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteRule ^password\/([^\/]+)\/([0-9a-zA-Z_\-]+)\/?$ titan.php?target=redirect&url=titan.php?target=remakePasswd\%26login=$1\%26hash=$2 [QSA,L]
+RewriteRule ^alert\/([^\/]+)\/([0-9a-zA-Z_\-]+)\/?$ titan.php?target=redirect&url=titan.php?target=disableAlerts\%26login=$1\%26hash=$2 [QSA,L]
+RewriteRule ^go\/([a-zA-Z0-9_\-\.]+)\/?([a-zA-Z0-9_\-\.]*)\/?([0-9]*)\/?$ titan.php?target=redirect&url=titan.php?toSection=$1\%26toAction=$2\%26itemId=$3 [QSA,L]
+RewriteRule ^download\/([0-9]+)\/?$ titan.php?target=openFile&fileId=$1 [QSA,L]
+RewriteRule ^photo\/([0-9]+)_([0-9]+)x([0-9]+).jpg$ titan.php?target=openFile&fileId=$1&width=$2&height=$3 [QSA,L]
+RewriteRule ^thumb\/([0-9]+)_([0-9]+)x([0-9]+).jpg$ titan.php?target=viewThumb&fileId=$1&width=$2&height=$3 [QSA,L]
+RewriteRule ^rss\/([a-zA-Z0-9_\-\.]+)\/?$ titan.php?target=rss&toSection=$1 [QSA,L]

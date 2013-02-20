@@ -1,0 +1,79 @@
+Title: Nagłówki
+
+---
+
+Markdown obsługuje dwa systemy wstawiania nagłówków: **Setext** oraz **atx**. Tak jak akapity, są one elementami blokowymi, co znaczy, że do oddzielenia od innych elementów blokowych (listy, akapity, bloki kodu) stosuje się co najmniej jedną pustą linijkę.
+
+Notacja Setext
+--------------
+
+W notacji Setext, nagłówki zostają "optycznie" podkreślone znakami równości `=` (nagłówek pierwszego rzędu) lub pauz `-` (nagłówek drugiego rzędu).
+
+~~~
+Nagłówek 1
+==========
+
+Nagłówek 2
+----------
+~~~
+
+Ilość znaków `=` lub `-` nie ma znaczenia, może służyć jedynie celom estetycznym.
+
+Notacja atx
+-----------
+
+Druga metoda pozwala wstawić nagłówki wszystkich rzędów, przy użyciu od jednego do sześciu znaków krzyżyka (hashu) `#` przed treścią nagłówka.
+
+~~~
+# nagłówek 1
+
+## nagłówek 2
+
+##### nagłówek 5
+~~~
+
+Dopuszczalne jest też zamknięcie nagłówka tymi samymi znakami. Służy to jedynie celom estetycznym, a ilość znaków po nagłówku nie musi się zgadzać z ilością przed nagłówkiem.
+
+~~~
+# nagłówek 1 #
+
+## nagłówek 2 ####
+
+##### nagłówek 5 #
+~~~
+
+> [important]
+>
+> W stosunku do oryginalnego parsera Markdowna, w TypeFriendly poczynione zostały zmiany, które obniżają w generowanym wyjściu XHTML poziom nagłówka o jeden. Ma to związek z tym, że tytuł artykułu jest zawsze najważniejszy, i to on zyskuje znacznik `<h1>`. Wpisany w kod nagłówek pierwszego rzędu zostanie zamieniony na nagłowek drugiego rzędu, drugiego na trzeciego itd. Oznacza to, że choć Markdown (i HTML) udostępnia 6 poziomów nagłówków, to w TypeFriendly dostępnych jest ich 5.
+
+Przykładowe nagłówki:
+
+> # Nagłówek 1
+> 
+> ## Nagłówek 2
+> 
+> ### Nagłówek 3
+>
+> #### Nagłówek 4
+> 
+> ##### Nagłówek 5 
+
+Kotwice w nagłówkach {#headers_anchors}
+====================
+
+Nagłówki umożliwiają stworzenie kotwic, dzięki który będzie można [odnieść się][docs.syntax.links#links_anchors] z innych części dokumentacji do wybranego fragmentu rozdziału.
+
+Znacznik wygląda następująco: `{#kotwica}`. Umieszcza się go po tekście nagłówka w notacji setext lub na końcu linijki w notacji atx.
+
+~~~
+Nagłówek {#kotwica}
+========
+
+### Nagłówek ### {#kotwica}
+
+##### Nagłówek {#kotwica}
+~~~
+
+> [important]
+>
+> Aby identyfikatory nagłówków były unikalne w obrębie dokumentacji, TypeFriendly dodaje do nich prefiks: `h:id_rodziału:`, dlatego odwołanie się bezpośrednio do kotwicy w linku: `[odnośnik](#kotwica)` nie zadziała.

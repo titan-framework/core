@@ -1,0 +1,26 @@
+Title: Składnia pliku
+SeeAlso:
+ - docs.tags
+
+---
+
+Przykładowy plik rozdziału wygląda następująco:
+
+~~~
+Title: Tytuł
+Opcja1: Wartość
+Opcja2: Wartość
+ListaUstawień:
+ - Wartość 1
+ - Wartość 2
+
+---
+
+Treść rozdziału
+~~~
+
+W ustawieniach umieszczamy kolejne znaczniki w sposób pokazany powyżej. Obowiązkowy jest *Title*, ale jest też kilka innych. Właściwie ich lista zależy bardziej od tego, w jakim formacie wyjściowym będziemy generować dokumentację. Można bardzo łatwo opracować własny i zacząć używać tam nowe znaczniki - zostanie to omówione dalej.
+
+Treść nagłówka od właściwej treści rozdziału rozdzielamy co najmniej trzema pauzami `---` otoczonymi pojedynczymi pustymi linijkami.
+
+Do formatowania treści rozdziału używana jest składnia ["PHP Markdown Extra"](http://michelf.com/projects/php-markdown/) z paroma rozszerzeniami i modyfikacjami. Spotkać się z nią można na wielu stronach internetowych, ponieważ parsery są publicznie dostępne, stąd istnieje szansa, że już ją znasz. Gdyby jednak nie, odwiedź stronę jednego z parserów (np. tę podaną powyżej), by dowiedzieć się więcej. W następnych rozdziałach szczegółowo została opisana składnia tego języka oraz wyszczególnione zostały drobne modyfikacje zastosowane w TypeFriendly.

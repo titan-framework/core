@@ -1,0 +1,1 @@
+This is a typical CRUD section (acronym for Create, Retrieve, Update and Delete). This section allows you to manage data by creation of new itens and editing, deleting and viewing of existing itens.

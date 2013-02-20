@@ -1,0 +1,49 @@
+Title: Emphasis
+
+---
+
+Markdown uses the asterisks and underlines wrapped around the text to make it bold or italic. The emphasis style depends on the number of symbol. Single asterisk or underline wrapped around the text produces an italic font, and double produces bold one.
+
+~~~
+*single asterisks*  
+_single underlines_
+
+**double asterisks**  
+__double underlines__
+~~~
+
+> *single asterisks*  
+> _single underlines_
+> 
+> **double asterisks**  
+> __double underlines__
+
+It does not matter, which symbol you are going to use. You must only use the same symbol to open and close the emphasized part.
+
+To make a text that is both bold and italic, use three symbols:
+
+    ***triple asterisks***
+    
+> ***triple asterisks***
+
+The emphasis may be used inside a word:
+
+    Lorem*Ipsum*Dolor
+    
+> Lorem*Ipsum*Dolor
+
+<!-- # -->
+
+> [help]
+> The rule above applies only to asterisks. The underline characters can be wrapped only around a whole word or sentence. Feel safe to write something like this:
+> 
+>     use mysql_escape_string function
+    
+If you surround _ or * with single spaces, the text will not be formatted, and those characters will be simply displayed in the output.
+
+> [information]
+> You can escape the emphasis symbols with `\`, if you do not want to parse them:
+> 
+>     \*this text is surrounded with asterisks\*
+>     
+> > \*this text is surrounded with asterisks\*

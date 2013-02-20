@@ -1,0 +1,52 @@
+Title: Tables
+
+---
+
+It is possible to add tables to text in Markdown. A simple table looks like this:
+
+~~~
+First header | Second header
+-------------| -------------
+Cell content | Cell content
+Cell content | Cell content
+~~~
+
+> First header | Second header
+> -------------| -------------
+> Cell content | Cell content
+> Cell content | Cell content
+
+The first line contains table headers. The second one are lines (`----`) that separate the headers from the table rows. The columns are separated with a vertical bar `|`.
+
+Optionally, you may also add the vertical bars before and after each table line:
+
+~~~
+| First header | Second header |
+|--------------| --------------|
+| Cell content | Cell content  |
+| Cell content | Cell content  |
+~~~
+
+The only content available in table cells are the inline elements, such as emphasis, links, images and code spans.
+
+Align to left or right side
+---------------------------
+
+In tables it is possible to specify content alignment for each column. It is done by using colon `:` on the left, right or both sides of lines separating headers and content in columns. In the below example we optically aligned text in rows but it is not necessary.
+
+~~~
+| Header   | Header  | Header   | Header   |
+| -------- |:------- | --------:|:--------:|
+| Default  | To left | To right |    And   |
+| position | side    |     side | centered |
+~~~
+
+> | Header   | Header  | Header   | Header   |
+> | -------- |:------- | --------:|:--------:|
+> | Default  | To left | To right |    And   |
+> | position | side    |     side | centered |
+
+<!-- # -->
+
+> [information]
+> Default CSS of the output (**xhtml** and **xhtml_single**) automatically makes cells centered.

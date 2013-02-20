@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form table="_group" primary="_id">
+	<go-to flag="success" action="[default]" />
+	<go-to flag="fail" action="[same]" />
+	<field type="String" column="_name" label="Nome" required="true" max-length="32" help="Nome do Grupo de Usuários." />
+	<field type="String" column="_description" label="Descrição" help="Uma breve descrição sobre o grupo e sua função." />
+	<field type="Boolean" column="_admin" label="Administrador" restrict="SET_ADMIN" help="Se esta opção for marcada os usuários deste grupo sempre terão acesso às alguma seções especiais de configuração da aplicação." />
+	<field type="Boolean" column="_chat" label="Sala do Chat" help="Esta opção faz com que sempre seja criada uma sala no chat para os usuários deste grupo (e apenas para eles)." />
+</form>

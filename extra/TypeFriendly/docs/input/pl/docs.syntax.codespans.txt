@@ -1,0 +1,42 @@
+Title: Wstawki kodu
+SeeAlso:
+ - docs.syntax.codeblocks
+ 
+---
+
+W tej dokumentacji już pewnie kilkakrotnie widziałeś `tekst o stałej szerokości na żółtym tle` wstawiony bezpośrednio do akapitu. Tworzy się go wykorzystując znak odwróconego apostrofu  `` ` `` przed i po fragmencie, który chcemy sformatować. 
+
+    Użyj funkcji `print()` by wyświetlić tekst.
+    
+> Użyj funkcji `print()` by wyświetlić tekst.
+
+Jeśli we wstawianym tekście także występują odwrócone apostrofy, do włączenia formatowania można użyć podwojonego odwróconego apostrofu.
+
+    ``Ten tekst zawiera odwrócony apostrof (`) w środku``
+    
+> `` Ten tekst zawiera odwrócony apostrof (`) w środku ``
+
+Jeśli odwrócony apostrof znajduje się na początku lub końcu kodu, wystarczy oddzielić go spacją.
+
+~~~
+Pojedynczy odwrócony apostrof: `` ` ``
+
+Ciąg tekstu otoczony odwróconymi apostrofami: `` `coś` ``
+~~~
+
+> Pojedynczy odwrócony apostrof: `` ` ``
+> 
+> Ciąg tekstu otoczony odwróconymi apostrofami: `` `coś` ``
+
+<!-- # -->
+
+> [information]
+> Umieszczone we wstawce znaki `<`, `>` oraz `&` automatycznie zamieniane są na encje, a znaczniki HTML w nich nie są przetwarzane. 
+>
+> ##### Wpisanie:
+> 
+>     Nigdy nie używaj znacznika `<blink>`.
+>
+> ##### Da nam:
+> 
+> > Nigdy nie używaj znacznika `<blink>`.

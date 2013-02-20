@@ -1,0 +1,5 @@
+Title: TypeFriendly
+
+---
+
+This chapter describes various aspects of TypeFriendly itself.

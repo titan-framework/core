@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="es_ES">
+
+	<!-- 1. General Expressions -->
+
+	<message from="Create" to="Crear" />
+	<message from="Search" to="Buscar" />
+	<message from="Cancel" to="Cancelar" />
+	<message from="Select an item" to="Seleccione un elemento" />
+	<message from="Add" to="Agregar" />
+	<message from="Retire" to="Abandonar" />
+	<message from="Remove" to="Quitar" />
+	<message from="Save" to="Guardar" />
+	<message from="File" to="Archivo" />
+	<message from="Informations" to="Informaciones" />
+	<message from="Wait! Working on your request..." to="¡Espere! Trabajando en su petición..." />
+	<message from="Attention!" to="¡Atención!" />
+	<message from="Wait..." to="Espere..." />
+	<message from="Loading..." to="Cargando..." />
+	<message from="Description" to="Descripción" />
+	<message from="Date" to="Fecha" />
+	<message from="Logoff" to="Cerrar sesión" />
+	<message from="Back" to="Volver" />
+	<message from="and" to="y" />
+	<message from="Attention!" to="¡Atención!" />
+	<message from="Yes" to="Sí" />
+	<message from="No" to="No" />
+	<message from="Disable" to="Inhabilitar" />
+	<message from="You" to="Usted" />
+	<message from="Now" to="Ahora" />
+	<message from="of" to="de" />
+	<message from="Alerts" to="Alertas" />
+	<message from="No alerts!" to="No hay alertas!" />
+	<message from="Choose Your Language" to="Elija Su Idioma" />
+
+	<message from="January"to="Enero" />
+	<message from="February" to="Febrero" />
+	<message from="March" to="Marzo" />
+	<message from="April" to="Abril" />
+	<message from="May" to="Mayo" />
+	<message from="June"to="Junio" />
+	<message from="July"to="Julio" />
+	<message from="August" to="Agosto" />
+	<message from="September" to="Septiembre" />
+	<message from="October"to="Octubre" />
+	<message from="November" to="Noviembre" />
+	<message from="December" to="Diciembre" />
+
+	<message from="Sunday" to="Domingo" />
+	<message from="Monday" to="Lunes" />
+	<message from="Tuesday"to="Martes"/>
+	<message from="Wednesday" to="Miércoles" />
+	<message from="Thursday" to="Jueves" />
+	<message from="Friday" to="Viernes"/>
+	<message from="Saturday" to="Sábado" />
+
+	<!-- 2. General Errors -->
+
+	<message from="Error! Data losted." to="¡Error! Datos perdidos." />
+	<message from="User register" to="Registro de Usuario" />
+	<message from="Unable to load data!" to="¡No se pudo cargar los datos!" />
+	<message from="Unable to load the data of the item!" to="!No se pudo cargar los datos del elemento!" />
+	<message from="Unable to delete the item!" to="¡No se pudo borrar el elemento!" />
+	<message from="Unable to retrieve the data submitted!" to="¡No se pudo recuperar los datos sometidos!" />
+	<message from="Unable to save the data submitted!" to="¡No se pudo guardar los datos sometidos!" />
+	<message from="Data modified with success!" to="¡Datos modificados con éxito!" />
+	<message from="Data saved with success!" to="¡Datos guardados con éxito!" />
+	<message from="Item deleted with success!" to="¡Elemento borrado con éxito!" />
+
+	<message from="Archives Linked" to="Archivos Vinculados" />
+	<message from="Archive linked with success!" to="Archivo vinculado con éxito" />
+	<message from="Archive unlinked with success!" to="¡Archivo desvinculado con éxito!" />
+	<message from="Items linked with success!" to="!Elementos vinculados con éxito!" />
+
+	<!-- 3. Core -->
+
+	<!-- 3.1 Output -->
+
+	<!-- output/body.php -->
+	<message from="Welcome <b>[1]</b>" to="Bienvenido <b>[1]</b>" />
+	<message from="Group(s):" to="Grupo(s):" />
+	<message from="Welcome to <b>[1]</b> manager!" to="¡Bienvenido al gestor del <b>[1]</b>!" />
+	<message from="Bug Report" to="Informar Problema Técnico" />
+	<message from="Use bellow fields to report application erros for developer team. You can send report as anonimous user, but this is not recomended if you want feedback." to="Utilice los campos abajo para reportar errores de la aplicación. Se puede reportar los errores de forma anónima, pero no se recomienda este procedimiento." />
+	<message from="Your Name" to="Su nombre" />
+	<message from="Your E-mail" to="Su e-mail" />
+	<message from="Type" to="Tipo" />
+	<message from="Unspecified" to="No especificado" />
+	<message from="Database Error" to="Error de Banco de Datos" />
+	<message from="Login Error" to="Error de Conexión" />
+	<message from="Browser" to="Navegador" />
+	<message from="Close" to="Cerrar" />
+	<message from="Submit" to="Enviar" />
+
+	<!-- output/firefox.php -->
+	<message from="Attention" to="Atención" />
+	<message from="Navigator unfit for the system" to="Navegador impropio para el sistema" />
+	<message
+		from="The system <b>[1]</b> was created using <a href=&quot;http://www.ledes.net/titan/&quot;>Titan Framework</a> that, at moment, only support free and open source browser <a href=&quot;http://www.getfirefox.com/&quot;>Mozilla Firefox</a>. For contine using this manager system you has the following options:"
+		to="O sistema <b>[1]</b> foi criado com o uso do <a href=&quot;http://www.ledes.net/titan/&quot;>Titan Framework</a> que, até o momento, oferece suporte apenas ao navegador livre e de código aberto <a href=&quot;http://www.getfirefox.com/&quot;>Mozilla Firefox</a>. Para continuar utilizando este sistema de gestão você tem as seguintes opções:"
+	/>
+	<message
+		from="If you have been installed the <a href=&quot;http://www.getfirefox.com/&quot;>Mozilla Firefox</a> in your computer, use it for access the system <b>[1]</b>"
+		to="Si ya tiene instalado el <ahref=&quot http://www.getfirefox.com/&quot>Mozilla Firefox</a>, utilícelo para acceder el sistema <b>[1]</b>"
+	/>
+	<message
+		from="If do not have the <a href=&quot;http://www.getfirefox.com/&quot;>Mozilla Firefox</a> installed in your system, you can download it and install. For this, click at image below"
+		to="Si no lo tiene instalado en su sistema, usted puede bajar este excelente navegador e instalarlo en su computadora. Haga clic en la imagen abajo"
+	/>
+
+	<!-- output/top.php -->
+	<message from="Unable to load your register data!" to="¡No se pudo cargar sus datos de registro!" />
+	<message from="Unable to load your data from the server LDAP!" to="!No se pudo cargar sus datos del servidor LDAP!" />
+	<message from="Unable to save in Database!" to="¡No se pudo guardar en el Banco de Datos!" />
+	<message from="Logoff successfully executed!" to="¡Sesión cerrada con éxito!" />
+	<message from="Search..." to="Pesquisar..." />
+
+	<!-- output/upload.php -->
+	<message from="This type of file is not accepted by the system !" to="¡El sistema no acepta este tipo de archivo!" />
+	<message from="Uploading file.&lt;br /&gt;Wait!" to="Cargando el Archivo.&It br /&gt Espere!" />
+	<message from="Send File" to="Enviar archivo" />
+	<message from="This type of file is not accept at this field! Files accepts are : [1]" to="Este tipo de archivo no se acepta en este campo! Archivos aceptados: [1]" />
+	<message from="Unable copy file to directory [ [1] ]!" to="El archivo no puede ser copiado para la carpeta [ [1] ]!" />
+	<message from="Unlink File" to="Desvincular Archivo" />
+
+
+	<!-- output/main.php -->
+	<message from="You browser does not support frames!" to="¡Su navegador no soporta frames!" />
+
+	<!-- output/login.php -->
+	<message from="You will receive a new message with a link into your e-mail. You can register the new password with this." to="Recibirá un e-mail, en la dirección registrada en el sistema, con un link. A través de éste podrá registrar una nueva contraseña." />
+	<message from="Recovery Password" to="Recuperar Contraseña" />
+	<message from="You must <abbr title=&quot;Insert your login and password and press Access.&quot;>logon</abbr> to continue." to="Usted necesita efectuar <abbr title=&quot Inserte su nombre de usuario y contraseña en los campos abajo y presione Acceder.&quot>logon<abbr>para continuar." />
+	<message from="Login" to="Entrada en el sistema" />
+	<message from="Password" to="Contraseña" />
+	<message from="Access" to="Acceso" />
+	<message from="Forget your password?" to="Olvidé mi contraseña" />
+	<message from="<b style=&quot;color: #990000;&quot;>Important!</b> For recovery password insert your login and click in &quot;Recovery password&quot;." to="<b style=&quot;color: #990000;&quot;>¡Atención!</b> Para recuperar su contraseña inserte su nombre de usuario en el campo abajo y haga clic en &quot; Recuperar contraseña&quot;." />
+	<message from="Important! CapsLock is active." to="¡Atención! El CapsLock está activado." />
+	<message from="Authenticate documents and certificates..." to="Autenticar los documentos y certificados..." />
+	<message from="Using the document's QR Code" to="Uso de código QR del documento" />
+	<message from="Using document information" to="Utilizando la información del documento" />
+
+	<!-- output/password.php -->
+	<message from="Insert/Register Password" to="Registro/Nuevo registro de contraseña" />
+	<message from="The password cannot be empty and neither contain empty spaces!" to="¡La contraseña no puede estar vacía ni contener espacios!" />
+	<message from="The password cannot be equal with your login!" to="¡La contraseña no puede ser igual a su nombre de usuario!" />
+	<message from="The both field values (&quot;New Password&quot; and &quot;Confirm Password&quot;) must be equal" to="¡Los valores de ambos campos (&quot Nueva Contraseña&quot Confirmar Contraseña&quot) deben ser iguales!" />
+	<message from="Password registered with success!" to="¡Contraseña registrada con éxito!" />
+	<message from="Click here" to="Haga clic aquí" />
+	<message from="&nbsp;to go logon page." to="&nbsp;para ir a la página de conexión." />
+	<message from="Name" to="Nombre" />
+	<message from="New Password" to="Nueva Contraseña" />
+	<message from="Confirm Password" to="Confirmar Contraseña" />
+	<message from="Attention! Probably attack detected. Access Denied!" to="¡Atención! Probable ataque detectado. ¡Acceso denegado!" />
+	<message from="Login from invalid user." to="Nombre de usuario inválido" />
+	<message from="Your user is inactive into the system! If you registered recently, wait for one register avaliation." to="Su usuario está inactivo en el sistema. Si se ha registrado recientemente en el sistema, espere pues el registro debe estar bajo evaluación." />
+	<message from="Invalid link! Use the link &quot;Recovery Password&quot; at the logon page for receive a valid link." to="¡Link inválido! Utilice el link &quot Recuperar Contraseña &quot en la página de entrada al sistema para recibir un link válido." />
+
+	<!-- output/error.php -->
+	<message from="Unknow error in system! Try again more later." to="Error desconocido en el sistema. Intente nuevamente más tarde." />
+
+	<!-- 3.2 Class -->
+
+	<!-- class/AjaxLogon.php -->
+	<message from="Fill correct all fields to logon!" to="Rellene correctamente todos los campos para conectarse al sistema." />
+	<message from="Insert your login for recover the password!" to="Inserte su nombre de usuario para recuperar contraseña." />
+	<message from="This login does not register in your database or User was disabled." to="Este nombre de usuario no aparece en nuestro Banco de Datos o el usuario fue deshabilitado." />
+	<message from="The e-mail cannot be sent. Maybe the server has problems at moment! Please, try again more later." to="No se pudo enviar el e-mail. Quizás el servidor esté enfrentando problemas en el momento, por favor, intente nuevamente más tarde." />
+	<message from="The message with the link to register the password was send for e-mail that you registered into website." to="El link para nuevo registro de contraseña se envió al e-mail que usted informó en el sitio." />
+
+	<!-- class/AjaxPasswd -->
+	<message from="Invalid Password! The system cannot permit using special characters: \', &quot, \\, --, /*, */." to="¡Contraseña inválida! El sistema no permite el uso de ciertas secuencias de caracteres, tales como: / ; &quot , // , - - , / * , * / ." />
+	<message from="Invalid Password! Verify if JavaScript support is active in your browser." to="¡Contraseña inválida!" />
+	<message from="Non-existent, Deleted or Inactive User!" to="'Usuario inexistente, borrado o inactivo'" />
+	<message from="Invalid Hash! Use the link &quotRecovery Password&quot at the login page for receive a valid hash into your e-mail." to="¡Hash inválida! Utilice el link 'Recuperar Contraseña' en la página de entrada para recibir una hash válida en su e-mail." />
+	<message from="Unable to change the password." to="No se pudo modificar la contraseña." />
+
+	<!-- class/Archive -->
+	<message from="The property [data-path] was not found or its empty in the tag <archive></archive> from file [configure/titan.xml]!" to="¡No se encontró la propiedad [data-path] o ella está vacía en la tag <archive></archive> del archivo [configure/titan.xml]!" />
+	<message from="The property [xml-path] was not found in the tag <archive></archive> of file [configure/titan.xml]!" to="¡No se encontró la propiedad [xlm-path] en la tag <archive></archive> del archivo [configure/titan.xml]!" />
+	<message from="The Titan configuration file system does not exist at path [ [1] ]" to="El archivo de configuración del Sistema de Archivos del Titan no existe en el camino [[1]]" />
+
+	<!-- class/User.php -->
+	<message from="Incorrect User or Password!" to="¡Usuario o contraseña incorrecto!" />
+	<message from="This user is inactive into the system!" to="¡Este usuario está inactivo en el sistema!" />
+	<message from="Fail in the recover the updated data!" to="¡Fallo en la recuperación de los datos actualizados!" />
+
+	<!-- class/Menu.php -->
+	<message from="Research" to="Pesquisar" />
+
+	<!-- class/View.php -->
+	<message from="Next" to="Siguiente" />
+	<message from="Previous" to="Anterior" />
+	<message from="First" to="Primeira" />
+	<message from="Last" to="Última" />
+	
+	<!-- class/UserType.php -->
+	<message from="Dont exists a valid LDAP host for this user type! Verify [configure/security.xml] if user type configuration use a valid LDAP host seted on [configure/ldap.xml]." to="¡No hay un host LDAP válido para este tipo de usuario! Averigue el archivo [configure/security.xml] y observe si la configuración de este tipo de usuario está utilizando un servidor LDAP válido que haya sido configurado en el archivo [configure/Idap.xml]." />
+	
+	<!-- class/Xoad.php -->
+	<message from="Report has been send! Comming soon you will receive a feedback." to="¡Informe de errores enviado! Brevemente recibirá una respuesta del equipo de manutención" />
+	
+	<!-- 3.3 System -->
+	
+	<!-- system/control.php -->
+	<message from="You has desconnected for security reasons! You user is long time inactive." to="¡Su sesión se cerró por medidas de seguridad! El usuario quedó ocioso en el sistema por mucho tiempo." />
+	<message from="Query execution error: [1]" to="Error en la ejecución de query en el BD: [1]" />
+
+	<!-- 4. Repository -->
+
+	<!-- 4.1 Template -->
+
+	<!-- global.search -->
+	<message from="Click here to search the items." to="Haga clic aquí para buscar los elementos." />
+	<message from="Search Itens" to="Buscar elementos" />
+	<message from="Items Found" to="Elementos encontrados" />
+
+	<!-- global.list -->
+	<message from="Search Criteria Selected" to="Criterios de Búsqueda Seleccionados" />
+	<message from="Clean Criteria" to="Limpiar Criterios" />
+	<message from="Change Criteria" to="Cambiar criterios" />
+
+	<!-- global.deleted -->
+	<message from="The item will be deleted permanently. Are you sure you want to proceed?" to="El elemento será borrado permanentemente. ¿Está seguro de que desea proseguir?" />
+</i18n>

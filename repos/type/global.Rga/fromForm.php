@@ -1,0 +1,3 @@
+<?
+return Integer::validate ($value);
+?>

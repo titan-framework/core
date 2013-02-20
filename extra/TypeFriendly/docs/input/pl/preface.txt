@@ -1,0 +1,17 @@
+Title: Przedmowa
+
+---
+
+**TypeFriendly** to program narzędziowy napisany w PHP5 przeznaczony do generowania i publikowania tekstów w formacie HTML takich, jak dokumentacje projektów, podręczniki użytkownika, artykuły czy inne dłuższe publikacje. Został napisany tak, aby być prostym w obsłudze oraz aby rezultaty można było osiągnąć już w kilka minut po rozpoczęciu pracy. TypeFriendly domyślnie zawiera wszystko, co niezbędne, do stworzenia dokumentacji, dzięki czemu nie trzeba wyważać otwartych drzwi.
+
+### Najważniejsze cechy TypeFriendly:
+
+1.  Modularna budowa dokumentacji - dokument wynikowy generowany jest ze zwykłych plików tekstowych, a jego układ i zależności między rozdziałami automatycznie ustalane na podstawie nazw tych plików.
+2.  Prosta składnia - rozdziały można pisać w niezwykle prostym i czytelnym formacie **Markdown**.
+3.  Wsparcie dla publikacji wielojęzycznych - TypeFriendly umożliwia równoległe tworzenie publikacji w kilku językach, a także udostępnia narzędzia ułatwiające prace, takie jak porównywanie wersji językowych.
+4.  Konfigurowalne formaty wyjściowe - aktualnie TypeFriendly potrafi generować dane w dwóch formatach: *XHTML - wiele stron* i *XHTML - jedna strona*.
+5.  Różne dodatki przydatne przy dokumentowaniu kodu: kolorowanie składni, referencje, zależności między klasami...
+6.  Łatwe tworzenie nawigacji.
+7.  Pracuje pod Linuksem i Windowsem.
+
+TypeFriendly dostępny jest na licencji GNU General Public License 3, co oznacza, że możesz go nie tylko używać za darmo, ale także modyfikować i dostosowywać do własnych celów.

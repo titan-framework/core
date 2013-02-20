@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log-mapping>
+	<activity name="REGISTER" label="Registro de Usuários" message="Novo usuário cadastrado.">
+Data: [_DATE_]
+IP: [_IP_]
+Processado em [_BENCHMARK_] segundos
+
+Browser:
+[_BROWSER_]
+
+--
+
+[_MESSAGE_]
+	</activity>
+	<activity name="LOGON" label="Logon de Usuários" message="Usuário [_USER_NAME_] ([_USER_LOGIN_]) efetuou logon.">
+Data: [_DATE_]
+Nome: [_USER_NAME_]
+Login: [_USER_LOGIN_]
+E-mail: [_USER_MAIL_]
+Tipo: [_USER_TYPE_]
+ID  do Usuário: [_USER_ID_]
+IP: [_IP_]
+Processado em [_BENCHMARK_] segundos
+
+Browser:
+[_BROWSER_]
+	</activity>
+	<activity name="LOGOFF" label="Logoff de Usuários" message="Usuário [_USER_NAME_] ([_USER_LOGIN_]) efetuou logoff.">
+Data: [_DATE_]
+Nome: [_USER_NAME_]
+Login: [_USER_LOGIN_]
+E-mail: [_USER_MAIL_]
+Tipo: [_USER_TYPE_]
+ID  do Usuário: [_USER_ID_]
+IP: [_IP_]
+Processado em [_BENCHMARK_] segundos
+
+Browser:
+[_BROWSER_]
+	</activity>
+	<activity name="CREATE" label="Criação de Itens" message="Item de [_SECTION_] criado.">
+Data: [_DATE_]
+
+Seção: [_SECTION_] ([_COMPONENT_])
+Ação: [_ACTION_] ([_ENGINE_])
+
+Login: [_USER_LOGIN_]
+E-mail: [_USER_MAIL_]
+Tipo: [_USER_TYPE_]
+ID do Usuário: [_USER_ID_]
+IP: [_IP_]
+Processado em [_BENCHMARK_] segundos
+
+--
+
+[_MESSAGE_]
+	</activity>
+	<activity name="EDIT" label="Edição de Itens" message="Item de [_SECTION_] editado.">
+Data: [_DATE_]
+
+Seção: [_SECTION_] ([_COMPONENT_])
+Ação: [_ACTION_] ([_ENGINE_])
+
+Autor: [_USER_NAME_]
+Login: [_USER_LOGIN_]
+E-mail: [_USER_MAIL_]
+Tipo: [_USER_TYPE_]
+ID do Usuário: [_USER_ID_]
+IP: [_IP_]
+Processado em [_BENCHMARK_] segundos
+
+--
+
+[_MESSAGE_]
+	</activity>
+	<activity name="COPY" label="Cópia de Itens" message="Item de [_SECTION_] duplicado.">
+Data: [_DATE_]
+
+Seção: [_SECTION_] ([_COMPONENT_])
+Ação: [_ACTION_] ([_ENGINE_])
+
+Autor: [_USER_NAME_]
+Login: [_USER_LOGIN_]
+E-mail: [_USER_MAIL_]
+Tipo: [_USER_TYPE_]
+ID do Usuário: [_USER_ID_]
+IP: [_IP_]
+Processado em [_BENCHMARK_] segundos
+
+--
+
+[_MESSAGE_]
+	</activity>
+	<activity name="DELETE" label="Itens Apagados" message="Item de [_SECTION_] apagado.">
+Data: [_DATE_]
+
+Seção: [_SECTION_] ([_COMPONENT_])
+Ação: [_ACTION_] ([_ENGINE_])
+
+Autor: [_USER_NAME_]
+Login: [_USER_LOGIN_]
+E-mail: [_USER_MAIL_]
+Tipo: [_USER_TYPE_]
+ID do Usuário: [_USER_ID_]
+IP: [_IP_]
+Processado em [_BENCHMARK_] segundos
+
+--
+
+[_MESSAGE_]
+	</activity>
+	<activity name="GENERIC" label="Mensagens Gerais" message="[_MESSAGE_]">
+[_MESSAGE_]
+
+Data: [_DATE_]
+
+Seção: [_SECTION_] ([_COMPONENT_])
+Ação: [_ACTION_] ([_ENGINE_])
+
+Autor: [_USER_NAME_]
+Login: [_USER_LOGIN_]
+E-mail: [_USER_MAIL_]
+Tipo: [_USER_TYPE_]
+ID do Usuário: [_USER_ID_]
+IP: [_IP_]
+Processado em [_BENCHMARK_] segundos
+	</activity>
+	<activity name="BROWSER" label="Browser Incompatível" message="Tentativa de acesso com browser incompatível.">
+Data: [_DATE_]
+IP: [_IP_]
+Processado em [_BENCHMARK_] segundos
+
+Browser:
+[_BROWSER_]
+	</activity>
+	<activity name="REPLY" label="Mensagem Respondida" message="Mensagem de [_SECTION_] respondida.">
+Data: [_DATE_]
+
+Seção: [_SECTION_] ([_COMPONENT_])
+Ação: [_ACTION_] ([_ENGINE_])
+
+Login: [_USER_LOGIN_]
+E-mail: [_USER_MAIL_]
+Tipo: [_USER_TYPE_]
+ID do Usuário: [_USER_ID_]
+IP: [_IP_]
+Processado em [_BENCHMARK_] segundos
+
+--
+
+[_MESSAGE_]
+	</activity>
+	<activity name="PASSWORD" label="Senha Modificada" message="Usuário [_USER_NAME_] ([_USER_LOGIN_]) modificou sua senha.">
+Data: [_DATE_]
+
+Seção: [_SECTION_] ([_COMPONENT_])
+Ação: [_ACTION_] ([_ENGINE_])
+
+Login: [_USER_LOGIN_]
+E-mail: [_USER_MAIL_]
+Tipo: [_USER_TYPE_]
+ID do Usuário: [_USER_ID_]
+IP: [_IP_]
+Processado em [_BENCHMARK_] segundos
+	</activity>
+	<activity name="PROFILE" label="Edição de Profile" message="Usuário [_USER_NAME_] ([_USER_LOGIN_]) modificou seus dados.">
+Data: [_DATE_]
+
+Seção: [_SECTION_] ([_COMPONENT_])
+Ação: [_ACTION_] ([_ENGINE_])
+
+Autor: [_USER_NAME_]
+Login: [_USER_LOGIN_]
+E-mail: [_USER_MAIL_]
+Tipo: [_USER_TYPE_]
+ID do Usuário: [_USER_ID_]
+IP: [_IP_]
+Processado em [_BENCHMARK_] segundos
+
+--
+
+[_MESSAGE_]
+	</activity>
+</log-mapping>
+<!--
+[_MESSAGE_] 	=> Mensagem
+[_IP_]			=> IP do usuário
+[_USER_NAME_]	=> Nome do usuário
+[_USER_LOGIN_]	=> Login do usuário
+[_USER_MAIL_]	=> E-mail do usuário
+[_USER_TYPE_]	=> Tipo do usuário
+[_USER_ID_]		=> ID do usuário
+[_SECTION_]		=> Label da seção (p.e. Notícias)
+[_COMPONENT_]	=> Componente (p.e. global.generic)
+[_ACTION_]		=> Label da ação (p.e. Editar Item)
+[_ACTION_NAME_] => Nome da ação (p.e. edit_step_1)
+[_ENGINE_]		=> Engine da ação (p.e. edit)
+[_BROWSER_]		=> Navegador Web utilizado pelo usuário
+[_DATE_]		=> Data e hora do log
+-->

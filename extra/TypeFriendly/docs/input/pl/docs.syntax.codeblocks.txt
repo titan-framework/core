@@ -1,0 +1,83 @@
+Title: Bloki kodu
+
+---
+
+Parser Markdown udostępnia dwa sposoby wstawiania dużej partii kodu. Pierwszy z nich wymaga, aby przed każdą linią kodu umieścić 4 spacje, bądź jeden znak tabulacji.
+
+~~~
+To jest jakiś paragraf.
+
+    <?php
+    $fragment = "naszego kodu źródłowego";
+    if($warunek)
+    {
+        skryptu('który piszemy');
+    }
+    ?>
+
+To jest jakiś następny paragraf.
+~~~
+
+Drugim sposobem jest wstawienie co najmniej trzech tyld `~` przed i za wstawioną partią kodu.
+
+> [important]
+> Ważne jest, aby ilość znaków na początku i na końcu była taka sama. 
+
+~~~~~~
+To jest jakiś paragraf.
+
+~~~
+<?php
+$fragment = "naszego kodu źródłowego";
+skryptu('który piszemy');
+?>
+~~~
+
+To jest jakiś następny paragraf.
+~~~~~~
+
+Ta metoda wstawiania kodu nie umożliwia jednak wstawiania nam kodu do ramek informacyjnych lub list wypunktowanych.
+
+Kolorowanie składni
+===================
+
+TypeFriendly dodaje nam możliwość włączenia kolorowania składni wstawionego kodu. Obsługiwane jest ono przez [GeSHi](http://qbnz.com/highlighter/). Lista obsługiwanych języków dostępna jest na stronie tego parsera. 
+
+Włączenie kolorowania składni realizowane jest poprzez wstawienie w pierwszej linijce bloku kodu znacznika: `[język]`. W nawiasach kwadratowych zawarta jest nazwa języka, której odpowiada plik kolorowania GeSHi znajdujący się w katalogu `/vendor/geshi/geshi`.
+
+#### Przykładowe użycie
+
+~~~~~~
+~~~
+[php]
+<?php
+$fragment = "naszego kodu źródłowego";
+skryptu('który piszemy');
+?>
+~~~
+~~~~~~
+
+#### Rezultat
+
+~~~
+[php]
+<?php
+$fragment = "naszego kodu źródłowego";
+skryptu('który piszemy');
+?>
+~~~
+
+Dodatkowym dostępnym "kolorowaniem" jest `console`, który upodabnia ramkę z kodem do widoku z konsoli systemowej (ciemne tło, biała czcionka).
+
+    [console]
+    php typefriendly.php build "./docs/"
+
+> [important]
+> ### Wyłączanie kolorowania ###
+> 
+> Mogą wystąpić konflikty z pewnymi rodzajami składni, jak choćby w plikach INI. Jednak wystarczy poprzedzić znacznik backslashem `\` i kod nie będzie kolorowany:
+> 
+>     \\[grupa]
+>     klucz = "pliku ini"
+> 
+> Oczywiście tyczy się to tylko pierwszej linijki bloku kodu.

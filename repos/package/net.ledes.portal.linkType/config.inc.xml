@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-mapping>
+	<action
+		name="list"
+		label="Listar Categorias"
+		default="true"
+		description="">
+		<menu action="create" />
+		<menu function="search" />
+		<menu function="rss" />
+	</action>
+	
+	<action
+		name="create"
+		label="Criar Categorias"
+		description="">
+		<menu function="save" />
+		<menu action="list" image="close.png" />
+	</action>
+	
+	<action
+		name="edit"
+		label="Editar Categorias"
+		description="">
+		<menu function="save" />
+		<menu action="list" image="close.png" />
+	</action>
+	
+	<action
+		name="delete"
+		label="Apagar Categorias"
+		description="">
+		<menu function="save" image="delete.png" />
+		<menu action="list" image="close.png" />
+	</action>
+	
+	<action
+		name="view"
+		label="Visualizar Categorias"
+		description="">
+		<menu action="list" />
+		<menu function="print" />
+		<menu action="edit" />
+		<menu action="delete" />
+	</action>
+</action-mapping>

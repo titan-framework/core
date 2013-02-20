@@ -1,0 +1,15 @@
+; $Id: general.txt 65 2009-09-17 09:30:20Z extremo $
+; Translations of the main messages used across the book.
+; Translation authors:
+; - Camilo Carromeu <http://www.carromeu.com>
+
+table_of_contents = "Sumário"
+documentation = "Documentação"
+manual = "Manual do usuário"
+book = "Livro"
+article = "Artigo"
+generated_in = "Gerado em %s"
+doc_license = "Disponível sob os termos da licença: %s"
+
+period_since = "desde"
+period_to = "para"

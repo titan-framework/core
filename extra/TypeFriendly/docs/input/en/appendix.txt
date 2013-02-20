@@ -1,0 +1,5 @@
+Title: Appendix
+
+---
+
+Additional information about TypeFriendly.

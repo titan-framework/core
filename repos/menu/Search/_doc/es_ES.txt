@@ -1,0 +1,1 @@
+Permite filtrar los elementos basados en criterios definidos por el usuario.

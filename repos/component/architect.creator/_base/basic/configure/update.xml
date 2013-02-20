@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update-mapping>
+	<module name="INSTANCE" path="" />
+	<module name="CORE" path="[core-path]" />
+	<module name="COMPONENT" path="[repos-path]component/" />
+	<module name="SKIN" path="[repos-path]skin/" />
+	<module name="TYPE" path="[repos-path]type/" />
+	<module name="TEMPLATE" path="[repos-path]template/" />
+</update-mapping>

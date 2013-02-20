@@ -1,0 +1,10 @@
+; $Id: navigation.txt 65 2009-09-17 09:30:20Z extremo $
+; The navigation messages
+; The translations of available programming constructs
+; Translation authors:
+; - Camilo Carromeu <http://www.carromeu.com>
+
+next = "Próximo"
+prev = "Anterior"
+to_up = "Acima"
+see_also = "Veja também"

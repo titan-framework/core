@@ -1,0 +1,4 @@
+<?
+class LdapTop extends LdapClass
+{}
+?>

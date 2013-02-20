@@ -1,0 +1,1 @@
+<? return "no_accents (". $field->getTable () .'.'. $field->getColumn () .") ILIKE no_accents ('%". addslashes (htmlentities ($field->getValue (), ENT_QUOTES)) ."%')" ?>

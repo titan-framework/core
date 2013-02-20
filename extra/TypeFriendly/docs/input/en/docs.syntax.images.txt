@@ -1,0 +1,40 @@
+Title: Images
+SeeAlso:
+ - docs.syntax.links
+
+---
+
+Markdown supports images and graphics much like the links. The main difference is the exclamation mark `!` before the square brackets. The image syntax also supports references:
+
+~~~
+![alternative text](/path/to/image.jpg)
+
+![alternative text](/path/to/image.jpg "Optional title")
+~~~
+
+The alternative text goes to the `alt` attribute in the HTML code.
+
+Image references are very similar to the link ones:
+
+    ![Alternative text][id]
+    
+where "id" is a reference label. The image reference definition also looks familiar:
+
+    [id]: /path/to/image.jpg  "Optional title"
+    
+More information can be found in the [link chapter][docs.syntax.links].
+
+Images in TypeFriendly
+======================
+
+Referring to the external images has absolutely no sense in the user manual which can be read and used off-line. In TF, the image files are located in the `/input/LANGUAGE/media` directory. Note that each language version has its own directory, so that you can translate also the texts on the pictures. During the processing, TypeFriendly moves this directory to `/output`.
+
+~~~
+![Chart](media/graph.png)  
+**Sample image**
+~~~
+
+> ![Chart](media/graph.png)  
+> **Sample image**
+
+In our docs, the `graph.png` file is located in `/input/en/media` directory.

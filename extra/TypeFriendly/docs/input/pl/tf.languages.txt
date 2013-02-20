@@ -1,0 +1,81 @@
+Title: Dokumentacja wielojęzyczna
+
+---
+
+W tym rozdziale opiszemy wszystkie aspekty tworzenia dokumentacji wielojęzycznych.
+
+Model wielojęzyczny TypeFriendly zakłada, że w dokumentacji wyróżnimy jeden z języków (tzw. język bazowy), w którym tworzymy oryginalną treść, z której robione są później tłumaczenia do języków pochodnych. Język bazowy wybieramy w konfiguracji projektu, ustawiając opcję *baseLanguage*. Każdy z języków identyfikowany jest za pomocą dwuliterowego kodu, np. *en*, *de*, *pl*.
+
+Tłumaczenie rozdziałów
+======================
+
+Aby utworzyć tłumaczenie naszej publikacji, tworzymy nowy folder wewnątrz `/input` dla nowego języka. Jako jego nazwę wybieramy dwuliterowy symbol języka. Następnie po prostu zapisujemy tam przetłumaczone wersje oryginalnych rozdziałów. Tłumaczenie musi posiadać identyczną strukturę, jak oryginał i nie jest dozwolone dodawanie do niego dodatkowych rozdziałów (zostaną wtedy zignorowane). Poniżej znajdziesz poprawną strukturę tłumaczenia:
+
+~~~
+/input/pl/  (główny język publikacji)
+preface.txt
+chapter1.txt
+chapter1.subchapter1.txt
+chapter1.subchapter2.txt
+chapter2.txt
+chapter2.subchapter1.txt
+chapter2.subchapter2.txt
+
+/input/de/  (tłumaczenie na niemiecki)
+preface.txt
+chapter1.txt
+chapter1.subchapter1.txt
+chapter1.subchapter2.txt
+chapter2.txt
+chapter2.subchapter1.txt
+chapter2.subchapter2.txt
+~~~
+
+Identyfikatory rozdziałów we wszystkich tłumaczeniach muszą być identyczne, jak w oryginale. Nie ma możliwości ich przetłumaczenia.
+
+Nie musisz tłumaczyć wszystkich rozdziałów naraz. Jeśli TypeFriendly zauważy, że jakiegoś pliku brakuje w tłumaczeniu, wykorzystuje w jego miejscu treść z oryginalnej wersji językowej. Poniżej możesz zobaczyć przykład takiego niedokończonego tłumaczenia na język francuski:
+
+~~~
+/input/fr/
+preface.txt
+chapter1.txt
+chapter1.subchapter1.txt
+chapter2.txt
+~~~
+
+W tym przykładzie, treść rozdziałów `chapter1.subchapter2.txt`, `chapter2.subchapter1.txt` oraz `chapter2.subchapter2.txt` jest zaczerpnięta z oryginalnej wersji, tj. z `/input/pl/`. Umożliwia to osobom odpowiedzialnym za główną wersję dodawanie nowych rozdziałów, dzięki czemu są one od razu widoczne także w innych wersjach językowych, zaś opiekunowie poszczególnych wersji mogą dodać odpowiednie tłumaczenia później.
+
+Tłumaczenie plików graficznych
+==============================
+
+Każda wersja językowa posiada swój własny katalog `/media` z własnymi grafikami itd. Podobnie jak w przypadku rozdziałów, TypeFriendly uzupełnia brakujące pliki graficzne w tłumaczeniach plikami z podstawowej wersji językowej.
+
+Tłumaczenie szablonów treści
+============================
+
+Każda wersja językowa posiada swój własny katalog `/templates` z szablonami treści. Podobnie jak w przypadku rozdziałów, TypeFriendly uzupełnia brakujące szablony w tłumaczeniach plikami z podstawowej wersji językowej.
+
+Tłumaczenie interfejsu publikacji
+=================================
+
+TypeFriendly tłumaczy również interfejs nawigacyjny samej publikacji, tj. komunikaty takie jak "Spis treści". Konkretne teksty przypisane do komunikatów zdefiniowane są w plikach w obrębie katalogu globalnego `/languages`. Podkatalogi reprezentują różne wersje językowe, dla których aktualnie dostępne są tłumaczenia. Każdy komunikat jest częścią jakiejś grupy i posiada swój unikalny identyfikator ułatwiający znalezienie go. Każda grupa zapisana jest w osobnym pliku o składni plików INI:
+
+~~~
+[ini]
+; komentarz
+
+identyfikator1 = "Tekst 1"
+identyfikator2 = "Tekst 2"
+identyfikator3 = "Tekst 3"
+; itd.
+~~~
+
+Aby przetłumaczyć interfejs publikacji, utwórz nowy folder wewnątrz `/languages`, wykorzystując ten sam dwuliterowy kod języka. Następnie skopiuj pliki grup z innego języka i rozpocznij podmianę tekstów. Pamiętaj - jeśli jakiś komunikat nie jest dostępny w danej wersji językowej, TypeFriendly próbuje załadować go z plików podstawowego języka publikacji. Jeśli i tam go nie ma, generowany jest wyjątek.
+
+Na dzień dzisiejszy, TypeFriendly posiada tłumaczenia interfejsu do trzech języków:
+
++ angielskiego
++ polskiego
++ słowackiego
+
+Jeśli stworzyłeś nowe tłumaczenie, bylibyśmy bardzo wdzięczni, gdybyś opublikował je w Internecie i podesłał, aby można było włączyć je do oficjalnej dystrybucji TypeFriendly tak, aby i inni mogli z niego korzystać.

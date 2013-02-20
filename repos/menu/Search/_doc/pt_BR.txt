@@ -1,0 +1,1 @@
+Possibilita filtrar os itens mostrados com base em critérios definidos pelo usuário.

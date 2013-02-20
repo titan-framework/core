@@ -1,0 +1,8 @@
+Title: Rozwój i wsparcie
+Appendix: Yes
+
+---
+
+Wsparcie dotyczące TypeFriendly znajdziesz na [forum dyskusyjnym grupy Invenzzia](http://forums.invenzzia.org/) zarówno w języku polskim, jak i w angielskim. Zachęcamy do nadsyłania uwag i nowych pomysłów. Jeśli znalazłeś jakiś błąd, odwiedź nasz [bugtracker](http://bugs.invenzzia.org/) - **pamiętaj, że błędy dodajemy wyłącznie w języku angielskim!!!**
+
+Wersje robocze są do pobrania z repozytorium Subversion. Repozytorium TypeFriendly jest publicznie dostępne do odczytu pod adresem `http://svn.invenzzia.org/svn/typefriendly` (jest to adres, którego należy użyć w poleceniu ''checkout''). Możesz także obejrzeć repozytorium on-line pod adresem [svn.invenzzia.org](http://svn.invenzzia.org).

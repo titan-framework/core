@@ -1,0 +1,110 @@
+Title: Definition lists
+
+---
+
+Markdown supports a special list format called a definition lists. It consists of a term and an explanation, like in a dictionary. To create a definition list, we write a term in the first line, and in the next one, we put a definition followed by `:` and some spaces.
+
+~~~
+Apple
+:   Fruit of the apple tree.
+
+Orange
+:   Citrus fruit, a type of berry.
+~~~
+
+> Apple
+> :   Fruit of the apple tree.
+> 
+> Orange
+> :   Citrus fruit, a type of berry.
+
+Definition lists support a group of explanations to the same term or a couple of terms to one explanation:
+
+~~~
+Word
+:   Unit of language that builds phrases.
+:   Fixed-size unit of bits that creates a natural data unit in computers.
+
+TF
+TypeFriendly
+:   A nice documentation generator written in PHP.
+~~~
+
+> Word
+> :   Unit of language that builds phrases.
+> :   Fixed-size unit of bits that creates a natural data unit in computers.
+> 
+> TF
+> TypeFriendly
+> :   A nice documentation generator written in PHP.
+
+Separating the definitions from terms with one empty line will enclose them into paragraphs.
+
+~~~
+Apple
+
+:   Fruit of the apple tree.
+
+Orange
+
+:   Citrus fruit, a type of berry.
+~~~
+
+> Apple
+> 
+> :   Fruit of the apple tree.
+> 
+> Banana
+> 
+> :   Citrus fruit, a type of berry.
+
+Like the ordinary lists, the definition lists may contain other block elements, such as paragraphs or code blocks. They must be followed by four spaces or a tabulation.
+
+~~~
+Term 1
+
+:   This is a definition with two paragraphs. Lorem ipsum 
+    dolor sit amet, consectetuer adipiscing elit. Aliquam 
+    hendrerit mi posuere lectus.
+
+    Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+    vitae, risus.
+
+:   The second defintion for the term 1 is also placed inside a
+    paragraph, because it is followed with an empty line.
+
+Term 2
+
+:   This definition contains a code block and an ordered list:
+
+        some code
+
+    1.  element 1
+    2.  element 2
+~~~
+
+> Term 1
+> 
+> :   This is a definition with two paragraphs. Lorem ipsum 
+>     dolor sit amet, consectetuer adipiscing elit. Aliquam 
+>     hendrerit mi posuere lectus.
+> 
+>     Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+>     vitae, risus.
+> 
+> :   The second defintion for the term 1 is also placed inside a
+>     paragraph, because it is followed with an empty line.
+> 
+> Term 2
+> 
+> :   This definition contains a code block and an ordered list:
+> 
+>         some code
+> 
+>     1.  element 1
+>     2.  element 2
+
+<!-- # -->
+
+> [warning]
+> Pay attention to the number of spaces in the beginning of each line.

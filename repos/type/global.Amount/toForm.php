@@ -1,0 +1,3 @@
+<?
+return '<input type="text" class="field" style="'. $field->getStyle () .'" name="'. $fieldName .'" id="'. $fieldId .'" value="'. number_format ($field->getValue (), 0, '', '.') .'" onkeypress="JavaScript: return global.Amount.format (this, event);" onkeyup="JavaScript: global.Amount.format (this,false);" />'. ($field->getTip () != '' ? '<div class="fieldTip">'. $field->getTip () .'</div>' : '');
+?>

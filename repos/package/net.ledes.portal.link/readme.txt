@@ -1,0 +1,1 @@
+Instancia a seção de Links (URLs) utilizada no Portal do LEDES. Esta seção de diferencia por ter um módulo (dependência) de Categorias.

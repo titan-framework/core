@@ -1,0 +1,93 @@
+Title: Akapity i tekst
+
+---
+
+Akapit to jedna - bądź więcej, następujących po sobie - linijki tekstu. Osobne akapity oddzielone są jedną, bądź więcej pustą linijka. (Pusta linijka, jak sama nazwa wskazuje, nie może zawierać nic prócz spacji lub tabulacji.) Akapity nie powinny mieć wcięć spacjami na początku.
+
+~~~
+Litwo! Ojczyzno moja! Ty jesteś jak zdrowie. Ile cię stracił. Dziś piękność twą w Litwie chodził po całym domu lasami i Rzeczpospolita! Zawżdy z jakich rąk strzelby, którą powinna młodź dla żony przy Bernardynie, bernardyn zmówił krótki pacierz wieczorny, pomału usnął ostatni w ręku trzyma obyczajem pańskim i żywot Katona.
+
+Dalej w ulicę się dowie kto gości wysoko siadł pomiędzy nim wiedzą, lekce go kaznodzieją, że tamuje progresy, że przeszkadza kulturze, że nam się ta chwała należy chartu Sokołowi.
+
+Pytano zdania innych. więc będzie jego bok usiadła owa piękność twą w szklankę panny Róży a potem Sędzia z tych łąk zielonych szeroko nad błękitnym Niemnem rozciągnionych.
+~~~
+
+> Litwo! Ojczyzno moja! Ty jesteś jak zdrowie. Ile cię stracił. Dziś piękność twą w Litwie chodził po całym domu lasami i Rzeczpospolita! Zawżdy z jakich rąk strzelby, którą powinna młodź dla żony przy Bernardynie, bernardyn zmówił krótki pacierz wieczorny, pomału usnął ostatni w ręku trzyma obyczajem pańskim i żywot Katona.
+> 
+> Dalej w ulicę się dowie kto gości wysoko siadł pomiędzy nim wiedzą, lekce go kaznodzieją, że tamuje progresy, że przeszkadza kulturze, że nam się ta chwała należy chartu Sokołowi.
+> 
+> Pytano zdania innych. więc będzie jego bok usiadła owa piękność twą w szklankę panny Róży a potem Sędzia z tych łąk zielonych szeroko nad błękitnym Niemnem rozciągnionych. [^1]
+
+Akapit może składać się z następujących po sobie linijek, które nie zostaną złamane w tekście wyjściowym przez `<br />`. Oznacza to, że możemy formatować tekst, tak, jak jest to robione np. w tekstowych mailach.
+
+~~~
+Litwo! Ojczyzno moja! Ty jesteś jak zdrowie. Ile cię stracił. 
+Dziś piękność twą w Litwie chodził po całym domu lasami i Rzeczpospolita! 
+Zawżdy z jakich rąk strzelby, którą powinna młodź dla żony przy 
+Bernardynie, bernardyn zmówił krótki pacierz wieczorny, pomału usnął 
+ostatni w ręku trzyma obyczajem pańskim i żywot Katona.
+~~~
+
+Mimo tego, że powyższy tekst ma 5 linijek, zostanie on zamieniony na pojedynczy akapit, bez złamań wierszy:
+
+> Litwo! Ojczyzno moja! Ty jesteś jak zdrowie. Ile cię stracił. 
+> Dziś piękność twą w Litwie chodził po całym domu lasami i Rzeczpospolita! 
+> Zawżdy z jakich rąk strzelby, którą powinna młodź dla żony przy 
+> Bernardynie, bernardyn zmówił krótki pacierz wieczorny, pomału usnął 
+> ostatni w ręku trzyma obyczajem pańskim i żywot Katona.
+
+Aby zrobić zwykłe przełamanie linijki, należy zakończyć ją dwoma lub więcej spacjami i przejść do nowej linijki.
+
+##### W poniższym przykładzie spacje na końcu linijek zastąpione zostały znakiem podkreślenia `_` aby pokazać ich umiejscowienie
+
+~~~
+Litwo!__
+Ojczyzno moja!__
+Ty jesteś jak zdrowie.
+~~~
+
+> Litwo!  
+> Ojczyzno moja!  
+> Ty jesteś jak zdrowie.
+
+<!-- # -->
+
+> [important]
+> ### Znaki specjalne: `>`, `<` i `&`
+> 
+> Składnia markdown umożliwia wstawianie bezpośrednio do tekstu znaczników języka HTML, co zostało opisane w następnych rozdziałach. Wymaga więc specjalnego traktowania znaków `> < &` w przypadku, gdy nie używamy ich do wstawiania znaczników HTML.
+>
+> W HTML-u jeśli np. chcesz napisać np o muzyce R&B musisz posłużyć się tzw. kodami ucieczki HTML, badź encjami i napisać R`&amp;`B. Co więcej, musisz również w podobny sposób zapisywać nawet adresy URL, w których występuje znak **&amp;**!
+> 
+>     Szukaj <a href="http://images.google.com/images?num=30&amp;q=beata+kozidrak">zdjęć</a>
+>
+> Parser Markdown jest jednak na tyle inteligentny, że potrafi z kontekstu odczytać, który znak należy zamienić na encję, a który nie. Jeśli więc chcesz wstawić znak praw autorskich &copy;, możesz zapisać go normalną encją HTML: `&copy;`.
+> 
+> Ale jeśli zechcesz jednak pisać o tej muzyce R&B, Markdown automatycznie zamieni & na encję:
+>
+>     Muzyka R&B
+> 
+> Choć Markdown wspiera wstawianie znaczników HTML-a bezpośrednio do treści, możesz bez obaw napisać prawdę matematyczną, że:
+>
+>     4 < 5
+> 
+> A znak < zostanie zamieniony na odpowienik encji: `&lt;`. Podobnie ma się sytuacja z >, którego encją jest `&gt;`.
+
+Poziome linie
+=============
+
+Można wstawić poziomą linię oddzielającą (`<hr />`) umieszczając co najmniej trzy gwiazdki `*`, pauzy `-` lub podkreślenia `_` obok siebie w linijce. Opcjonalnie możesz rozdzielić spacją te znaki.
+
+~~~
+* * *
+
+***
+
+*****
+
+- - -
+
+---------------------------------------
+~~~
+
+[^1]: Tekst wygenerowany przez [Generator Lorem Ipsum](http://lipsum.pl/index.php)

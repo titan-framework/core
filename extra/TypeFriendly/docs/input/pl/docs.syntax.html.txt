@@ -1,0 +1,62 @@
+Title: Wstawki HTML
+
+---
+
+Jeśli składnia Markdowna nie wystarcza do osiągnięcia zamierzonego efektu, można bez problemu korzystać ze znaczników HTML, bezpośrednio w tekście. Nie trzeba stosować żadnej specjalnej składni, przełączników - po prostu używasz znaczników.
+
+Jedynym ograniczeniem jest to, że HTML-owe znaczniki blokowe - takie jak: `<div>`, `<table>`, `<pre>`, `<p>` itd. - muszą być oddzielone pustą linijką od pozostałego tekstu i muszą zaczynać się bezpośrednio od krawędzi - nie mogą być poprzedzone tabulacjami lub spacjami. Parser jest na tyle sprytny, że nie otoczy wtedy HTML-a znacznikami akapitu. 
+
+Jeśli np. potrzeba było wstawić bardziej rozbudowaną tabelkę można po prostu napisać:
+
+~~~
+To jest normalny akapit
+
+<table>
+    <tr>
+        <td>Coś</td>
+    </tr>
+</table>
+
+To jest kolejny normalny akapit.
+~~~
+
+W takim jednak przypadku, składnia Markdown **nie jest w znacznikach parsowana**. Trzeba więc używać np. `<strong>` zamiast `**wyróżnienia**`.
+
+Znaczniki liniowe - jak: `<span>`, `<del>`, `<sup>` - mogą być użyte gdziekolwiek w akapitach, listach, nagłówkach. Ba, możesz normalnie zamienić znacznikami HTML składnię Markdown, np. jeśli wolisz używać znaczników `<a>` lub `<img>` zamiast odnośników i obrazków.
+
+W znacznikach liniowych - w przeciwieństwie do blokowych - składnia Markdown **jest parsowana**.
+
+Formatowanie Markdown w elementach blokowych
+============================================
+
+Oryginalna składnia Markdown wyklucza parsowanie składni w HTML-owych znacznikach blokowych. Została jednak rozszerzona o możliwość opcjonalnego włączenia tego parsowania poprzez dopisanie do znacznika atrybutu `markdown` o wartości `1`, co daje `markdown="1"`:
+
+~~~
+<div markdown="1">
+To jest *prawdziwy* tekst Markdownowy.
+</div>
+~~~
+
+#### Co wygeneruje:
+
+~~~
+<div>
+
+<p>To jest <em>prawdziwy</em> tekst Markdownowy.</p>
+
+</div>
+~~~
+
+Parser jest bardzo sprytny i prawidłowo zachowuje się do różnych znaczników. Jeśli np. włączysz formatowanie dla znaczników `<p>`, spowoduje to sformatowanie jedynie elementów liniowych, nie dopuszczając list, bloków cytatu itd.
+
+Są jednak sytuacje, gdy jest to niejednoznaczne. Spójrzmy na przykład:
+
+~~~
+<table>
+<tr>
+<td markdown="1">To jest *prawdziwy* tekst Markdownowy.</td>
+</tr>
+</table>
+~~~
+
+Komórka tabeli może przyjmować i elementy liniowe, i elementy blokowe. W takich jak ta sytuacjach Markdown zawsze włącza parsowanie jedynie elementów liniowych. Gdy potrzebujesz włączyć składnię blokową, zmień wartość atrybutu na `markdown="block"`.

@@ -1,0 +1,23 @@
+Title: License and authors
+Appendix: Yes
+
+---
+
+The TypeFriendly script is developed by the [Invenzzia group](http://www.invenzzia.org/). The code was written by:
+
+* Tomasz "Zyx" Jędrzejewski - design, core programming, documentation.
+* Jacek "eXtreme" Jędrzejewski - outputs, Markdown issues, various fixes, default documentation layout, documentation.
+
+The project uses the PHP Markdown Extra parser written by Michel Fortin and based on the John Gruber code. It is available under the modified BSD license included in its source code.
+
+The project uses the GeSHi syntax highlighter written by Benny Baumann and available under GNU GPL license.
+
+The documentation template uses [Tango Icon Library](http://tango.freedesktop.org), a part of Tango Desktop Project which is available under Creative Commons Attribution-ShareAlike 2.5 license.
+
+Markdown syntax description is an adaptation of original [Markdown Syntax page](http://daringfireball.net/projects/markdown/syntax) by Daring Fireball and [PHP Markdown Extra description](http://michelf.com/projects/php-markdown/extra/) by Michel Fortin.
+
+TypeFriendly is available under the terms of GNU General Public License 3. The text of the license is included into the package in the `info/COPYING` file. If you do not have this file, the license is available online here: [http://www.gnu.org/licenses/gpl.html](http://www.gnu.org/licenses/gpl.html).
+
+This documentation is available under the terms of GNU Free Documentation License 1.2. The text of the license is included into the package in the `info/COPYING_DOCS` file. If you do not have this file, the license is available online here: [http://www.gnu.org/licenses/fdl.html](http://www.gnu.org/licenses/fdl.html).
+
+Those licenses do not apply in any way to documentations created by you and processed by TypeFriendly, as well as the graphics created in a GPL editor is not a subject of GPL license.

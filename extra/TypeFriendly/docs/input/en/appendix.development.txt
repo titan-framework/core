@@ -1,0 +1,8 @@
+Title: Development and support
+Appendix: Yes
+
+---
+
+If you look for a support, visit our [discussion board](http://forums.invenzzia.org/) available in English language. We encourage to send new ideas and feature requests. If you found a bug, visit our [bugtracker](http://bugs.invenzzia.org/) - **remember that the bugs must be described IN ENGLISH ONLY!!!**
+
+The development versions of TypeFriendly can be downloaded from our Subversion repository. It supports anonymous read-only connections that allow to ''checkout'' its contents. The address is `http://svn.invenzzia.org/svn/typefriendly`. You can also watch the repository on-line: [svn.invenzzia.org](http://svn.invenzzia.org).

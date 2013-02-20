@@ -1,0 +1,92 @@
+Title: Paragraphs and text
+
+---
+
+A paragraph is one or more consecutive text lines. Paragraphs are separated with one or more empty lines. In Markdown, we assume that empty line simply looks like empty line, so the only the white characters are allowed there: spaces and tabulations. Remember that you should not do an indentation in the first line of a paragraph manually.
+
+~~~
+Lorem ipsum dolor sit amet ligula. Nam ultrices. Nunc sit amet justo. Integer magna ante, cursus justo vel quam nulla, at libero. Suspendisse et netus et metus eu pede massa.
+
+Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Phasellus sapien enim ac eros. Fusce iaculis pede sit amet erat. Praesent dictum accumsan id, condimentum convallis.
+
+Curae, Cras dictum eget, pede. Fusce blandit tempus arcu. Etiam tincidunt mattis egestas, nunc venenatis interdum, lacus. Vivamus malesuada fames ac erat. Suspendisse dignissim enim enim non eros. Aliquam in.
+~~~
+
+> Lorem ipsum dolor sit amet ligula. Nam ultrices. Nunc sit amet justo. Integer magna ante, cursus justo vel quam nulla, at libero. Suspendisse et netus et metus eu pede massa.
+> 
+> Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Phasellus sapien enim ac eros. Fusce iaculis pede sit amet erat. Praesent dictum accumsan id, condimentum convallis.
+> 
+> Curae, Cras dictum eget, pede. Fusce blandit tempus arcu. Etiam tincidunt mattis egestas, nunc venenatis interdum, lacus. Vivamus malesuada fames ac erat. Suspendisse dignissim enim enim non eros. Aliquam in.
+
+In the source file, the paragraph can be written in more consecutive text lines. They will not be broken with `<br />` in the output text. This means we can format the text, for example like in e-mails.
+
+~~~
+Lorem ipsum dolor sit amet sapien pede dictum sapien massa sit amet
+sapien varius egestas, dapibus aliquam id, neque. Donec facilisis diam
+elit, gravida turpis. Nullam at ligula. Aenean urna a purus fermentum
+libero quis ipsum. Fusce ullamcorper ut, semper turpis egestas. Cum
+sociis natoque penatibus et ultrices bibendum, sem in lacus tellus
+dolor sit amet, diam. In hac habitasse.
+~~~
+
+Although the paragraph consists of six lines in the source file, the output will still be one paragraph without line breaks:
+
+> Lorem ipsum dolor sit amet sapien pede dictum sapien massa sit amet
+> sapien varius egestas, dapibus aliquam id, neque. Donec facilisis diam
+> elit, gravida turpis. Nullam at ligula. Aenean urna a purus fermentum
+> libero quis ipsum. Fusce ullamcorper ut, semper turpis egestas. Cum
+> sociis natoque penatibus et ultrices bibendum, sem in lacus tellus
+> dolor sit amet, diam. In hac habitasse.
+
+To make a line break, we end it with at least two spaces and start a new line.
+
+##### In the example below, we have replaced spaces with an underline characters `_` to show where they are.
+
+~~~
+Lorem ipsum!__
+Dolor sit amet!__
+Sapien pede dictum.
+~~~
+
+> Lorem ipsum!  
+> Dolor sit amet!  
+> Sapien pede dictum.
+
+<!-- # -->
+
+> [important]
+> ### Special characters: `>`, `<` and `&`
+> 
+> Markdown allows to use HTML tags in the text, so the characters `> < &` need a special treatment, if we want to display them.
+>
+> If you want to write about R&B music in HTML, you have to use the escaping codes or entities: R`&amp;`B. What is more, even URLs need such escaping, if they contain **&amp;** symbol.
+> 
+>     Search <a href="http://images.google.com/images?num=30&amp;q=linus+torvalds">photos</a>
+>
+> The Markdown parser is quite intelligent and guesses from the content, whether a character must be written as an entity or not. So if you wish to put a copyright symbol &copy;, you can use a normal HTML entity: `&copy;`. 
+> 
+> But let's get back to our R&B music. In this case, & will be changed into an entity automatically.
+>
+>     R&B music
+> 
+> The `< >` symbols are also escaped automatically in some cases. The following mathematical relation can be written without entities. Markdown will add them on its own:
+>
+>     4 < 5
+> 
+
+Horizontal lines
+================
+
+To insert a horizontal line (`<hr />`), you write at least three asterisks `*`, pauses `-` or underline symbols `_` in the same line. They can be optionally separated with one space:
+
+~~~
+* * *
+
+***
+
+*****
+
+- - -
+
+---------------------------------------
+~~~

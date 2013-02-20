@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<go-to flag="success" action="[default]" />
+	<go-to flag="fail" action="[same]" />
+	<field type="File" column="background" label="Imagem de Fundo" id="_BACK_">
+		<mime-type>image/jpeg</mime-type>
+		<mime-type>image/gif</mime-type>
+		<mime-type>image/pjpeg</mime-type>
+		<mime-type>image/png</mime-type>
+	</field>
+	<field type="String" column="line_1" label="Linha 1" id="_LINE_1_" />
+	<field type="String" column="line_2" label="Linha 2" id="_LINE_2_" />
+</form>

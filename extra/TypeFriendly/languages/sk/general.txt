@@ -1,0 +1,19 @@
+; $Id: general.txt 52 2009-07-03 08:57:01Z extremo $
+; Translations of the main messages used across the book.
+; Translation authors:
+; - Tomasz Jędrzejewski <http://www.zyxist.com>
+;
+; Pozor: Slovencina neje moj matersky jazyk. Ako si najdete nejake chyby,
+; bol by som vdacny ak by ste opravili je a poslali vasu versiu skupine
+; Invenzzia <http://www.invenzzia.org>
+
+table_of_contents = "Zoznam kapitol"
+documentation = "Dokumentácia"
+manual = "Manuál"
+book = "Kniha"
+article = "Članok"
+generated_in = "Utvorený: %s"
+doc_license = "Obsah je k dispozícii za licenčných podmienok: %s"
+
+period_since = "od"
+period_to = "do"

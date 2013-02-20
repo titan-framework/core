@@ -1,0 +1,22 @@
+Title: Creating a new project
+
+---
+
+In this chapter we will describe, how to create your own book or documentation with TypeFriendly.
+
+Setting up everything manually
+==============================
+
+In the next chapters we assume that you want to set up everything manually. The whole process is quite simple and lasts only a couple of minutes. If you are using TypeFriendly for the first time, we recommend to follow right this way, as it will introduce you into the project structure.
+
+New project wizard
+==================
+
+Since version 0.1.2, TypeFriendly offers a new project wizard run from the command line. The wizard automatically creates the base structure of the project in the specified directory using the default template and the provided information. In order to run the wizard, create a new empty directory and run the following command:
+
+~~~
+[console]
+php typefriendly.php create "/path/to/directory"
+~~~
+
+You will be asked a couple of questions that will be used to personalize your newly created project.

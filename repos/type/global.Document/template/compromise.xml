@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<go-to flag="success" action="[default]" />
+	<go-to flag="fail" action="[same]" />
+	<field type="File" column="image" label="Cabeçalho (Imagem)" id="_IMAGE_">
+		<mime-type>image/jpeg</mime-type>
+		<mime-type>image/gif</mime-type>
+		<mime-type>image/pjpeg</mime-type>
+		<mime-type>image/png</mime-type>
+	</field>
+	<field type="String" column="header" label="Cabeçalho (Texto)" id="_HEADER_" />
+	<field type="Text" column="text" label="Texto" id="_TEXT_" />
+	<field type="Text" column="footer_1" label="Rodapé 1 (Embrapa)" id="_FOOTER_1_" />
+	<field type="Text" column="footer_2" label="Rodapé 2 (Endereço)" id="_FOOTER_2_" />
+	<field type="Text" column="assign_1" label="Assinatura 1" id="_ASSIGN_1_" />
+	<field type="Text" column="assign_2" label="Assinatura 2" id="_ASSIGN_2_" />
+	<field type="Text" column="assign_3" label="Assinatura 3" id="_ASSIGN_3_" />
+	<field type="Text" column="assign_4" label="Assinatura 4" id="_ASSIGN_4_" />
+	<field type="Text" column="attestant_1" label="Testemunha 1" id="_ATTESTANT_1_" />
+	<field type="Text" column="attestant_2" label="Testemunha 2" id="_ATTESTANT_2_" />
+</form>

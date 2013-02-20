@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-mapping>
+	<!--
+	<directive name="_LOCAL_REPOS_1_" value="../medusa/webapp/pet/manager/section" />
+	-->
+	
+	<permission name="_VIEW_ALL_" label="Pode visualizar instâncias de todos os usuários." />
+	
+	<action
+		name="list"
+		label="Listar Instâncias"
+		default="true"
+		description="">
+		<menu action="create" />
+		<menu function="search" />
+	</action>
+	
+	<action
+		name="step_1"
+		label="Passo 1: Configurações Principais"
+		description="">
+		<menu action="list" label="Voltar para Lista de Instâncias" />
+	</action>
+	
+	<action
+		name="step_2"
+		label="Passo 2: Controle de Acesso"
+		description="">
+		<menu action="list" label="Voltar para Lista de Instâncias" />
+	</action>
+	
+	<action
+		name="step_3"
+		label="Passo 3: Camada de Negócios"
+		description="">
+		<menu action="list" label="Voltar para Lista de Instâncias" />
+	</action>
+	
+	<action
+		name="step_4"
+		label="Passo 4: Geração"
+		description="">
+		<menu action="list" label="Voltar para Lista de Instâncias" />
+	</action>
+	
+	<action
+		name="create"
+		label="Criar Instância"
+		description="">
+		<menu action="list" label="Voltar" />
+	</action>
+	
+	<action
+		name="edit"
+		label="Editar Instância"
+		description="">
+		<menu action="list" label="Voltar" />
+	</action>
+</action-mapping>

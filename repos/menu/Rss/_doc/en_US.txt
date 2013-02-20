@@ -1,0 +1,1 @@
+Will generate an RSS Feed that will accompany changes in the data of section. In addition, it allows the monitoring of these changes by the system itself, where a monitoring section is enable.

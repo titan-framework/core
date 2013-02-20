@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search table="_instance">
+	<field type="String" column="_name" label="Nome" />
+	<field type="String" column="_unix" label="Nome Unix" />
+	<field type="String" column="_description" label="Descrição" />
+	<field type="Date" column="_create" label="Data de Criação" />
+	<field type="Date" column="_update" label="Última Atualização" />
+</search>
+<view table="_instance" primary="_unix" paginate="30">
+	<field type="String" column="_name" label="Nome" />
+	<field type="String" column="_unix" label="Nome Unix" />
+	<field type="Select" column="_user" link-table="_user" link-column="_id" link-view="_name" label="Arquiteto" />
+	<field type="Date" column="_create" label="Data de Criação" />
+	<field type="Date" column="_update" label="Última Atualização" id="_UPDATE_" />
+	<order id="_UPDATE_" invert="true" />
+	<icon action="step_1" image="edit.gif" label="Editar" default="true" />
+</view>

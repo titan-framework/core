@@ -1,0 +1,71 @@
+Title: Command line interface
+
+---
+
+TypeFriendly is used only from the operating system command line. It supports both Windows systems and various Unix clones, including Linux. You can call the script in this way:
+
+~~~
+[console]
+# Under Windows and Unix systems
+php typefriendly.php
+
+# Under Unix systems (since TF 0.1.2)
+./typefriendly
+~~~
+
+TypeFriendly 0.1.0 and 0.1.1
+============================
+
+The required parameter is always a path to the documentation directory (it means, to the directory that contains the `settings.ini` and other files). For example:
+
+~~~
+[console]
+./typefriendly "./docs/"
+~~~
+
+Allowed options that must be provided in the alphabetical order are:
+
+`-c LANGUAGE`
+:   a tool for multilingual documentations. It compares the last modification time of the files and shows those ones in the derived language that are not up-to-date. Moreover it looks also for the missing files.
+
+`-l LANGUAGE`
+:   generates the documentation in the specified language (by default, the base language is chosen).
+
+`-o OUTPUT`
+:   generates the documentation, using the specified output only. It must be listed in the available outputs in the configuration.
+
+Example:
+
+~~~
+[console]
+php typefriendly.php "./docs/" -l en -o xhtml
+~~~
+
+To display the information about TypeFriendly, call the script without any parameters.
+
+TypeFriendly 0.1.2 and newer
+============================
+
+In TypeFriendly 0.1.2, the command-line interface has been improved and the usage of the script has changed. The first argument is always a command specifying what we want to do. In the second place, we should specify a path to the directory with the documentation we want to process and at last, we specify the options.
+
+The available commands:
+
+1. **create** - creates a new documentation from a template and saves it to the specified (empty) directory. TypeFriendly asks you four questions about the newly created document and uses the values to prepare the configuration file. The use:
+
+        [console]
+        ./typefriendly create "/path/to/directory"
+
+2. **build** - builds an output version of the specified documentation. The available (optional) options are `-l` (the language) and `-o` (the used output system). The use:
+ 
+        [console]
+        ./typefriendly build "/path/to/directory" -l en -o xhtml
+
+3. **compare** - compares the translation to the original version. This command requires the `-l` option to select the translation.
+     
+        [console]
+        ./typefriendly compare "/path/to/directory" -l pl
+
+4. **version** - prints TypeFriendly version.
+     
+        [console]
+        ./typefriendly version

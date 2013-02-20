@@ -1,0 +1,84 @@
+Title: Installation
+
+---
+
+TypeFriendly is a command-line tool written in PHP5. In order to use it, you must have PHP 5.2 or newer with CLI support enabled.
+
+Installing PHP
+==============
+
+PHP is a popular scripting language used across the Internet to create dynamic websites. However, it can be also used to write ordinary system applications. In this chapter we will briefly describe, how to install PHP on your computer. 
+
+> [information]
+> If you are a PHP programmer, PHP should already be installed on your computer. In this case you just need to check if the command-line interface mode is available in your installation.
+
+Windows systems
+---------------
+
+The Windows binaries for PHP 5.2 can be downloaded in a form of ZIP archive from [www.php.net](http://www.php.net/). Extract the downloaded ZIP archive somewhere on your hard drive, for example `C:\php\`. Basically, this is all you need, but in order to run PHP, you have to specify the whole path to the `php.exe` file. To remove this inconvenience, you must add `C:\php` to your `PATH` environment variable.
+
+Open the *Control Panel* and find *System* applet. In the tab *Advanced* select *Environment variables* and you will see a new window. Then, find the variable `PATH` in the *System variables* and click *Edit* to modify its value. **After the semicolon `;`** add the path to the directory, where the `php.exe` file is located, for example:
+
+    ...;C:\php\
+
+Save everything and close the control panel.
+
+Unix systems
+------------
+
+Obtaining PHP is much easier on Unix systems, as they are usually equipped with various package management tools. For example, on Debian Linux, you can install PHP from the console:
+
+~~~
+[console]
+apt-get install php5-common
+apt-get install php5-cli
+~~~
+
+In other distributions the exact commands may be different and you have to refer to the documentation.
+
+Usually, the packages are pre-configured to locate the executable file in one of the `PATH` locations, so you do not have to modify this environment variable manually.
+
+Testing the installation
+------------------------
+
+To test your PHP installation, open the operating system console (on Windows: *Command line*) and type:
+
+~~~
+[console]
+php --version
+~~~
+
+If you see a message similar to the one below, everything went fine:
+
+~~~
+[console]
+PHP 5.2.10RC2-dev (cli) (built: May 27 2009 18:48:36)
+Copyright (c) 1997-2009 The PHP Group
+Zend Engine v2.2.0, Copyright (c) 1998-2009 Zend Technologies
+~~~
+
+Installing TypeFriendly
+=======================
+
+Download the latest TypeFriendly archive from [www.invenzzia.org](http://www.invenzzia.org) and extract it somewhere on your hard disk. Basically, this is all you need, if PHP is installed correctly. Run the command line and move to the TypeFriendly directory with the `cd` command:
+
+~~~
+[console]
+cd /path/to/TypeFriendly
+~~~
+
+To test the installation, try to build the TypeFriendly user manual provided with the application:
+
+~~~
+[console]
+php typefriendly.php build "./docs/"
+~~~
+
+Unix users may try also the shortened form, if PHP executable is available under `/usr/bin/php`:
+
+~~~
+[console]
+./typefriendly build "./docs/"
+~~~
+
+TypeFriendly should now rebuild the user manual you are reading now and the output version could be found in `./docs/output/`.

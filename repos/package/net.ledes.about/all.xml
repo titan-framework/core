@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form table="cms.[_TABLE_]" primary="id">
+	<go-to flag="success" action="[default]" />
+	<go-to flag="fail" action="[same]" />
+	<field type="String" column="title" label="Título" required="true" max-lenght="256" />
+	<field type="Fck" column="text" label="Texto" />
+</form>

@@ -1,0 +1,42 @@
+Title: Code spans
+SeeAlso:
+ - docs.syntax.codeblocks
+ 
+---
+
+You have probably already noticed some `fixed width text on a yellow background` inserted directly in the text. It is produced with backtick quotes `` ` `` wrapped around a text we wish to format:
+
+    Use the `print()` function to display some text.
+    
+> Use the `print()` function to display some text.
+
+The formatted text can be surrounded with double backtick quotes, if it already contains such characters, to create the same effect:
+
+    `` This text contains a backtick quote (`) inside ``
+    
+> `` This text contains a backtick quote (`) inside ``
+
+If the quote is located at the beginning or end of the span, it can be separated with a single space that will not be displayed:
+
+~~~
+A single quote: `` ` ``
+
+A text in backtick quotes: `` `something` ``
+~~~
+
+> A single quote: `` ` ``
+
+> A text in backtick quotes: `` `something` ``
+
+<!-- # -->
+
+> [information]
+> The symbols `<`, `>` and `&` are always escaped inside the code span. The HTML tags are nod parsed then.
+>
+> ##### Text:
+> 
+>     Never use `<blink>` tag.
+>
+> ##### Will produce:
+> 
+> > Never use `<blink>` tag.

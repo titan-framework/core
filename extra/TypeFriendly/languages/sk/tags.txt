@@ -1,0 +1,35 @@
+; $Id: tags.txt 67 2010-01-16 10:44:17Z zyxist $
+; The tag message translations.
+; Translation authors:
+; - Tomasz Jędrzejewski <http://www.zyxist.com>
+; Pozor: Slovencina neje moj matersky jazyk. Ako si najdete nejake chyby,
+; bol by som vdacny ak by ste opravili je a poslali vasu versiu skupine
+; Invenzzia <http://www.invenzzia.org>
+
+appendix = "Dodatok"
+status = "Status"
+reference = "Referencia"
+obj_extends = "Dedí zo"
+obj_implements = "Implementuje"
+obj_extended = "Dedený cez"
+obj_implemented = "Implementovaný cez"
+obj_throws = "Volané výnimky"
+version_since = "Od verzie"
+version_to = "Do verzie"
+versions = "Verzie"
+author = "Autor"
+visibility = "Visibility"
+version_control_info = "Kontrola verzie"
+type = "Typ"
+construct = "Ústava"
+returns = "Vrátená hodnota"
+arg_list = "Argument list"
+arg_name = "Name"
+arg_type = "Type"
+arg_desc = "Description"
+file = "Súbor"
+files = "Súbory"
+namespace = "Menný priestor"
+package = "Balík"
+time_complexity = "Časová zložitosť"
+memory_complexity = "Pamäťová zložitosť"
