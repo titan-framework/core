@@ -13,6 +13,9 @@ SET search_path = titan;
 CREATE FUNCTION to_ascii(bytea, name)
 RETURNS text STRICT AS 'to_ascii_encname' LANGUAGE internal;
 
+CREATE FUNCTION titan.no_accents(text)
+RETURNS text AS $$ SELECT translate($1,'באגדהיטךכםלןףעפץצתשûüְֱֲֳִָֹÊֻּֽֿ׃ׂװױײÚÙÛÜחַ','aaaaaeeeeiiiooooouuuuAAAAAEEEEIIIOOOOOUUUUcC'); $$ LANGUAGE sql IMMUTABLE STRICT;
+
 CREATE TABLE _city (
     _id smallint NOT NULL,
     _name character varying(64) NOT NULL,
