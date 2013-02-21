@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<form table="_group" primary="_id">
-	<go-to flag="success" action="[same]" />
-	<go-to flag="fail" action="[same]" />
-	<go-to flag="cancel" action="[default]" />
-</form>

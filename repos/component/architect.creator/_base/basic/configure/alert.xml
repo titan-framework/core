@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<alert-mapping>
-	<alert id="_UPDATE_PROFILE_" message="Faz mais de [DAYS] dias que você não atualiza seus dados pessoais." go="titan.php?target=body&toSection=[SECTION]&toAction=[ACTION]" icon="titan.php?target=loadFile&file=interface/alert/warning.gif" />
-</alert-mapping>

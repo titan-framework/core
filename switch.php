@@ -784,6 +784,11 @@ try
 					require $corePath .'tool/translate.php';
 					
 					break;
+				
+				case 'convertToUtf8':
+					require $corePath .'tool/convertToUtf8.php';
+					
+					break;
 			}
 			
 			break;
