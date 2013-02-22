@@ -2948,6 +2948,7 @@ repos/type/global.File/toValue.php -text
 repos/type/global.Float/Float.php -text
 repos/type/global.Float/_js.php -text
 repos/type/global.Float/fromForm.php -text
+repos/type/global.Float/toBind.php -text
 repos/type/global.Float/toDbMaker.php -text
 repos/type/global.Float/toForm.php -text
 repos/type/global.Float/toHtml.php -text
