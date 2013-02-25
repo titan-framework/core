@@ -10,54 +10,84 @@ try
 {
 	$instancePath = getcwd ();
 	
-	echo "INFO  > Starting converting proccess... \n";
+	echo "INFO      > Starting converting proccess... \n";
 	
 	$dbPath = $instancePath . DIRECTORY_SEPARATOR .'db.sql';
 	
-	echo "INFO  > Searching for DUMP of database on [". $dbPath ."]... \n";
+	echo "INFO      > Searching for DUMP of database on [". $dbPath ."]... \n";
 	
 	if (!file_exists ($dbPath) || !is_writable ($dbPath))
 		throw new Exception ('Impossible to find database dump file at ['. $dbPath .']! You need generate it at your instance root.');
 	
-	echo "INFO  > Converting database dump to UTF-8 [". $dbPath ."]... \n";
+	echo "INFO      > Converting database dump to UTF-8 [". $dbPath ."]... \n";
+	
+	$db = Instance::singleton ()->getDatabase ();
+	
+	$schema = isset ($db ['schema']) && trim ($db ['schema']) != '' ? trim ($db ['schema']) : 'public';
 	
 	$sql = Encoding::toUTF8 (file_get_contents ($dbPath));
 	
-	$sql = str_replace ("SET client_encoding = 'LATIN1';", "SET client_encoding = 'UTF8';", $sql);
+	$sql = "\set ON_ERROR_STOP \n\n". str_replace ("SET client_encoding = 'LATIN1';", "SET client_encoding = 'UTF8';", $sql). "\n\n";
+	
+	$sql .= "CREATE FUNCTION ". $schema .".to_ascii(bytea, name) RETURNS text STRICT AS 'to_ascii_encname' LANGUAGE internal; \n\n";
+	
+	$sql .= "CREATE FUNCTION ". $schema .".no_accents(text) RETURNS text  AS $$ SELECT translate($1,'áàâãäéèêëíìïóòôõöúùûüÁÀÂÃÄÉÈÊËÍÌÏÓÒÔÕÖÚÙÛÜçÇ','aaaaaeeeeiiiooooouuuuAAAAAEEEEIIIOOOOOUUUUcC'); $$ LANGUAGE sql IMMUTABLE STRICT; \n\n";
 	
 	$sql = '\set ON_ERROR_STOP' . "\n\n" . $sql;
 	
-	file_put_contents ($instancePath . DIRECTORY_SEPARATOR .'db-utf8.sql', $sql);
+	if (!file_put_contents ($instancePath . DIRECTORY_SEPARATOR .'db-utf8.sql', $sql))
+		throw new Exception ("Impossible to generate database dump converted to UTF-8!");
 	
-	convert ($path);
+	echo "SUCCESS   > Database dump converted to UTF-8! [". $instancePath . DIRECTORY_SEPARATOR ."db-utf8.sql] \n";
 	
-	die ();
+	echo "INFO      > Converting database dump to UTF-8 [". $dbPath ."]... \n";
+	
+	convert ($instancePath);
+	
+	echo "SUCCESS   > All files converted to UTF-8! \n";
+	
+	echo "INFO      > The automatic way inside proccess is done! You need now search for specific functions like 'utf8_encode' ou 'utf8_decode' on your local components and webservices and, manually, fix code. \n";
 }
 catch (Exception $e)
 {
-	die ('ERROR > '. $e->getMessage ());
+	die ('CRITICAL  > '. $e->getMessage ());
 }
 
 function convert ($path)
 {
 	$remove = array ('.', '..', '.svn', 'xoad', 'extra');
 	
-	$exts = array ('php', 'xml', 'js', 'css', 'html', 'txt', 'htm');
-
 	if (is_dir ($path))
 	{
-		/*
 		chdir ($path);
+		
+		$exts = array ('xml', 'js', 'css', 'html', 'htm');
+		
+		foreach ($exts as $trash => $ext)
+			foreach (glob ('*.'. $ext) as $file)
+			{
+				file_put_contents ($file, Encoding::toUTF8 (str_replace ('ISO-8859-1', 'UTF-8', file_get_contents ($file))));
+				
+				echo "CONVERTED > ". $path . DIRECTORY_SEPARATOR . $file ." [". mb_detect_encoding (file_get_contents ($file)) ."] \n";
+			}
+		
+		$exts = array ('php', 'txt');
 		
 		foreach ($exts as $trash => $ext)
 			foreach (glob ('*.'. $ext) as $file)
 			{
 				file_put_contents ($file, Encoding::toUTF8 (file_get_contents ($file)));
 				
-				echo $path . DIRECTORY_SEPARATOR . $file ." [". mb_detect_encoding (file_get_contents ($file)) ."] \n";
+				echo "CONVERTED > ". $path . DIRECTORY_SEPARATOR . $file ." [". mb_detect_encoding (file_get_contents ($file)) ."] \n";
 			}
-		*/
+		
 		$dh = opendir ($path);
+		
+		global $instancePath;
+		
+		$reserved = array (realpath ($instancePath . DIRECTORY_SEPARATOR . Instance::singleton ()->getCorePath ()),
+						   realpath ($instancePath . DIRECTORY_SEPARATOR . Instance::singleton ()->getCachePath ()),
+						   realpath ($instancePath . DIRECTORY_SEPARATOR . Archive::singleton ()->getDataPath ()));
 		
 		while (($file = readdir ($dh)) !== false)
 		{
@@ -66,31 +96,14 @@ function convert ($path)
 			
 			$fullpath = realpath ($path . DIRECTORY_SEPARATOR . $file);
 			
-			if (!is_dir ($fullpath) || is_link ($fullpath) || $fullpath == realpath (Instance::singleton ()->getCorePath ()))
+			if (!is_dir ($fullpath) || is_link ($fullpath) || in_array ($fullpath, $reserved))
 				continue;
 			
-			echo realpath ($fullpath) ."\n";
-			// convert ($fullpath);
+			convert ($fullpath);
 		}
 		
 		closedir ($dh);
 	}
 }
-
-require 'Encoding.php';
-
-$file = 'db.sql';
-
-file_put_contents ('utf8-'. $file, '\set ON_ERROR_STOP'."\n\n".Encoding::toUTF8 (file_get_contents ($file)));
-/*
-$_TITAN = realpath ('pandora');
-
-// chdir ($_TITAN);
-
-echo "Starting for ". $_TITAN ."... \n";
-
-convert ($_TITAN);
-*/
-echo "END";
 ?>
 </pre>

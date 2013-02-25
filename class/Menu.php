@@ -29,7 +29,10 @@ class Menu
 					continue;
 				
 				if ($aux = self::factory ($drive, $item))
-					$this->array [] = $aux;
+					if (array_key_exists ('id', $item) && trim ($item ['id']) != '')
+						$this->array [$item ['id']] = $aux;
+					else
+						$this->array [] = $aux;
 			}
 	}
 	
@@ -72,9 +75,18 @@ class Menu
 		return !sizeof ($this->array);
 	}
 	
-	public function add ($action, $label, $itemId, $section, $img = FALSE)
+	public function add ($action, $label, $itemId, $section, $img = FALSE, $id = NULL)
 	{
-		$this->array [] = self::factory ('Action', array ('action' => $action, 'label' => $label, 'itemId' => $itemId, 'section' => $section, 'image' => $img));
+		if (is_null ($id) || empty ($id))
+			$this->array [] = self::factory ('Action', array ('action' => $action, 'label' => $label, 'itemId' => $itemId, 'section' => $section, 'image' => $img));
+		else
+			$this->array [$id] = self::factory ('Action', array ('action' => $action, 'label' => $label, 'itemId' => $itemId, 'section' => $section, 'image' => $img));
+	}
+	
+	public function del ($id)
+	{
+		if (array_key_exists ($id, $this->array))
+			unset ($this->array [$id]);
 	}
 
 	public function addPrint ($label = '', $img = '')
