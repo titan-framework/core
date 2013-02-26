@@ -28,7 +28,7 @@ $_sendMail = FALSE;
 
 try
 {
-	ob_start ();
+	// ob_start ();
 	
 	$_benchmark = time ();
 	
@@ -489,7 +489,7 @@ try
 				else
 					echo "SUCCESS > File or folder [". $_folder . $file ."] updated to revision #". $_actualRevision ."! Setting permission... \n";
 				
-				setPermission ($_folder . $file, $_conf ['sys.dir_mode'], $_conf ['sys.file_mode'], $_conf ['sys.owner'], $_conf ['sys.group']);
+				setPermission ($_folder . $file, $_conf ['dir-mode'], $_conf ['file-mode'], $_conf ['owner'], $_conf ['group']);
 				
 				echo "INFO > Permission setted recursively to file or folder! \n";
 			}
@@ -501,7 +501,7 @@ try
 		
 		echo "FINISH > All done after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n";
 		
-		$subject = "[". $_conf ['app.name'] ." at server ". php_uname ('n') ."] Successful updated to revision #". $_revertRevision ." at ". date ('Y-m-d H:i');
+		$subject = "[". $_xml ['name'] ." at server ". php_uname ('n') ."] Successful updated to revision #". $_revertRevision ." at ". date ('Y-m-d H:i');
 	}
 }
 catch (Exception $e)
