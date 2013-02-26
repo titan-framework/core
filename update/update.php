@@ -126,16 +126,16 @@ try
 		
 		$xml = new Xml ($file);
 		
-		$array = $xml->getArray ();
+		$_xml = $xml->getArray ();
 		
-		if (!isset ($array ['titan-configuration'][0]))
+		if (!isset ($_xml ['titan-configuration'][0]))
 		{
 			echo "ERROR > The tag 'titan-configuration' dont exist in file [". $_path . DIRECTORY_SEPARATOR . $file ."]! \n";
 			
 			continue;
 		}
 		
-		$array = $array ['titan-configuration'][0];
+		$_xml = $_xml ['titan-configuration'][0];
 		
 		echo "INFO > The file 'titan.xml' is loaded! [". $_path . DIRECTORY_SEPARATOR . $file ."] \n";
 		
@@ -143,7 +143,7 @@ try
 		 * Verifying prerequisites
 		 */
 		
-		if (!isset ($array ['update'][0]['environment']) || trim ($array ['update'][0]['environment']) == '')
+		if (!isset ($_xml ['update'][0]['environment']) || trim ($_xml ['update'][0]['environment']) == '')
 		{
 			echo "ERROR > You need set a environment name on tag 'update' of 'titan.xml'! \n";
 			
@@ -153,11 +153,11 @@ try
 		$_conf = array ();
 		
 		foreach ($_defaultConf as $key => $value)
-			if (array_key_exists ($key, $array ['update'][0]) && trim ($array ['update'][0][$key]) != '')
+			if (array_key_exists ($key, $_xml ['update'][0]) && trim ($_xml ['update'][0][$key]) != '')
 				if (is_bool ($value))
-					$_conf [$key] = strtoupper (trim ($array ['update'][0][$key])) == 'TRUE' ? TRUE : FALSE;
+					$_conf [$key] = strtoupper (trim ($_xml ['update'][0][$key])) == 'TRUE' ? TRUE : FALSE;
 				else
-					$_conf [$key] = trim ($array ['update'][0][$key]);
+					$_conf [$key] = trim ($_xml ['update'][0][$key]);
 			else
 				$_conf [$key] = $value;
 		
@@ -171,7 +171,7 @@ try
 		$_conf ['file-mode'] = octdec ('0'. $_conf ['file-mode']);
 		$_conf ['dir-mode']  = octdec ('0'. $_conf ['dir-mode']);
 		
-		if ($_conf ['backup'] && (!isset ($array ['backup'][0]['path']) || trim ($array ['backup'][0]['path']) == '' || !isset ($array ['backup'][0]['validity']) || !is_numeric ($array ['backup'][0]['validity'])))
+		if ($_conf ['backup'] && (!isset ($_xml ['backup'][0]['path']) || trim ($_xml ['backup'][0]['path']) == '' || !isset ($_xml ['backup'][0]['validity']) || !is_numeric ($_xml ['backup'][0]['validity'])))
 		{
 			echo "ERROR > You need fix backup parameters on tag 'backup' of 'titan.xml'! \n";
 			
@@ -184,28 +184,28 @@ try
 		
 		try
 		{
-			if (!isset ($array ['database'][0]) || !isset ($array ['database'][0]['host']) || !isset ($array ['database'][0]['name']))
+			if (!isset ($_xml ['database'][0]) || !isset ($_xml ['database'][0]['host']) || !isset ($_xml ['database'][0]['name']))
 			{
 				echo "ERROR > You need configure 'database' on 'titan.xml'! \n";
 				
 				continue;
 			}
 			
-			$array ['database'][0]['port'] = isset ($array ['database'][0]['port']) && is_numeric ($array ['database'][0]['port']) ? trim ($array ['database'][0]['port']) : '5432';
+			$_xml ['database'][0]['port'] = isset ($_xml ['database'][0]['port']) && is_numeric ($_xml ['database'][0]['port']) ? trim ($_xml ['database'][0]['port']) : '5432';
 			
-			if (!in_array ($array ['database'][0]['host'], array ('localhost', '127.0.0.1', '::1')) || PHP_OS != 'Linux')
-				$dsn = 'pgsql:host='. $array ['database'][0]['host'] .' port='. $array ['database'][0]['port'] .' dbname='. $array ['database'][0]['name'] .' user='. @$array ['database'][0]['user'] .' password='. @$array ['database'][0]['password'];
+			if (!in_array ($_xml ['database'][0]['host'], array ('localhost', '127.0.0.1', '::1')) || PHP_OS != 'Linux')
+				$dsn = 'pgsql:host='. $_xml ['database'][0]['host'] .' port='. $_xml ['database'][0]['port'] .' dbname='. $_xml ['database'][0]['name'] .' user='. @$_xml ['database'][0]['user'] .' password='. @$_xml ['database'][0]['password'];
 			else
-				$dsn = 'pgsql:dbname='. $array ['database'][0]['name'] .' user='. @$array ['database'][0]['user'] .' password='. @$array ['database'][0]['password'];
+				$dsn = 'pgsql:dbname='. $_xml ['database'][0]['name'] .' user='. @$_xml ['database'][0]['user'] .' password='. @$_xml ['database'][0]['password'];
 			
-			$_db = new PDO ($dsn, @$array ['database'][0]['user'], @$array ['database'][0]['password']);
+			$_db = new PDO ($dsn, @$_xml ['database'][0]['user'], @$_xml ['database'][0]['password']);
 			
 			$_db->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			
-			if (isset ($array ['timezone']) && trim ($array ['timezone']) != '')
-				$_db->exec ("SET timezone TO '". trim ($array ['timezone']) ."'");
+			if (isset ($_xml ['timezone']) && trim ($_xml ['timezone']) != '')
+				$_db->exec ("SET timezone TO '". trim ($_xml ['timezone']) ."'");
 			
-			$schema = isset ($array ['database'][0]['schema']) && trim ($array ['database'][0]['schema']) != '' ? trim ($array ['database'][0]['schema']) : 'public';
+			$schema = isset ($_xml ['database'][0]['schema']) && trim ($_xml ['database'][0]['schema']) != '' ? trim ($_xml ['database'][0]['schema']) : 'public';
 			
 			$_versionTable = $schema .'._version';
 			
@@ -401,7 +401,7 @@ try
 				if ($_conf ['backup'])
 					try
 					{
-						backupDatabase ($array ['database'][0]['name'], $array ['database'][0]['host'], $array ['database'][0]['port'], @$array ['database'][0]['user'], @$array ['database'][0]['password'], trim ($array ['backup'][0]['path']), trim ($array ['backup'][0]['validity']));
+						backupDatabase ($_xml ['database'][0]['name'], $_xml ['database'][0]['host'], $_xml ['database'][0]['port'], @$_xml ['database'][0]['user'], @$_xml ['database'][0]['password'], trim ($_xml ['backup'][0]['path']), trim ($_xml ['backup'][0]['validity']));
 					}
 					catch (Exception $e)
 					{
