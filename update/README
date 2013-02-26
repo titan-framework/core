@@ -1,0 +1,48 @@
+README FOR AUTO UPDATE SCRIPT 1.0
+=================================
+
+This package contains the Auto Update Script for Web Applications version 1.0
+
+The library is Copyright (C) 2013 PLEASE Lab at Embrapa Beef Cattle and
+released under XXXX license XXXX for all corporate units from
+Brazilian Agricultural Research Corporation (Embrapa). 
+
+http://please.cnpgc.embrapa.br
+			
+Requirements:
+-------------
+
+Miminum:
+* PHP 5.1.0 or higher 
+* PECL SVN 1.0.2 or higher
+Note: Earlier versions might work but is unsupported.
+
+Recommended:
+* PHP 5.3.0
+
+Installation
+------------
+
+First, you need to install SVN PECL library to PHP.
+
+That installation has been homologed in Debian Squeeze environment.
+
+Update you aptitude and install requirements:
+
+# aptitude update
+# aptitude install build-essential php-pear php5-dev libsvn-dev
+
+Installing library:
+
+# pecl update-channels
+# pecl install svn
+# echo "extension=svn.so" > /etc/php5/conf.d/svn.ini
+# /etc/init.d/apache2 restart
+
+Now, add line bellow to '/etc/crontab':
+
+*/5 * * * * root /usr/bin/php /var/www/[path to your web app]/update/update.php > /dev/null
+
+Its line will call script every 5 minutes. To greater interval, change the number five for other, e.g.:
+
+*/20 * * * * root /usr/bin/php /var/www/[path to your web app]/update/update.php > /dev/null

@@ -3083,6 +3083,7 @@ tool/convertToUtf8.php -text
 tool/dbMaker.php -text
 tool/translate.php -text
 update/.htaccess -text
+update/README -text
 update/binary.php -text
 update/function.php -text
 update/update.php -text

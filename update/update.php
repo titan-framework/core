@@ -171,7 +171,7 @@ try
 		$_conf ['file-mode'] = octdec ('0'. $_conf ['file-mode']);
 		$_conf ['dir-mode']  = octdec ('0'. $_conf ['dir-mode']);
 		
-		if ($_conf ['backup'] && (!isset ($array ['update'][0]['folder']) || trim ($array ['update'][0]['folder']) == '' || !isset ($array ['update'][0]['validity']) || !is_numeric ($array ['update'][0]['validity'])))
+		if ($_conf ['backup'] && (!isset ($array ['backup'][0]['path']) || trim ($array ['backup'][0]['path']) == '' || !isset ($array ['backup'][0]['validity']) || !is_numeric ($array ['backup'][0]['validity'])))
 		{
 			echo "ERROR > You need fix backup parameters on tag 'backup' of 'titan.xml'! \n";
 			
@@ -401,7 +401,7 @@ try
 				if ($_conf ['backup'])
 					try
 					{
-						backupDatabase ($array ['database'][0]['name'], $array ['database'][0]['host'], $array ['database'][0]['port'], @$array ['database'][0]['user'], @$array ['database'][0]['password'], trim ($array ['update'][0]['folder']), trim ($array ['update'][0]['validity']));
+						backupDatabase ($array ['database'][0]['name'], $array ['database'][0]['host'], $array ['database'][0]['port'], @$array ['database'][0]['user'], @$array ['database'][0]['password'], trim ($array ['backup'][0]['path']), trim ($array ['backup'][0]['validity']));
 					}
 					catch (Exception $e)
 					{
