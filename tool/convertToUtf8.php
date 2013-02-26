@@ -27,13 +27,11 @@ try
 	
 	$sql = Encoding::toUTF8 (file_get_contents ($dbPath));
 	
-	$sql = "\set ON_ERROR_STOP \n\n". str_replace ("SET client_encoding = 'LATIN1';", "SET client_encoding = 'UTF8';", $sql). "\n\n";
+	$sql = str_replace ("SET client_encoding = 'LATIN1';", "SET client_encoding = 'UTF8';", $sql). "\n\n";
 	
 	$sql .= "CREATE FUNCTION ". $schema .".to_ascii(bytea, name) RETURNS text STRICT AS 'to_ascii_encname' LANGUAGE internal; \n\n";
 	
 	$sql .= "CREATE FUNCTION ". $schema .".no_accents(text) RETURNS text  AS $$ SELECT translate($1,'áàâãäéèêëíìïóòôõöúùûüÁÀÂÃÄÉÈÊËÍÌÏÓÒÔÕÖÚÙÛÜçÇ','aaaaaeeeeiiiooooouuuuAAAAAEEEEIIIOOOOOUUUUcC'); $$ LANGUAGE sql IMMUTABLE STRICT; \n\n";
-	
-	$sql = '\set ON_ERROR_STOP' . "\n\n" . $sql;
 	
 	if (!file_put_contents ($instancePath . DIRECTORY_SEPARATOR .'db-utf8.sql', $sql))
 		throw new Exception ("Impossible to generate database dump converted to UTF-8!");
