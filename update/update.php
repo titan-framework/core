@@ -24,14 +24,8 @@ $_corePath = dirname (dirname (__FILE__));
 
 require $_corePath . DIRECTORY_SEPARATOR .'class'. DIRECTORY_SEPARATOR .'Xml.php';
 
-$_sendMail = FALSE;
-
 try
 {
-	// ob_start ();
-	
-	$_benchmark = time ();
-	
 	if (PHP_SAPI != 'cli')
 		throw new Exception ("CRITICAL > This is a command-line script! You cannot call by browser.");
 	
@@ -104,6 +98,10 @@ try
 	{
 		if (!file_exists ($argv [$i]) || !is_dir ($argv [$i]))
 			continue;
+		
+		ob_start ();
+		
+		$_benchmark = time ();
 		
 		$_path = realpath ($argv [$i]);
 		
@@ -293,6 +291,8 @@ try
 		if ($_actualRevision == $_headRevision)
 		{
 			echo "INFO > File of path [". $_pathToFileOfPaths ."] is in head revision. Update is not necessary! \n";
+			
+			echo ob_get_clean ();
 			
 			continue;
 		}
@@ -502,6 +502,10 @@ try
 		echo "FINISH > All done after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n";
 		
 		$subject = "[". $_xml ['name'] ." at server ". php_uname ('n') ."] Successful updated to revision #". $_revertRevision ." at ". date ('Y-m-d H:i');
+		
+		$buffer = ob_get_clean ();
+		
+		@mail (@$_xml ['e-mail'], $subject, $buffer);
 	}
 }
 catch (Exception $e)
@@ -511,10 +515,6 @@ catch (Exception $e)
 	echo "FINISH > Critical error after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n";
 	
 	// $subject = "[". $_conf ['app.name'] ." at server ". php_uname ('n') ."] Fail to update at ". date ('Y-m-d H:i');
+	
+	// @mail ('bug@titanframework.com', $subject, $buffer);
 }
-
-// $buffer = ob_get_clean ();
-/*
-if (isset ($_conf ['mail.recipients']) && trim ($_conf ['mail.recipients']) != '')
-	@mail ($_conf ['mail.recipients'], $subject, $buffer);
-*/
