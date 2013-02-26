@@ -74,6 +74,8 @@ function backupDatabase ($name, $host, $port, $user, $password, $folder, $validi
 	if (in_array ($folder, $invalid))
 		throw new Exception ("Ivalid folder to make DB backup [". $folder ."]!");
 	
+	$folder .= DIRECTORY_SEPARATOR .'auto-update';
+	
 	echo "INFO > Starting DB backup [". $name ."] at folder [". $folder ."]... \n";
 	
 	if (is_dir ($folder))
