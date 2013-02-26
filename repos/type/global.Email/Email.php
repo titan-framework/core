@@ -6,6 +6,11 @@ class Email extends String
 		parent::__construct ($table, $field);
 	}
 	
+	public function setValue ($value)
+	{
+		$this->value = strtolower ($value);
+	}
+	
 	public function isValid ()
 	{
 		if ($this->isEmpty ())
