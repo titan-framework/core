@@ -170,3 +170,11 @@ function tableExists ($db, $name)
 	
 	return FALSE;
 }
+
+function handleError ($errno, $errstr, $errfile, $errline, $errcontext)
+{
+	if (error_reporting () === 0)
+		return FALSE;
+	
+	throw new Exception ($errstr, 0, $errno, $errfile, $errline);
+}

@@ -24,6 +24,8 @@ $_corePath = dirname (dirname (__FILE__));
 
 require $_corePath . DIRECTORY_SEPARATOR .'class'. DIRECTORY_SEPARATOR .'Xml.php';
 
+set_error_handler ('handleError');
+
 try
 {
 	if (PHP_SAPI != 'cli')
@@ -44,6 +46,7 @@ try
 	svn_auth_set_parameter (PHP_SVN_AUTH_PARAM_IGNORE_SSL_VERIFY_ERRORS, TRUE);
 	svn_auth_set_parameter (SVN_AUTH_PARAM_NON_INTERACTIVE, TRUE);
 	svn_auth_set_parameter (SVN_AUTH_PARAM_NO_AUTH_CACHE, TRUE);
+	svn_auth_set_parameter (SVN_AUTH_PARAM_DONT_STORE_PASSWORDS, TRUE);
 	
 	if (!function_exists ('system'))
 		throw new Exception ("CRITICAL > You need enable OS call functions (verify if PHP is not in safe mode)!");
@@ -53,36 +56,42 @@ try
 	foreach ($commands as $trash => $command)
 		if (!defined ($command))
 			throw new Exception ("CRITICAL > Configure path for binaries of OS in [". $_corePath . DIRECTORY_SEPARATOR ."update". DIRECTORY_SEPARATOR ."binary.php]! \n");
-	
-	/*
-	$tCore = realpath (trim (@$_conf ['titan.core']));
-	$tRepo = realpath (trim (@$_conf ['titan.repos']));
-	
-	if ($tCore == '' || $tRepo == '')
-		throw new Exception ("CRITICAL > Empty Titan CORE or REPOS reference! Verify in 'conf.ini' if path to both dont have a 'open_basedir' restriction.");
-	
-	echo "INFO > Updating CORE of Titan Framework [". $_conf ['titan.core'] ."]... \n";
-	
-	system (SVN .' up '. $tCore .' --no-auth-cache --non-interactive -q', $return);
-	
-	if ($return)
-		echo "ERROR > Fail to update CORE of Titan Framework [". $tCore ."]! \n";
-	else
-		echo "SUCCESS > CORE of Titan Framework [". $tCore ."] is updated! \n";
-	
-	setPermission ($tCore, $_conf ['sys.dir_mode'], $_conf ['sys.file_mode'], $_conf ['sys.owner'], $_conf ['sys.group']);
-	
-	echo "INFO > Updating GLOBAL REPOSITORY of Titan Framework [". $tRepo ."]... \n";
-	
-	system (SVN .' up '. $tRepo .' --no-auth-cache --non-interactive -q', $return);
-	
-	if ($return)
-		echo "ERROR > Fail to update GLOBAL REPOSITORY of Titan Framework [". $tRepo ."]! \n";
-	else
-		echo "SUCCESS > GLOBAL REPOSITORY of Titan Framework [". $tRepo ."] is updated! \n";
-	
-	setPermission ($tRepo, $_conf ['sys.dir_mode'], $_conf ['sys.file_mode'], $_conf ['sys.owner'], $_conf ['sys.group']);
-	*/
+	try
+	{
+		echo "INFO > Getting updates to Titan Framework... \n";
+		
+		$array = svn_ls ('https://svn.cnpgc.embrapa.br/titan');
+		
+		if (!isset ($array ['core']['created_rev']) || !is_numeric ($array ['core']['created_rev']))
+			throw new Exception ("Invalid Titan Framework CORE revision on SVN repository! \n");
+		
+		$coreLastRevision = (int) $array ['core']['created_rev'];
+		
+		$array = svn_status ($_corePath, SVN_NON_RECURSIVE|SVN_ALL);
+		
+		if (!isset ($array [0]['revision']) || !is_numeric ($array [0]['revision']))
+			throw new Exception ("Invalid Titan Framework CORE revision on work copy! \n");
+		
+		$coreActualRevision = (int) $array [0]['revision'];
+		
+		if ($coreActualRevision < $coreLastRevision)
+		{
+			echo "INFO > Updating CORE of Titan Framework [". $_corePath ."]... \n";
+			
+			system (SVN .' up '. $_corePath .' --no-auth-cache --non-interactive -q', $return);
+			
+			if ($return)
+				echo "ERROR > Fail to update Titan Framework [". $_corePath ."]! \n";
+			else
+				echo "SUCCESS > Titan Framework [". $_corePath ."] is updated! \n";
+			
+			setPermission ($_corePath, octdec ('0775'), octdec ('0664'), 'root', 'staff');
+		}
+	}
+	catch (Exception $e)
+	{
+		echo "ERROR > ". $e->getMessage () ." at line ". $e->getLine () ."! \n";
+	}
 	
 	$_defaultConf = array ( 'environment' => '',
 							'svn-login' => '',
