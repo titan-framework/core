@@ -76,7 +76,7 @@ try
 		
 		if ($coreActualRevision < $coreLastRevision)
 		{
-			echo "INFO > Updating CORE of Titan Framework [". $_corePath ."]... \n";
+			echo "INFO > Updating CORE of Titan Framework [". $_corePath ."] from revision #". $coreActualRevision ." to #". $coreLastRevision ."... \n";
 			
 			system (SVN .' up '. $_corePath .' --no-auth-cache --non-interactive -q', $return);
 			
