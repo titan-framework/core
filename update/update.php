@@ -239,7 +239,7 @@ try
 			system (SVN .' up '. $_folder .'update'. DIRECTORY_SEPARATOR .'blacklist.txt --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --no-auth-cache --non-interactive -q', $return);
 			
 			if ($return)
-				throw new Exception ("CRITICAL > Impossible update black list [update/blacklist.txt]!");
+				throw new Exception ("CRITICAL > Impossible update black list [". $_folder ."update". DIRECTORY_SEPARATOR ."blacklist.txt]! Verify SVN login and password at [configure/titan.xml].");
 			
 			if (file_exists ($_folder .'update'. DIRECTORY_SEPARATOR .'blacklist.txt'))
 				$_blacklist = file ($_folder .'update'. DIRECTORY_SEPARATOR .'blacklist.txt');
