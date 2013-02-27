@@ -61,7 +61,21 @@ try
 	
 	try
 	{
-		echo "INFO > Getting updates to Titan Framework... \n";
+		echo "INFO > Updating Titan Framework... \n";
+		
+		echo "INFO > Getting last stable revision... \n";
+		
+		$fileWithStableRevision = $_corePath . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'STABLE';
+		
+		system (SVN .' up '. $fileWithStableRevision .' --no-auth-cache --non-interactive -q', $return);
+		
+		if ($return || !file_exists ($fileWithStableRevision))
+			throw new Exception ("Fail to update file with last stable revision! [". $fileWithStableRevision ."]");
+		
+		$coreLastStableRevision = (int) file_get_contents ($fileWithStableRevision);
+		
+		if (is_null ($coreLastStableRevision) || $coreLastStableRevision < 1)
+			throw new Exception ("Fail to get last stable revision number! [". $fileWithStableRevision ."]");
 		
 		$array = svn_ls ('https://svn.cnpgc.embrapa.br/titan');
 		
@@ -77,11 +91,11 @@ try
 		
 		$coreActualRevision = (int) $array [0]['revision'];
 		
-		if ($coreActualRevision < $coreLastRevision)
+		if ($coreActualRevision != $coreLastStableRevision)
 		{
-			echo "INFO > Updating CORE of Titan Framework [". $_corePath ."] from revision #". $coreActualRevision ." to #". $coreLastRevision ."... \n";
+			echo "INFO > Updating (or downgrading) CORE of Titan Framework [". $_corePath ."] from revision #". $coreActualRevision ." to stable revision #". $coreLastStableRevision ." (the last revision in repository is #". $coreLastRevision .")... \n";
 			
-			system (SVN .' up '. $_corePath .' --no-auth-cache --non-interactive -q', $return);
+			system (SVN .' up -r '. $coreLastStableRevision .' '. $_corePath .' --no-auth-cache --non-interactive -q', $return);
 			
 			if ($return)
 				echo "ERROR > Fail to update Titan Framework [". $_corePath ."]! \n";
