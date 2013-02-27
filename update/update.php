@@ -116,7 +116,7 @@ try
 							'svn-login' => '',
 							'svn-password' => '',
 							'svn-users' => '',
-							'backup' => FALSE,
+							'backup' => TRUE,
 							'file-mode' => '664',
 							'dir-mode' => '775',
 							'owner' => 'root',
@@ -171,7 +171,7 @@ try
 			foreach ($_defaultConf as $key => $value)
 				if (array_key_exists ($key, $_xml ['update'][0]) && trim ($_xml ['update'][0][$key]) != '')
 					if (is_bool ($value))
-						$_conf [$key] = strtoupper (trim ($_xml ['update'][0][$key])) == 'TRUE' ? TRUE : FALSE;
+						$_conf [$key] = strtoupper (trim ($_xml ['update'][0][$key])) == 'FALSE' ? FALSE : TRUE;
 					else
 						$_conf [$key] = trim ($_xml ['update'][0][$key]);
 				else
