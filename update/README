@@ -1,14 +1,12 @@
 README FOR AUTO UPDATE SCRIPT 1.0
 =================================
 
-This package contains the Auto Update Script for Web Applications version 1.0
+This package contains the Titan Framework Auto Update Script version 1.0
 
-The library is Copyright (C) 2013 PLEASE Lab at Embrapa Beef Cattle and
-released under XXXX license XXXX for all corporate units from
-Brazilian Agricultural Research Corporation (Embrapa). 
+Developted by Camilo Carromeu <camilo.carromeu@embrapa.br> at PLEASE Lab.
 
 http://please.cnpgc.embrapa.br
-			
+
 Requirements:
 -------------
 
@@ -41,8 +39,6 @@ Installing library:
 
 Now, add line bellow to '/etc/crontab':
 
-*/5 * * * * root /usr/bin/php /var/www/[path to your web app]/update/update.php > /dev/null
+*/5 * * * * root /usr/bin/php /var/www/[path to Titan core]/update/update.php /var/www/[path to first instance] /var/www/[path to second instance] > /var/log/titan-auto-update.log
 
-Its line will call script every 5 minutes. To greater interval, change the number five for other, e.g.:
-
-*/20 * * * * root /usr/bin/php /var/www/[path to your web app]/update/update.php > /dev/null
+Its line will call script every 5 minutes. To greater interval, change the number five for other.
