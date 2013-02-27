@@ -487,6 +487,8 @@ try
 			$buffer = ob_get_clean ();
 			
 			@mail (@$_xml ['e-mail'], $subject, $buffer);
+			
+			echo $buffer;
 		}
 		catch (PDOException $e)
 		{
