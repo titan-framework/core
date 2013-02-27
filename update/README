@@ -16,7 +16,7 @@ Miminum:
 Note: Earlier versions might work but is unsupported.
 
 Recommended:
-* PHP 5.3.0
+* PHP 5.4.0
 
 Installation
 ------------
