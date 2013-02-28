@@ -1,3 +1,4 @@
+<script language="javascript" type="text/javascript" src="titan.php?target=packer&files=sha1"></script>
 <script language="javascript" type="text/javascript">
 function showActivate (id)
 {
@@ -109,9 +110,11 @@ function changePasswd (id)
 	
 	showWait ();
 	
-	<? if (Security::singleton ()->encryptOnClient ()) { echo 'passwd = hex_sha1 (passwd.value);'; } ?>
+	p = passwd.value;
 	
-	if (ajax.changePasswd (id, passwd.value))
+	<? if (Security::singleton ()->encryptOnClient ()) { echo 'p = hex_sha1 (passwd.value);'; } ?>
+	
+	if (ajax.changePasswd (id, p))
 		showChangePasswd (id);
 
 	ajax.delay (function () {
