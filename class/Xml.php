@@ -66,7 +66,7 @@ class Xml
 			}
 		}
 		
-		$table = get_html_translation_table (HTML_ENTITIES, ENT_COMPAT | ENT_XHTML, 'UTF-8');
+		$table = get_html_translation_table (HTML_ENTITIES, ENT_COMPAT, 'UTF-8');
 		
 		$table = array_flip ($table);
 		
