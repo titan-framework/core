@@ -538,6 +538,27 @@ function isFirefox ($force = FALSE)
 	return $flag;
 }
 
+function getBrowser ()
+{
+	$cache = Instance::singleton ()->getCachePath ();
+
+	if (!file_exists ($cache .'browscap') && !mkdir ($cache .'browscap', 0775))
+		return '';
+
+	try
+	{
+		$browscap = new Browscap ($cache .'browscap');
+
+		return $browscap->getBrowser ()->Browser;
+	}
+	catch (Exception $e)
+	{
+		toLog ($e->getMessage ());
+	}
+	
+	return '';
+}
+
 function swf ($path, $width, $height)
 {
 	$name = randomHash ();

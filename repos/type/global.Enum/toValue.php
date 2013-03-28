@@ -1,6 +1,6 @@
 <?
 if ($field->isEmpty ())
-	return NULL;
+	return "NULL";
 
 return "'". $field->getValue () ."'";
 ?>

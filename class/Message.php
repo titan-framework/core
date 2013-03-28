@@ -63,7 +63,10 @@ class Message
 		if ($type == self::TEXT)
 			return $this->array [$key][1];
 		
-		return '<div class="'. ($this->array [$key][0] == self::WARNING ? 'cError' : 'cMessage') .'">'. $this->array [$key][1] .'</div>';
+		if ($this->array [$key][0] == self::MESSAGE)
+			return '<div class="cMessage">'. $this->array [$key][1] .'</div>';
+		
+		return '<div class="cError">'. $this->array [$key][1] .'<a class="cReport" href="#" onclick="JavaScript: bugReport (\''. str_replace (array ("'", '"'), '', strip_tags ($this->array [$key][1])) .'\');">'. __ ('Technical issue?') .'</a></div>';
 	}
 	
 	public function has ()

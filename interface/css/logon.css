@@ -153,6 +153,10 @@ input.button:hover
 	color: #990000;
 	font-weight: bold;
 }
+#idMessage .cError a.cReport
+{
+	display: none;
+}
 #idBody .cWarning
 {
 	position: relative;

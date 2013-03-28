@@ -21,18 +21,24 @@ class Xoad
 		{
 			set_error_handler ('logPhpError');
 			
-			if (!$this->validateRequired ($file, $formData))
-				return FALSE;
+			$array = $this->validateRequired ($file, $formData);
 			
-			if (!$this->validateField ($file, $formData))
-				return FALSE;
+			if (sizeof ($array))
+				return "'". implode ("', '", $array) ."'";
 			
-			if (!$this->validateUnique ($file, $formData, $itemId))
-				return FALSE;
+			$array = $this->validateField ($file, $formData);
+			
+			if (sizeof ($array))
+				return "'". implode ("', '", $array) ."'";
+			
+			$array = $this->validateUnique ($file, $formData, $itemId);
+			
+			if (sizeof ($array))
+				return "'". implode ("', '", $array) ."'";
 			
 			restore_error_handler ();
 			
-			return TRUE;
+			return "";
 		}
 		catch (Exception $e)
 		{
@@ -45,14 +51,14 @@ class Xoad
 		
 		$message->save ();
 		
-		return FALSE;
+		return "";
 	}
 	
 	public function validateField ($file, $formData)
 	{
 		$message = Message::singleton ();
 		
-		$return = TRUE;
+		$return = array ();
 		
 		try
 		{
@@ -62,29 +68,39 @@ class Xoad
 			
 			$fields = $form->getFields ();
 			
-			$invalids = array ();
+			$labels = array ();
+			$assigns = array ();
+			
 			foreach ($fields as $key => $field)
 				if (!$field->isValid ())
-					$invalids [] = $field->getLabel ();
+				{
+					$assigns [] = $field->getAssign ();
+					$labels [] = $field->getLabel ();
+				}
 			
-			if (sizeof ($invalids))
+			if (!sizeof ($assigns))
+				return $return;
+			
+			if (sizeof ($labels) > 1)
 			{
-				$message->addWarning ('Insira valores válidos nos campos: ['. implode ('] [', $invalids) .'].');
+				$last = array_pop ($labels);
 				
-				$return = FALSE;
+				$list = '"'. implode ('", "', $labels) .'" '. __ ('and') .' "'. $last .'"';
 			}
+			else
+				$list = '"'. $labels [0] .'"';
+			
+			$message->addWarning (__ ('Enter valid values ​​in the fields: [1].', $list));
+			
+			$return = $assigns;
 		}
 		catch (Exception $e)
 		{
 			$message->addWarning ($e->getMessage ());
-			
-			$return = FALSE;
 		}
 		catch (PDOException $e)
 		{
 			$message->addWarning ($e->getMessage ());
-			
-			$return = FALSE;
 		}
 		
 		$message->save ();
@@ -96,7 +112,7 @@ class Xoad
 	{
 		$message = Message::singleton ();
 		
-		$return = TRUE;
+		$return = array ();
 		
 		try
 		{
@@ -122,22 +138,18 @@ class Xoad
 				if (!$obj)
 					continue;
 				
-				$message->addWarning ('O campo ['. $field->getLabel () .'] deve ser único. Já existe uma ocorrência para ['. Form::toHtml ($field) .'] na base de dados.');
+				$message->addWarning (__ ('The field [1] must be unique. There is already an occurrence for [2] in database.', '"'. $field->getLabel () .'"', '"'. Form::toHtml ($field) .'"'));
 				
-				$return = FALSE;
+				$return [] = $field->getAssign ();
 			}
 		}
 		catch (Exception $e)
 		{
 			$message->addWarning ($e->getMessage ());
-			
-			$return = FALSE;
 		}
 		catch (PDOException $e)
 		{
 			$message->addWarning ($e->getMessage ());
-			
-			$return = FALSE;
 		}
 		
 		$message->save ();
@@ -149,7 +161,7 @@ class Xoad
 	{
 		$message = Message::singleton ();
 		
-		$return = TRUE;
+		$return = array ();
 		
 		try
 		{
@@ -159,29 +171,39 @@ class Xoad
 			
 			$fields = $form->getRequireds ();
 			
-			$emptys = array ();
+			$labels = array ();
+			$assigns = array ();
+			
 			foreach ($fields as $key => $field)
 				if ($field->isEmpty ())
-					$emptys [] = $field->getLabel ();
+				{
+					$assigns [] = $field->getAssign ();
+					$labels [] = $field->getLabel ();
+				}
 			
-			if (sizeof ($emptys))
+			if (!sizeof ($assigns))
+				return $return;
+			
+			if (sizeof ($labels) > 1)
 			{
-				$message->addWarning ('Os campos marcados com * devem ser preenchidos. Insira valores válidos nos campos: ['. implode ('] [', $emptys) .'].');
+				$last = array_pop ($labels);
 				
-				$return = FALSE;
+				$list = '"'. implode ('", "', $labels) .'" '. __ ('and') .' "'. $last .'"';
 			}
+			else
+				$list = '"'. $labels [0] .'"';
+			
+			$message->addWarning (__ ('Fields marked with * must be completed. Enter valid values ​​in the fields: [1].', $list));
+			
+			$return = $assigns;
 		}
 		catch (Exception $e)
 		{
 			$message->addWarning ($e->getMessage ());
-			
-			$return = FALSE;
 		}
 		catch (PDOException $e)
 		{
 			$message->addWarning ($e->getMessage ());
-			
-			$return = FALSE;
 		}
 		
 		$message->save ();

@@ -64,6 +64,10 @@ $skin = Skin::singleton ();
 			background: #FFF none;
 			margin: 0px;
 		}
+		#idMessage .cError a.cReport
+		{
+			display: none;
+		}
 		</style>
 		<noscript>
 			<div>

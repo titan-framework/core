@@ -61,7 +61,9 @@
 	<message from="Saturday" to="Sábado" />
 
 	<!-- 2. General Errors/Messages -->
-
+	
+	<message from="Technical issue?" to="Problema técnico?" />
+	<message from="Impossible to send bug report! Please, try again later." to="Impossível submeter relatório de erro! Por favor, tente novamente mais tarde." />
 	<message from="Error! Data losted." to="Houve perda de variáveis!" />
 	<message from="User register" to="Casdatro de Usuário" />
 	<message from="Unable to load data!" to="Não foi possível carregar os dados!" />
@@ -76,7 +78,10 @@
 	<message from="You dont have permission to access, edit or delete this item!" to="Você não possui as permissões necessárias para acessar, editar ou apagar este item!" />
 	<message from="You need save form before use this field!" to="Você precisa salvar o formulário antes de utilizar este campo!" />
 	<message from="The status has been changed!" to="A situação foi alterada!" />
-
+	<message from="Fields marked with * must be completed. Enter valid values ​​in the fields: [1]." to="Campos marcados com * precisam ser preenchidos. Insira valores válidos nos campos: [1]" />
+	<message from="Enter valid values ​​in the fields: [1]." to="Insira valores válidos nos campos: [1]." />
+	<message from="The field [1] must be unique. There is already an occurrence for [2] in database." to="O campo [1] precisa ser único. Já existe uma ocorrência para [2] no banco de dados." />
+	
 	<message from="Archives Linked" to="Arquivos Vinculados" />
 	<message from="Archive linked with success!" to="Arquivo vinculado com sucesso!" />
 	<message from="Archive unlinked with success!" to="Arquivo desvinculado com sucesso!" />

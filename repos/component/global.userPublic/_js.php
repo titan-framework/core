@@ -1,5 +1,9 @@
 <script language="javascript" type="text/javascript" src="titan.php?target=packer&files=sha1"></script>
 <script language="javascript" type="text/javascript">
+
+var _registerErrorFields = new Array ();
+var _registerErrorColors = new Array ();
+
 function saveRegister (file, form, button)
 {
 	showWait ();
@@ -10,7 +14,11 @@ function saveRegister (file, form, button)
 	
 	var formData = xoad.html.exportForm (form);
 	
-	if (!tAjax.validate (file, formData))
+	var fields = new Array ();
+	
+	eval ("fields = new Array (" + tAjax.validate (file, formData) + ");");
+	
+	if (fields.length)
 	{
 		button.value = '<?= __ ('Proceed Register') ?>';
 		
@@ -19,6 +27,20 @@ function saveRegister (file, form, button)
 		window.scrollTo (0,0);
 		
 		tAjax.showMessages ();
+		
+		for (var i = 0; i < _registerErrorFields.length; i++)
+			$('row_' + _registerErrorFields [i]).style.backgroundColor = _registerErrorColors [i];
+		
+		_registerErrorFields = new Array ();
+		_registerErrorColors = new Array ();
+		
+		for (var i = 0; i < fields.length; i++)
+		{
+			_registerErrorFields [i] = fields [i];
+			_registerErrorColors [i] = $('row_' + fields [i]).style.backgroundColor;
+			
+			$('row_' + fields [i]).style.backgroundColor = '#FADFDD';
+		}
 		
 		hideWait ();
 		
@@ -29,6 +51,12 @@ function saveRegister (file, form, button)
 	
 	if (!tAjax.save (file, formData))
 	{
+		for (var i = 0; i < _registerErrorFields.length; i++)
+			$('row_' + _registerErrorFields [i]).style.backgroundColor = _registerErrorColors [i];
+		
+		_registerErrorFields = new Array ();
+		_registerErrorColors = new Array ();
+		
 		tAjax.showMessages ();
 		
 		button.value = '<?= __ ('Proceed Register') ?>';

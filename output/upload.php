@@ -96,7 +96,11 @@ ob_start ();
 		<style type="text/css">
 		body
 		{
-			background: none #FFFFFF;
+			background: none #FFF;
+		}
+		#idMessage .cError a.cReport
+		{
+			display: none;
 		}
 		</style>
 		<script language="javascript">

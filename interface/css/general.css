@@ -327,6 +327,16 @@ div
 	font-weight: bold;
 }
 
+#idMessage .cError a.cReport
+{
+	float: right;
+	width: 120px;
+	font-weight: normal;
+	font-size: 10px;
+	color: #900;
+	text-align: right;
+}
+
 #idMessage .cMessage
 {
 	position: relative;

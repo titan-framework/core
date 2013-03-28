@@ -67,31 +67,52 @@ header ('Content-Encoding: gzip');
 		var tAjax = <?= XOAD_Client::register(new Xoad) ?>;
 		var menuHeight = <?= $menuHeight < 7 ? 154 : $menuHeight * 22  ?>;
 		
+		var _formErrorFields = new Array ();
+		var _formErrorColors = new Array ();
+		
 		function saveForm (file, formId, itemId, goTo)
 		{
 			showWait ();
 			
 			var formData = xoad.html.exportForm (formId);
 			
-			if (!tAjax.validate (file, formData, itemId))
+			var fields = new Array ();
+			
+			eval ("fields = new Array (" + tAjax.validate (file, formData, itemId) + ");");
+			
+			if (fields.length)
 			{
 				tAjax.showMessages ();
 				
 				$('idBody').scrollTop = 0;
+				
+				for (var i = 0; i < _formErrorFields.length; i++)
+					$('row_' + _formErrorFields [i]).style.backgroundColor = _formErrorColors [i];
+				
+				_formErrorFields = new Array ();
+				_formErrorColors = new Array ();
+				
+				for (var i = 0; i < fields.length; i++)
+				{
+					_formErrorFields [i] = fields [i];
+					_formErrorColors [i] = $('row_' + fields [i]).style.backgroundColor;
+					
+					$('row_' + fields [i]).style.backgroundColor = '#FADFDD';
+				}
 				
 				hideWait ();
 				
 				return false;
 			}
 			
-			var form = document.getElementById(formId);
+			var form = document.getElementById (formId);
 			
 			if (goTo)
 				form.action = 'titan.php?target=commit&toSection=<?= $section->getName () ?>&toAction=<?= $action->getName () ?>&goTo=' + goTo;
 			else
 				form.action = 'titan.php?target=commit&toSection=<?= $section->getName () ?>&toAction=<?= $action->getName () ?>';
 			
-			form.submit();
+			form.submit ();
 		}
 		
 		function deleteForm (file, form, itemId)
@@ -142,9 +163,6 @@ header ('Content-Encoding: gzip');
 			if (!error)
 				error = '';
 			
-			if (!type)
-				type = '_UNSPECIFIED_';
-			
 			var source = '<table border="0" class="bugReport" style="margin: 10px 20px;">\
 				<tr>\
 					<td colspan="2" class="warning"><?= __ ('Use bellow fields to report application erros for developer team. You can send report as anonimous user, but this is not recomended if you want feedback.') ?></td>\
@@ -154,25 +172,7 @@ header ('Content-Encoding: gzip');
 						<form id="bugReport" action="#">\
 						<p><label for="name"><?= __ ('Your Name') ?></label> <input type="text" id="name" name="name" value="<?= User::singleton ()->getName () ?>" /></p>\
 						<p><label for="mail"><?= __ ('Your E-mail') ?></label> <input type="text" id="mail" name="mail" value="<?= User::singleton ()->getEmail () ?>" /></p>\
-						<p>\
-							<label for="type"><?= __ ('Type') ?></label>\
-							<select id="type" name="type">\
-								<option value="Unspecified"><?= __ ('Unspecified') ?></option>\
-								<option value="Database Error" ' + (type == '_DATABASE_' ? 'selected="selected"' : '') + '><?= __ ('Database Error') ?></option>\
-								<option value="Login Error" ' + (type == '_LOGIN_' ? 'selected="selected"' : '') + '><?= __ ('Login Error') ?></option>\
-							</select>\
-						</p>\
-						<p>\
-							<label for="browser"><?= __ ('Browser') ?></label>\
-							<select id="browser" name="browser">\
-								<option value="Unspecified"><?= __ ('Unspecified') ?></option>\
-								<option value="Google Chrome">Google Chrome</option>\
-								<option value="Mozilla Firefox">Mozilla Firefox</option>\
-								<option value="Internet Explorer">Internet Explorer</option>\
-								<option value="Opera">Opera</option>\
-								<option value="Safari">Safari</option>\
-							</select>\
-						</p>\
+						<p><label for="browser"><?= __ ('Browser') ?></label> <input type="text" id="browser" name="browser" value="<?= getBrowser () ?>" /></p>\
 						<p><label for="bread"><?= __ ('Breadcrumb') ?></label> <input type="text" id="bread" name="bread" value="<?= getBreadPath ($section, FALSE, FALSE) . $action->getLabel () ?>" /></p>\
 						<p><label for="description"><?= __ ('Description') ?></label> <textarea id="description" name="description">' + error + '</textarea></p>\
 						</form>\
@@ -180,13 +180,13 @@ header ('Content-Encoding: gzip');
 				</tr>\
 				<tr>\
 					<td colspan="2">\
-						<input type="button" class="button" value="<?= __ ('Submit') ?>" onclick="JavaScript: sendBugReport ();" style="border-color: #090; color: #090; margin-left: 107px; font-size: 12px;" />\
-						<a href="#" onclick="JavaScript: Modalbox.hide ();" style="color: #900; font-size: 12px; margin-left: 10px;"><?= __ ('Cancel') ?></a>\
+						<input type="button" class="button" value="<?= __ ('Submit') ?>" onclick="JavaScript: sendBugReport ();" style="margin-left: 107px;" />\
+						<a href="#" onclick="JavaScript: Modalbox.hide ();" style="color: #900; font-size: 12px; margin-left: 20px;"><?= __ ('Cancel') ?></a>\
 					</td>\
 				</tr>\
 			</table>';
 			
-			Modalbox.show (source, {width: 430, height: 400, title: '<?= __ ('Bug Report') ?>'});
+			Modalbox.show (source, {width: 430, height: 480, title: '<?= __ ('Bug Report') ?>'});
 		}
 		
 		<?
