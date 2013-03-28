@@ -70,12 +70,12 @@ class Xml
 			$table = get_html_translation_table (HTML_ENTITIES, ENT_COMPAT, 'UTF-8');
 		else
 		{
-			$table = get_html_translation_table (HTML_ENTITIES);
+			$aux = get_html_translation_table (HTML_ENTITIES);
 			
-			array_walk ($table, function (&$item, $key)
-			{
-				$item = utf8_encode ($item);
-			});
+			$table = array ();
+			
+			foreach ($aux as $key => $value)
+				$table [utf8_encode ($key)] = utf8_encode ($value);
 		} 
 		
 		$table = array_flip ($table);
