@@ -656,16 +656,16 @@ class Xoad
 			
 			ob_start ();
 			?>
-Application: <?= $instance->getName () ?> 
-URL: <?= $instance->getUrl () ?> 
+-- 
+Application: <?= $instance->getName () ?> [<?= $instance->getUrl () ?>] 
 Date: <?= date ('d-m-Y H:i:s') ?> 
-Author: <?= $formData ['name'] ?> [<?= $formData ['mail'] ?>] 
-Type: <?= $formData ['type'] ?> 
-Browser: <?= $formData ['browser'] ?> 
-Breadcrumb: <?= $formData ['bread'] ?> 
-
+Author: <?= $formData ['name'] ?> [<?= $formData ['mail'] ?>] [IP: <?= $_SERVER ['REMOTE_ADDR'] ?>] 
+Browser: <?= $formData ['browser'] ?> [<?= $_SERVER ['HTTP_USER_AGENT'] ?>] 
+Breadcrumb: <?= $formData ['bread'] ?> [<?= $instance->getUrl () . $_SERVER ['REQUEST_URI'] ?>] 
+ 
 Description: 
-<?= $formData ['description'] ?>
+<?= $formData ['description'] ?> 
+--
 			<?
 			$msg = ob_get_clean ();
 			
