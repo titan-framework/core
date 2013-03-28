@@ -279,7 +279,7 @@ try
 				echo "INFO > File of paths [". $_pathToFileOfPaths ."] does not exists! It will update to revision #". $_headRevision .". Starting proccess from revision #1... \n";
 			}
 			
-			if ($_actualRevision == $_headRevision)
+			if ($_actualRevision >= $_headRevision)
 				throw new Exception ("INFO > File of path [". $_pathToFileOfPaths ."] is in head revision. Update is not necessary! \n");
 			
 			$_revertRevision = $_actualRevision;
