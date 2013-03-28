@@ -12,7 +12,7 @@ try
 	
 	require_once $corePath .'class/Instance.php';
 	
-	require_once $corePath .'extra/Browscap.php';
+	require_once $corePath .'extra/browscap.php';
 	
 	if (!@set_include_path (get_include_path () . PATH_SEPARATOR . dirname (__FILE__) .'/extra/'))
 		toLog ('Impossible to set include path. This cause Zend Framework load fail!');
