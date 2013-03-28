@@ -609,6 +609,11 @@ function cleanArray (&$item, $key)
 	$item = trim ($item);
 }
 
+function toUtf8 (&$item, $key)
+{
+	$item = utf8_encode ($item);
+}
+
 function relevant ($str, $terms)
 {
 	$str = strtolower ($str);

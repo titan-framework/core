@@ -66,7 +66,14 @@ class Xml
 			}
 		}
 		
-		$table = get_html_translation_table (HTML_ENTITIES, ENT_COMPAT, 'UTF-8');
+		if (strnatcmp (phpversion (), '5.3.4') >= 0)
+			$table = get_html_translation_table (HTML_ENTITIES, ENT_COMPAT, 'UTF-8');
+		else
+		{
+			$table = get_html_translation_table (HTML_ENTITIES);
+			
+			array_walk ($table, 'toUtf8');
+		} 
 		
 		$table = array_flip ($table);
 		
