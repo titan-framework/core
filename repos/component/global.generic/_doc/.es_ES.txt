@@ -1,1 +1,1 @@
-Se trata de una t韕ica secci髇 de CRUD (acr髇imo de *Create, Retrieve, Update y Delete*). Esta secci髇 le permite gestionar los datos mediante la creaci髇 de nuevos 韙ems y la edici髇, borrado y visualizaci髇 de los 韙ems existentes.
+Se trata de una t铆pica secci贸n de CRUD (acr贸nimo de *Create, Retrieve, Update y Delete*). Esta secci贸n le permite gestionar los datos mediante la creaci贸n de nuevos 铆tems y la edici贸n, borrado y visualizaci贸n de los 铆tems existentes.

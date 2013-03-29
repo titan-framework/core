@@ -1,1 +1,1 @@
-Esta é uma seção CRUD típica (acrônimo para *Create, Retrieve, Update e Delete* do inglês). Esta seção permite que você gerencie os dados por meio da criação de novos itens e da edição, exclusão e visualização de itens existentes.
+Esta Ã© uma seÃ§Ã£o CRUD tÃ­pica (acrÃ´nimo para *Create, Retrieve, Update e Delete* do inglÃªs). Esta seÃ§Ã£o permite que vocÃª gerencie os dados por meio da criaÃ§Ã£o de novos itens e da ediÃ§Ã£o, exclusÃ£o e visualizaÃ§Ã£o de itens existentes.
