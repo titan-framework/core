@@ -548,8 +548,16 @@ function getBrowser ()
 	try
 	{
 		$browscap = new Browscap ($cache .'browscap');
-
-		return $browscap->getBrowser ()->Browser;
+		
+		if (!is_object ($browscap))
+			throw new Excpetion ('Error to get Browscap object!');
+		
+		$browser = $browscap->getBrowser ();
+		
+		if (!is_object ($browser))
+			throw new Excpetion ('Error to get Browscap BROWSER object!');
+		
+		return $browser->Parent;
 	}
 	catch (Exception $e)
 	{
