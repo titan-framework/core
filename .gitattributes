@@ -638,7 +638,6 @@ extra/Zend/Validate/Sitemap/Loc.php -text
 extra/Zend/Validate/Sitemap/Priority.php -text
 extra/Zend/Validate/StringLength.php -text
 extra/access/.htaccess -text
-extra/browscap.php -text
 extra/captcha/captcha.php -text
 extra/captcha/wordlist -text
 extra/cssTidy/COPYING -text
