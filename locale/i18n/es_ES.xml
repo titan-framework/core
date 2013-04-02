@@ -163,6 +163,12 @@
 	<message from="Login from invalid user." to="Nombre de usuario inválido" />
 	<message from="Your user is inactive into the system! If you registered recently, wait for one register avaliation." to="Su usuario está inactivo en el sistema. Si se ha registrado recientemente en el sistema, espere pues el registro debe estar bajo evaluación." />
 	<message from="Invalid link! Use the link &quot;Recovery Password&quot; at the logon page for receive a valid link." to="¡Link inválido! Utilice el link &quot Recuperar Contraseña &quot en la página de entrada al sistema para recibir un link válido." />
+	<message from="Too Short" to="Demasiado Corta" />
+	<message from="Very Weak" to="Muy Débil" />
+	<message from="Weak" to="Débil" />
+	<message from="Regular" to="Regular" />
+	<message from="Strong" to="Fuerte" />
+	<message from="Very Strong" to="Muy Fuerte" />
 
 	<!-- output/error.php -->
 	<message from="Unknow error in system! Try again more later." to="Error desconocido en el sistema. Intente nuevamente más tarde." />

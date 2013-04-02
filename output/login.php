@@ -167,11 +167,11 @@ catch (PDOException $e)
 				<div class="cMain">
 					<img src="titan.php?target=loadFile&amp;file=interface/image/lock_hot.png" border="0" style="float: left;" alt="Lock" />
 					<div style="width: 250px; float: right;">
-						<br /><br />
+                    	<br />
 						<?= __ ('Welcome to <b>[1]</b> manager!', $instance->getName ()) ?> <br /><br />
 						<?= __ ('You must <abbr title="Insert your login and password and press Access.">logon</abbr> to continue.') ?>
 					</div>
-					<img src="titan.php?target=loadFile&amp;file=interface/image/login.png" border="0" style="position: absolute; top: 159px; left: 80px;" alt="Login" />
+					<img src="titan.php?target=loadFile&amp;file=interface/image/login.png" border="0" style="position: absolute; top: 179px; left: 80px;" alt="Login" />
 					<div id="idLogon" style="display: ;">
 						<form id="formLogin" action="" method="post" onsubmit="JavaScript: logon ('formLogin'); return false;">
 						<div class="row">
@@ -195,13 +195,13 @@ catch (PDOException $e)
 						<label><?= __ ('Loading...') ?></label>
 					</div>
 				</div>
-				<div id="idLostPassword" class="cMain" style="display: none; margin-top: 10px; height: 170px;">
+				<div id="idLostPassword" class="cMain" style="display: none; margin-top: 10px; height: 200px;">
 					<img src="titan.php?target=loadFile&amp;file=interface/image/info_alert.png" border="0" style="float: left;" alt="Alert" />
 					<div style="width: 250px; float: right;">
 						<?= __ ('<b style="color: #990000;">Important!</b> For recovery password insert your login and click in "Recovery password".') ?><br /><br />
 						<?= __ ('You will receive a new message with a link into your e-mail. You can register the new password with this.') ?>
 					</div>
-					<div id="idLost" style="display: ; top: 110px; height: 70px;">
+					<div id="idLost" style="display: ; top: 140px; height: 70px;">
 						<form id="formLost" action="" method="post">
 						<div class="row">
 							<label class="labelForm"><?= Database::isUnique ('_user', '_email') ? __ ('Login or e-Mail') :  __ ('Login') ?>:</label>
@@ -212,7 +212,7 @@ catch (PDOException $e)
 						</div>
 						</form>
 					</div>
-					<div id="idWaitLost" style="display: none; top: 110px; height: 70px;">
+					<div id="idWaitLost" style="display: none;">
 						<img src="titan.php?target=loadFile&amp;file=interface/icon/upload.gif" border="0" alt="Loading" title="<?= __ ('Loading...') ?>" />
 						<label><?= __ ('Wait...') ?></label>
 					</div>

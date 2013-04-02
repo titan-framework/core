@@ -241,67 +241,6 @@ function clipboard (div)
 		alert("Desculpe-nos, este recurso só está disponível para Internet Exploder.\nPara os demais browsers, selecione o link acima e pressione CTRL+C.");
 }
 
-var passLabel = false;
-var passImg = false;
-
-function strong (obj, e)
-{
-	if (e) car = (window.Event) ? e.which : e.keyCode;
-	
-	if (!passLabel || !passImg)
-	{
-		document.getElementById ('rowStrong').style.display = '';
-		passLabel = document.getElementById ('idStrong');
-		passImg = document.getElementById ('imgStrong');
-	}
-	
-	var passwd = obj.value + String.fromCharCode (car);
-	
-	var ok = 0, str = '<label style="color: #990000;">Muito curta</label>', src = 'very_weak';
-	
-	if (passwd.length > 5)
-	{
-		if (passwd.match(/[A-Z]/)) ok++;
-		
-		if (passwd.match(/[a-z]/)) ok++;
-		
-		if (passwd.match(/[0-9]/)) ok++;
-		
-		if (passwd.match(/[@#$%&!?*\[\])(-+=^.\/\\]/)) ok++;
-		
-		switch (ok)
-		{
-			case 0:
-				str = '<label style="color: #990000;">Muito fraca</label>';
-				src = 'very_weak';
-				break;
-			
-			case 1:
-				str = '<label style="color: #FFCC33;">Fraca</label>';
-				src = 'very_fair';
-				break;
-			
-			case 2:
-				str = '<label style="color: #FFCC33;">Regular</label>';
-				src = 'fair';
-				break;
-			
-			case 3:
-				str = '<label style="color: #6699CC;">Forte</label>';
-				src = 'good';
-				break;
-			
-			default:
-				str = '<label style="color: #008000;">Muito Forte</label>';
-				src = 'strong';
-				break;
-		}
-	}
-	
-	passLabel.innerHTML = 'Força da senha: ' + str;
-	passImg.src = 'titan.php?target=loadFile&file=interface/image/passwd.' + src + '.gif';
-}
-
 var loadInPlaceIds = new Array ();
 var loadInPlaceEls = new Array ();
 

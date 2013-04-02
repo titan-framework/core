@@ -188,6 +188,59 @@ catch (Exception $e)
 
 			document.location = '<?= $instance->getLoginUrl () ?>&message=<?= urlencode (__ ('Password registered with success! Use the fields below to access the system.')) ?>&login=<?= $obj->_login ?>';
 		}
+		
+		function strong (obj, e)
+		{
+			if (e) car = (window.Event) ? e.which : e.keyCode;
+			
+			$('rowStrong').style.display = '';
+			
+			var passwd = obj.value + String.fromCharCode (car);
+			
+			var ok = 0, str = '<label style="color: #900;"><?= __ ('Too Short') ?></label>', src = 'very_weak';
+			
+			if (passwd.length > 5)
+			{
+				if (passwd.match(/[A-Z]/)) ok++;
+				
+				if (passwd.match(/[a-z]/)) ok++;
+				
+				if (passwd.match(/[0-9]/)) ok++;
+				
+				if (passwd.match(/[@#$%&!?*\[\])(-+=^.\/\\]/)) ok++;
+				
+				switch (ok)
+				{
+					case 0:
+						str = '<label style="color: #900;"><?= __ ('Very Weak') ?></label>';
+						src = 'very_weak';
+						break;
+					
+					case 1:
+						str = '<label style="color: #FC3;"><?= __ ('Weak') ?></label>';
+						src = 'very_fair';
+						break;
+					
+					case 2:
+						str = '<label style="color: #FC3;"><?= __ ('Regular') ?></label>';
+						src = 'fair';
+						break;
+					
+					case 3:
+						str = '<label style="color: #69C;"><?= __ ('Strong') ?></label>';
+						src = 'good';
+						break;
+					
+					default:
+						str = '<label style="color: #008000;"><?= __ ('Very Strong') ?></label>';
+						src = 'strong';
+						break;
+				}
+			}
+			
+			$('idStrong').innerHTML = 'Força da senha: ' + str;
+			$('imgStrong').src = 'titan.php?target=loadFile&file=interface/image/passwd.' + src + '.gif';
+		}
 		</script>
 	</head>
 	<body marginheight="0" marginwidth="0" bottommargin="0" topmargin="0" leftmargin="0" rightmargin="0">
