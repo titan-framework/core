@@ -1,5 +1,5 @@
 <?
-class Pdf extends FPDF
+class Pdf extends TitanFPDF
 {
 	protected $foot = '';
 	

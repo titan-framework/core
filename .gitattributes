@@ -1144,6 +1144,9 @@ extra/fonts/automatic.gdf -text
 extra/fonts/bubblebath.gdf -text
 extra/fonts/caveman.gdf -text
 extra/fonts/courier.php -text
+extra/fonts/courierb.php -text
+extra/fonts/courierbi.php -text
+extra/fonts/courieri.php -text
 extra/fonts/crass.gdf -text
 extra/fonts/elephant.ttf -text
 extra/fonts/helvetica.php -text
@@ -1172,6 +1175,7 @@ extra/fonts/makefont/iso-8859-9.map -text
 extra/fonts/makefont/koi8-r.map -text
 extra/fonts/makefont/koi8-u.map -text
 extra/fonts/makefont/makefont.php -text
+extra/fonts/makefont/ttfparser.php -text
 extra/fonts/pf_arma_five.ttf -text
 extra/fonts/symbol.php -text
 extra/fonts/tahoma.ttf -text
