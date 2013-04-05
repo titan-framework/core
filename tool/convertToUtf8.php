@@ -17,28 +17,30 @@ try
 	echo "INFO      > Searching for DUMP of database on [". $dbPath ."]... \n";
 	
 	if (!file_exists ($dbPath) || !is_writable ($dbPath))
-		throw new Exception ('Impossible to find database dump file at ['. $dbPath .']! You need generate it at your instance root.');
+		echo "ERROR     > Impossible to find database dump file at [". $dbPath ."]! You need generate if you want convert instance database. \n";
+	else
+	{
+		echo "INFO      > Converting database dump to UTF-8 [". $dbPath ."]... \n";
+		
+		$db = Instance::singleton ()->getDatabase ();
+		
+		$schema = isset ($db ['schema']) && trim ($db ['schema']) != '' ? trim ($db ['schema']) : 'public';
+		
+		$sql = Encoding::toUTF8 (file_get_contents ($dbPath));
+		
+		$sql = str_replace ("SET client_encoding = 'LATIN1';", "SET client_encoding = 'UTF8';", $sql). "\n\n";
+		
+		$sql .= "CREATE FUNCTION ". $schema .".to_ascii(bytea, name) RETURNS text STRICT AS 'to_ascii_encname' LANGUAGE internal; \n\n";
+		
+		$sql .= "CREATE FUNCTION ". $schema .".no_accents(text) RETURNS text  AS $$ SELECT translate($1,'áàâãäéèêëíìïóòôõöúùûüÁÀÂÃÄÉÈÊËÍÌÏÓÒÔÕÖÚÙÛÜçÇ','aaaaaeeeeiiiooooouuuuAAAAAEEEEIIIOOOOOUUUUcC'); $$ LANGUAGE sql IMMUTABLE STRICT; \n\n";
+		
+		if (!file_put_contents ($instancePath . DIRECTORY_SEPARATOR .'db-utf8.sql', $sql))
+			throw new Exception ("Impossible to generate database dump converted to UTF-8!");
+		
+		echo "SUCCESS   > Database dump converted to UTF-8! [". $instancePath . DIRECTORY_SEPARATOR ."db-utf8.sql] \n";
+	}
 	
-	echo "INFO      > Converting database dump to UTF-8 [". $dbPath ."]... \n";
-	
-	$db = Instance::singleton ()->getDatabase ();
-	
-	$schema = isset ($db ['schema']) && trim ($db ['schema']) != '' ? trim ($db ['schema']) : 'public';
-	
-	$sql = Encoding::toUTF8 (file_get_contents ($dbPath));
-	
-	$sql = str_replace ("SET client_encoding = 'LATIN1';", "SET client_encoding = 'UTF8';", $sql). "\n\n";
-	
-	$sql .= "CREATE FUNCTION ". $schema .".to_ascii(bytea, name) RETURNS text STRICT AS 'to_ascii_encname' LANGUAGE internal; \n\n";
-	
-	$sql .= "CREATE FUNCTION ". $schema .".no_accents(text) RETURNS text  AS $$ SELECT translate($1,'áàâãäéèêëíìïóòôõöúùûüÁÀÂÃÄÉÈÊËÍÌÏÓÒÔÕÖÚÙÛÜçÇ','aaaaaeeeeiiiooooouuuuAAAAAEEEEIIIOOOOOUUUUcC'); $$ LANGUAGE sql IMMUTABLE STRICT; \n\n";
-	
-	if (!file_put_contents ($instancePath . DIRECTORY_SEPARATOR .'db-utf8.sql', $sql))
-		throw new Exception ("Impossible to generate database dump converted to UTF-8!");
-	
-	echo "SUCCESS   > Database dump converted to UTF-8! [". $instancePath . DIRECTORY_SEPARATOR ."db-utf8.sql] \n";
-	
-	echo "INFO      > Converting database dump to UTF-8 [". $dbPath ."]... \n";
+	echo "INFO      > Converting instance to UTF-8 [". $instancePath ."]... \n";
 	
 	convert ($instancePath);
 	
@@ -69,7 +71,7 @@ function convert ($path)
 				echo "CONVERTED > ". $path . DIRECTORY_SEPARATOR . $file ." [". mb_detect_encoding (file_get_contents ($file)) ."] \n";
 			}
 		
-		$exts = array ('php', 'txt');
+		$exts = array ('php', 'txt', 'ini');
 		
 		foreach ($exts as $trash => $ext)
 			foreach (glob ('*.'. $ext) as $file)
