@@ -34,5 +34,10 @@ class Boolean extends Integer
 	{
 		return $this->question;
 	}
+	
+	public function isEmpty ()
+	{
+		return FALSE;
+	}
 }
 ?>

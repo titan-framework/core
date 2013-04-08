@@ -36,7 +36,11 @@ global.Collection.save = function (fatherId, fatherColumn, fieldId, file)
 	
 	var formData = xoad.html.exportForm ('collection_form_' + fieldId);
 	
-	if (!tAjax.validate (file, formData))
+	var fields = new Array ();
+			
+	eval ("fields = new Array (" + tAjax.validate (file, formData, itemId) + ");");
+	
+	if (fields.length)
 	{
 		tAjax.showMessages ();
 		

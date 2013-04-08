@@ -45,16 +45,39 @@ $skin = Skin::singleton ();
 		<?= XOAD_Utilities::header('titan.php?target=loadFile&amp;file=xoad') ."\n" ?>
 		<script language="javascript" type="text/javascript">
 		var tAjax = <?= XOAD_Client::register(new Xoad) ?>;
-
+		
+		var _formErrorFields = new Array ();
+		var _formErrorColors = new Array ();
+		
 		function saveForm (file, formId, itemId, goTo)
 		{
 			showWait ();
 
 			var formData = xoad.html.exportForm (formId);
 
-			if (!tAjax.validate (file, formData, itemId))
+			var fields = new Array ();
+			
+			eval ("fields = new Array (" + tAjax.validate (file, formData, itemId) + ");");
+			
+			if (fields.length)
 			{
 				tAjax.showMessages ();
+				
+				$('idBody').scrollTop = 0;
+				
+				for (var i = 0; i < _formErrorFields.length; i++)
+					$('row_' + _formErrorFields [i]).style.backgroundColor = _formErrorColors [i];
+				
+				_formErrorFields = new Array ();
+				_formErrorColors = new Array ();
+				
+				for (var i = 0; i < fields.length; i++)
+				{
+					_formErrorFields [i] = fields [i];
+					_formErrorColors [i] = $('row_' + fields [i]).style.backgroundColor;
+					
+					$('row_' + fields [i]).style.backgroundColor = '#FADFDD';
+				}
 				
 				hideWait ();
 				
@@ -84,9 +107,29 @@ $skin = Skin::singleton ();
 
 			var formData = xoad.html.exportForm (form);
 
-			if (!tAjax.validate (file, formData, itemId))
+			var fields = new Array ();
+			
+			eval ("fields = new Array (" + tAjax.validate (file, formData, itemId) + ");");
+			
+			if (fields.length)
 			{
 				tAjax.showMessages ();
+				
+				$('idBody').scrollTop = 0;
+				
+				for (var i = 0; i < _formErrorFields.length; i++)
+					$('row_' + _formErrorFields [i]).style.backgroundColor = _formErrorColors [i];
+				
+				_formErrorFields = new Array ();
+				_formErrorColors = new Array ();
+				
+				for (var i = 0; i < fields.length; i++)
+				{
+					_formErrorFields [i] = fields [i];
+					_formErrorColors [i] = $('row_' + fields [i]).style.backgroundColor;
+					
+					$('row_' + fields [i]).style.backgroundColor = '#FADFDD';
+				}
 				
 				hideWait ();
 				
