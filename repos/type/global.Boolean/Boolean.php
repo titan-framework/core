@@ -37,7 +37,7 @@ class Boolean extends Integer
 	
 	public function isEmpty ()
 	{
-		return FALSE;
+		return is_null ($this->value);
 	}
 }
 ?>
