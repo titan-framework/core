@@ -25,11 +25,7 @@ if (!array_key_exists ($ext, $controlMime))
 
 $mimeType = $controlMime [$ext];
 
-if (!(bool) ini_get ('zlib.output_compression'))
-	ob_start ('ob_gzhandler');
-
 header ('Content-Type: '. $mimeType);
-header ('Content-Encoding: gzip');
 header ('Content-Disposition: inline; filename=' . md5 ($file));
 
 if (!$instance->onDebugMode ())

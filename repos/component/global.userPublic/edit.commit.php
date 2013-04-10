@@ -28,7 +28,7 @@ try
 	$columns = array ();
 	
 	foreach ($fields as $key => $field)
-		if (!$field->isReadOnly () && $field->isSavable ())
+		if ($field->isSavable ())
 			$columns [$field->getColumn ()] = $field;
 	
 	if (!array_key_exists ('_type', $columns) || $columns ['_type']->isReadOnly () || $columns ['_type']->getValue () == Business::singleton ()->getSection (Section::TCURRENT)->getName ())
