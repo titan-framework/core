@@ -3067,8 +3067,10 @@ repos/type/global.Twitter/toForm.php -text
 repos/type/global.Twitter/toHtml.php -text
 repos/type/global.Url/Url.php -text
 repos/type/global.Url/fromForm.php -text
+repos/type/global.Url/toBind.php -text
 repos/type/global.Url/toForm.php -text
 repos/type/global.Url/toHtml.php -text
+repos/type/global.Url/toValue.php -text
 repos/type/type.xml -text
 /switch.php -text
 system/backup.php -text

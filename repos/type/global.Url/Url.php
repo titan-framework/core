@@ -15,5 +15,10 @@ class Url extends String
 	{
 		return $this->prefix;
 	}
+	
+	public function isEmpty ()
+	{
+		return trim ($this->getValue ()) == '' || trim ($this->getValue ()) == $this->getPrefix ();
+	}
 }
 ?>
