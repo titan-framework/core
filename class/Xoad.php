@@ -72,7 +72,7 @@ class Xoad
 			$assigns = array ();
 			
 			foreach ($fields as $key => $field)
-				if (!$field->isValid ())
+				if (!$field->isReadOnly () && !$field->isValid ())
 				{
 					$assigns [] = $field->getAssign ();
 					$labels [] = $field->getLabel ();
@@ -126,7 +126,7 @@ class Xoad
 			
 			foreach ($fields as $key => $field)
 			{
-				if ($field->isEmpty ())
+				if ($field->isEmpty () || $field->isReadOnly)
 					continue;
 				
 				$sth = $db->prepare ("SELECT * FROM ". $form->getTable () ." WHERE ". $field->getColumn () ." = ". Database::toValue ($field) ." AND ". $form->getPrimary () ." != '". $itemId ."'");
@@ -175,7 +175,7 @@ class Xoad
 			$assigns = array ();
 			
 			foreach ($fields as $key => $field)
-				if ($field->isEmpty ())
+				if (!$field->isReadOnly () && $field->isEmpty ())
 				{
 					$assigns [] = $field->getAssign ();
 					$labels [] = $field->getLabel ();
