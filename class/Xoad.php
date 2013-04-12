@@ -126,7 +126,7 @@ class Xoad
 			
 			foreach ($fields as $key => $field)
 			{
-				if ($field->isEmpty () || $field->isReadOnly)
+				if ($field->isEmpty () || $field->isReadOnly ())
 					continue;
 				
 				$sth = $db->prepare ("SELECT * FROM ". $form->getTable () ." WHERE ". $field->getColumn () ." = ". Database::toValue ($field) ." AND ". $form->getPrimary () ." != '". $itemId ."'");
