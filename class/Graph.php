@@ -237,7 +237,9 @@ class Graph
 		
 		$unique = '_result_'. randomHash (12);
 		
-		$sql = "SELECT ". $field->getTable () .".". $column .", count(". $field->getTable () .".". $column .") AS ". $unique ." FROM ". $this->getTable () . (trim ($where) != '' ? " WHERE ". $where : "") . " GROUP BY ". $field->getTable () .".". $column;
+		$sql = "(SELECT ". $field->getTable () .".". $column .", count(". $field->getTable () .".". $column .") AS ". $unique ." FROM ". $this->getTable () . (trim ($where) != '' ? " WHERE ". $where : "") . " GROUP BY ". $field->getTable () .".". $column .")
+				UNION
+				(SELECT NULL AS ". $column .", count(*) AS ". $unique ." FROM ". $this->getTable () ." WHERE ". $field->getTable () .".". $column ." IS NULL". (trim ($where) != '' ? " AND ". $where : "") . ")";
 		
 		$sth = $db->prepare ($sql);
 		
@@ -248,12 +250,16 @@ class Graph
 		
 		while ($obj = $sth->fetch (PDO::FETCH_OBJ))
 		{
-			if (!is_numeric ($obj->$column) && trim ($obj->$column) == '')
+			if (is_null ($obj->$column) && !(int) $obj->$unique)
 				continue;
 			
 			$field = Database::fromDb ($field, $obj);
 			
-			$legends [] = Form::toHtml ($field);
+			if (is_null ($obj->$column))
+				$legends [] = __ ('N/A');
+			else
+				$legends [] = Form::toHtml ($field);
+			
 			$pieces [] = $obj->$unique;
 		}
 		

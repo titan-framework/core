@@ -512,8 +512,8 @@ try
 				return sprintf ("%.1f%%", 100 * $value);
 			}
 			
-			$width = isset ($_GET['width']) ? (int) $_GET['width'] : 800;
-			$height = isset ($_GET['height']) ? (int) $_GET['height'] : 480;
+			$width = isset ($_GET['width']) ? (int) $_GET['width'] : 920;
+			$height = isset ($_GET['height']) ? (int) $_GET['height'] : 400;
 			
 			switch ($type)
 			{
@@ -543,7 +543,7 @@ try
 					
 					$pie->SetCenter (0.5);
 					
-					$pie->value->SetFont (FF_TREBUCHE, FS_BOLD, 10);
+					$pie->value->SetFont (FF_TREBUCHE, FS_BOLD, 8);
 					
 					$pie->value->SetColor (array (68, 68, 68));
 					
@@ -554,7 +554,7 @@ try
 						$aux = array ();
 						
 						foreach ($_GET['legends'] as $key => $value)
-							$aux [] = urldecode ($value ."\n". number_format ($pieces [$key], 0, ',', '.') ." (%.1f%%)");
+							$aux [] = urldecode ($value ." - ". number_format ($pieces [$key], 0, ',', '.') ." (%.1f%%)");
 						
 						$pie->SetLabels ($aux, 1);
 					}
