@@ -1,7 +1,7 @@
 <?
 class Url extends String
 {
-	private $prefix = '';
+	protected $prefix = '';
 	
 	public function __construct ($table, $field)
 	{
