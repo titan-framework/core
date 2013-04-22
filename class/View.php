@@ -256,7 +256,7 @@ class View
 		if ($this->paginate && $page)
 			$sql .= " LIMIT ". $this->paginate ." OFFSET ". ($this->paginate * ($page - 1));
 
-		//throw new Exception ($sql);
+		// throw new Exception ($sql);
 
 		$db = Database::singleton ();
 
@@ -541,7 +541,7 @@ class View
 
 		} while ($type != 'Type' && $type !== FALSE);
 
-		return $field->getValue ();
+		return is_null ($field->getValue ()) ? '&nbsp;' : $field->getValue ();
 	}
 }
 ?>

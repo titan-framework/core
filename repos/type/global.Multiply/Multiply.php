@@ -11,6 +11,8 @@ class Multiply extends Select
 	
 	protected $primary = '';
 	
+	protected $relationLink = '';
+	
 	public function __construct ($table, $field)
 	{
 		parent::__construct ($table, $field);
@@ -27,6 +29,11 @@ class Multiply extends Select
 		
 		if (array_key_exists ('check-box', $field))
 			$this->checkBox = strtoupper (trim ($field ['check-box'])) == 'TRUE' ? TRUE : FALSE;
+		
+		if (array_key_exists ('relation-link', $field) && trim ($field ['relation-link']) != '')
+			$this->relationLink = trim ($field ['relation-link']);
+		else
+			$this->relationLink = array_pop (explode ('.', $this->getTable ()));
 	}
 	
 	public function setValue ($value)
@@ -45,6 +52,11 @@ class Multiply extends Select
 	public function setRelation ($relation)
 	{
 		$this->relation = trim ($relation);
+	}
+	
+	public function getRelationLink ()
+	{
+		return $this->relationLink;
 	}
 	
 	public function getPrimary ()
@@ -77,9 +89,9 @@ class Multiply extends Select
 		{
 			$db->beginTransaction ();
 			
-			$db->exec ("DELETE FROM ". $this->getRelation () ." WHERE ". array_pop (explode ('.', $this->getTable ())) ." = '". $id ."'");
+			$db->exec ("DELETE FROM ". $this->getRelation () ." WHERE ". $this->getRelationLink () ." = '". $id ."'");
 			
-			$sth = $db->prepare ("INSERT INTO ". $this->getRelation () ." (". array_pop (explode ('.', $this->getTable ())) .", ". array_pop (explode ('.', $this->getLink ())) .") VALUES ('". $id ."', :link)");
+			$sth = $db->prepare ("INSERT INTO ". $this->getRelation () ." (". $this->getRelationLink () .", ". array_pop (explode ('.', $this->getLink ())) .") VALUES ('". $id ."', :link)");
 			
 			foreach ($this->getValue () as $trash => $linkId)
 				$sth->execute (array (':link' => $linkId));
@@ -108,7 +120,7 @@ class Multiply extends Select
 		
 		try
 		{
-			$sql = "SELECT ". $this->getColumn () ." FROM ". $this->getRelation () ." WHERE ". array_pop (explode ('.', $this->getTable ())) ." = '". $id ."'";
+			$sql = "SELECT ". $this->getColumn () ." FROM ". $this->getRelation () ." WHERE ". $this->getRelationLink () ." = '". $id ."'";
 			
 			$sth = $db->query ($sql);
 			
@@ -125,7 +137,7 @@ class Multiply extends Select
 		if (!(int) $itemId || !(int) $newId || $itemId == $newId)
 			throw new Exception (__ ('Impossible to copy field [[1]]! Data losted.', $this->getLabel () .' ('. $this->getColumn () .')'));
 		
-		$cLocl = array_pop (explode ('.', $this->getTable ()));
+		$cLocl = $this->getRelationLink ();
 		$cLink = array_pop (explode ('.', $this->getLink ()));
 		
 		$sql = "INSERT INTO ". $this->getRelation () ." (". $cLocl .", ". $cLink .")

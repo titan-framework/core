@@ -37,7 +37,7 @@ $aux = array ();
 
 while ($field = $view->getField ())
 	if (in_array ($field->getAssign (), $assigns))
-		$aux [] = $field->getLabel ();
+		$aux [] = utf8_decode ($field->getLabel ());
 
 fputcsv ($handle, $aux, ';', '"');
 
@@ -49,7 +49,7 @@ while ($view->getItem ())
 	
 	while ($field = $view->getField ())
 		if (in_array ($field->getAssign (), $assigns))
-			$aux [] = str_replace (array ("\n", "\r", "\t"), array (' ', '', ' '), trim (Form::toText ($field)));
+			$aux [] = str_replace (array ("\n", "\r", "\t"), array (' ', '', ' '), utf8_decode (trim (Form::toText ($field))));
 	
 	fputcsv ($handle, $aux, ';', '"');
 }

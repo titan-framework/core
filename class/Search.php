@@ -107,7 +107,7 @@ class Search
 
 		$action = Business::singleton ()->getAction (Action::TCURRENT);
 
-		$this->cookie = md5 (User::singleton ()->getId () .'-'. $this->getHash () .'-'. $section->getName () .'-'. $action->getName () .'-'. $fileName);
+		$this->cookie = md5 (User::singleton ()->getId () .'-'. $this->getHash () .'-'. $file);
 
 		if (isset ($_POST['search']) && $_POST['search'] == self::TCLEAR)
 		{
