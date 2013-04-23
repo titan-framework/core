@@ -279,6 +279,9 @@
 	<!-- global.Twitter -->
 	<message from="Original Text: [[1]] / Encrypted: [[2]]" to="Texto Original: [[1]] / Criptografado: [[2]]" />
 	
+	<!-- global.Date -->
+	<message from="year(s)" to="ano(s)" />
+	
 	<!-- 4.3 Menu -->
 	<message from="You do not have permission to access the action [1]!" to="Você não possui as permissões necessárias para acessar a ação [1]!" />
 	<message from="Permission Denied" to="Permissão Negada" />

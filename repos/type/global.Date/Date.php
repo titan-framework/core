@@ -9,6 +9,8 @@ class Date extends Type
 	
 	protected $showTime = FALSE;
 	
+	protected $showAge = FALSE;
+	
 	protected $value = array (0, 0, 0);
 	
 	protected $time = array (0, 0, 0);
@@ -42,6 +44,9 @@ class Date extends Type
 		
 		if (array_key_exists ('show-time', $field))
 			$this->setShowTime (strtoupper ($field ['show-time']) == 'TRUE' ? TRUE : FALSE);
+		
+		if (array_key_exists ('show-age', $field))
+			$this->setShowAge (strtoupper ($field ['show-age']) == 'TRUE' ? TRUE : FALSE);
 	}
 	
 	public function setValue ($value)
@@ -109,6 +114,16 @@ class Date extends Type
 		return (bool) $this->showTime;
 	}
 	
+	public function setShowAge ($showAge)
+	{
+		$this->showAge = (bool) $showAge;
+	}
+	
+	public function showAge ()
+	{
+		return (bool) $this->showAge;
+	}
+	
 	public function setTime ($value)
 	{
 		if (!is_array ($value))
@@ -155,6 +170,14 @@ class Date extends Type
 		
 		if ($this->showTime ())
 			$buffer .= ' '. strftime ('%X', $this->getUnixTime ());
+		
+		if ($this->showAge ())
+		{
+			$value = new DateTime ('@'. $this->getUnixTime ());
+			$today = new DateTime ();
+			
+			$buffer .= ' ~'. $value->diff ($today)->format ('%y') .' '. __ ('year(s)');
+		}
 		
 		return $buffer;
 	}
