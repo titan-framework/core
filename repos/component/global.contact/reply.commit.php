@@ -23,7 +23,7 @@ if (isset ($_POST["_SEND_"]) && (int) $_POST["_SEND_"])
 		$msg .= "\n\nVocê escreveu:\n> ";
 		$msg .= chunk_split ($form->getField ('_MSG_')->getValue (), 50, "\n> ");
 		
-		if (!@mail ($form->getField ('_EMAIL_')->getValue (), 'Re: '. $form->getField ('_SUBJECT_')->getValue (), $msg, 'From: '. $user->getName () .' <'. $user->getEmail () .'>'))
+		if (!@mail ($form->getField ('_EMAIL_')->getValue (), 'Re: '. $form->getField ('_SUBJECT_')->getValue (), $msg, "From: ". $user->getName () ." <". $user->getEmail () .">\r\nContent-Type:text/html;charset=utf-8"))
 			throw new Exception ('Impossível enviar a mensagem. Tente novamente mais tarde.');
 		
 		$db = Database::singleton ();

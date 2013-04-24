@@ -650,9 +650,11 @@ class Xoad
 			$subject = '[Titan Framework] Bug Report';
 			
 			if (trim ($formData ['mail']) != '')
-				$header = "From: ". trim ($formData ['mail']);
+				$header = "From: ". trim ($formData ['mail']) ."\r\n";
 			else
 				$header = "";
+			
+			$header .= "Content-Type:text/html;charset=utf-8";
 			
 			ob_start ();
 			?>

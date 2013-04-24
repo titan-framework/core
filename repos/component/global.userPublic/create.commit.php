@@ -100,7 +100,8 @@ $msg = $mail->getCreate ('text');
 $instance = Instance::singleton ();
 
 $headers  = "From: ". $instance->getName () ." <". $instance->getEmail () .">\r\n";
-$headers .= "Reply-To: ". $instance->getEmail ();
+$headers .= "Reply-To: ". $instance->getEmail () ."\r\n";
+$headers .= "Content-Type:text/html;charset=utf-8";
 
 $hash = Security::singleton ()->getHash ();
 

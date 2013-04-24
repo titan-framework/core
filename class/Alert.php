@@ -323,7 +323,7 @@ class Alert
 			if (!@mail ($obj->u_mail,
 						str_replace (array_keys ($tags), $tags, $this->getFromTemplate ($obj->_template, 'subject')),
 						str_replace (array_keys ($tags), $tags, $this->getFromTemplate ($obj->_template, 0)),
-						"From: ". $auth ." <". $mail .">\r\nReply-To: ". $mail ."\r\nX-Mailer: PHP/". phpversion ()))
+						"From: ". $auth ." <". $mail .">\r\nReply-To: ". $mail ."\r\nX-Mailer: PHP/". phpversion () ."\r\nContent-Type:text/html;charset=utf-8"))
 			{
 				toLog ('Impossible to send alert mail! [To: '. $obj->u_mail .'] [Subject: '. str_replace (array_keys ($tags), $tags, $this->getFromTemplate ($obj->_template, 'subject')) .']');
 				
