@@ -185,7 +185,7 @@ class Mail
 		
 		$text = strtr ($mail [0], $replace);
 		
-		$headers  = "From: ". html_entity_decode ($instance->getName ()) ." <". $instance->getEmail () .">\r\nContent-Type:text/html;charset=utf-8\r\n";
+		$headers  = "From: ". html_entity_decode ($instance->getName ()) ." <". $instance->getEmail () .">\r\nContent-Type: text/plain; charset=utf-8\r\n";
 		
 		if (array_key_exists ('reply-to', $mail))
 			$headers .= "Reply-To: ". $mail ['reply-to'];

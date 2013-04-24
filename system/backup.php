@@ -173,7 +173,7 @@ Require valid-user";
 		
 		$output = ob_get_clean ();
 		
-		if (!@mail ($_MAIL .','. $instance->getEmail (), '['. $instance->getName () .'] Backup on demand at '. date ('d-m-Y H:i:s'), $output, "Content-Type:text/html;charset=utf-8"))
+		if (!@mail ($_MAIL .','. $instance->getEmail (), '['. $instance->getName () .'] Backup on demand at '. date ('d-m-Y H:i:s'), $output, "Content-Type: text/plain; charset=utf-8"))
 			throw new Exception ("Error to send mail [". $_MAIL ."]. Backup folder will be deleted. Output: \n\n". $output);
 	}
 	catch (Exception $e)

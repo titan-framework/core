@@ -106,7 +106,7 @@ class AjaxLogon
 
 			$headers  = "From: ". $instance->getName () ." <". $instance->getEmail () .">\r\n";
 			$headers .= "Reply-To: ". $instance->getEmail () ."\r\n";
-			$headers .= "Content-Type:text/html;charset=utf-8";
+			$headers .= "Content-Type: text/plain; charset=utf-8";
 
 			set_error_handler ('logPhpError');
 			

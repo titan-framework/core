@@ -654,7 +654,7 @@ class Xoad
 			else
 				$header = "";
 			
-			$header .= "Content-Type:text/html;charset=utf-8";
+			$header .= "Content-Type: text/plain; charset=utf-8";
 			
 			ob_start ();
 			?>
