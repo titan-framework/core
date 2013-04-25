@@ -99,7 +99,7 @@ class Ajax
 					$link = $instance->getUrl () . $instance->getFriendlyUrl ('change-password') ."/". urlencode ($toLogin) ."/". shortlyHash (sha1 ($hash . $toName . $hash . $passwd . $hash . $toEmail . $hash));
 				
 				$search  = array ('[USER]', '[NAME]', '[LINK]', '[LOGIN]');
-				$replace = array ($toName, html_entity_decode ($instance->getName ()), $link, $toLogin);
+				$replace = array ($toName, html_entity_decode ($instance->getName (), ENT_QUOTES, 'UTF-8'), $link, $toLogin);
 				
 				$subject = str_replace ($search, $replace, $subject);
 				$msg = str_replace ($search, $replace, $msg);

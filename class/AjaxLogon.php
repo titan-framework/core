@@ -99,7 +99,7 @@ class AjaxLogon
 				$link = $instance->getUrl () . $instance->getFriendlyUrl ('change-password') ."/". urlencode ($login) ."/". shortlyHash (sha1 ($security->getHash () . $name . $security->getHash () . $passwd . $security->getHash () . $email . $security->getHash ()));
 			
 			$search  = array ('[USER]', '[NAME]', '[LINK]', '[LOGIN]');
-			$replace = array ($name, html_entity_decode ($instance->getName ()), $link, $login);
+			$replace = array ($name, html_entity_decode ($instance->getName (), ENT_QUOTES, 'UTF-8'), $link, $login);
 
 			$subject = str_replace ($search, $replace, $subject);
 			$msg = str_replace ($search, $replace, $msg);

@@ -45,7 +45,7 @@ class XmlMaker
 			if (!is_numeric ($key))
 				$this->xml .= ($this->breakLine ? "\n" . $this->indent() : '') .' '. $key .'="'. $value .'"';
 		
-		$this->xml .= '>'. htmlentities ($content) .'</'. $element .'>' . "\n";
+		$this->xml .= '>'. htmlentities ($content, ENT_QUOTES, 'UTF-8') .'</'. $element .'>' . "\n";
 	}
 	
 	public function emptyElement ($element, $attributes = array())

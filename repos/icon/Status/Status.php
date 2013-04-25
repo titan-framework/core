@@ -52,7 +52,7 @@ class IconStatus extends IconItem
 			if (array_key_exists ('value', $status) && trim ($status ['value']) != '')
 				User::singleton ()->register ($this->table, $this->column, $itemId, $status ['value']);
 		
-		return '<img src="'.  $this->iconImage ($this->image) .'" class="icon" border="0" title="'. $this->label .'" alt="'. $this->label .'"  onclick="JavaScript: inPlaceStatus (\''. (is_null ($this->getId ()) ? '_STATUS_' : $this->getId ()) .'\', \''. $itemId .'\', \''. $this->table .'\', \''. $this->primary .'\', \''. $this->column .'\', \''. htmlentities ($this->message, ENT_QUOTES) .'\', this, '. $opts .');" />';
+		return '<img src="'.  $this->iconImage ($this->image) .'" class="icon" border="0" title="'. $this->label .'" alt="'. $this->label .'"  onclick="JavaScript: inPlaceStatus (\''. (is_null ($this->getId ()) ? '_STATUS_' : $this->getId ()) .'\', \''. $itemId .'\', \''. $this->table .'\', \''. $this->primary .'\', \''. $this->column .'\', \''. htmlentities ($this->message, ENT_QUOTES, 'UTF-8') .'\', this, '. $opts .');" />';
 	}
 	
 	public function makeLink ($itemId, $forceDisable = FALSE)
@@ -66,7 +66,7 @@ class IconStatus extends IconItem
 			if (array_key_exists ('value', $status) && trim ($status ['value']) != '')
 				User::singleton ()->register ($this->table, $this->column, $itemId, $status ['value']);
 		
-		return 'href="#" onclick="JavaScript: inPlaceStatus (\''. (is_null ($this->getId ()) ? '_STATUS_' : $this->getId ()) .'\', \''. $itemId .'\', \''. $this->table .'\', \''. $this->primary .'\', \''. $this->column .'\', \''. htmlentities ($this->message, ENT_QUOTES) .'\', this, '. $opts .');"';
+		return 'href="#" onclick="JavaScript: inPlaceStatus (\''. (is_null ($this->getId ()) ? '_STATUS_' : $this->getId ()) .'\', \''. $itemId .'\', \''. $this->table .'\', \''. $this->primary .'\', \''. $this->column .'\', \''. htmlentities ($this->message, ENT_QUOTES, 'UTF-8') .'\', this, '. $opts .');"';
 	}
 	
 	private function genOptions ()
@@ -81,7 +81,7 @@ class IconStatus extends IconItem
 			if (!array_key_exists ('value', $opt) || trim ($opt ['value']) == '' || !array_key_exists ('label', $opt) || trim ($opt ['label']) == '')
 				continue;
 			
-			$array [] = "value: '". trim ($opt ['value']) ."', label: '". htmlentities (translate ($opt ['label']), ENT_QUOTES) ."', color: '". (array_key_exists ('color', $opt) ? trim ($opt ['color']) : '') ."'";
+			$array [] = "value: '". trim ($opt ['value']) ."', label: '". htmlentities (translate ($opt ['label']), ENT_QUOTES, 'UTF-8') ."', color: '". (array_key_exists ('color', $opt) ? trim ($opt ['color']) : '') ."'";
 		}
 		
 		if (!sizeof ($array))

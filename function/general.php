@@ -76,11 +76,11 @@ function fileName ($str)
 
 function removeAccents ($str)
 {
-	$str = htmlentities (html_entity_decode ($str));
+	$str = htmlentities (html_entity_decode ($str, ENT_NOQUOTES, 'UTF-8'), ENT_NOQUOTES, 'UTF-8');
 
 	$str = preg_replace ('/&([a-zA-Z])(uml|acute|grave|circ|tilde|cedil);/', '$1', $str);
 
-	return html_entity_decode ($str);
+	return html_entity_decode ($str, ENT_NOQUOTES, 'UTF-8');
 }
 
 function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE)

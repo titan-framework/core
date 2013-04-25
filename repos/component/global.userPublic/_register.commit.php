@@ -122,7 +122,7 @@ else
 	$link = Instance::singleton ()->getUrl () . Instance::singleton ()->getFriendlyUrl ('change-password') ."/". urlencode ($login) ."/". shortlyHash (sha1 ($hash . $name . $hash . $passwd . $hash . $email . $hash));
 
 $search  = array ('[USER]', '[NAME]', '[LINK]', '[LOGIN]');
-$replace = array ($name, html_entity_decode (Instance::singleton ()->getName ()), $link, $login);
+$replace = array ($name, html_entity_decode (Instance::singleton ()->getName (), ENT_QUOTES, 'UTF-8'), $link, $login);
 
 $subject = str_replace ($search, $replace, $subject);
 $msg = str_replace ($search, $replace, $msg);

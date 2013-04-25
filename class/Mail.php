@@ -172,7 +172,7 @@ class Mail
 			$flag = FALSE;
 		
 		if (!array_key_exists ('_SYSTEM_', $tags))
-			$tags ['_SYSTEM_'] = html_entity_decode ($instance->getName ());
+			$tags ['_SYSTEM_'] = html_entity_decode ($instance->getName (), ENT_QUOTES, 'UTF-8');
 		
 		$replace = array ();
 		foreach ($tags as $key => $tag)
@@ -181,11 +181,11 @@ class Mail
 		if (array_key_exists ('subject', $mail))
 			$subject = strtr ($mail ['subject'], $replace);
 		else
-			$subject = '['. html_entity_decode ($instance->getName ()) .'] E-mail Automático';
+			$subject = '['. html_entity_decode ($instance->getName (), ENT_QUOTES, 'UTF-8') .'] E-mail Automático';
 		
 		$text = strtr ($mail [0], $replace);
 		
-		$headers  = "From: ". html_entity_decode ($instance->getName ()) ." <". $instance->getEmail () .">\r\nContent-Type: text/plain; charset=utf-8\r\n";
+		$headers  = "From: ". html_entity_decode ($instance->getName (), ENT_QUOTES, 'UTF-8') ." <". $instance->getEmail () .">\r\nContent-Type: text/plain; charset=utf-8\r\n";
 		
 		if (array_key_exists ('reply-to', $mail))
 			$headers .= "Reply-To: ". $mail ['reply-to'];
