@@ -127,6 +127,8 @@ try
 		if (!file_exists ($argv [$i]) || !is_dir ($argv [$i]))
 			continue;
 		
+		$sendErrorReport = FALSE;
+		
 		ob_start ();
 		
 		try
@@ -281,6 +283,11 @@ try
 			
 			if ($_actualRevision >= $_headRevision)
 				throw new Exception ("INFO > File of path [". $_pathToFileOfPaths ."] is in head revision. Update is not necessary! \n");
+			
+			/*
+			 * After this point, all erros are send by mail.
+			 */
+			$sendErrorReport = TRUE;
 			
 			$_revertRevision = $_actualRevision;
 			
@@ -498,9 +505,16 @@ try
 		}
 		catch (Exception $e)
 		{
-			echo ob_get_clean ();
-			
 			echo $e->getMessage ();
+			
+			$subject = "[". $_xml ['name'] ." at server ". php_uname ('n') ."] CRITICAL ERROR to update system at ". date ('Y-m-d H:i');
+			
+			$buffer = ob_get_clean ();
+			
+			if ($sendErrorReport)
+				@mail (@$_xml ['e-mail'], $subject, $buffer);
+			
+			echo $buffer;
 		}
 	}
 }
