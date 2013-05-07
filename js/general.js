@@ -24,7 +24,7 @@ function openPopUp (url, name, width, height, scrolling, status, resizable)
 }
 
 function openPrintPopup (queryString) 
-{	
+{
 	PopUp = window.open(queryString, 'Imprimir', 'width=500,height=300,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,left=100,top=100');
 }
 
@@ -559,4 +559,41 @@ function deleteItemFromShoppingCart (id)
 		
 		hideWait ();
 	});
+}
+
+function clone (obj)
+{
+	if (null == obj || 'object' != typeof obj)
+		return obj;
+	
+	if (obj instanceof Date)
+	{
+		var copy = new Date ();
+		
+		copy.setTime (obj.getTime ());
+		
+		return copy;
+	}
+	
+	if (obj instanceof Array)
+	{
+		var copy = [];
+		
+		for (var i = 0, len = obj.length; i < len; i++)
+			copy [i] = clone (obj [i]);
+		
+		return copy;
+	}
+	
+	if (obj instanceof Object)
+	{
+		var copy = {};
+		
+		for (var attr in obj)
+			if (obj.hasOwnProperty (attr)) copy [attr] = clone (obj [attr]);
+		
+		return copy;
+	}
+	
+	return null;
 }

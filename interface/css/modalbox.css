@@ -1,38 +1,13 @@
-/************************************************************************************************************
-*	DHTML modal dialog box	(CSS for the DHTMLSuite_modalMessage class)
-*
-*	Created:						August, 26th, 2006
-*	@class Purpose of class:		Display a modal dialog box on the screen.
-*			
-*	Css files used by this script:	modal-message.css
-*
-* 	Update log:
-*
-************************************************************************************************************/
-
-.modalDialog_transparentDivs{	
-	filter:alpha(opacity=40);	/* Transparency */
-	opacity:0.4;	/* Transparency */
-	background-color:#AAA;
-	z-index:1;
-	position:absolute; /* Always needed	*/
-}
-.modalDialog_contentDiv{
-	border:3px solid #000;	
-	padding:0px;
-	z-index:100;/* Always needed	*/
-	position:absolute;	/* Always needed	*/
-	background-color:#FFF;	/* White background color for the message */
-}
-.modalDialog_contentDiv_shadow{
-	z-index:90;/* Always needed	- to make it appear below the message */
-	position:absolute;	/* Always needed	*/
-	background-color:#555;
-	filter:alpha(opacity=30);	/* Transparency */
-	opacity:0.3;	/* Transparency */	
-}
-
-/* Modalbox starts here */
+/*
+   modalbox.css
+   
+   Modalbox project
+   
+   Created by Andrew Okonetchnikov.
+   Copyright 2006-2010 okonet.ru. All rights reserved.
+   
+   Licensed under MIT license.
+*/
 
 #MB_overlay {
 	position: absolute;
@@ -40,55 +15,68 @@
 	top: 0;	left: 0;
 	width: 100%; height: 100%;
 	z-index: 9999;
+	border: 0;
 	background-color: #000!important;
 }
 #MB_overlay[id] { position: fixed; }
 
-#MB_window {
+#MB_windowwrapper {
 	position:absolute;
-	top: 1;
-	border: 0 solid;
-	text-align:left;
-	z-index:10000;
+	top:0;
+	width:100%;
 }
-#MB_window[id] { position: fixed!important; }
+
+#MB_window {
+	position:relative;
+	margin-left:auto;
+	margin-right:auto;
+	top:0;
+	left:0;
+	border: 0 solid;
+	text-align: left;
+	z-index: 10000;
+}
+#MB_window[id] { position: relative; }
 
 #MB_frame {
-	position:relative;
+	position: relative;
 	background-color: #EFEFEF;
-	height:100%;
+	height: 100%;
 }
 
 #MB_header {
-	margin:0;
+	margin: 0;
+	padding: 0;
 	height: 28px;
+	line-height: 28px;
+	font-size: 14px;
 }
 
 #MB_content {
+	position: relative;
 	padding: 6px .75em;
-	overflow:auto;
+	overflow: auto;
 }
 
 #MB_caption {
-	font: bold 85% "Lucida Grande", Arial, sans-serif;
-	font-size: 13px;
+	font: bold 100% "Lucida Grande", Arial, sans-serif;
 	text-shadow: #FFF 0 1px 0;
-	padding: .5em 2em 0 .75em;
+	padding: .5em 2em .5em .75em;
 	margin: 0;
 	text-align: left;
 }
 
 #MB_close {
-	display:block;
-	position:absolute;
-	right:5px; top:4px;
-	padding:2px 3px;
-	font-weight:bold;
-	text-decoration:none;
-	font-size:13px;
+	display: block;
+	position: absolute;
+	right: 5px; top: -2px;
+	padding: 2px 3px;
+	font-weight: bold;
+	text-decoration: none;
+	font-size: 14px;
 }
 #MB_close:hover {
-	background:transparent;
+	background: transparent;
 }
 
 #MB_loading {
@@ -99,17 +87,35 @@
 
 /* Color scheme */
 #MB_window {
-	background-color:#EFEFEF;
-	color:#000;
+	background-color: #EFEFEF;
+	color: #000;
+	
+	-webkit-box-shadow: 0 0 64px #000; 
+	-moz-box-shadow: #000 0 0 64px; 
+	box-shadow: 0 0 64px #000;
 }
-#MB_content { border-top: 1px solid #F9F9F9; }
-#MB_header {
-  background-color:#DDD;
-  border-bottom: 1px solid #CCC;
-}
-#MB_caption { color:#000 }
-#MB_close { color:#777 }
-#MB_close:hover { color:#000 }
+	#MB_frame {
+		padding-bottom: 4px;
+		
+		-webkit-border-bottom-left-radius: 4px;
+		-webkit-border-bottom-right-radius: 4px;
+
+		-moz-border-radius-bottomleft: 4px;
+		-moz-border-radius-bottomright: 4px;
+
+		border-bottom-left-radius: 4px;
+		border-bottom-right-radius: 4px;
+	}
+	
+	#MB_content { border-top: 1px solid #F9F9F9; }
+
+	#MB_header {
+	  background-color: #DDD;
+	  border-bottom: 1px solid #CCC;
+	}
+		#MB_caption { color: #000 }
+		#MB_close { color: #777 }
+		#MB_close:hover { color: #000 }
 
 
 /* Alert message */

@@ -36,20 +36,20 @@ if ((int) $image && isset ($files [$image]))
 		$pdf->Image (Archive::singleton ()->getFilePath ($image), 0, 0, 118, 79, $extension);
 }
 
-$sql = "SELECT t.qr_auth, t.photo, f._mimetype
+$sql = "SELECT t.trainee, t.qr_auth, t.photo, f._mimetype
 		FROM trainee.v_view_term t 
 		LEFT JOIN _file f ON f._id = t.photo
-		WHERE t.id = '". $_item ."'";
+		WHERE t.id = :id";
 
 $sth = Database::singleton ()->prepare ($sql);
 
-$sth->execute ();
+$sth->execute (array (':id' => $_item));
 
 $qr = QR_CACHE_DIR .'null';
 
 while ($obj = $sth->fetch (PDO::FETCH_OBJ))
 {
-	$content = $_item .'@'. $obj->qr_auth;
+	$content = $obj->trainee .'#'. $obj->qr_auth;
 	
 	$qr = QR_CACHE_DIR . md5 ($content) .'.png';
 	
