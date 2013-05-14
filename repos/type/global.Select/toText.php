@@ -4,7 +4,10 @@ if ($field->isEmpty ())
 
 $sth = $db->prepare ("SELECT ". implode (", ", $field->getColumnsView ()) ." FROM ". $field->getLink () ." WHERE ". $field->getLinkColumn () ." = :value");
 
-$sth->bindParam (':value', @$field->getValue (), @$field->getBindType ());
+$value = $field->getValue ();
+$bind  = $field->getBindType ();
+
+$sth->bindParam (':value', $value, $bind);
 
 $sth->execute ();
 
