@@ -23,7 +23,7 @@ $view->setPaginate (0);
 if (!$view->load ($useSearch ? $search->makeWhere () : ''))
 	throw new Exception (__ ('Unable to load data!'));
 
-error_reporting (0);
+set_error_handler ('logPhpError');
 
 header ('Content-Type: application/csv');
 header ('Content-disposition: attachment; filename='. Business::singleton ()->getSection (Section::TCURRENT)->getName () .'_'. date ('Y-m-d_H-i-s') .'.csv');
@@ -54,6 +54,8 @@ while ($view->getItem ())
 }
 
 fclose ($handle);
+
+restore_error_handler ();
 
 exit ();
 ?>
