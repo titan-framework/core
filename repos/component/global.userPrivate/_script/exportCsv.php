@@ -6,6 +6,7 @@ if (!isset ($_GET['assigns']))
 	throw new Exception (__ ('Error! Data losted.'));
 
 set_time_limit (0);
+ini_set ('memory_limit', -1);
 
 $useSearch = isset ($_GET['search']) && (int) $_GET['search'] ? TRUE : FALSE;
 
@@ -31,7 +32,12 @@ $view->setPaginate (0);
 if (!$view->load ($where))
 	throw new Exception (__ ('Unable to load data!'));
 
-$handle = tmpfile ();
+set_error_handler ('logPhpError');
+
+header ('Content-Type: application/csv');
+header ('Content-disposition: attachment; filename='. Business::singleton ()->getSection (Section::TCURRENT)->getName () .'_'. date ('Y-m-d_H-i-s') .'.csv');
+
+$handle = fopen ('php://output', 'w');
 
 $aux = array ();
 
@@ -54,14 +60,9 @@ while ($view->getItem ())
 	fputcsv ($handle, $aux, ';', '"');
 }
 
-header ('Content-Type: application/csv');
-header ('Content-disposition: attachment; filename='. Business::singleton ()->getSection (Section::TCURRENT)->getName () .'_'. date ('Y-m-d_H-i-s') .'.csv');
-
-rewind ($handle);
-
-fpassthru ($handle);
-
 fclose ($handle);
+
+restore_error_handler ();
 
 exit ();
 ?>
