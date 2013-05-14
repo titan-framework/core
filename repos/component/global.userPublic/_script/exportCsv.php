@@ -32,10 +32,12 @@ $view->setPaginate (0);
 if (!$view->load ($where))
 	throw new Exception (__ ('Unable to load data!'));
 
-set_error_handler ('logPhpError');
+error_reporting (0);
 
 header ('Content-Type: application/csv');
 header ('Content-disposition: attachment; filename='. Business::singleton ()->getSection (Section::TCURRENT)->getName () .'_'. date ('Y-m-d_H-i-s') .'.csv');
+header ('Pragma: no-cache');
+header ('Expires: 0');
 
 $handle = fopen ('php://output', 'w');
 
@@ -61,8 +63,6 @@ while ($view->getItem ())
 }
 
 fclose ($handle);
-
-restore_error_handler ();
 
 exit ();
 ?>
