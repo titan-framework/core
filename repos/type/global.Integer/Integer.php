@@ -28,7 +28,7 @@ class Integer extends Type
 	
 	public function isEmpty ()
 	{
-		return is_null ($this->getValue ()) || !is_numeric ($this->getValue ());
+		return is_null ($this->getValue ()) || !is_integer ($this->getValue ()) || !$this->getValue ();
 	}
 }
 ?>

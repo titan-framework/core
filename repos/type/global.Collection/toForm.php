@@ -101,12 +101,14 @@ ob_start ();
 	<table id="collection_view_<?= $fieldId ?>" style="background-color: #FFF;">
 		<tr>
 			<?
+			$columns = sizeof ($view->getFields ()) + 1;
+			
 			while ($auxField = $view->getField ())
 				echo '<td class="cTableHeader">'. View::toLabel ($auxField, FALSE) .'</td>';
 			?>
 			<td class="cTableHeader" style="text-align: right; cursor: pointer;"><img src="titan.php?target=loadFile&file=interface/icon/create.gif" border="0" title="Inserir Item" onclick="JavaScript: global.Collection.create ('<?= $fieldId ?>', <?= $itemId ?>);" /></td>
 		</tr>
-		<tr height="5px"><td></td></tr>
+		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
 		<?
 		$bkpItemId = $itemId;
 		
@@ -121,7 +123,7 @@ ob_start ();
 					<img src="titan.php?target=loadFile&file=interface/icon/delete.gif" border="0" title="Apagar" style="cursor: pointer;" onclick="JavaScript: global.Collection.delRow ('<?= $fieldId ?>', '<?= $field->getXmlPath () ?>', '<?= $view->getId () ?>');" />&nbsp;
 				</td>
 			</tr>
-			<tr class="cSeparator" id="collection_row_<?= $view->getId () ?>_space"><td></td></tr>
+			<tr class="cSeparator" id="collection_row_<?= $view->getId () ?>_space"><td colspan="<?= $columns ?>"></td></tr>
 			<?
 		}
 		
