@@ -419,7 +419,18 @@ try
 						$_db->beginTransaction ();
 						
 						foreach ($files as $trash => $file)
+						{
+							echo "INFO > Updating specific migration file to head revision [". $_pathToMigrationFiles . $file .".sql]... \n";
+				
+							system (SVN .' up '. $_pathToMigrationFiles . $file .'.sql --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --no-auth-cache --non-interactive -q', $return);
+							
+							if ($return)
+								throw new PDOException ("CRITICAL > Fail to update specifc migration file [". $_pathToMigrationFiles . $file .".sql] to head revision! \n");
+							
+							echo "SUCCESS > Migration file [". $_pathToMigrationFiles . $file .".sql] updated to head revision! \n";
+							
 							$_db->exec (file_get_contents ($_pathToMigrationFiles . $file .'.sql'));
+						}
 						
 						$_sthUpdateVersion->bindParam (':version', $file, PDO::PARAM_STR, 14);
 						$_sthUpdateVersion->bindParam (':author', $_authorRevision, PDO::PARAM_STR, 64);
