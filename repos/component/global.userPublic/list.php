@@ -81,24 +81,22 @@ if (isset ($search) && is_object ($search))
 	<table>
 		<tr>
 			<?
+			$columns = sizeof ($view->getFields ()) + 1;
+			
 			while ($field = $view->getField ())
 				echo '<td class="cTableHeader">'. View::toLabel ($field) .'</td>';
 			?>
 			<td class="cTableHeader"></td>
 		</tr>
-		<tr height="5px"><td></td></tr>
+		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
 		<?
 		while ($view->getItem ())
 		{
 			?>
 			<tr id="_ITEM_<?= $view->getId () ?>" class="cTableItem">
 				<?
-				$count = 1;
 				while ($field = $view->getLink ())
-				{
 					echo '<td>'. $field .'</td>';
-					$count++;
-				}
 				?>
 				<td style="text-align: right;" nowrap="nowrap">
 					<? while ($icon = $view->getIcon ()) echo $icon .'&nbsp;'; ?>
@@ -114,15 +112,15 @@ if (isset ($search) && is_object ($search))
 				</td>
 			</tr>
 			<tr id="_ROW_<?= $view->getId () ?>" style="display: none; background-color: #FFF;">
-				<td colspan="<?= $count ?>" id="_CONTENT_<?= $view->getId () ?>" class="inPlace"></td>
+				<td colspan="<?= $columns ?>" id="_CONTENT_<?= $view->getId () ?>" class="inPlace"></td>
 			</tr>
-			<tr class="cSeparatorHalf"><td></td></tr>
+			<tr class="cSeparatorHalf"><td colspan="<?= $columns ?>"></td></tr>
 			<tr class="cTableItem" style="display: none; height: 40px; background-color: #FFFFFF;" id="_USER_ROW_<?= $view->getId () ?>">
-				<td colspan="<?= $count ?>">
+				<td colspan="<?= $columns ?>">
 					<label id="_USER_CONTENT_<?= $view->getId () ?>"></label>
 				</td>
 			</tr>
-			<tr class="cSeparatorHalf"><td></td></tr>
+			<tr class="cSeparatorHalf"><td colspan="<?= $columns ?>"></td></tr>
 			<?
 		}
 		?>

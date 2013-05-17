@@ -951,7 +951,7 @@ div
 #idPage ul li
 {
 	display: inline;
-	border: #999999 1px solid;
+	border: #999 1px solid;
 	line-height: 20px;
 	height: 20px;
 	list-style: none;
@@ -962,26 +962,26 @@ div
 
 #idPage ul li.enabled
 {	
-	border-color: #999999;
-	color: #999999;
+	border-color: #999;
+	color: #999;
 }
 
 #idPage .enabled:hover
 {
-	border-color: #333333;
-	color: #333333;
+	border-color: #333;
+	color: #333;
 }
 
 #idPage .disabled
 {
-	border-color: #CCCCCC;
-	color: #CCCCCC;
+	border-color: #CCC;
+	color: #CCC;
 }
 
 #idPage .selected
 {
-	border-color: #333333;
-	color: #333333;
+	border-color: #333;
+	color: #333;
 }
 
 .divHelpHeader

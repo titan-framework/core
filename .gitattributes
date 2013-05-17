@@ -2186,6 +2186,7 @@ interface/image/cc.png -text
 interface/image/cc.some_rights.png -text
 interface/image/close.gif -text
 interface/image/error.png -text
+interface/image/exclamation.png -text
 interface/image/firefox.png -text
 interface/image/firefox.portable.png -text
 interface/image/firefox.titan.png -text

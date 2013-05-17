@@ -90,15 +90,15 @@ if (isset ($search) && is_object ($search))
 	<table>
 		<tr>
 			<?
+			$columns = sizeof ($view->getFields ()) + 1;
+			
 			while ($field = $view->getField ())
 				echo '<td class="cTableHeader">'. View::toLabel ($field) .'</td>';
 			?>
 			<td class="cTableHeader"></td>
 		</tr>
-		<tr height="5px"><td></td></tr>
+		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
 		<?
-		$columns = sizeof ($view->getFields ()) + 1;
-
 		while ($view->getItem ())
 		{
 			$itemId = $view->getId ();
@@ -112,7 +112,7 @@ if (isset ($search) && is_object ($search))
 			<tr id="_ROW_<?= $view->getId () ?>" style="display: none; background-color: #FFF;">
 				<td colspan="<?= $columns ?>" id="_CONTENT_<?= $view->getId () ?>" class="inPlace"></td>
 			</tr>
-			<tr id="_SP_<?= $view->getId () ?>" class="cSeparator" style="display:;"><td></td></tr>
+			<tr id="_SP_<?= $view->getId () ?>" class="cSeparator" style="display:;"><td colspan="<?= $columns ?>"></td></tr>
 			<?
 		}
 		?>

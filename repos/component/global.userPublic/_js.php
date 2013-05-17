@@ -29,7 +29,10 @@ function saveRegister (file, form, button)
 		tAjax.showMessages ();
 		
 		for (var i = 0; i < _registerErrorFields.length; i++)
+		{
 			$('row_' + _registerErrorFields [i]).style.backgroundColor = _registerErrorColors [i];
+			$$('#row_' + _registerErrorFields [i] + ' td').first ().style.background = 'none';
+		}
 		
 		_registerErrorFields = new Array ();
 		_registerErrorColors = new Array ();
@@ -40,6 +43,7 @@ function saveRegister (file, form, button)
 			_registerErrorColors [i] = $('row_' + fields [i]).style.backgroundColor;
 			
 			$('row_' + fields [i]).style.backgroundColor = '#FADFDD';
+			$$('#row_' + fields [i] + ' td').first ().style.background = 'url(titan.php?target=loadFile&file=interface/image/exclamation.png) 5px no-repeat';
 		}
 		
 		hideWait ();
@@ -52,7 +56,10 @@ function saveRegister (file, form, button)
 	if (!tAjax.save (file, formData))
 	{
 		for (var i = 0; i < _registerErrorFields.length; i++)
+		{
 			$('row_' + _registerErrorFields [i]).style.backgroundColor = _registerErrorColors [i];
+			$$('#row_' + _registerErrorFields [i] + ' td').first ().style.background = 'none';
+		}
 		
 		_registerErrorFields = new Array ();
 		_registerErrorColors = new Array ();

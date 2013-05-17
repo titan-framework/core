@@ -87,7 +87,10 @@ header ('Content-Encoding: gzip');
 				$('idBody').scrollTop = 0;
 				
 				for (var i = 0; i < _formErrorFields.length; i++)
+				{
 					$('row_' + _formErrorFields [i]).style.backgroundColor = _formErrorColors [i];
+					$$('#row_' + _formErrorFields [i] + ' td').first ().style.background = 'none';
+				}
 				
 				_formErrorFields = new Array ();
 				_formErrorColors = new Array ();
@@ -98,6 +101,7 @@ header ('Content-Encoding: gzip');
 					_formErrorColors [i] = $('row_' + fields [i]).style.backgroundColor;
 					
 					$('row_' + fields [i]).style.backgroundColor = '#FADFDD';
+					$$('#row_' + fields [i] + ' td').first ().style.background = 'url(titan.php?target=loadFile&file=interface/image/exclamation.png) 5px no-repeat';
 				}
 				
 				hideWait ();
@@ -139,7 +143,10 @@ header ('Content-Encoding: gzip');
 				$('idBody').scrollTop = 0;
 				
 				for (var i = 0; i < _formErrorFields.length; i++)
+				{
 					$('row_' + _formErrorFields [i]).style.backgroundColor = _formErrorColors [i];
+					$$('#row_' + _formErrorFields [i] + ' td').first ().style.background = 'none';
+				}
 				
 				_formErrorFields = new Array ();
 				_formErrorColors = new Array ();
@@ -150,6 +157,7 @@ header ('Content-Encoding: gzip');
 					_formErrorColors [i] = $('row_' + fields [i]).style.backgroundColor;
 					
 					$('row_' + fields [i]).style.backgroundColor = '#FADFDD';
+					$$('#row_' + fields [i] + ' td').first ().style.background = 'url(titan.php?target=loadFile&file=interface/image/exclamation.png) 5px no-repeat';
 				}
 				
 				hideWait ();
