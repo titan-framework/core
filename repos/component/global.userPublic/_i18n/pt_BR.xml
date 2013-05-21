@@ -42,4 +42,9 @@
 	<message from="The current password you entered is incorrect!" to="A senha atual digitada esta incorreta!" />
 	<message from="It was not possible to change the password." to="Não foi possível modificar a senha." />
 	<message from="Password successfully changed." to="Senha modificada com sucesso." />
+	
+	<!-- _js -->
+	<message from="Registration completed!" to="Cadastro realizado com sucesso!" />
+	<message from="Please check your e-mail. In few minutes you will receive a message with further instructions." to="Por favor, verifique sua caixa de e-mail. Em alguns minutos você receberá uma mensagem com instruções adicionais." />
+	<message from="Make new account?" to="Gostaria de fazer um novo cadastro?" />
 </i18n>

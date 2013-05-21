@@ -93,17 +93,15 @@ function saveRegister (file, form, button)
 function success ()
 {
 	var source = '<div id="idSuccess">\
-					<img src="titan.php?target=loadFile&file=interface/image/success.png" border="0" style="float: left; margin: 10px;" />\
-					<div style="float: right; width: 210px; margin: 20px 10px 10px 0px;">\
-						<label style="color: #1F7E1E; font-weight: bold;">Seu cadastro foi realizado com sucesso!</label> \
-						Assim que ele for aprovado você receberá um e-mail para cadastro de senha no sistema.\
+					<img src="titan.php?target=loadFile&file=interface/image/success.png" border="0" style="float: left; margin: 25px 10px 0px 10px;" />\
+					<div style="float: right; width: 370px; margin: 20px 10px 0px 10px; font-size: 12px;">\
+						<label style="color: #1F7E1E; font-weight: bold; font-size: 14px;"><?= __ ('Registration completed!') ?></label><br /><br />\
+						<?= __ ('Please check your e-mail. In few minutes you will receive a message with further instructions.') ?> <br /><br />\
+						<a style="color: #900; font-size: 10px;" href="<?= $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'] ?>"><?= __ ('Make new account?') ?></a>\
 					</div>\
 				  </div>';
 	
-	modalMsg = new DHTML_modalMessage ();
-	modalMsg.setHtmlContent (source);
-	modalMsg.setSize (300, 90);
-	modalMsg.display ();
+	Modalbox.show (source, { overlayClose: false, closeValue: '', closeString: '', autoFocusing: false, width: 500, height: 180, title: '' });
 }
 
 function showActivate (id)

@@ -19,11 +19,13 @@ ob_start ();
 	<table style="background-color: #FFF;">
 		<tr>
 			<?
+			$columns = sizeof ($view->getFields ());
+			
 			while ($auxField = $view->getField ())
 				echo '<td class="cTableHeader">'. View::toLabel ($auxField, FALSE) .'</td>';
 			?>
 		</tr>
-		<tr height="5px"><td></td></tr>
+		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
 		<?
 		$bkpItemId = $itemId;
 		
@@ -34,7 +36,7 @@ ob_start ();
 			<tr class="cTableItem" id="collection_row_<?= $view->getId () ?>">
 				<? while ($auxField = $view->getLink ()) echo '<td>'. $auxField .'</td>'; ?>
 			</tr>
-			<tr class="cSeparator"><td></td></tr>
+			<tr class="cSeparator"><td colspan="<?= $columns ?>"></td></tr>
 			<?
 		}
 		
