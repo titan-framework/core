@@ -113,7 +113,7 @@ while ($term = $field->getDocument ())
 				<img id="_TERM_ADD_<?= $fieldId ?>" src="titan.php?target=loadFile&file=interface/icon/create.gif" style="cursor: pointer; float: right; display: block;" border="0" title="Inserir Item" onclick="JavaScript: global.Document.add ('<?= $fieldId ?>', this);" />
 			</td>
 		</tr>
-		<tr height="5px"><td></td></tr>
+		<tr height="5px"><td colspan="5"></td></tr>
 		<?
 		$db = Database::singleton ();
 
@@ -151,7 +151,7 @@ while ($term = $field->getDocument ())
 					<img id="_TERM_IMG_<?= $fieldId ?>_<?= $obj->_id ?>_<?= $obj->_version ?>" src="titan.php?target=loadFile&file=interface/icon/<?= $valid ? 'pdf' : 'grey/pdf' ?>.gif" border="0" title="<?= __ ('Generate PDF') ?>" />&nbsp;
 				</td>
 			</tr>
-			<tr class="cSeparator"><td></td></tr>
+			<tr class="cSeparator"><td colspan="5"></td></tr>
 			<?
 		}
 		?>

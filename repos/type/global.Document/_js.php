@@ -130,13 +130,18 @@ global.Document.addRow = function (fieldId, fatherId, id, relation, label, versi
 		column.style.textAlign = 'right';
 		column.appendChild (icon);
 	}
+	
 	row.appendChild (column);
 	
 	$('_TERM_VIEW_' + fieldId).appendChild (row);
 	
 	row = document.createElement ('tr');
 	
-	row.appendChild (document.createElement('td'));
+	column = document.createElement ('td');
+	
+	column.colSpan = '5';
+	
+	row.appendChild (column);
 	
 	row.className = 'cSeparator';
 	
