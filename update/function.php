@@ -41,6 +41,13 @@ function setPermission ($path, $dMode, $fMode, $owner, $group)
 	}
 	else
 	{
+		if (!file_exists ($path))
+		{
+			echo "ERROR > File do not exists [". $path ."]! \n";
+			
+			return;
+		}
+		
 		if (is_link ($path))
 		{
 			echo "ERROR > Impossible make changes at symbolic links [". $path ."]! \n";
