@@ -50,7 +50,7 @@ global.Document.save = function (fieldId, fatherId, id, relation, template, labe
 		tAjax.delay (function () {
 			global.Document.ajax.showMessages ();
 			
-			$('_TERM_FORM_SAVE_' + fieldId + '_' + id).value = '<?= __ ('Save') ?>';
+			$('_TERM_FORM_SAVE_' + fieldId + '_' + id).value = '<?= __ ('Generate Document') ?>';
 			$('_TERM_FORM_SAVE_' + fieldId + '_' + id).disabled = false;
 			$('_TERM_FORM_CANCEL_' + fieldId + '_' + id).disabled = false;
 			
@@ -65,7 +65,7 @@ global.Document.save = function (fieldId, fatherId, id, relation, template, labe
 		
 		global.Document.ajax.showMessages ();
 		
-		$('_TERM_FORM_SAVE_' + fieldId + '_' + id).value = '<?= __ ('Save') ?>';
+		$('_TERM_FORM_SAVE_' + fieldId + '_' + id).value = '<?= __ ('Generate Document') ?>';
 		$('_TERM_FORM_SAVE_' + fieldId + '_' + id).disabled = false;
 		$('_TERM_FORM_CANCEL_' + fieldId + '_' + id).disabled = false;
 		
@@ -128,6 +128,8 @@ global.Document.addRow = function (fieldId, fatherId, id, relation, label, versi
 		icon.onclick = function () { global.Document.openDocument (hash); };
 		
 		column.style.textAlign = 'right';
+		column.style.paddingRight = '6px';
+		
 		column.appendChild (icon);
 	}
 	

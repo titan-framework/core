@@ -1,3 +1,3 @@
 <?
-return 'to_ascii (convert_to ('. $field->getColumn () .', \'latin1\'), \'latin1\')';
+return "lower (_no_accents (btrim (". $field->getColumn () .")))";
 ?>
