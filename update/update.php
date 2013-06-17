@@ -433,9 +433,18 @@ try
 							if ($return)
 								throw new PDOException ("CRITICAL > Fail to update specifc migration file [". $_pathToMigrationFiles . $file .".sql] to head revision! \n");
 							
-							echo "SUCCESS > Migration file [". $_pathToMigrationFiles . $file .".sql] updated to head revision! \n";
+							if (file_exists ($_pathToMigrationFiles . $file .'.sql'))
+							{
+								echo "SUCCESS > Migration file [". $_pathToMigrationFiles . $file .".sql] updated to head revision! \n";
+								
+								$sql = file_get_contents ($_pathToMigrationFiles . $file .'.sql');
+								
+								if (trim ($sql) != '')
+									$_db->exec ($sql);
+							}
+							else
+								echo "SUCCESS > Migration file [". $_pathToMigrationFiles . $file .".sql] deleted! \n";
 							
-							$_db->exec (file_get_contents ($_pathToMigrationFiles . $file .'.sql'));
 						}
 						
 						$_sthUpdateVersion->bindParam (':version', $file, PDO::PARAM_STR, 14);
