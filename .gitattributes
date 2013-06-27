@@ -2227,6 +2227,7 @@ interface/locale/es_ES.gif -text
 interface/locale/es_ES.png -text
 interface/locale/pt_BR.gif -text
 interface/locale/pt_BR.png -text
+interface/menu/accept.png -text
 interface/menu/book.png -text
 interface/menu/calendar.png -text
 interface/menu/close.png -text
@@ -2238,6 +2239,7 @@ interface/menu/edit.png -text
 interface/menu/email.png -text
 interface/menu/forward.png -text
 interface/menu/graph.png -text
+interface/menu/grey/accept.png -text
 interface/menu/grey/book.png -text
 interface/menu/grey/calendar.png -text
 interface/menu/grey/close.png -text
@@ -2256,6 +2258,7 @@ interface/menu/grey/notes.png -text
 interface/menu/grey/permission.png -text
 interface/menu/grey/personal.png -text
 interface/menu/grey/print.png -text
+interface/menu/grey/reject.png -text
 interface/menu/grey/reply.png -text
 interface/menu/grey/rewind.png -text
 interface/menu/grey/rss.png -text
@@ -2273,6 +2276,7 @@ interface/menu/pdf.png -text
 interface/menu/permission.png -text
 interface/menu/personal.png -text
 interface/menu/print.png -text
+interface/menu/reject.png -text
 interface/menu/reply.png -text
 interface/menu/rewind.png -text
 interface/menu/rss.png -text

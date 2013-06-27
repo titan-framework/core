@@ -2,7 +2,7 @@
 $skin = Skin::singleton ();
 
 if (!(bool) ini_get ('zlib.output_compression'))
- 	ob_start ('ob_gzhandler');
+	ob_start ('ob_gzhandler');
 
 header ('Content-Encoding: gzip');
 ?>

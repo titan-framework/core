@@ -367,6 +367,11 @@ class View
 		
 		$this->disabledIcons [$id] = $items;
 	}
+	
+	public function removeIcon ($id)
+	{
+		unset ($this->icons [$id]);
+	}
 
 	public function getTotal ($where = '', $sql = FALSE)
 	{

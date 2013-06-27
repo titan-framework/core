@@ -4,7 +4,7 @@
 	padding: 5px 5px 5px 25px;
 	width: 275px;
 	margin: 2px;
-	color: #000000;
+	color: #000;
 	background: url(titan.php?target=loadFile&file=interface/icon/search.gif) left no-repeat;
 }
 #imageSearch
@@ -32,10 +32,10 @@
 	<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 		<tr height="5px"><td></td></tr>
 		<?
-		$backColor = 'FFFFFF';
+		$backColor = 'FFF';
 		while ($field = $search->getField ())
 		{
-			$backColor = $backColor == 'FFFFFF' ? 'F4F4F4' : 'FFFFFF';
+			$backColor = $backColor == 'FFF' ? 'F4F4F4' : 'FFF';
 			?>
 			<tr height="18px" style="background-color: #<?= $backColor ?>;">
 				<td width="20%" nowrap style="text-align: right;"><b><?= $field->getLabel () ?>:</b></td>
@@ -61,23 +61,25 @@
 	<table>
 		<tr>
 			<?
+			$columns = sizeof ($view->getFields ()) + 1;
+			
 			while ($field = $view->getField ())
 				echo '<td class="cTableHeader">'. View::toLabel ($field, FALSE) .'</td>';
 			?>
 			<td class="cTableHeader"></td>
 		</tr>
-		<tr height="5px"><td></td></tr>
+		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
 		<?
 		while ($view->getItem ())
 		{
 			?>
 			<tr class="cTableItem">
-				<? while ($field = $view->getField ()) echo '<td><a href="#" onclick="JavaScript: parent.global.Select.choose (\''. $fieldId .'\', \''. $view->getId () .'\', \''. Form::toText ($view->getField ('_TITLE_')) .'\');">'. View::toList ($field) .'</a></td>'; ?>
+				<? while ($field = $view->getField ()) echo '<td><a href="" onclick="JavaScript: parent.global.Select.choose (\''. $fieldId .'\', \''. $view->getId () .'\', \''. Form::toText ($view->getField ('_TITLE_')) .'\');">'. View::toList ($field) .'</a></td>'; ?>
 				<td style="text-align: right;" nowrap="nowrap">
-					<a href="#" onclick="JavaScript: parent.global.Select.choose ('<?= $fieldId ?>', '<?= $view->getId () ?>', '<?= Form::toText ($view->getField ('_TITLE_')) ?>');"><img src="titan.php?target=loadFile&file=interface/icon/arrow.right.gif" border="0" /></a>
+					<a href="" onclick="JavaScript: parent.global.Select.choose ('<?= $fieldId ?>', '<?= $view->getId () ?>', '<?= Form::toText ($view->getField ('_TITLE_')) ?>');"><img src="titan.php?target=loadFile&file=interface/icon/arrow.right.gif" border="0" /></a>
 				</td>
 			</tr>
-			<tr class="cSeparator"><td></td></tr>
+			<tr class="cSeparator"><td colspan="<?= $columns ?>"></td></tr>
 			<?
 		}
 		?>

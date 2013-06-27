@@ -37,7 +37,7 @@ Modalbox.Methods = {
 		closeValue: "&times;", // Default string for close link in the header
 		params: {},
 		method: 'get', // Default Ajax request method
-		autoFocusing: true, // Toggles auto-focusing for form elements. Disable for long text pages.
+		autoFocusing: false, // Toggles auto-focusing for form elements. Disable for long text pages. [Titan Framework customized (from 'true' to 'false') by Camilo Carromeu]
 		aspnet: false, // Should be true when using with ASP.NET controls. When true Modalbox window will be injected into the first form element.
 		resizeCSSID: ''
 	},

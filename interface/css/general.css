@@ -36,42 +36,79 @@ noscript div
 	font-weight: bold;
 }
 
-.button
+.button,
+.buttonOk,
+.buttonCancel
 {
-	border-style: solid;
-	border-width: 1px;
-	font-family: Verdana;
+	position: relative;
+	padding: 0px 10px;
+	width: auto;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	font-family: Verdana, Geneva, sans-serif;
 	font-size: 10px;
 	font-weight: bold;
-	background-color: #FFFFFF;
-	height: 20px;
-	border-color: #999999;
-	color: #999999;
+	-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-image: none;
+	background-color: #ededed;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #dcdcdc;
+	display: inline-block;
+	color: #575556;
+	text-shadow: 1px 1px 0px #ffffff;
+	text-wrap: none;
+	background-color: #dfdfdf;
+	border-color: #CCC;
+	vertical-align: central;
 }
 
 .button:hover
 {
-	border-color: #656565;
-	color: #656565;
 	cursor: pointer;
+	color: #36817C;
+	border-color: #36817C;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	box-shadow: 0 0 5px #36817C;
+	-webkit-box-shadow: 0 0 5px #36817C;
+	-moz-box-shadow: 0 0 5px #36817C;
 }
 
 .buttonOk
 {
-	color: #009900;
-	border: #009900 1px solid;
-	width: 160px;
-	background-color: #CCEBCC;
-	height: 30px;
+	color: #090;
+}
+
+.buttonOk:hover
+{
+	cursor: pointer;
+	border-color: #090;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	box-shadow: 0 0 5px #090;
+	-webkit-box-shadow: 0 0 5px #090;
+	-moz-box-shadow: 0 0 5px #090;
 }
 
 .buttonCancel
 {
 	color: #900;
-	border: #900 1px solid;
-	width: 160px;
-	background-color: #EBCCCC;
-	height: 30px;
+}
+
+.buttonCancel:hover
+{
+	cursor: pointer;
+	border-color: #900;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	box-shadow: 0 0 5px #900;
+	-webkit-box-shadow: 0 0 5px #900;
+	-moz-box-shadow: 0 0 5px #900;
 }
 
 .field

@@ -49,7 +49,7 @@
 .bugReport input.button
 {
 	position: relative;
-	padding: 3px;
+	padding: 0px;
 	width: 80px;
 	height: 34px;
 	text-align: center;
@@ -75,6 +75,7 @@
 	text-wrap: none;
 	background-color: #dfdfdf;
 	border-color: #CCC;
+	vertical-align: central;
 }
 
 .bugReport input.button:hover
