@@ -321,7 +321,7 @@ class Alert
 				$tags = array_merge ($tags, $uTags);
 			
 			if (!@mail ($obj->u_mail,
-						str_replace (array_keys ($tags), $tags, $this->getFromTemplate ($obj->_template, 'subject')),
+						'=?utf-8?B?'. base64_encode (str_replace (array_keys ($tags), $tags, $this->getFromTemplate ($obj->_template, 'subject'))) .'?=',
 						str_replace (array_keys ($tags), $tags, $this->getFromTemplate ($obj->_template, 0)),
 						"From: ". $auth ." <". $mail .">\r\nReply-To: ". $mail ."\r\nX-Mailer: PHP/". phpversion () ."\r\nContent-Type: text/plain; charset=utf-8"))
 			{

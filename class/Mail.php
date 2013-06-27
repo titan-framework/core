@@ -198,10 +198,10 @@ class Mail
 				
 				$auxText = str_replace ('[_USER_]', $name, $text);
 				
-				@mail ($address, $auxSubject, $auxText, $headers);
+				@mail ($address, '=?utf-8?B?'. base64_encode ($auxSubject) .'?=', $auxText, $headers);
 			}
 			else
-				@mail ($address, $subject, $text, $headers);
+				@mail ($address, '=?utf-8?B?'. base64_encode ($subject) .'?=', $text, $headers);
 		}
 		
 		return TRUE;

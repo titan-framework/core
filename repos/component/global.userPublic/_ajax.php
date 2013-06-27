@@ -104,7 +104,7 @@ class Ajax
 				$subject = str_replace ($search, $replace, $subject);
 				$msg = str_replace ($search, $replace, $msg);
 				
-				if (@mail ($toEmail, $subject, $msg, $headers))
+				if (@mail ($toEmail, '=?utf-8?B?'. base64_encode ($subject) .'?=', $msg, $headers))
 					$message->addMessage ('Um link para cadastro de senha foi enviado para o e-mail do usuário.');
 				else
 					$message->addWarning ('Não foi possível enviar o e-mail com o link para cadastro de senha. Este link poderá ser obtido através da opção "Esqueci minha senha", na página de logon.');

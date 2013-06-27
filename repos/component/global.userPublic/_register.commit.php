@@ -127,7 +127,7 @@ $replace = array ($name, html_entity_decode (Instance::singleton ()->getName (),
 $subject = str_replace ($search, $replace, $subject);
 $msg = str_replace ($search, $replace, $msg);
 
-if (@mail ($email, $subject, $msg, $headers) )
+if (@mail ($email, '=?utf-8?B?'. base64_encode ($subject) .'?=', $msg, $headers) )
 	$message->addMessage (__('A link to register the password was sent to the e-mail of the new user.'));
 else
 	$message->addWarning (__('Unable to send the e-mail with the link to register a password. This link can be obtained through the option "Forgogot my password", at logon page.'));

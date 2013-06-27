@@ -671,7 +671,7 @@ Description:
 			<?
 			$msg = ob_get_clean ();
 			
-			if (!@mail (implode (',', $to), $subject, $msg, $header))
+			if (!@mail (implode (',', $to), '=?utf-8?B?'. base64_encode ($subject) .'?=', $msg, $header))
 				throw new Exception (__ ('Impossible to send bug report! Please, try again later.'));
 			
 			$message->addMessage (__ ('Report has been send! Comming soon you will receive a feedback.'));
