@@ -110,7 +110,7 @@ class AjaxLogon
 
 			set_error_handler ('logPhpError');
 			
-			$flag = mail ($email, $subject, $msg, $headers);
+			$flag = mail ($email, '=?utf-8?B?'. base64_encode ($subject) .'?=', $msg, $headers);
 
 			restore_error_handler ();
 
