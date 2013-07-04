@@ -2159,6 +2159,8 @@ interface/icon/pdf.gif -text
 interface/icon/permission.gif -text
 interface/icon/print.gif -text
 interface/icon/profile.gif -text
+interface/icon/qr.gif -text
+interface/icon/refresh.gif -text
 interface/icon/reply.gif -text
 interface/icon/revert.gif -text
 interface/icon/save.gif -text
