@@ -80,7 +80,7 @@ class Database
 				break;
 			
 			case 'PostgreSQL':
-				$dsn = 'pgsql:'. (!in_array ($this->host, array ('localhost', '127.0.0.1', '::1')) || PHP_OS != 'Linux' ? 'host='. $this->host .' port='. (trim ($this->port) == '' ? '5432' : $this->port) : '') .' dbname='. $this->name .' user='. $this->user .' password='. $this->password;
+				$dsn = 'pgsql:'. (!in_array ($this->host, array ('localhost', '127.0.0.1', '::1')) || $this->password != '' || PHP_OS != 'Linux' ? 'host='. $this->host .' port='. (trim ($this->port) == '' ? '5432' : $this->port) : '') .' dbname='. $this->name .' user='. $this->user .' password='. $this->password;
 				break;
 			
 			case 'ODBC':
