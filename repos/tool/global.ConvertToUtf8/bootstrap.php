@@ -32,6 +32,21 @@ try
 		
 		$sql .= "CREATE FUNCTION ". $schema ."._no_accents(text) RETURNS text AS $$ SELECT translate($1,'ÀÁÂÃÄÅĀĂĄÈÉÊËĒĔĖĘĚÌÍÎÏĨĪĮİÒÓÔÕÖØŌŎŐÙÚÛÜŨŪŬŮŰŲàáâãäåāăąèéêëēĕėęěìíîïĩīĭįòóôõöøōŏőùúûüũūŭůųÇçÑñÝýÿĆćĈĉĊċČčĎďĐđĜĝĞğĠġĢģĤĥĦħ','AAAAAAAAAEEEEEEEEEIIIIIIIIOOOOOOOOOUUUUUUUUUUaaaaaaaaaeeeeeeeeeiiiiiiiiooooooooouuuuuuuuuCcNnYyyCcCcCcCcDdDdGgGgGgGgHhHh'); $$ LANGUAGE sql IMMUTABLE STRICT; \n\n";
 		
+		$sth = Database::singleton ()->prepare ("SELECT _id, _content FROM _simple");
+		
+		$sth->execute ();
+		
+		while ($obj = $sth->fetch (PDO::FETCH_OBJ))
+		{
+			$array = unserialize (base64_decode ($obj->_content));
+			
+			array_walk_recursive ($array, function (&$item) {
+				$item = Encoding::toUTF8 ($item);
+			});
+			
+			$sql .= "UPDATE ". $schema ."._simple SET _content = '". base64_encode (serialize ($array)) ."' WHERE _id = '". $obj->_id ."'; \n\n";
+		}
+		
 		if (!file_put_contents ($instancePath . DIRECTORY_SEPARATOR .'db-utf8.sql', $sql))
 			throw new Exception ("Impossible to generate database dump converted to UTF-8!");
 		
