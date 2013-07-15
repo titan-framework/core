@@ -745,51 +745,19 @@ try
 			break;
 		
 		case 'tools':
-			$instance = Instance::singleton ();
 			
-			if (!$instance->onDebugMode ())
+			if (!isset ($_GET['tool']) || trim ($_GET['tool']) == '')
+				throw new Exception ('Invalid link!');
+			
+			if (!Instance::singleton ()->onDebugMode ())
 				throw new Exception ('Permission denied!');
 			
-			switch (@$_GET['tool'])
-			{
-				case 'dbMaker':
-					session_name ($instance->getSession () .'_PUBLIC_');
-		
-					session_start ();
-					
-					foreach ($instance->getTypes () as $type => $path)
-						require_once $path . $type .'.php';
-					
-					require $corePath .'tool/dbMaker.php';
-					
-					break;
-				
-				case 'files':
-					$db = Database::singleton ();
-					
-					$sql = "SELECT DISTINCT _mimetype FROM _file";
-					
-					$sth = $db->prepare ($sql);
-					
-					$sth->execute ();
-					
-					while ($obj = $sth->fetch (PDO::FETCH_OBJ))
-						echo $obj->_mimetype .' <br />';
-					
-					break;
-				
-				case 'translate':
-					set_time_limit (0);
-					
-					require $corePath .'tool/translate.php';
-					
-					break;
-				
-				case 'convertToUtf8':
-					require $corePath .'tool/convertToUtf8.php';
-					
-					break;
-			}
+			$tools = Instance::singleton ()->getTools ();
+			
+			if (!array_key_exists ($_GET['tool'], $tools))
+				throw new Exception ('Tool not available!');
+			
+			require $tools [$_GET['tool']];
 			
 			break;
 	}

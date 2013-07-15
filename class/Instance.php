@@ -52,6 +52,10 @@ class Instance
 	
 	private $types = array ();
 	
+	private $tool = array ();
+	
+	private $tools = array ();
+	
 	private $cachePath = '/dev/null';
 	
 	private final function __construct ()
@@ -141,6 +145,9 @@ class Instance
 		if (array_key_exists ('type', $array))
 			$this->type = $array ['type'][0];
 		
+		if (array_key_exists ('tool', $array))
+			$this->tool = $array ['tool'][0];
+		
 		if (array_key_exists ('business-layer', $array))
 			$this->business = $array ['business-layer'][0];
 		
@@ -211,6 +218,36 @@ class Instance
 		}
 		
 		reset ($this->types);
+		
+		if (is_array ($this->tool) && array_key_exists ('xml-path', $this->tool) && trim ($this->tool ['xml-path']) != '')
+		{
+			$file = $this->tool ['xml-path'];
+			
+			if (!file_exists ($file))
+				throw new Exception ('O arquivo de configuração de Ferramentas Locais não existe no caminho ['. $file .'].');
+			
+			$cacheFile = $this->getCachePath () .'parsed/'. fileName ($file) .'_'. md5_file ($file) .'.php';
+			
+			if (file_exists ($cacheFile))
+				$aux = include $cacheFile;
+			else
+			{
+				$xml = new Xml ($file);
+				
+				$aux = $xml->getArray ();
+				
+				if (!isset ($aux ['tool-mapping'][0]['tool']))
+					throw new Exception ('A tag &lt;tool-mapping&gt;&lt;/tool-mapping&gt; não existe no arquivo ['. $file .'].');
+				
+				xmlCache ($cacheFile, $aux, $this->getCachePath () .'parsed/');
+			}
+			
+			$aux = $aux ['tool-mapping'][0]['tool'];
+			
+			foreach ($aux as $trash => $tool)
+				if (array_key_exists ('name', $tool) && array_key_exists ('bootstrap', $tool) && file_exists ($tool ['bootstrap']))
+					$this->tools [$tool ['name']] = $tool ['bootstrap'];
+		}
 	}
 	
 	static public function singleton ()
@@ -421,6 +458,11 @@ class Instance
 	public function typeExists ($type)
 	{
 		return array_key_exists ($type, $this->types);
+	}
+	
+	public function getTools ()
+	{
+		return $this->tools;
 	}
 }
 ?>

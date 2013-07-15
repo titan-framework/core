@@ -1,5 +1,14 @@
 <pre>
 <?
+$instance = Instance::singleton ();
+
+session_name ($instance->getSession () .'_PUBLIC_');
+
+session_start ();
+
+foreach ($instance->getTypes () as $type => $path)
+	require_once $path . $type .'.php';
+
 define ('SIZE', 0);
 define ('FILE', 1);
 
