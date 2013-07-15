@@ -2807,10 +2807,10 @@ repos/template/global.rss.php -text
 repos/template/global.search.php -text
 repos/template/global.version.php -text
 repos/template/global.view.php -text
-repos/tool/convertToUtf8.php -text
-repos/tool/dbMaker.php -text
+repos/tool/global.ConvertToUtf8/bootstrap.php -text
+repos/tool/global.DatabaseMaker/bootstrap.php -text
 repos/tool/global.FilesMimeType/bootstrap.php -text
-repos/tool/translate.php -text
+repos/tool/global.Translate/bootstrap.php -text
 repos/type/global.Amount/Amount.php -text
 repos/type/global.Amount/_js.php -text
 repos/type/global.Amount/fromForm.php -text
