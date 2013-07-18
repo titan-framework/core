@@ -81,6 +81,9 @@ catch (PDOException $e)
 
 if (Social::isActive ())
 {
+	if (isset ($_GET['error']) && $_GET['error'] == 'access_denied')
+		$_GET['error'] = __ ('Apparently you deny this application to access your profile data. Without granting this permission is not possible to authenticate!');
+	
 	$socialButtons = array ();
 	
 	while ($driver = Social::singleton ()->getSocialNetwork ())

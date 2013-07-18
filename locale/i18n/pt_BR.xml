@@ -163,6 +163,7 @@
 	<message from="Register as &quot;[1]&quot;" to="Cadastrar-se como &quot;[1]&quot;" />
 	<message from="This login does not registered in our database or user was disabled." to="Este login não existe na base de dados ou o usuário foi desabilitado." />
 	<message from="Use your favorite social network to access:" to="Acesse usando sua rede social favorita:" />
+	<message from="Apparently you deny this application to access your profile data. Without granting this permission is not possible to authenticate!" to="Aparentemente você negou o acesso desta aplicação aos dados dos seu perfil. Sem conceder esta permissão não será possível autenticá-lo." />
 
 	<!-- output/password.php -->
 	<message from="Insert/Register Password" to="Cadastro/Recadastro de Senha" />
