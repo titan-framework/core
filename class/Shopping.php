@@ -25,7 +25,7 @@ class Shopping
 			$this->currency = trim ($array ['currency']);
 		
 		if (!array_key_exists ('xml-path', $array))
-			throw new Exception ('Not located [xml-path] attribute on &lt;payment&gt;&lt;/payment&gt; tag in file [configure/titan.xml]!');
+			throw new Exception ('Not located [xml-path] attribute on &lt;shopping&gt;&lt;/shopping&gt; tag in file [configure/titan.xml]!');
 		
 		$file = $array ['xml-path'];
 		

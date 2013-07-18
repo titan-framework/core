@@ -39,6 +39,8 @@ class/Section.php -text
 class/Security.php -text
 class/Shopping.php -text
 class/Skin.php -text
+class/Social.php -text
+class/SocialDriver.php -text
 class/Template.php -text
 class/Type.php -text
 class/User.php -text
@@ -2799,6 +2801,17 @@ repos/package/net.ledes.text/config.inc.xml -text
 repos/package/net.ledes.text/mail.xml -text
 repos/package/net.ledes.text/readme.txt -text
 repos/package/package.xml -text
+repos/social/Facebook/Facebook.php -text
+repos/social/Facebook/_adapter/birthday.php -text
+repos/social/Facebook/_adapter/gender.php -text
+repos/social/Facebook/_adapter/picture.php -text
+repos/social/Facebook/_adapter/relationship_status.php -text
+repos/social/Facebook/_adapter/timezone.php -text
+repos/social/Facebook/_adapter/username.php -text
+repos/social/Facebook/_library/base_facebook.php -text
+repos/social/Facebook/_library/facebook.php -text
+repos/social/Facebook/_library/fb_ca_chain_bundle.crt -text
+repos/social/Facebook/_resource/button.png -text
 repos/template/global.create.php -text
 repos/template/global.csv.php -text
 repos/template/global.delete.php -text

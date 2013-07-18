@@ -78,6 +78,35 @@ catch (PDOException $e)
 	if ($e->getCode () == '55000')
 		$validateTerm = TRUE;
 }
+
+$social = Social::singleton ();
+
+$socialButtons = array ();
+
+while ($driver = $social->getSocialNetwork ())
+{
+	if ($driver->authenticate ())
+		try
+		{
+			if ($driver->login ())
+			{
+				?>
+				<html><body onLoad="document.location='titan.php';"></body></html>
+				<?
+				exit ();
+			}
+		}
+		catch (Exception $e)
+		{
+			$_GET ['error'] .= $e->getMessage ();
+		}
+		catch (PDOException $e)
+		{
+			$_GET ['error'] .= $e->getMessage ();
+		}
+	
+	$socialButtons [$driver->getName ()] = array ($driver->getLoginUrl (), $driver->getPath () .'_resource/button.png');
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -133,7 +162,7 @@ catch (PDOException $e)
 		}
 		</script>
 	</head>
-	<body onload="JavaScript: document.getElementById ('formLogin').login.focus (); setClientTimeZone ();">
+	<body onLoad="JavaScript: document.getElementById ('formLogin').login.focus (); setClientTimeZone ();">
 		<div id="idMain" style="background-image: url('titan.php?target=loadFile&amp;file=interface/image/bar.png');">
 			<div class="cLogoApp">
 				<?= trim ($skin->getLogo ()) == '' || !file_exists ($skin->getLogo ()) ? '<h1>'. $instance->getName () .'</h1>' : '<img src="'. $skin->getLogo () .'" border="0" alt="'. $instance->getName () .'" title="'. $instance->getName () .'" />' ?>
@@ -143,6 +172,20 @@ catch (PDOException $e)
 			</div>
 		</div>
 		<div id="idBody" style="width: 1000px; margin: 0 auto;">
+			<?
+			if (sizeof ($socialButtons))
+			{
+				?>
+				<div class="cSocial">
+					<?
+					foreach ($socialButtons as $name => $array)
+						echo '<img src="'. $array [1] .'" onclick="JavaScript: document.location=\''. $array [0] .'\';" border="0" style="float: right;" />'
+					?>
+					<div><?= __ ('Use your favorite social network to access: ') ?></div>
+				</div>
+				<?
+			}
+			?>
 			<div class="cLogin" style="<?= sizeof ($publicUserTypes) || $validateTerm ? 'float: right; margin-right: 5px; vertical-align: top;' : 'margin: 50px auto;' ?>">
 				<?
 				if (sizeof ($publicUserTypes) || $validateTerm)
@@ -173,20 +216,20 @@ catch (PDOException $e)
 					</div>
 					<img src="titan.php?target=loadFile&amp;file=interface/image/login.png" border="0" style="position: absolute; top: 179px; left: 80px;" alt="Login" />
 					<div id="idLogon" style="display: ;">
-						<form id="formLogin" action="" method="post" onsubmit="JavaScript: logon ('formLogin'); return false;">
+						<form id="formLogin" action="" method="post" onSubmit="JavaScript: logon ('formLogin'); return false;">
 						<div class="row">
 							<label class="labelForm"><?= __ ('Login') ?>:</label>
 							<input type="text" name="login" maxlength="32" value="<?= $login ?>" />
 						</div>
 						<div class="row">
 							<label class="labelForm"><?= __ ('Password') ?>:</label>
-							<input type="password" name="password" onkeypress="JavaScript: capsCheck (event);" />
+							<input type="password" name="password" onKeyPress="JavaScript: capsCheck (event);" />
 						</div>
 						<div class="row">
-							<input type="submit" class="button" value="<?= __ ('Access') ?> &raquo;" name="logar" onclick="JavaScript: logon ('formLogin'); return false;" />
+							<input type="submit" class="button" value="<?= __ ('Access') ?> &raquo;" name="logar" onClick="JavaScript: logon ('formLogin'); return false;" />
 						</div>
 						<div class="row" style="margin-left: 108px;">
-							[<a href="#" class="link" onclick="JavaScript: showLostPassword (); return false;"><?= __ ('Forget your password?') ?></a>]
+							[<a href="#" class="link" onClick="JavaScript: showLostPassword (); return false;"><?= __ ('Forget your password?') ?></a>]
 						</div>
 						</form>
 					</div>
@@ -208,7 +251,7 @@ catch (PDOException $e)
 							<input type="text" name="login" maxlength="32" />
 						</div>
 						<div class="row">
-							<input type="button" class="button" value="<?= __ ('Recovery Password') ?> &raquo;" name="logar" onclick="JavaScript: lostPassword (); return false;" />
+							<input type="button" class="button" value="<?= __ ('Recovery Password') ?> &raquo;" name="logar" onClick="JavaScript: lostPassword (); return false;" />
 						</div>
 						</form>
 					</div>
@@ -229,7 +272,7 @@ catch (PDOException $e)
 					{
 						?>
 						<div id="_DIV_<?= $type->getName () ?>" class="cUserType <?= sizeof ($publicUserTypes) == 1 && !$validateTerm ? 'selected' : 'unselected' ?>">
-							<div onclick="JavaScript: showFormRegister ('_DIV_<?= $type->getName () ?>');"><?= __ ('Register as "[1]"', $type->getLabel ()) ?></div>
+							<div onClick="JavaScript: showFormRegister ('_DIV_<?= $type->getName () ?>');"><?= __ ('Register as "[1]"', $type->getLabel ()) ?></div>
 							<iframe src="?target=register&type=<?= $type->getName () ?>"></iframe>
 						</div>
 						<?
@@ -245,11 +288,11 @@ catch (PDOException $e)
 				<div class="cTerm">
 					<div class="cTitle"><?= __ ('Authenticate documents and certificates...') ?></div>
 					<div id="_DIV_QR_" class="cValidateMethod unselected">
-						<div onclick="JavaScript: showValidate ('_DIV_QR_');"><?= __ ('Using the document\'s QR Code') ?></div>
+						<div onClick="JavaScript: showValidate ('_DIV_QR_');"><?= __ ('Using the document\'s QR Code') ?></div>
 						<iframe src="?target=tScript&type=Document&file=qr" id="_IFRAME_QR_"></iframe>
 					</div>
 					<div id="_DIV_INFO_" class="cValidateMethod unselected">
-						<div onclick="JavaScript: showValidate ('_DIV_INFO_');"><?= __ ('Using document information') ?></div>
+						<div onClick="JavaScript: showValidate ('_DIV_INFO_');"><?= __ ('Using document information') ?></div>
 						<iframe src="?target=tScript&type=Document&file=info" id="_IFRAME_INFO_" style="height: 120px;"></iframe>
 					</div>
 				</div>
@@ -266,7 +309,7 @@ catch (PDOException $e)
 				if (trim (Instance::singleton ()->getAuthor ()) == '')
 				{
 					?>
-					<img alt="Creative Commons License" style="border-width:0" src="titan.php?target=loadFile&amp;file=interface/image/cc.png" onclick="JavaScript: message ('titan.php?target=license', 450, 150, false);" />
+					<img alt="Creative Commons License" style="border-width:0" src="titan.php?target=loadFile&amp;file=interface/image/cc.png" onClick="JavaScript: message ('titan.php?target=license', 450, 150, false);" />
 					<label>&copy; 2006 - <?= date ('Y') ?> &curren; <a href="http://www.carromeu.com/" target="_blank">Camilo Carromeu</a></label>
 					<?
 				}

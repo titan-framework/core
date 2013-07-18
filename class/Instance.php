@@ -44,6 +44,8 @@ class Instance
 	
 	private $shopping = array ();
 	
+	private $social = array ();
+	
 	private $log = array ();
 	
 	private $backup = array ();
@@ -138,6 +140,9 @@ class Instance
 		
 		if (array_key_exists ('shopping', $array))
 			$this->shopping = $array ['shopping'][0];
+		
+		if (array_key_exists ('social', $array))
+			$this->social = $array ['social'][0];
 		
 		if (array_key_exists ('backup', $array))
 			$this->backup = $array ['backup'][0];
@@ -425,6 +430,11 @@ class Instance
 	public function getShopping ()
 	{
 		return $this->shopping;
+	}
+	
+	public function getSocial ()
+	{
+		return $this->social;
 	}
 	
 	public function getBackup ()
