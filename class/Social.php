@@ -105,7 +105,7 @@ class Social
 	public static function isActive ()
 	{
 		if (is_null (self::$active))
-			self::$active = sizeof (Instance::singleton ()->getSocial ());
+			self::$active = sizeof (Instance::singleton ()->getSocial ()) && Database::isUnique ('_user', '_email');
 		
 		return self::$active;
 	}
