@@ -162,6 +162,7 @@
 	<message from="Using document information" to="Utilizando informações do documento" />
 	<message from="Register as &quot;[1]&quot;" to="Cadastrar-se como &quot;[1]&quot;" />
 	<message from="This login does not registered in our database or user was disabled." to="Este login não existe na base de dados ou o usuário foi desabilitado." />
+	<message from="Use your favorite social network to access:" to="Acesse usando sua rede social favorita:" />
 
 	<!-- output/password.php -->
 	<message from="Insert/Register Password" to="Cadastro/Recadastro de Senha" />
@@ -218,6 +219,7 @@
 	<message from="Incorrect User or Password!" to="Usuário ou senha incorreto!" />
 	<message from="This user is inactive into the system!" to="Este usuário esta inativo no sistema!" />
 	<message from="Fail in the recover the updated data!" to="Falha na recuperação dos dados atualizados!" />
+	<message from="There is no user in the system linked to this social network profile!" to="Não há nenhum usuário no sistema vinculado a este perfil de rede social!" />
 	
 	<!-- class/Manual.php -->
 	<message from="This action contains the fowlling fields" to="Esta ação contêm os seguintes campos" />

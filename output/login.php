@@ -79,33 +79,34 @@ catch (PDOException $e)
 		$validateTerm = TRUE;
 }
 
-$social = Social::singleton ();
-
-$socialButtons = array ();
-
-while ($driver = $social->getSocialNetwork ())
+if (Social::isActive ())
 {
-	if ($driver->authenticate ())
-		try
-		{
-			if ($driver->login ())
-			{
-				?>
-				<html><body onLoad="document.location='titan.php';"></body></html>
-				<?
-				exit ();
-			}
-		}
-		catch (Exception $e)
-		{
-			$_GET ['error'] .= $e->getMessage ();
-		}
-		catch (PDOException $e)
-		{
-			$_GET ['error'] .= $e->getMessage ();
-		}
+	$socialButtons = array ();
 	
-	$socialButtons [$driver->getName ()] = array ($driver->getLoginUrl (), $driver->getPath () .'_resource/button.png');
+	while ($driver = Social::singleton ()->getSocialNetwork ())
+	{
+		if ($driver->authenticate ())
+			try
+			{
+				if ($driver->login ())
+				{
+					?>
+					<html><body onLoad="document.location='titan.php';"></body></html>
+					<?
+					exit ();
+				}
+			}
+			catch (Exception $e)
+			{
+				$_GET ['error'] .= $e->getMessage ();
+			}
+			catch (PDOException $e)
+			{
+				$_GET ['error'] .= $e->getMessage ();
+			}
+		
+		$socialButtons [$driver->getName ()] = array ($driver->getLoginUrl (), $driver->getPath () .'_resource/button.png');
+	}
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -173,7 +174,7 @@ while ($driver = $social->getSocialNetwork ())
 		</div>
 		<div id="idBody" style="width: 1000px; margin: 0 auto;">
 			<?
-			if (sizeof ($socialButtons))
+			if (Social::isActive () && sizeof ($socialButtons))
 			{
 				?>
 				<div class="cSocial">
@@ -181,7 +182,7 @@ while ($driver = $social->getSocialNetwork ())
 					foreach ($socialButtons as $name => $array)
 						echo '<img src="'. $array [1] .'" onclick="JavaScript: document.location=\''. $array [0] .'\';" border="0" style="float: right;" />'
 					?>
-					<div><?= __ ('Use your favorite social network to access: ') ?></div>
+					<div><?= __ ('Use your favorite social network to access:') ?></div>
 				</div>
 				<?
 			}

@@ -3,6 +3,8 @@ class Social
 {
 	static private $social = FALSE;
 	
+	static private $active = NULL;
+	
 	private $networks = array ();
 	
 	private final function __construct ()
@@ -98,5 +100,13 @@ class Social
 	public function socialNetworkExists ($driver)
 	{
 		return array_key_exists ($driver, $this->networks);
+	}
+	
+	public static function isActive ()
+	{
+		if (is_null (self::$active))
+			self::$active = sizeof (Instance::singleton ()->getSocial ());
+		
+		return self::$active;
 	}
 }

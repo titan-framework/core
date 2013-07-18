@@ -276,7 +276,7 @@ class User
 	
 	public function authenticateBySocialNetwork ($driver, $id, $idType = PDO::PARAM_INT)
 	{
-		if (!Social::singleton ()->socialNetworkExists ($driver))
+		if (!Social::isActive () || !Social::singleton ()->socialNetworkExists ($driver))
 			return FALSE;
 		
 		$db = Database::singleton ();
@@ -301,7 +301,7 @@ class User
 		$obj = $sth->fetch (PDO::FETCH_OBJ);
 		
 		if (!$obj)
-			throw new Exception (__ ('Incorrect User or Password!'));
+			throw new Exception (__ ('There is no user in the system linked to this social network profile!'));
 		
 		$this->id 	 	= $obj->_id;
 		$this->name  	= $obj->_name;
