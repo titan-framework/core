@@ -274,7 +274,7 @@ class User
 		return TRUE;
 	}
 	
-	public function authenticateBySocialNetwork ($driver, $id, $idType = PDO::PARAM_INT)
+	public function authenticateBySocialNetwork ($driver, $id, $idType = PDO::PARAM_STR)
 	{
 		if (!Social::isActive () || !Social::singleton ()->socialNetworkExists ($driver))
 			return FALSE;

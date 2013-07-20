@@ -2268,6 +2268,7 @@ interface/menu/grey/rewind.png -text
 interface/menu/grey/rss.png -text
 interface/menu/grey/save.png -text
 interface/menu/grey/search.png -text
+interface/menu/grey/social.png -text
 interface/menu/grey/sort.png -text
 interface/menu/grey/type.png -text
 interface/menu/grey/version.png -text
@@ -2286,6 +2287,7 @@ interface/menu/rewind.png -text
 interface/menu/rss.png -text
 interface/menu/save.png -text
 interface/menu/search.png -text
+interface/menu/social.png -text
 interface/menu/sort.png -text
 interface/menu/submenu.png -text
 interface/menu/type.png -text
@@ -2812,6 +2814,8 @@ repos/social/Facebook/_library/base_facebook.php -text
 repos/social/Facebook/_library/facebook.php -text
 repos/social/Facebook/_library/fb_ca_chain_bundle.crt -text
 repos/social/Facebook/_resource/button.png -text
+repos/social/Facebook/_resource/menu-grey.gif -text
+repos/social/Facebook/_resource/menu.gif -text
 repos/template/global.create.php -text
 repos/template/global.csv.php -text
 repos/template/global.delete.php -text

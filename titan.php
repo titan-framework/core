@@ -346,5 +346,49 @@ switch (@$_GET['target'])
 		require Instance::singleton ()->getCorePath () .'system/backup.php';
 		
 		break;
+	
+	case 'social':
+		
+		if (!User::singleton ()->isLogged ())
+			die ('Access denied!');
+		
+		if (!Social::isActive ())
+			die ('No one social network is enabled!');
+		
+		if (!isset ($_GET['driver']) || trim ($_GET['driver']) == '' ||
+			!isset ($_GET['section']) || trim ($_GET['section']) == '' ||
+			!isset ($_GET['action']) || trim ($_GET['action']) == '')
+			die ('Invalid parameters!');
+		
+		$driver = Social::singleton ()->getSocialNetwork ($_GET['driver']);
+		
+		if (is_null ($driver))
+			die ('Invalid social network!');
+		
+		if (!$driver->authenticate ())
+			die ('Impossible to authenticate in '. $driver->getName () .'!');
+		
+		$id = $driver->getId ();
+		
+		if (is_null ($id) || trim ($id) == '')
+			die ('Impossible to recovery user ID to '. $driver->getName () .'!');
+		
+		try
+		{
+			$sth = Database::singleton ()->prepare ("UPDATE _user SET ". $driver->getIdColumn () ." = :id WHERE _id = :user");
+			
+			$sth->bindParam (':id', $id);
+			$sth->bindParam (':user', User::singleton ()->getId (), PDO::PARAM_INT);
+			
+			$sth->execute ();
+		}
+		catch (PDOException $e)
+		{
+			toLog (print_r ($e, TRUE));
+		}
+		
+		header ('Location: titan.php?toSection='. $_GET['section'] .'&toAction='. $_GET['action'] .'&social=1');
+		
+		exit ();
 }
 ?>

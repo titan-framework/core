@@ -276,6 +276,46 @@ class Ajax
 		return $str;
 	}
 	
+	public function disconnectFromSocialNetwork ($name)
+	{
+		$message = Message::singleton ();
+		
+		$return = TRUE;
+		
+		try
+		{
+			if (!Social::isActive ())
+				throw new Exception (__ ('Social networks are not enableds!'));
+			
+			$driver = Social::singleton ()->getSocialNetwork ($name);
+			
+			if (!$driver)
+				throw new Exception (__ ('Invalid social network!'));
+			
+			$sth = Database::singleton ()->prepare ("UPDATE _user SET ". $driver->getIdColumn () ." = NULL WHERE _id = :id");
+			
+			$sth->bindParam (':id', User::singleton ()->getId (), PDO::PARAM_INT);
+			
+			$sth->execute ();
+		}
+		catch (Exception $e)
+		{
+			$message->addWarning ($e->getMessage ());
+			
+			$return = FALSE;
+		}
+		catch (PDOException $e)
+		{
+			$message->addWarning ($e->getMessage ());
+			
+			$return = FALSE;
+		}
+		
+		$message->save ();
+		
+		return $return;
+	}
+	
 	public function delay ()
 	{
 		sleep (1);
@@ -301,13 +341,15 @@ class Ajax
 		return TRUE;
 	}
 	
-	public function xoadGetMeta()
+	public function xoadGetMeta ()
 	{
-		XOAD_Client::mapMethods ($this, array ('showMessages', 'delay', 'getBoxes', 'saveFeed', 'setColumn', 'deleteFeed', 'changePasswd', 'makeUpdate', 'makeAlert'));
+		$methods = get_class_methods ($this);
 
-		XOAD_Client::publicMethods ($this, array ('showMessages', 'delay', 'getBoxes', 'saveFeed', 'setColumn', 'deleteFeed', 'changePasswd', 'makeUpdate'));
-		
-		XOAD_Client::privateMethods ($this, array ('makeAlert'));
+		XOAD_Client::mapMethods ($this, $methods);
+
+		XOAD_Client::publicMethods ($this, $methods);
+
+		XOAD_Client::privateMethods ($this, array ());
 	}
 }
 ?>

@@ -22,6 +22,16 @@ class FacebookDriver extends SocialDriver
 		return '_facebook';
 	}
 	
+	public function getId ()
+	{
+		$profile = $this->getProfile ();
+		
+		if (isset ($profile ['username']) && trim ($profile ['username']) != '')
+			return $profile ['username'];
+		
+		return NULL;
+	}
+	
 	public function authenticate ()
 	{
 		$user = $this->driver->getUser ();
@@ -79,8 +89,6 @@ class FacebookDriver extends SocialDriver
 		
 		$out = array ();
 		
-		$out ['id'] = $profile ['id'];
-		
 		while ($att = $this->getAttribute ())
 			if (array_key_exists ($att->getName (), $profile))
 			{
@@ -101,15 +109,14 @@ class FacebookDriver extends SocialDriver
 	{
 		$profile = $this->getProfile ();
 		
-		if (!array_key_exists ('id', $profile) || trim ($profile ['id']) == '' || !is_numeric ($profile ['id']) ||
-			!array_key_exists ('email', $profile) || trim ($profile ['email']) == '' ||
+		if (!array_key_exists ('email', $profile) || trim ($profile ['email']) == '' ||
 			!array_key_exists ('name', $profile) || trim ($profile ['name']) == '' ||
 			!array_key_exists ('username', $profile) || trim ($profile ['username']) == '')
 			throw new Exception (__ ('Invalid data to search user (id, username, email or name)!'));
 		
 		try
 		{
-			User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['id']);
+			User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['username']);
 			
 			return TRUE;
 		}
@@ -135,11 +142,11 @@ class FacebookDriver extends SocialDriver
 			if (!is_object ($type))
 				throw new Exception (__ ('User type not exists! Contact administrator.'));
 			
-			$sql = "UPDATE _user SET _facebook = :driver WHERE _id = :id";
+			$sql = "UPDATE _user SET _facebook = :username WHERE _id = :id";
 			
 			$sth = $db->prepare ($sql);
 			
-			$sth->bindParam (':driver', $profile ['id'], PDO::PARAM_INT);
+			$sth->bindParam (':username', $profile ['username'], PDO::PARAM_INT);
 			$sth->bindParam (':id', $obj->_id, PDO::PARAM_INT);
 			
 			$sth->execute ();
@@ -148,10 +155,11 @@ class FacebookDriver extends SocialDriver
 		{
 			$_id = Database::nextId ('_user', '_id');
 			
-			$type = Security::singleton ()->getUserType ($this->getUserType ());
-			
-			if ($type->useLdap ())
+			while ($type = Security::singleton ()->getUserType ())
 			{
+				if (!$type->useLdap ())
+					continue;
+				
 				$ldap = $type->getLdap ();
 				
 				if (!$ldap->connect (FALSE, FALSE, TRUE))
@@ -163,10 +171,34 @@ class FacebookDriver extends SocialDriver
 				
 				$search = $ldap->search (array ('uid'), '(mail='. $profile ['email'] .')');
 				
-				if ((int) $search ['count'])
-					$_login = $search [0]['uid'][0];
-				else
+				$ldap->close ();
+				
+				if (!(int) $search ['count'])
+					continue;
+				
+				$_login = $search [0]['uid'][0];
+				
+				break;
+			}
+			
+			if (!isset ($_login))
+			{
+				if (!Security::singleton ()->userTypeExists ($this->getUserType ()))
+					throw new Exception (__ ('Invalid user type!'));
+				
+				$type = Security::singleton ()->getUserType ($this->getUserType ());
+				
+				if ($type->useLdap ())
 				{
+					$ldap = $type->getLdap ();
+					
+					if (!$ldap->connect (FALSE, FALSE, TRUE))
+					{
+						$ldap->close ();
+						
+						throw new Exception (__ ('This user type require LDAP integration! Please, contact administrator.'));
+					}
+					
 					$_login = $this->getAttribute ('username')->getValue ();
 					
 					$count = 0;
@@ -183,27 +215,26 @@ class FacebookDriver extends SocialDriver
 					} while ((int) $query->fetch (PDO::FETCH_COLUMN) || $ldap->userExists ($_login));
 					
 					$ldap->create ($ldap->getEssentialInput ($_login, $this->getAttribute ('name')->getValue (), $this->getAttribute ('email')->getValue (), randomHash (10), $_id), $_login);
+					
+					$ldap->close ();
 				}
-				
-				$ldap->close ();
-			}
-			
-			if (!isset ($_login))
-			{
-				$_login = $this->getAttribute ('username')->getValue ();
-				
-				$count = 0;
-				
-				do
+				else
 				{
-					$query = $db->query ("SELECT COUNT(*) AS n FROM _user WHERE _login ILIKE '". $_login ."'");
+					$_login = $this->getAttribute ('username')->getValue ();
 					
-					if ($count)
-						$_login = $profile ['username'] . $count;
+					$count = 0;
 					
-					$count++;
-					
-				} while ((int) $query->fetch (PDO::FETCH_COLUMN));
+					do
+					{
+						$query = $db->query ("SELECT COUNT(*) AS n FROM _user WHERE _login ILIKE '". $_login ."'");
+						
+						if ($count)
+							$_login = $profile ['username'] . $count;
+						
+						$count++;
+						
+					} while ((int) $query->fetch (PDO::FETCH_COLUMN));
+				}
 			}
 			
 			$fields = array ('_id' 	 	 => array ($_id, PDO::PARAM_INT),
@@ -214,9 +245,9 @@ class FacebookDriver extends SocialDriver
 							 '_active'	 => array ('1', PDO::PARAM_STR),
 							 '_deleted'	 => array ('0', PDO::PARAM_STR),
 							 '_type'	 => array ($type->getName (), PDO::PARAM_STR),
-							 '_facebook' => array ($profile ['id'], PDO::PARAM_INT));
+							 '_facebook' => array ($profile ['username'], PDO::PARAM_INT));
 			
-			$alreadyAtts = array ('id', 'username', 'name', 'email');
+			$alreadyAtts = array ('username', 'name', 'email');
 			
 			while ($att = $this->getAttribute ())
 				if (!in_array ($att->getName (), $alreadyAtts))
@@ -263,12 +294,37 @@ class FacebookDriver extends SocialDriver
 			}
 		}
 		
-		return User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['id']);
+		return User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['username']);
 	}
 	
 	public function getLoginUrl ()
 	{
 		return $this->driver->getLoginUrl (array ('scope' => implode (', ', $this->getRequiredPermissions ())));
+	}
+	
+	public function getConnectUrl ()
+	{
+		$section = Business::singleton ()->getSection (Section::TCURRENT)->getName ();
+		$action = Business::singleton ()->getAction (Action::TCURRENT)->getName ();
+		
+		return $this->driver->getLoginUrl (array ('scope' => implode (', ', $this->getRequiredPermissions ()), 'redirect_uri' => Instance::singleton ()->getUrl () .'titan.php?target=social&driver='. $this->getName () .'&section='. $section .'&action='. $action));
+	}
+	
+	public function getUserUrl ($asLink = TRUE)
+	{
+		$query = Database::singleton ()->query ("SELECT ". $this->getIdColumn () ." FROM _user WHERE _id = '". User::singleton ()->getId () ."'");
+		
+		$id = $query->fetch (PDO::FETCH_COLUMN);
+		
+		if (trim ($id) == '')
+			return '';
+		
+		$url = 'http://www.facebook.com/'. $id;
+		
+		if (!$asLink)
+			return $url;
+		
+		return '<a href="'. $url .'" target="_blank">'. $url .'</a>';
 	}
 }
 ?>

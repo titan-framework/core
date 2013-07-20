@@ -1432,6 +1432,78 @@ ul.shopCar li div.final div
 	border-radius: 10px;
 }
 
+ul.socialNetwork
+{
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+	display: inline;
+	height: 40px;
+	line-height: 34px;
+	width: 100%;
+}
+
+ul.socialNetwork li
+{
+	display: block;
+	float: left;
+	list-style: none;
+	line-height: 40px;
+	height: 40px;
+	vertical-align: middle;
+	border-bottom: #CCC 1px solid;
+	width: 100%;
+}
+
+ul.socialNetwork li div
+{
+	float: left;
+	margin: 5px 5px 5px 0px;
+	height: 30px;
+	padding: 0px;
+	vertical-align: middle;
+	font: "Lucida Grande", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 30px;
+	overflow: hidden;
+	text-align: center;
+}
+
+ul.socialNetwork li:last-child
+{
+	border-bottom-width: 0px;
+}
+
+ul.socialNetwork li div a
+{
+	color: #000;
+	font-size: 12px;
+}
+
+ul.socialNetwork li div.url
+{
+	color: #666;
+	float: right;
+}
+
+ul.socialNetwork li div.link
+{
+	float: right;
+	width: 150px;
+	text-align: right;
+}
+
+ul.socialNetwork li div.link a.connect
+{
+	color: #090;
+}
+
+ul.socialNetwork li div.link a.disconnect
+{
+	color: #900;
+}
+
 .cMenuInPlace
 {
 	clear: both;

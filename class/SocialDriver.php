@@ -13,6 +13,7 @@ abstract class SocialDriver
 	protected $attributes = array ();
 	
 	protected $user = NULL;
+	protected $id = NULL;
 	
 	protected function __construct ($array, $path)
 	{
@@ -92,9 +93,11 @@ abstract class SocialDriver
 		return $this->user;
 	}
 	
-	public function printDriver ()
+	public function isEnabled ()
 	{
-		print_r ($this->driver);
+		$query = Database::singleton ()->query ("SELECT ". $this->getIdColumn () ." FROM _user WHERE _id = '". User::singleton ()->getId () ."'");
+		
+		return !is_null ($query->fetch (PDO::FETCH_COLUMN));
 	}
 	
 	abstract public function authenticate ();
@@ -103,9 +106,15 @@ abstract class SocialDriver
 	
 	abstract public function getLoginUrl ();
 	
+	abstract public function getConnectUrl ();
+	
 	abstract public function login ();
 	
 	abstract public function getIdColumn ();
+	
+	abstract public function getId ();
+	
+	abstract public function getUserUrl ();
 }
 
 class SocialDriverAttribute

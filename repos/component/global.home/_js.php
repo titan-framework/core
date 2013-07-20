@@ -193,4 +193,80 @@ function strong (obj, e)
 	$('idStrong').innerHTML = 'Força da senha: ' + str;
 	$('imgStrong').src = 'titan.php?target=loadFile&file=interface/image/passwd.' + src + '.gif';
 }
+function showSocialNetworks ()
+{
+	showWait ();
+	
+	<?
+	$drivers = array ();
+	
+	if (Social::isActive ())
+		while ($driver = Social::singleton ()->getSocialNetwork ())
+		{
+			$enabled = $driver->isEnabled ();
+			
+			if ($enabled)
+				$link = '<a class="disconnect" href="#" onclick="JavaScript: disconnectFromSocialNetwork (\\\''. $driver->getName () .'\\\', \\\''. $driver->getPath () .'\\\', \\\''. $driver->getConnectUrl () .'\\\'); return false;">'. __ ('Revoke Access') .'</a>';
+			else
+				$link = '<a class="connect" href="#" onclick="JavaScript: showWait (); parent.document.location = \\\''. $driver->getConnectUrl () .'\\\';">'. __ ('Connect') .'</a>';
+			
+			$drivers [] = '<li id="_SOCIAL_'. $driver->getName () .'" style="background: url('. $driver->getPath () .'_resource/menu'. ($enabled ? '' : '-grey') .'.gif) no-repeat left;"><div class="link">'. $link .'</div><div class="url">'. ($enabled ? __ ('Connected to [1]', $driver->getUserUrl ()) : '') .'</div></li>';
+		}
+	
+	if (!sizeof ($drivers))
+	{
+		?>
+		Modalbox.show ('<ul class="socialNetwork"><li class="last" style="background: url(titan.php?target=loadFile&file=interface/alert/warning.gif) no-repeat left;"><div style="margin-left: 40px;"><?= __ ('No one social network is enable for this application!') ?></div></li></ul>', { title: '<?= __ ('Social Networks') ?>', width: 500 });
+		
+		hideWait ();
+		
+		return false;
+		<?
+	}
+	?>
+	
+	Modalbox.show ('<ul class="socialNetwork"><?= implode ('', $drivers) ?></ul>', { title: '<?= __ ('Social Networks') ?>', width: 900 });
+	
+	hideWait ();
+	
+	return false;
+}
+function disconnectFromSocialNetwork (driver, path, url)
+{
+	showWait ();
+	
+	ajax.disconnectFromSocialNetwork (driver, function () {
+		$('_SOCIAL_' + driver).style.background = 'url(' + path + '_resource/menu-grey.gif) no-repeat left';
+	
+		var array = $('_SOCIAL_' + driver).select('div');
+		
+		var a = document.createElement ('a');
+		
+		a.className = 'connect';
+		a.href = '#';
+		a.onclick = function () { showWait (); parent.document.location = url; };
+		a.innerHTML = '<?= __ ('Connect') ?>';
+		
+		array [0].update ('');
+		
+		array [0].appendChild (a);
+		
+		array [1].update ('');
+		
+		hideWait ();
+	});
+	
+	return false;
+}
+<?
+if (isset ($_GET['social']) && (int) $_GET['social'])
+{
+	?>
+	function runOnLoad ()
+	{
+		showSocialNetworks ();
+	}
+	<?
+}
+?>
 </script>
