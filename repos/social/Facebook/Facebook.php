@@ -15,7 +15,7 @@ class FacebookDriver extends SocialDriver
 	public function getIdColumn ()
 	{
 		/*
-		 * ALTER TABLE titan._user ADD COLUMN _facebook VARCHAR(256);
+		 * ALTER TABLE titan._user ADD COLUMN _facebook VARCHAR(50);
 		 * ALTER TABLE titan._user ADD CONSTRAINT _user__facebook_key UNIQUE (_facebook);
 		 */
 		
@@ -153,6 +153,9 @@ class FacebookDriver extends SocialDriver
 		}
 		else
 		{
+			if (!$this->autoRegister ())
+				throw new Exception (__ ('There is no user in the system linked to this social network profile!'));
+			
 			$_id = Database::nextId ('_user', '_id');
 			
 			while ($type = Security::singleton ()->getUserType ())

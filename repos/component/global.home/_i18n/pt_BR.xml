@@ -15,6 +15,11 @@
 	<message from="Last Logon" to="Último logon" />
 	<message from="Never had logged." to="Nunca havia logado." />
 	<message from="minutes" to="minutos" />
+	<message from="Social Networks" to="Redes Sociais" />
+	<message from="Connect" to="Conectar" />
+	<message from="Connected to [1]" to="Conectado a [1]" />
+	<message from="Revoke Access" to="Desconectar" />
+	<message from="No one social network is enable for this application!" to="Nenhuma rede social está habilitada nesta aplicação!" />
 	
 	<!-- _ajax -->
 	<message from="Sequences of characters [[1]] may not be used in the password!" to="As sequências de caracteres [[1]] não podem ser utilizadas na senha!" />

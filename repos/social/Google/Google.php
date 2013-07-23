@@ -20,7 +20,10 @@ class GoogleDriver extends SocialDriver
 		
 		$this->driver->setScopes (array ('openid', 'profile', 'email'));
 		
-		$this->driver->setRedirectUri (Instance::singleton ()->getLoginUrl ());
+		if (User::singleton ()->isLogged ())
+			$this->driver->setRedirectUri (Instance::singleton ()->getUrl () .'titan.php?target=social&driver='. $this->getName () .'&section='. $_GET['section'] .'&action='. $_GET['action']);
+		else
+			$this->driver->setRedirectUri (Instance::singleton ()->getLoginUrl ());
 	}
 	
 	public function getIdColumn ()
@@ -54,7 +57,10 @@ class GoogleDriver extends SocialDriver
 				
 				$_SESSION['_GOOGLE_ACCESS_TOKEN_'] = $this->user;
 				
-				header ('Location: '. Instance::singleton ()->getLoginUrl ());
+				if (User::singleton ()->isLogged ())
+					header ('Location: '. Instance::singleton ()->getUrl () .'titan.php?target=social&driver='. $this->getName () .'&section='. $_GET['section'] .'&action='. $_GET['action']);
+				else
+					header ('Location: '. Instance::singleton ()->getLoginUrl ());
 				
 				exit ();
 			}
@@ -148,6 +154,9 @@ class GoogleDriver extends SocialDriver
 		}
 		else
 		{
+			if (!$this->autoRegister ())
+				throw new Exception (__ ('There is no user in the system linked to this social network profile!'));
+			
 			$_id = Database::nextId ('_user', '_id');
 			
 			while ($type = Security::singleton ()->getUserType ())
@@ -289,11 +298,13 @@ class GoogleDriver extends SocialDriver
 			}
 		}
 		
-		return User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['username']);
+		return User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['id']);
 	}
 	
 	public function getLoginUrl ()
 	{
+		$this->driver->setRedirectUri (Instance::singleton ()->getLoginUrl ());
+		
 		return $this->driver->createAuthUrl ();
 	}
 	
@@ -301,6 +312,8 @@ class GoogleDriver extends SocialDriver
 	{
 		$section = Business::singleton ()->getSection (Section::TCURRENT)->getName ();
 		$action = Business::singleton ()->getAction (Action::TCURRENT)->getName ();
+		
+		$this->driver->setRedirectUri (Instance::singleton ()->getUrl () .'titan.php?target=social&driver='. $this->getName () .'&section='. $section .'&action='. $action);
 		
 		return $this->driver->createAuthUrl ();
 	}

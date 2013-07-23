@@ -7,6 +7,7 @@ abstract class SocialDriver
 	protected $authId = '';
 	protected $authSecret = '';
 	protected $userType = NULL;
+	protected $autoRegister = TRUE;
 	
 	protected $path;
 	
@@ -23,6 +24,9 @@ abstract class SocialDriver
 		$this->authId = trim ($array ['auth-id']);
 		$this->authSecret = trim ($array ['auth-secret']);
 		$this->userType = trim ($array ['register-as']);
+		
+		if (array_key_exists ('auto-register', $array))
+			$this->autoRegister = strtoupper (trim ($array ['auto-register'])) == 'FALSE' ? FALSE : TRUE;
 		
 		if (array_key_exists ('attribute', $array))
 			foreach ($array ['attribute'] as $trash => $att)
@@ -98,6 +102,11 @@ abstract class SocialDriver
 		$query = Database::singleton ()->query ("SELECT ". $this->getIdColumn () ." FROM _user WHERE _id = '". User::singleton ()->getId () ."'");
 		
 		return !is_null ($query->fetch (PDO::FETCH_COLUMN));
+	}
+	
+	public function autoRegister ()
+	{
+		return $this->autoRegister;
 	}
 	
 	abstract public function authenticate ();
