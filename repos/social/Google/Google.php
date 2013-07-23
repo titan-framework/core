@@ -94,12 +94,11 @@ class GoogleDriver extends SocialDriver
 		$out = array ('id' => $profile ['id']);
 		
 		while ($att = $this->getAttribute ())
-			if (array_key_exists ($att->getName (), $profile))
-			{
-				$out [$att->getName ()] = $profile [$att->getName ()];
-				
-				$this->attributes [$att->getName ()]->setValue ($profile [$att->getName ()]);
-			}
+		{
+			$out [$att->getName ()] = @$profile [$att->getName ()];
+			
+			$this->attributes [$att->getName ()]->setValue (@$profile [$att->getName ()]);
+		}
 		
 		$this->profile = $out;
 		

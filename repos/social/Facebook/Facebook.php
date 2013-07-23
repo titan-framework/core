@@ -90,12 +90,11 @@ class FacebookDriver extends SocialDriver
 		$out = array ();
 		
 		while ($att = $this->getAttribute ())
-			if (array_key_exists ($att->getName (), $profile))
-			{
-				$out [$att->getName ()] = $profile [$att->getName ()];
-				
-				$this->attributes [$att->getName ()]->setValue ($profile [$att->getName ()]);
-			}
+		{
+			$out [$att->getName ()] = @$profile [$att->getName ()];
+			
+			$this->attributes [$att->getName ()]->setValue (@$profile [$att->getName ()]);
+		}
 		
 		if (array_key_exists ('picture', $this->attributes))
 			$this->attributes ['picture']->setValue ($profile ['username']);

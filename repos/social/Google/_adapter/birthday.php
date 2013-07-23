@@ -1,4 +1,7 @@
 <?
+if (strlen ($value) != 10)
+	return NULL;
+
 $array = explode ('-', $value);
 
 if ($array [0] == '0000')
