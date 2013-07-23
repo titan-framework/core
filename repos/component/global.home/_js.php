@@ -225,7 +225,7 @@ function showSocialNetworks ()
 	}
 	?>
 	
-	Modalbox.show ('<ul class="socialNetwork"><?= implode ('', $drivers) ?></ul>', { title: '<?= __ ('Social Networks') ?>', width: 900 });
+	Modalbox.show ('<ul class="socialNetwork"><?= implode ('', $drivers) ?></ul>', { title: '<?= __ ('Social Networks') ?>', width: 800 });
 	
 	hideWait ();
 	

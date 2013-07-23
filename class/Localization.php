@@ -227,8 +227,11 @@ class Localization
 		return array_key_exists ($language, self::$supported);
 	}
 	
-	public static function negotiatedLanguage ()
+	public static function negotiatedLanguage ($forConversion = '')
 	{
+		if ($forConversion != '' && array_key_exists ($forConversion, self::$negotiate))
+			return self::$negotiate [$lang];
+			
 		if (!array_key_exists ('HTTP_ACCEPT_LANGUAGE', $_SERVER))
 			return '';
 		
