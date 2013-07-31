@@ -234,6 +234,12 @@ div
 	background: url(titan.php?target=loadFile&file=interface/image/info.png) left bottom no-repeat;
 }
 
+.formGroup div.info a
+{
+	font-size: 11px;
+	color: #900;
+}
+
 .formGroup legend
 {
 	color: #000;
