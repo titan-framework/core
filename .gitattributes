@@ -2258,6 +2258,7 @@ interface/menu/grey/graph.png -text
 interface/menu/grey/group.png -text
 interface/menu/grey/home.png -text
 interface/menu/grey/list.png -text
+interface/menu/grey/mobile.png -text
 interface/menu/grey/notes.png -text
 interface/menu/grey/permission.png -text
 interface/menu/grey/personal.png -text
@@ -2276,6 +2277,7 @@ interface/menu/grey/view.png -text
 interface/menu/group.png -text
 interface/menu/home.png -text
 interface/menu/list.png -text
+interface/menu/mobile.png -text
 interface/menu/notes.png -text
 interface/menu/pdf.png -text
 interface/menu/permission.png -text
@@ -2529,6 +2531,7 @@ repos/component/global.group/userGroup.prepare.php -text
 repos/component/global.group/view.php -text
 repos/component/global.group/view.prepare.php -text
 repos/component/global.home/_ajax.php -text
+repos/component/global.home/_css.php -text
 repos/component/global.home/_doc/.en_US.txt -text
 repos/component/global.home/_doc/.es_ES.txt -text
 repos/component/global.home/_doc/.pt_BR.txt -text
@@ -2545,6 +2548,7 @@ repos/component/global.home/_function.php -text
 repos/component/global.home/_i18n/es_ES.xml -text
 repos/component/global.home/_i18n/pt_BR.xml -text
 repos/component/global.home/_js.php -text
+repos/component/global.home/_script/qr.php -text
 repos/component/global.home/_script/update.php -text
 repos/component/global.home/home.php -text
 repos/component/global.home/home.prepare.php -text

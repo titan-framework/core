@@ -20,6 +20,29 @@
 	<message from="Connected to [1]" to="Conectado a [1]" />
 	<message from="Revoke Access" to="Desconectar" />
 	<message from="No one social network is enable for this application!" to="Nenhuma rede social está habilitada nesta aplicação!" />
+	<message from="Mobile Devices" to="Dispositivos Móveis" />
+	<message from="Identifier" to="Identificador" />
+	<message from="Private Key" to="Chave Privada" />
+	<message from="Actions" to="Ações" />
+	<message from="No one mobile device is enable to access your data!" to="Nenhum dispositivo móvel está habilitado para acessar seus dados!" />
+	<message from="Register New Device" to="Credenciar Novo Dispositivo Móvel" />
+	<message from="Please, insert a name for new device:" to="Por favor, insira um nome para o novo dispositivo:" />
+	<message from="e.g.: My Personal Smartphone" to="p.e.: Meu Smartphone Pessoal" />
+	<message
+		from="Attention! The device will no longer synchronize data with application. Are you sure to continue?"
+		to="Atenção! O dispositivo não poderá mais sincronizar dados com a aplicação. Tem certeza que deseja continuar?"
+	/>
+	<message 
+		from="&lt;span style=&quot;color: #900;&quot;&gt;Attention!&lt;/span&gt; To register your device, please, pointing the camera to barcode bellow:" 
+		to="&lt;span style=&quot;color: #900;&quot;&gt;Atenção!&lt;/span&gt; Para registrar seu dispositivo móvel, por favor, aponte a câmera para o código de barras abaixo:" 
+	/>
+	<message
+		from="Register Device by QR Code"
+		to="Registrar Dispositivo pelo QR Code"
+	/>
+	<message from="Register by QR Code" to="Registrar por QR Code" />
+	<message from="Unregister Device" to="Remover Dispositivo" />
+	
 	
 	<!-- _ajax -->
 	<message from="Sequences of characters [[1]] may not be used in the password!" to="As sequências de caracteres [[1]] não podem ser utilizadas na senha!" />

@@ -35,12 +35,12 @@ class Social
 			foreach ($array ['social'] as $trash => $social)
 			{
 				if (!array_key_exists ('driver', $social) || trim ($social ['driver']) == '' ||
-					!array_key_exists ('register-as', $social) || trim ($social ['register-as']) == '' ||
 					!array_key_exists ('auth-id', $social) || trim ($social ['auth-id']) == '' ||
 					!array_key_exists ('auth-secret', $social) || trim ($social ['auth-secret']) == '')
 					continue;
 				
-				if (!Security::singleton ()->userTypeExists ($social ['register-as']))
+				if ((!array_key_exists ('auto-register', $social) || strtoupper (trim ($array ['auto-register'])) != 'FALSE') &&
+					(!array_key_exists ('register-as', $social) || trim ($social ['register-as']) == '' || !Security::singleton ()->userTypeExists ($social ['register-as'])))
 					continue;
 				
 				$driver = trim ($social ['driver']);
