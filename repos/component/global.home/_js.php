@@ -296,8 +296,8 @@ function showMobileDevices ()
 		}
 	}
 	
-	if (!sizeof ($list))
-		$list [] = '<li style="background: url(titan.php?target=loadFile&file=interface/alert/warning.gif) no-repeat left;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('No one mobile device is enable to access your data!') .'</div></li>';
+	if (sizeof ($list) <= 1)
+		$list = array ('<li style="background: url(titan.php?target=loadFile&file=interface/alert/warning.gif) no-repeat left;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('No one mobile device is enable to access your data!') .'</div></li>');
 	?>
 	
 	Modalbox.show ('<ul id="_MOBILE_DEVICES_" class="mobileDevices"><?= implode ('', $list) ?></ul><div style="width: 750px; text-align: center;"><input type="button" class="buttonToRegisterMobileDevice" value="<?= __ ('Register New Device') ?>" onclick="JavaScript: registerDevice ();" /></div>', { title: '<?= __ ('Mobile Devices') ?>', width: 800 });
