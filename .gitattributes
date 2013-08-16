@@ -1,4 +1,5 @@
 * text=auto !eol
+api/getDeviceOwner.php -text
 assembly/breadcrumb.php -text
 assembly/menu.php -text
 assembly/section.php -text
@@ -7,6 +8,9 @@ class/Ajax.php -text
 class/AjaxLogon.php -text
 class/AjaxPasswd.php -text
 class/Alert.php -text
+class/Api.php -text
+class/ApiAuth.php -text
+class/ApiException.php -text
 class/Archive.php -text
 class/Backup.php -text
 class/Business.php -text
@@ -32,6 +36,7 @@ class/Manual.php -text
 class/Menu.php -text
 class/MenuItem.php -text
 class/Message.php -text
+class/MobileDevice.php -text
 class/Pdf.php -text
 class/Schedule.php -text
 class/Search.php -text

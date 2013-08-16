@@ -46,6 +46,8 @@ class Instance
 	
 	private $social = array ();
 	
+	private $api = array ();
+	
 	private $log = array ();
 	
 	private $backup = array ();
@@ -143,6 +145,9 @@ class Instance
 		
 		if (array_key_exists ('social', $array))
 			$this->social = $array ['social'][0];
+		
+		if (array_key_exists ('api', $array))
+			$this->api = $array ['api'][0];
 		
 		if (array_key_exists ('backup', $array))
 			$this->backup = $array ['backup'][0];
@@ -435,6 +440,11 @@ class Instance
 	public function getSocial ()
 	{
 		return $this->social;
+	}
+	
+	public function getApi ()
+	{
+		return $this->api;
 	}
 	
 	public function getBackup ()

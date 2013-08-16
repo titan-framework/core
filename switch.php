@@ -744,6 +744,44 @@ try
 			
 			break;
 		
+		case 'api':
+			
+			try
+			{
+				switch (@$_GET ['function'])
+				{
+					case 'getDeviceOwner':
+						
+						require $corePath .'api/getDeviceOwner.php';
+						
+						break;
+				}
+			}
+			catch (ApiException $e)
+			{
+				header ('HTTP/1.1 '. $e->getCode () .' '. ApiException::$status [$e->getCode ()]);
+				
+				echo json_encode ($e->getMessage ());
+			}
+			catch (PDOException $e)
+			{
+				toLog ($e->getMessage ());
+				
+				header ('HTTP/1.1 '. ApiException::INTERNAL_SERVER_ERROR .' '. ApiException::$status [ApiException::INTERNAL_SERVER_ERROR]);
+				
+				echo json_encode ('Database error! Please, contact administrator.');
+			}
+			catch (Exception $e)
+			{
+				toLog ($e->getMessage ());
+				
+				header ('HTTP/1.1 '. ApiException::INTERNAL_SERVER_ERROR .' '. ApiException::$status [ApiException::INTERNAL_SERVER_ERROR]);
+				
+				echo json_encode ('Generic error! Please, contact administrator.');
+			}
+			
+			break;
+		
 		case 'tools':
 			
 			if (!isset ($_GET['tool']) || trim ($_GET['tool']) == '')

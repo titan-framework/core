@@ -110,7 +110,7 @@ ul.mobileDevices li div
 	text-align: center;
 }
 
-ul.mobileDevices li.title div
+ul.mobileDevices li.header div
 {
 	font-weight: bold;
 }
@@ -140,7 +140,7 @@ ul.mobileDevices li div.pk
 	letter-spacing: 2px;
 }
 
-ul.mobileDevices li.title div.pk
+ul.mobileDevices li.header div.pk
 {
 	width: 200px;
 	font-family: "Lucida Grande", Arial, sans-serif;
