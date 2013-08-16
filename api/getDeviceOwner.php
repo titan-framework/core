@@ -1,4 +1,4 @@
-<? /*
+<?
 if (!Api::isActive ())
 	throw new ApiException ('Application API is not active!');
 
@@ -6,8 +6,8 @@ $auth = Api::singleton ()->getActiveApp ();
 
 $auth->authenticate ();
 
-$user = $auth->getUser (); */
-$user = 3000;
+$user = $auth->getUser ();
+
 if (!is_integer ($user) || !$user)
 	throw new ApiException ('Invalid user! Do you are sure the application API is configured to client connect as user (CLIENT-AS-USER)?', ApiException::UNAUTHORIZED);
 
