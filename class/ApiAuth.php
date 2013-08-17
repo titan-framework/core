@@ -104,7 +104,7 @@ class EmbrapaAuth extends ApiAuth
 		
 		$this->requiredParamsIsFilled ();
 		
-		if (time () < $this->timestamp)
+		if (time () < $this->timestamp - 180)
 			throw new ApiException ('UNIX timestamp of request is invalid (higher than server time)!', ApiException::BAD_REQUEST);
 		
 		if (time () - $this->timestamp > $this->timeout)
