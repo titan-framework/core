@@ -760,24 +760,39 @@ try
 			catch (ApiException $e)
 			{
 				header ('HTTP/1.1 '. $e->getCode () .' '. ApiException::$status [$e->getCode ()]);
+				header ('Content-Type: application/json');
 				
-				echo json_encode ($e->getMessage ());
+				$array = array ('CODE' => $e->getCode (),
+								'ERROR' => $e->getMessage (),
+								'TECHNICAL' => '');
+				
+				echo json_encode ($array);
 			}
 			catch (PDOException $e)
 			{
 				toLog ($e->getMessage ());
 				
 				header ('HTTP/1.1 '. ApiException::INTERNAL_SERVER_ERROR .' '. ApiException::$status [ApiException::INTERNAL_SERVER_ERROR]);
+				header ('Content-Type: application/json');
 				
-				echo json_encode ('Database error! Please, contact administrator.');
+				$array = array ('CODE' => ApiException::INTERNAL_SERVER_ERROR,
+								'ERROR' => 'Database error! Please, contact administrator.',
+								'TECHNICAL' => $e->getMessage ());
+				
+				echo json_encode ($array);
 			}
 			catch (Exception $e)
 			{
 				toLog ($e->getMessage ());
 				
 				header ('HTTP/1.1 '. ApiException::INTERNAL_SERVER_ERROR .' '. ApiException::$status [ApiException::INTERNAL_SERVER_ERROR]);
+				header ('Content-Type: application/json');
 				
-				echo json_encode ('Generic error! Please, contact administrator.');
+				$array = array ('CODE' => ApiException::INTERNAL_SERVER_ERROR,
+								'ERROR' => 'System error! Please, contact administrator.',
+								'TECHNICAL' => $e->getMessage ());
+				
+				echo json_encode ($array);
 			}
 			
 			break;

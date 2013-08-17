@@ -97,7 +97,7 @@ class MobileDevice
 		
 		$db = Database::singleton ();
 		
-		$sth = $db->prepare ("SELECT _id AS id, _pk AS pk, _user AS user FROM _mobile WHERE _id = :id");
+		$sth = $db->prepare ("SELECT _id AS id, _pk AS pk, _user AS user FROM _mobile WHERE _id = :id LIMIT 1");
 		
 		$sth->bindParam (':id', $id, PDO::PARAM_INT);
 		

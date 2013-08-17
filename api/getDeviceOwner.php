@@ -4,6 +4,9 @@ if (!Api::isActive ())
 
 $auth = Api::singleton ()->getActiveApp ();
 
+if (!is_object ($auth))
+	throw new ApiException ('Invalid credentials!', ApiException::BAD_REQUEST);
+
 $auth->authenticate ();
 
 $user = $auth->getUser ();

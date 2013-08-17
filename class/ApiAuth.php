@@ -62,7 +62,7 @@ abstract class ApiAuth
 }
 
 /**
- * This class contains logic mapping for specific action.
+ * This class contains implementation for Embrapa-Auth protocol.
  *
  * @author Jairo Rodrigues Filho <jairocgr@gmail.com>
  * @author Camilo Carromeu <camilo@carromeu.com>
@@ -138,7 +138,7 @@ class EmbrapaAuth extends ApiAuth
 			
 			if (in_array (self::C_USER_LOGIN, $this->context))
 			{
-				$sth = $db->prepare ("SELECT _login AS id, _password AS passwd FROM _user WHERE _login = :login LIMIT 1");
+				$sth = $db->prepare ("SELECT _id, _login AS id, _password AS passwd FROM _user WHERE _login = :login LIMIT 1");
 				
 				$sth->bindParam (':login', $this->userId, PDO::PARAM_STR);
 				
@@ -148,7 +148,7 @@ class EmbrapaAuth extends ApiAuth
 			}
 			elseif (in_array (self::C_USER_ID, $this->context))
 			{
-				$sth = $db->prepare ("SELECT _id AS id, _password AS passwd FROM _user WHERE _id = :id LIMIT 1");
+				$sth = $db->prepare ("SELECT _id, _id AS id, _password AS passwd FROM _user WHERE _id = :id LIMIT 1");
 				
 				$sth->bindParam (':id', (int) preg_replace ('/[^0-9]/i', '', $this->userId), PDO::PARAM_INT);
 				
@@ -161,7 +161,7 @@ class EmbrapaAuth extends ApiAuth
 				if (!Database::isUnique ('_user', '_email'))
 					throw new ApiException ('e-Mail column must be unique to authenticate user! Please, report to system administrator.', ApiException::UNAUTHORIZED);
 				
-				$sth = $db->prepare ("SELECT _email AS id, _password AS passwd FROM _user WHERE _email = :mail LIMIT 1");
+				$sth = $db->prepare ("SELECT _id, _email AS id, _password AS passwd FROM _user WHERE _email = :mail LIMIT 1");
 				
 				$sth->bindParam (':mail', $this->userId, PDO::PARAM_STR);
 				
@@ -174,7 +174,9 @@ class EmbrapaAuth extends ApiAuth
 				throw new ApiException ('User not found!', ApiException::UNAUTHORIZED);
 			
 			if ($this->userSignature != self::encrypt ($this->timestamp, $user->id, $user->passwd))
-				throw new ApiException ('Invalid client credentials!', ApiException::UNAUTHORIZED);
+				throw new ApiException ('Invalid user credentials!', ApiException::UNAUTHORIZED);
+			
+			$this->user = $user->_id;
 		}
 		
 		return TRUE;
@@ -234,11 +236,13 @@ class EmbrapaAuth extends ApiAuth
 			
 				return (int) preg_replace ('/[^0-9]/i', '', $value);
 			
+			case self::APP_SIGNATURE:
 			case self::CLIENT_SIGNATURE:
+			case self::USER_SIGNATURE:
 			
-				$value = preg_replace ('/[^0-9A-Z]/i', '', $value);
+				$value = preg_replace ('/[^0-9A-Fa-f]/i', '', $value);
 				
-				if (strlen ($value) != 16)
+				if (strlen ($value) != 40)
 					return NULL;
 				
 				return $value;
