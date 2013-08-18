@@ -210,7 +210,27 @@
 	<message from="Non-existent, Deleted or Inactive User!" to="'Usuário inexistente, apagado ou inativo!'" />
 	<message from="Invalid Hash! Use the link &quotRecovery Password&quot at the login page for receive a valid hash into your e-mail." to="Hash inválida! Utilize o link &quot;Recuperar Senha&quot; na página de logon para receber um hash válida em seu e-mail." />
 	<message from="Unable to change the password." to="Não foi possível modificar a senha." />
-
+	
+	<!-- class/Api -->
+	<message from="Application API is not active!" to="A API de autenticação não está ativa na aplicação!"
+	<message from="Invalid credentials!" to="Credenciais de acesso inválidas!" />
+	<message from="Invalid user!" to="Usuário inválido!" />
+	<message from="Database error! Please, contact administrator." to="Erro ao consultar a base de dados! Por favor, contacte o responsável pelo sistema." />
+	<message from="System error! Please, contact administrator." to="Erro na aplicação Web! Por favor, contacte o administrador" />
+	<message from="The time of your device must be correct!" to="O relógio do seu dispositivo precisa estar correto para efetuar esta ação!" />
+	<message from="Request timeout!" to="A validade da requisição expirou!" />
+	<message from="Invalid application credentials!" to="As credenciais de acesso da aplicação são inválidas!" />
+	<message from="Register of credentials for mobile devices is not enabled!" to="O registro de credenciais para dispositivos móveis não está habilitado!" />
+	<message from="This client is not registered!" to="Este dispositivo não está registrado!" />
+	<message from="Invalid client credentials!" to="As credenciais de acesso do dispositivo são inválidas!" />
+	<message from="e-Mail must be unique to authenticate user! Please, report to system administrator." to="O e-mail precisa ser único! Por favor, contacte o responsável pelo sistema."
+	<message from="User not found!" to="Usuário não encontrado!" />
+	<message from="Invalid user credentials!" to="As credenciais de acesso do usuário são inválidas!" />
+	<message from="Has a problem with your device clock! Please, verify." to="Há um problema com o relógio do seu dispositivo! Por favor, verifique." />
+	<message from="User credentials are incorrect or empty!" to="As credenciais de acesso do usuário estão vazias ou em formato impróprio!" />
+	<message from="Client credentials are incorrect or empty!" to="As credenciais de acesso do dispositivo estão vazias ou em formato impróprio!" />
+	<message from="Application credentials are incorrect or empty!" to="As credenciais de acesso da aplicação estão vazias ou em formato impróprio!" />
+	
 	<!-- class/Archive -->
 	<message from="The property [data-path] was not found or its empty in the tag <archive></archive> from file [configure/titan.xml]!" to="Não foi encontrada a propriedade [data-path] ou ela é vazia na tag <archive></archive> do arquivo [configure/titan.xml]!" />
 	<message from="The property [xml-path] was not found in the tag <archive></archive> of file [configure/titan.xml]!" to="Não foi encontrada a propriedade [xml-path] na tag <archive></archive> do arquivo [configure/titan.xml]!" />

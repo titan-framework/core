@@ -136,4 +136,31 @@ class ApiException extends Exception
 		508 => 'Loop Detected',
 		511 => 'Network Authentication Required'
 	);
+	
+	const ERROR_REQUEST_TIMESTAMP = 'ERROR_REQUEST_TIMESTAMP';
+	const ERROR_INVALID_PARAMETER = 'ERROR_INVALID_PARAMETER';
+	const ERROR_APP_AUTH = 'ERROR_APP_AUTH';
+	const ERROR_CLIENT_AUTH = 'ERROR_CLIENT_AUTH';
+	const ERROR_USER_AUTH = 'ERROR_USER_AUTH';
+	
+	private $titanErrorCode = '';
+	private $titanTechnical = '';
+	
+	public function __construct ($message, $error, $http = self::INTERNAL_SERVER_ERROR, $technical = '')
+	{
+		parent::__construct ($message, $http);
+		
+		$this->titanErrorCode = $error;
+		$this->titanTechnical = $technical;
+	}
+	
+	public function getTitanErrorCode ()
+	{
+		return $this->titanErrorCode;
+	}
+	
+	public function getTitanTechnical ()
+	{
+		return $this->titanTechnical;
+	}
 }

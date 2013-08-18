@@ -46,6 +46,11 @@ abstract class ApiAuth
 		return $this->user;
 	}
 	
+	public function hasContext ($auth)
+	{
+		return in_array ($auth, $this->context);
+	}
+	
 	abstract public function authenticate ();
 	
 	abstract protected function loadParamsByHeaders ();
@@ -105,26 +110,26 @@ class EmbrapaAuth extends ApiAuth
 		$this->requiredParamsIsFilled ();
 		
 		if (time () < $this->timestamp - 180)
-			throw new ApiException ('UNIX timestamp of request is invalid (higher than server time)!', ApiException::BAD_REQUEST);
+			throw new ApiException (__ ('The time of your device must be correct!'), ApiException::ERROR_REQUEST_TIMESTAMP, ApiException::BAD_REQUEST, 'UNIX timestamp of request is invalid (higher than server time)!');
 		
 		if (time () - $this->timestamp > $this->timeout)
-			throw new ApiException ('UNIX timestamp of request is very old!', ApiException::REQUEST_TIME_OUT);
+			throw new ApiException (__ ('Request timeout!'), ApiException::ERROR_REQUEST_TIMESTAMP, ApiException::REQUEST_TIME_OUT, 'UNIX timestamp of request is very old!');
 		
 		if (sizeof (array_intersect (array (self::C_APP), $this->context)) && $this->appSignature != self::encrypt ($this->timestamp, $this->name, $this->token))
-			throw new ApiException ('Invalid application credentials!', ApiException::UNAUTHORIZED);
+			throw new ApiException (__ ('Invalid application credentials!'), ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED);
 		
 		if (sizeof (array_intersect (array (self::C_CLIENT, self::C_CLIENT_USER), $this->context)))
 		{
 			if (!MobileDevice::isActive ())
-				throw new ApiException ('Register of credentials for mobile devices is not enabled!', ApiException::UNAUTHORIZED);
+				throw new ApiException (__ ('Register of credentials for mobile devices is not enabled!'), ApiException::ERROR_CLIENT_AUTH, ApiException::UNAUTHORIZED);
 			
 			$client = MobileDevice::getRegisteredDevice ($this->clientId);
 			
 			if (!is_object ($client))
-				throw new ApiException ('This client is not registered!', ApiException::UNAUTHORIZED);
+				throw new ApiException (__ ('This client is not registered!'), ApiException::ERROR_CLIENT_AUTH, ApiException::UNAUTHORIZED);
 			
 			if ($this->clientSignature != self::encrypt ($this->timestamp, $client->id, $client->pk))
-				throw new ApiException ('Invalid client credentials!', ApiException::UNAUTHORIZED);
+				throw new ApiException (__ ('Invalid client credentials!'), ApiException::ERROR_CLIENT_AUTH, ApiException::UNAUTHORIZED);
 			
 			if (in_array (self::C_CLIENT_USER, $this->context))
 				$this->user = $client->user;
@@ -159,7 +164,7 @@ class EmbrapaAuth extends ApiAuth
 			elseif (in_array (self::C_USER_MAIL, $this->context))
 			{
 				if (!Database::isUnique ('_user', '_email'))
-					throw new ApiException ('e-Mail column must be unique to authenticate user! Please, report to system administrator.', ApiException::UNAUTHORIZED);
+					throw new ApiException (__ ('e-Mail must be unique to authenticate user! Please, report to system administrator.'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 				
 				$sth = $db->prepare ("SELECT _id, _email AS id, _password AS passwd FROM _user WHERE _email = :mail LIMIT 1");
 				
@@ -171,10 +176,10 @@ class EmbrapaAuth extends ApiAuth
 			}
 			
 			if (!is_object ($user))
-				throw new ApiException ('User not found!', ApiException::UNAUTHORIZED);
+				throw new ApiException (__ ('User not found!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 			
 			if ($this->userSignature != self::encrypt ($this->timestamp, $user->id, $user->passwd))
-				throw new ApiException ('Invalid user credentials!', ApiException::UNAUTHORIZED);
+				throw new ApiException (__ ('Invalid user credentials!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 			
 			$this->user = $user->_id;
 		}
@@ -201,16 +206,16 @@ class EmbrapaAuth extends ApiAuth
 	protected function requiredParamsIsFilled ()
 	{
 		if (!$this->timestamp)
-			throw new ApiException ('Invalid header parameter: UNIX timestamp is empty!', ApiException::BAD_REQUEST);
+			throw new ApiException (__ ('Has a problem with your device clock! Please, verify.'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: UNIX timestamp is empty!');
 		
 		if (sizeof (array_intersect (array (self::C_USER_ID, self::C_USER_LOGIN, self::C_USER_MAIL), $this->context)) && ($this->userId == '' || $this->userSignature == ''))
-			throw new ApiException ('Invalid header parameter: User credentials are incorrect or empty!', ApiException::BAD_REQUEST);
+			throw new ApiException (__ ('User credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: User credentials are incorrect or empty!');
 		
 		if (sizeof (array_intersect (array (self::C_CLIENT, self::C_CLIENT_USER), $this->context)) && ($this->clientId == '' || $this->clientSignature == ''))
-			throw new ApiException ('Invalid header parameter: Client credentials are incorrect or empty!', ApiException::BAD_REQUEST);
+			throw new ApiException (__ ('Client credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: Client credentials are incorrect or empty!');
 		
 		if (sizeof (array_intersect (array (self::C_APP), $this->context)) && ($this->clientId == '' || $this->clientSignature == ''))
-			throw new ApiException ('Invalid header parameter: Application credentials are incorrect or empty!', ApiException::BAD_REQUEST);
+			throw new ApiException (__ ('Application credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: Application credentials are incorrect or empty!');
 	}
 	
 	public static function getHeaders ()

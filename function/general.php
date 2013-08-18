@@ -475,6 +475,38 @@ function toLog ($message)
 	fclose ($fd);
 }
 
+function apiPhpError ($errno, $errstr, $errfile, $errline)
+{
+	$errorType = array (E_ERROR				=> 'ERROR',
+						E_WARNING			=> 'WARNING',
+						E_PARSE				=> 'PARSING ERROR',
+						E_NOTICE			=> 'NOTICE',
+						E_CORE_ERROR		=> 'CORE ERROR',
+						E_CORE_WARNING		=> 'CORE WARNING',
+						E_COMPILE_ERROR		=> 'COMPILE ERROR',
+						E_COMPILE_WARNING	=> 'COMPILE WARNING',
+						E_USER_ERROR		=> 'USER ERROR',
+						E_USER_WARNING		=> 'USER WARNING',
+						E_USER_NOTICE		=> 'USER NOTICE',
+						E_STRICT			=> 'STRICT NOTICE',
+						E_RECOVERABLE_ERROR	=> 'RECOVERABLE ERROR');
+
+	$err = array_key_exists ($errno, $errorType) ? $errorType [$errno] : 'CAUGHT EXCEPTION';
+	
+	toLog ('['. $err .'] '. $errstr .' [File: '. $errfile .'] [Line: '. $errline .']');
+	
+	header ('HTTP/1.1 500 Internal Server Error');
+	header ('Content-Type: application/json');
+	
+	$array = array ('ERROR' => 'SYSTEM_ERROR',
+					'MESSAGE' => 'System error! Please, contact administrator.',
+					'TECHNICAL' => 'PHP Error: '. $err);
+	
+	echo json_encode ($array);
+	
+	exit ();
+}
+
 function xmlCache ($file, $array, $path = FALSE)
 {
 	if ($path === FALSE)
