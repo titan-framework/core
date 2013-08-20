@@ -275,7 +275,8 @@ function showMobileDevices ()
 	showWait ();
 	
 	<?
-	$list = array ('<li id="_MOBILE_NONE_" style="background: url(titan.php?target=loadFile&file=interface/alert/warning.gif) no-repeat left; display: block;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('No one mobile device is enable to access your data!') .'</div></li>');
+	$list = array ('<li id="_MOBILE_LOADING_" style="background: url(titan.php?target=loadFile&file=interface/alert/info.gif) no-repeat left; display: block;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('Loading! Please, wait...') .'</div></li>',
+				   '<li id="_MOBILE_NONE_" style="background: url(titan.php?target=loadFile&file=interface/alert/warning.gif) no-repeat left; display: none;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('No one mobile device is enable to access your data!') .'</div></li>');
 	$button = '';
 	
 	if (MobileDevice::isActive ())
@@ -296,14 +297,19 @@ function showMobileDevices ()
 		
 		if (devices.length)
 		{
-			$('_MOBILE_NONE_').style.display = 'none';
+			$('_MOBILE_LOADING_').style.display = 'none';
 			$('_MOBILE_HEADER_').style.display = 'block';
 			
 			for (var i = 0; i < devices.length; i++)
 				addDeviceLine (devices [i]);
-		}
 		
-		Modalbox.resizeToContent ();
+			Modalbox.resizeToContent ();
+		}
+		else
+		{
+			$('_MOBILE_LOADING_').style.display = 'none';
+			$('_MOBILE_NONE_').style.display = 'block';
+		}
 		
 		hideWait ();
 	});
