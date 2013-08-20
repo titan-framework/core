@@ -320,7 +320,7 @@ class Ajax
 	{
 		$message = Message::singleton ();
 		
-		$return = 'array = new Array ();';
+		$return = 'device = null;';
 		
 		try
 		{
@@ -329,7 +329,7 @@ class Ajax
 			
 			$registered = MobileDevice::register ($name);
 			
-			return "array = new Array ('". $registered->name ."', '". $registered->id ."', '". MobileDevice::formatPrivateKey ($registered->pk) ."')";
+			return "device = { name: '". $registered->name ."', id: '". $registered->id ."', pk: '". MobileDevice::formatPrivateKey ($registered->pk) ."'};";
 		}
 		catch (Exception $e)
 		{
@@ -373,6 +373,48 @@ class Ajax
 			$message->addWarning ($e->getMessage ());
 			
 			$return = FALSE;
+		}
+		
+		$message->save ();
+		
+		return $return;
+	}
+	
+	public function getMobileDevices ()
+	{	
+		$message = Message::singleton ();
+		
+		$return = 'devices = new Array ();';
+		
+		try
+		{
+			$list = array ();
+			
+			$button = '';
+			
+			$size = 0;
+			
+			if (!MobileDevice::isActive ())
+				throw new Exception (__ ('Syncronization with mobile devices is not enabled!'));
+			
+			$sth = Database::singleton ()->prepare ("SELECT * FROM _mobile WHERE _user = :user");
+			
+			$sth->bindParam (':user', User::singleton ()->getId ());
+			
+			$sth->execute ();
+			
+			while ($device = $sth->fetch (PDO::FETCH_OBJ))
+				$list [] = '{ name: "'. $device->_name .'", id: "'. $device->_id .'", pk: "'. MobileDevice::formatPrivateKey ($device->_pk) .'" }';
+			
+			return 'devices = new Array ('. implode (', ', $list) .');';
+		}
+		catch (Exception $e)
+		{
+			$message->addWarning ($e->getMessage ());
+		}
+		catch (PDOException $e)
+		{
+			$message->addWarning ($e->getMessage ());
 		}
 		
 		$message->save ();

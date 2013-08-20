@@ -275,45 +275,38 @@ function showMobileDevices ()
 	showWait ();
 	
 	<?
-	$list = array ();
-	
+	$list = array ('<li id="_MOBILE_NONE_" style="background: url(titan.php?target=loadFile&file=interface/alert/warning.gif) no-repeat left; display: block;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('No one mobile device is enable to access your data!') .'</div></li>');
 	$button = '';
-	
-	$size = 0;
 	
 	if (MobileDevice::isActive ())
 	{
-		$sth = Database::singleton ()->prepare ("SELECT * FROM _mobile WHERE _user = :user");
+		array_unshift ($list, '<li id="_MOBILE_HEADER_" class="header" style="display: none;"><div class="name">'. __ ('Name') .'</div><div class="id">'. __ ('Identifier') .'</div><div class="pk">'. __ ('Private Key') .'</div><div class="icons">'. __ ('Actions') .'</div></li>');
 		
-		$sth->bindParam (':user', User::singleton ()->getId ());
-		
-		$sth->execute ();
-		
-		while ($device = $sth->fetch (PDO::FETCH_OBJ))
-		{
-			$icons = array ('<img src="titan.php?target=loadFile&file=interface/icon/qr.gif" border="0" onclick="JavaScript: generateQrCode (\\\''. $device->_id .'\\\', \\\''. $device->_pk .'\\\');" title="'. __ ('Register by QR Code') .'" />',
-							'<img src="titan.php?target=loadFile&file=interface/icon/delete.gif" border="0" onclick="JavaScript: unregisterDevice (\\\''. $device->_id .'\\\');" title="'. __ ('Unregister Device') .'" />');
-			
-			$list [] = '<li id="_MOBILE_'. $device->_id .'"><div class="name" title="'. $device->_name .'">'. $device->_name .'</div><div class="id">'. $device->_id .'</div><div class="pk">'. MobileDevice::formatPrivateKey ($device->_pk) .'</div><div class="icons">'. implode ('', $icons) .'</div></li>';
-		}
-		
-		$size = sizeof ($list);
-		
-		$header = '<li id="_MOBILE_HEADER_" class="header" style="display: '. ($size ? 'block' : 'none') .';"><div class="name">'. __ ('Name') .'</div><div class="id">'. __ ('Identifier') .'</div><div class="pk">'. __ ('Private Key') .'</div><div class="icons">'. __ ('Actions') .'</div></li>';
-	
-		array_unshift ($list, $header);
-		
-		$button = '<div style="width: 750px; text-align: center;"><input type="button" class="buttonToRegisterMobileDevice" value="'. __ ('Register New Device') .'" onclick="JavaScript: registerDevice ();" /></div>';
+		$button = '<div style="width: 750px; text-align: center;"><input type="button" class="buttonToRegisterMobileDevice" value="'. __ ('Register New Device') .'" onclick="JavaScript: registerDevice ();" /></div>';			
 	}
-	
-	$none = '<li id="_MOBILE_NONE_" style="background: url(titan.php?target=loadFile&file=interface/alert/warning.gif) no-repeat left; display: '. ($size ? 'none' : 'block') .';"><div style="margin-left: 50px; font-weight: bold;">'. __ ('No one mobile device is enable to access your data!') .'</div></li>';
-	
-	array_unshift ($list, $none);
 	?>
 	
 	Modalbox.show ('<ul id="_MOBILE_DEVICES_" class="mobileDevices"><?= implode ('', $list) ?></ul><?= $button ?>', { title: '<?= __ ('Mobile Devices') ?>', width: 800 });
 	
-	hideWait ();
+	ajax.delay (function ()
+	{
+		var buffer = ajax.getMobileDevices ();
+		
+		eval (buffer);
+		
+		if (devices.length)
+		{
+			$('_MOBILE_NONE_').style.display = 'none';
+			$('_MOBILE_HEADER_').style.display = 'block';
+			
+			for (var i = 0; i < devices.length; i++)
+				addDeviceLine (devices [i]);
+		}
+		
+		Modalbox.resizeToContent ();
+		
+		hideWait ();
+	});
 	
 	return false;
 }
@@ -360,11 +353,11 @@ function registerDevice ()
 	
 	var buffer = ajax.registerDevice (name);
 	
-	var array = new Array ();
+	var device = null;
 	
 	eval (buffer);
 	
-	if (!array.length)
+	if (device == null)
 	{
 		ajax.showMessages ();
 		
@@ -378,28 +371,37 @@ function registerDevice ()
 	$('_MOBILE_NONE_').style.display = 'none';
 	$('_MOBILE_HEADER_').style.display = 'block';
 	
+	addDeviceLine (device);
+	
+	Modalbox.resizeToContent ();
+	
+	hideWait ();
+}
+
+function addDeviceLine (device)
+{
 	var div, li, img;
 	
 	li = document.createElement ('li');
 	
-	li.id = '_MOBILE_' + array [1];
+	li.id = '_MOBILE_' + device.id;
 	
 	div = document.createElement ('div');
 	div.className = 'name';
-	div.title = array [0];
-	div.innerHTML = array [0];
+	div.title = device.name;
+	div.innerHTML = device.name;
 	
 	li.appendChild (div);
 	
 	div = document.createElement ('div');
 	div.className = 'id';
-	div.innerHTML = array [1];
+	div.innerHTML = device.id;
 	
 	li.appendChild (div);
 	
 	div = document.createElement ('div');
 	div.className = 'pk';
-	div.innerHTML = array [2];
+	div.innerHTML = device.pk;
 	
 	li.appendChild (div);
 	
@@ -409,7 +411,7 @@ function registerDevice ()
 	img = document.createElement ('img');
 	img.src = 'titan.php?target=loadFile&file=interface/icon/qr.gif';
 	img.border = '0';
-	img.onclick = function () { generateQrCode (array [1], array [2].replace(/[^0-9A-Z]/g, '')); };
+	img.onclick = function () { generateQrCode (device.id, device.pk.replace(/[^0-9A-Z]/g, '')); };
 	img.title = '<?= __ ('Register by QR Code') ?>';
 	
 	div.appendChild (img);
@@ -417,7 +419,7 @@ function registerDevice ()
 	img = document.createElement ('img');
 	img.src = 'titan.php?target=loadFile&file=interface/icon/delete.gif';
 	img.border = '0';
-	img.onclick = function () { unregisterDevice (array [1]); };
+	img.onclick = function () { unregisterDevice (device.id); };
 	img.title = '<?= __ ('Unregister Device') ?>';
 	
 	div.appendChild (img);
@@ -425,9 +427,5 @@ function registerDevice ()
 	li.appendChild (div);
 	
 	$('_MOBILE_DEVICES_').appendChild (li);
-	
-	Modalbox.resizeToContent ();
-	
-	hideWait ();
 }
 </script>

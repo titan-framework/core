@@ -755,9 +755,15 @@ try
 				
 				switch (@$_GET ['function'])
 				{
-					case 'getDeviceOwner':
+					case 'auth':
 						
-						require $corePath .'api/getDeviceOwner.php';
+						require $corePath .'api/auth.php';
+						
+						break;
+					
+					case 'alerts':
+						
+						require $corePath .'api/alerts.php';
 						
 						break;
 				}

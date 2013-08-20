@@ -1,4 +1,5 @@
 * text=auto !eol
+api/alerts.php -text
 api/auth.php -text
 assembly/breadcrumb.php -text
 assembly/menu.php -text

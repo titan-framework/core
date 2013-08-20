@@ -46,9 +46,15 @@ abstract class ApiAuth
 		return $this->user;
 	}
 	
-	public function hasContext ($auth)
+	public function hasContext ()
 	{
-		return in_array ($auth, $this->context);
+		$args = func_get_args ();
+		
+		foreach ($args as $trash => $auth)
+			if (in_array ($auth, $this->context))
+				return TRUE;
+		
+		return FALSE;
 	}
 	
 	abstract public function authenticate ();
@@ -214,7 +220,7 @@ class EmbrapaAuth extends ApiAuth
 		if (sizeof (array_intersect (array (self::C_CLIENT, self::C_CLIENT_USER), $this->context)) && ($this->clientId == '' || $this->clientSignature == ''))
 			throw new ApiException (__ ('Client credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: Client credentials are incorrect or empty!');
 		
-		if (sizeof (array_intersect (array (self::C_APP), $this->context)) && ($this->clientId == '' || $this->clientSignature == ''))
+		if (sizeof (array_intersect (array (self::C_APP), $this->context)) && ($this->name == '' || $this->token == ''))
 			throw new ApiException (__ ('Application credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: Application credentials are incorrect or empty!');
 	}
 	
