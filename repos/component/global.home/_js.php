@@ -275,7 +275,7 @@ function showMobileDevices ()
 	showWait ();
 	
 	<?
-	$list = array ('<li id="_MOBILE_LOADING_" style="background: url(titan.php?target=loadFile&file=interface/alert/info.gif) no-repeat left; display: block;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('Loading! Please, wait...') .'</div></li>',
+	$list = array ('<li id="_MOBILE_LOADING_" style="background: url(titan.php?target=loadFile&file=interface/alert/info.gif) no-repeat left; display: block;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('Please, wait! Loading...') .'</div></li>',
 				   '<li id="_MOBILE_NONE_" style="background: url(titan.php?target=loadFile&file=interface/alert/warning.gif) no-repeat left; display: none;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('No one mobile device is enable to access your data!') .'</div></li>');
 	$button = '';
 	

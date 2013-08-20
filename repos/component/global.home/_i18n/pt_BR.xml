@@ -42,7 +42,7 @@
 	/>
 	<message from="Register by QR Code" to="Registrar por QR Code" />
 	<message from="Unregister Device" to="Remover Dispositivo" />
-	
+	<message from="Please, wait! Loading..." to="Por favor, aguarde! Carregando..."
 	
 	<!-- _ajax -->
 	<message from="Sequences of characters [[1]] may not be used in the password!" to="As sequências de caracteres [[1]] não podem ser utilizadas na senha!" />
