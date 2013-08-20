@@ -1,5 +1,5 @@
 * text=auto !eol
-api/getDeviceOwner.php -text
+api/auth.php -text
 assembly/breadcrumb.php -text
 assembly/menu.php -text
 assembly/section.php -text
