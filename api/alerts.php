@@ -22,7 +22,7 @@ foreach ($array as $key => $value)
 {
 	$icon = strtoupper (array_shift (explode ('.', array_pop (explode ('/', $value ['_ICON_'])))));
 	
-	$json [$key] = (object) array ('message' => $value ['_MESSAGE_'], 'icon' => $icon, 'read' => $value ['_READ_']);
+	$json [] = (object) array ('id' => $key, 'message' => $value ['_MESSAGE_'], 'icon' => $icon, 'read' => $value ['_READ_']);
 }
 
 header ('Content-Type: application/json');
