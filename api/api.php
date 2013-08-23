@@ -3,10 +3,15 @@ try
 {
 	set_error_handler ('apiPhpError', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 	
+	if (!isset ($_GET ['uri']))
+		throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid URI!');
+	
 	if (isset ($_GET['language']) && trim ($_GET['language']) != '')
 		Localization::singleton ()->setLanguage ($_GET['language']);
 	
-	switch (@$_GET ['function'])
+	$_uri = explode ('/', $_GET['uri']);
+	
+	switch ($_uri [0])
 	{
 		case 'auth':
 			
@@ -21,7 +26,22 @@ try
 			break;
 		
 		default:
-			throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid URI!');
+			
+			$_section = Business::singleton ()->getSection ($_uri [0]);
+			
+			$_service = str_replace ('..', '', trim (@$_uri [1]));
+			
+			if (!is_object ($_section) || $_service == '')
+				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid URI!');
+			
+			$file = $_section->getComponentPath () .'_api'. DIRECTORY_SEPARATOR . $_service .'.php';
+			
+			if (!file_exists ($file))
+				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid URI!');
+			
+			Business::singleton ()->setCurrent ($_section);
+			
+			require $file;
 	}
 	
 	restore_error_handler ();

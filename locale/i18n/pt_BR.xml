@@ -53,11 +53,11 @@
 	<message from="December" to="Dezembro" />
 
 	<message from="Sunday" to="Domingo" />
-	<message from="Monday" to="Segunda" />
-	<message from="Tuesday" to="Terça" />
-	<message from="Wednesday" to="Quarta" />
-	<message from="Thursday" to="Quinta" />
-	<message from="Friday" to="Sexta" />
+	<message from="Monday" to="Segunda-Feira" />
+	<message from="Tuesday" to="Terça-Feira" />
+	<message from="Wednesday" to="Quarta-Feira" />
+	<message from="Thursday" to="Quinta-Feira" />
+	<message from="Friday" to="Sexta-Feira" />
 	<message from="Saturday" to="Sábado" />
 
 	<!-- 2. General Errors/Messages -->
