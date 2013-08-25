@@ -16,7 +16,7 @@ if ($auth->hasContext ('USER', 'USER-BY-ID', 'USER-BY-MAIL', 'CLIENT-AS-USER'))
 	if (!is_integer ($user) || !$user)
 		throw new ApiException ('Invalid user!', ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED, 'The application API must be configured to client connect as user (add CLIENT-AS-USER context).');
 	
-	$sth = Database::singleton ()->prepare ("SELECT _name AS name, _email AS mail FROM _user WHERE _id = :id LIMIT 1");
+	$sth = Database::singleton ()->prepare ("SELECT _id AS id, _login AS login, _name AS name, _email AS mail FROM _user WHERE _id = :id LIMIT 1");
 	
 	$sth->bindParam (':id', $user, PDO::PARAM_INT);
 	

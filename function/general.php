@@ -121,12 +121,11 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 		if (!$width || !$height)
 		{
 			if (!$width && !$height)
-				if ($atualWidth > $atualHeight)
-					$width = 100;
-				else
-					$height = 100;
-
-			if ($width && !$height)
+			{
+				$width = $atualWidth;
+				$height = $atualHeight;
+			}
+			elseif ($width && !$height)
 				$height = ($atualHeight * $width) / $atualWidth;
 			else
 				$width = ($atualWidth * $height) / $atualHeight;

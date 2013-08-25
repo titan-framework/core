@@ -768,13 +768,24 @@ try
 			break;
 	}
 }
-catch (Exception $e)
+catch (ApiException $e)
+{
+	header ('HTTP/1.1 '. $e->getCode () .' '. ApiException::$status [$e->getCode ()]);
+	header ('Content-Type: application/json');
+	
+	$array = array ('ERROR' => $e->getTitanErrorCode (),
+					'MESSAGE' => $e->getMessage (),
+					'TECHNICAL' => $e->getTitanTechnical ());
+	
+	echo json_encode ($array);
+}
+catch (PDOException $e)
 {
 	header ('HTTP/1.1 500 Internal Server Error');
 	
 	echo $e->getMessage ();
 }
-catch (PDOException $e)
+catch (Exception $e)
 {
 	header ('HTTP/1.1 500 Internal Server Error');
 	

@@ -142,6 +142,9 @@ class ApiException extends Exception
 	const ERROR_APP_AUTH = 'ERROR_APP_AUTH';
 	const ERROR_CLIENT_AUTH = 'ERROR_CLIENT_AUTH';
 	const ERROR_USER_AUTH = 'ERROR_USER_AUTH';
+	const ERROR_RESOURCE_MISSING = 'ERROR_RESOURCE_MISSING';
+	const ERROR_SYSTEM = 'ERROR_SYSTEM';
+	const ERROR_DB = 'ERROR_DB';
 	
 	private $titanErrorCode = '';
 	private $titanTechnical = '';
