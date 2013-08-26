@@ -27,12 +27,25 @@ try
 		
 		default:
 			
+			if (!Business::singleton ()->sectionExists ($_uri [0]))
+				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
+			
 			$_section = Business::singleton ()->getSection ($_uri [0]);
 			
 			$_service = str_replace ('..', '', trim (@$_uri [1]));
 			
 			if (!is_object ($_section) || $_service == '')
-				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid URI!');
+				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
+			
+			$_action = $_section->getAction (Action::TSCRIPT);
+			
+			Business::singleton ()->setCurrent ($_section, $_action);
+			
+			if (file_exists ($_section->getCompPath () .'_class.php'))
+				include $_section->getCompPath () .'_class.php';
+			
+			if (file_exists ($_section->getCompPath () .'_function.php'))
+				include $_section->getCompPath () .'_function.php';
 			
 			$file = $_section->getComponentPath () .'_api'. DIRECTORY_SEPARATOR . $_service .'.php';
 			
