@@ -1,10 +1,21 @@
 <?php
+
 try
 {
 	set_error_handler ('apiPhpError', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 	
 	if (!isset ($_GET ['uri']))
 		throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid URI!');
+	
+	if (!Api::isActive ())
+		throw new ApiException (__ ('Application API is not active!'));
+	
+	$_auth = Api::singleton ()->getActiveApp ();
+	
+	if (!is_object ($_auth))
+		throw new ApiException (__ ('Invalid credentials!'), ApiException::ERROR_APP_AUTH, ApiException::BAD_REQUEST, 'This application is not enable in system!');
+	
+	$_auth->authenticate ();
 	
 	if (isset ($_GET['language']) && trim ($_GET['language']) != '')
 		Localization::singleton ()->setLanguage ($_GET['language']);
@@ -25,6 +36,12 @@ try
 			
 			break;
 		
+		case 'alert':
+			
+			require $corePath .'api/alert.php';
+			
+			break;
+		
 		default:
 			
 			if (!Business::singleton ()->sectionExists ($_uri [0]))
@@ -37,9 +54,12 @@ try
 			if (!is_object ($_section) || $_service == '')
 				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 			
-			$_action = $_section->getAction (Action::TSCRIPT);
+			$_action = $_section->getAction (Action::TAPI);
 			
 			Business::singleton ()->setCurrent ($_section, $_action);
+			
+			foreach (Instance::singleton ()->getTypes () as $type => $path)
+				require_once $path . $type .'.php';
 			
 			if (file_exists ($_section->getCompPath () .'_class.php'))
 				include $_section->getCompPath () .'_class.php';
@@ -51,8 +71,6 @@ try
 			
 			if (!file_exists ($file))
 				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid URI!');
-			
-			Business::singleton ()->setCurrent ($_section);
 			
 			require $file;
 	}

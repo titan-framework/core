@@ -137,7 +137,7 @@ class Business
 		
 		$action = is_object ($action) ? $action->getName () : $action;
 		
-		$public = array ('_rss', '_script', '_job', '_modify');
+		$public = array ('_rss', '_script', '_job', '_modify', '_api');
 		
 		if ($section === FALSE)
 			$section = isset ($_GET ['toSection']) ? $_GET ['toSection'] : FALSE;

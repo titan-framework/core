@@ -2402,6 +2402,7 @@ repos/component/global.contact/reply.prepare.php -text
 repos/component/global.contact/view.php -text
 repos/component/global.contact/view.prepare.php -text
 repos/component/global.generic/_ajax.php -text
+repos/component/global.generic/_api/list.php -text
 repos/component/global.generic/_css.php -text
 repos/component/global.generic/_doc/.en_US.txt -text
 repos/component/global.generic/_doc/.es_ES.txt -text

@@ -286,6 +286,18 @@ class Section
 				$this->actions ['_lucene'] = $obj;
 				
 				return $obj;
+			
+			case Action::TAPI:
+				if (array_key_exists ('_api', $this->actions) && is_object ($this->actions ['_api']))
+					return $this->actions ['_api'];
+				
+				$obj = new Action (array ('label' => 'API', 'name' => '_api'), $this->getCompPath ());
+				
+				$obj->setFreeAccess (TRUE);
+				
+				$this->actions ['_api'] = $obj;
+				
+				return $obj;
 		}
 		
 		if (array_key_exists ($name, $this->actions))

@@ -90,6 +90,11 @@ abstract class Type
 		else
 			$this->setAssign (str_replace ('.', '__', $this->getTable () .'_'. $this->getName ()));
 		
+		if (array_key_exists ('on-api-as', $field))
+			$this->setApiColumn ($field ['on-api-as']);
+		else
+			$this->setApiColumn ($this->getColumn ());
+		
 		if (array_key_exists ('on-ldap-as', $field))
 			$this->setLdap ($field ['on-ldap-as']);
 		
@@ -173,6 +178,16 @@ abstract class Type
 	public function setColumn ($name)
 	{
 		$this->setName ($name);
+	}
+	
+	public function getApiColumn ()
+	{
+		return $this->api;
+	}
+	
+	public function setApiColumn ($name)
+	{
+		$this->api = $name;
 	}
 	
 	public function getLabel ()

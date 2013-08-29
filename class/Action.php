@@ -43,6 +43,7 @@ class Action
 	const TCURRENT  = '__CURRENT_ACTION__';
 	const TSCRIPT	= '__SCRIPT_ACTION__';
 	const TLUCENE	= '__LUCENE_ACTION__';
+	const TAPI		= '__API_ACTION__';
 	
 	const PREPARE	= '.prepare.php';
 	const VIEW		= '.php';

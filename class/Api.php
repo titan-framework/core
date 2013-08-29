@@ -7,8 +7,6 @@ class Api
 	
 	private $applications = array ();
 	
-	public $aaa;
-	
 	private final function __construct ()
 	{
 		$array = Instance::singleton ()->getApi ();
