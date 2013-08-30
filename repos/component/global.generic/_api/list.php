@@ -9,7 +9,14 @@ $view = new View ('api.xml', 'list.xml');
 
 $view->setPaginate (0);
 
-if (!$view->load ($_TIME ." < extract (epoch from _update)"))
+$update = $view->getField ('_API_UPDATE_UNIX_TIMESTAMP_');
+
+if (is_object ($update))
+	$columnUp = $update->getTable () .'.'. $update->getColumn ();
+else
+	$columnUp = $view->getTable () . '._update';
+
+if (!$view->load ($_TIME ." < extract (epoch from ". $columnUp .")"))
 	throw new Exception (__ ('Unable to load data!'));
 
 $json = array ();
@@ -24,7 +31,7 @@ while ($view->getItem ())
 		if ($field->getAssign () == '_API_UPDATE_UNIX_TIMESTAMP_')
 			$object [$field->getApiColumn ()] = $field->getUnixTime ();
 		else
-			$object [$field->getApiColumn ()] = Form::toText ($field);
+			$object [$field->getApiColumn ()] = $field->isEmpty () ? '' : Form::toText ($field);
 	
 	$json [] = (object) $object;
 }
