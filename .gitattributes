@@ -3000,6 +3000,7 @@ repos/type/global.Date/fromDb.php -text
 repos/type/global.Date/fromForm.php -text
 repos/type/global.Date/fromLdap.php -text
 repos/type/global.Date/fromSearch.php -text
+repos/type/global.Date/toApi.php -text
 repos/type/global.Date/toBind.php -text
 repos/type/global.Date/toDbMaker.php -text
 repos/type/global.Date/toForm.php -text
@@ -3068,6 +3069,7 @@ repos/type/global.File/toValue.php -text
 repos/type/global.Float/Float.php -text
 repos/type/global.Float/_js.php -text
 repos/type/global.Float/fromForm.php -text
+repos/type/global.Float/toApi.php -text
 repos/type/global.Float/toBind.php -text
 repos/type/global.Float/toDbMaker.php -text
 repos/type/global.Float/toForm.php -text

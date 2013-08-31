@@ -31,7 +31,7 @@ while ($view->getItem ())
 		if ($field->getAssign () == '_API_UPDATE_UNIX_TIMESTAMP_')
 			$object [$field->getApiColumn ()] = $field->getUnixTime ();
 		else
-			$object [$field->getApiColumn ()] = $field->isEmpty () ? '' : Form::toText ($field);
+			$object [$field->getApiColumn ()] = $field->isEmpty () ? '' : Form::toApi ($field);
 	
 	$json [] = (object) $object;
 }
