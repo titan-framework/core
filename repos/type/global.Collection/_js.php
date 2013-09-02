@@ -108,7 +108,8 @@ global.Collection.addRow = function (itemId, fieldId, file)
 	
 	row = document.createElement ('tr');
 	
-	row.appendChild (document.createElement('td'));
+	for (var i = 0 ; i < columns.length ; i++)
+		row.appendChild (document.createElement('td'));
 	
 	row.className = 'cSeparator';
 	
