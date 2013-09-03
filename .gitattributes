@@ -2926,6 +2926,7 @@ repos/type/global.Boolean/Boolean.php -text
 repos/type/global.Boolean/_js.php -text
 repos/type/global.Boolean/fromDb.php -text
 repos/type/global.Boolean/fromForm.php -text
+repos/type/global.Boolean/toApi.php -text
 repos/type/global.Boolean/toBind.php -text
 repos/type/global.Boolean/toDbMaker.php -text
 repos/type/global.Boolean/toForm.php -text
@@ -2962,6 +2963,7 @@ repos/type/global.Cnpj/toValue.php -text
 repos/type/global.Collection/Collection.php -text
 repos/type/global.Collection/_ajax.php -text
 repos/type/global.Collection/_js.php -text
+repos/type/global.Collection/toApi.php -text
 repos/type/global.Collection/toForm.php -text
 repos/type/global.Collection/toHtml.php -text
 repos/type/global.Collection/toText.php -text
@@ -3092,6 +3094,7 @@ repos/type/global.Money/fromDb.php -text
 repos/type/global.Money/toHtml.php -text
 repos/type/global.Multiply/Multiply.php -text
 repos/type/global.Multiply/_js.php -text
+repos/type/global.Multiply/toApi.php -text
 repos/type/global.Multiply/toForm.php -text
 repos/type/global.Multiply/toHtml.php -text
 repos/type/global.Multiply/toList.php -text
