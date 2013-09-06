@@ -7,6 +7,11 @@ class Api
 	
 	private $applications = array ();
 	
+	const GET = 'GET';
+	const POST = 'POST';
+	const PUT = 'PUT';
+	const DELETE = 'DELETE';
+	
 	private final function __construct ()
 	{
 		$array = Instance::singleton ()->getApi ();
@@ -93,5 +98,10 @@ class Api
 				return $app;
 		
 		return NULL;
+	}
+	
+	static public function getHttpRequestMethod ()
+	{
+		return $_SERVER['REQUEST_METHOD'];
 	}
 }

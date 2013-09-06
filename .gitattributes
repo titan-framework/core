@@ -1,4 +1,5 @@
 * text=auto !eol
+api/alert.php -text
 api/alerts.php -text
 api/api.php -text
 api/auth.php -text
