@@ -12,16 +12,18 @@ $id = (int) $_uri [1];
 
 if (Api::getHttpRequestMethod () == Api::DELETE)
 {
-	Alert::singleton ()->delete ($id, $user);
+	if (!Alert::singleton ()->delete ($id, $user))
+		throw new ApiException (__ ('Alert does not exists!'), ApiException::ERROR_NOT_FOUND, ApiException::NOT_FOUND);
 	
 	exit ();
 }
 
 if (Api::getHttpRequestMethod () == Api::POST)
 {
-	Alert::singleton ()->read ($id, $user);
+	if (!Alert::singleton ()->read ($id, $user))
+		throw new ApiException (__ ('Alert does not exists!'), ApiException::ERROR_NOT_FOUND, ApiException::NOT_FOUND);
 	
 	exit ();
 }
 
-throw new ApiException (__ ('Invalid URI request method!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
+throw new ApiException (__ ('Invalid URI request method!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::METHOD_NOT_ALLOWED);
