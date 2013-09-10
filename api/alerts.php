@@ -5,6 +5,9 @@ $user = $_auth->getUser ();
 if (!is_integer ($user) || !$user)
 	throw new ApiException ('Invalid user!', ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED, 'The application API must be configured to client connect as user (add CLIENT-AS-USER context).');
 
+if (Api::getHttpRequestMethod () != Api::GET)
+	throw new ApiException (__ ('Invalid URI request method!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::METHOD_NOT_ALLOWED);
+
 $array = Alert::singleton ()->getAlerts ($user);
 
 $json = array ();
