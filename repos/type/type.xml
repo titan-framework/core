@@ -17,6 +17,7 @@
 	<type name="Edit" component="global.Edit" />
 	<type name="Enum" component="global.Enum" />
 	<type name="Radio" component="global.Radio" />
+	<type name="CheckBox" component="global.CheckBox" />
 	<type name="Fck" component="global.Fck" />
 	<type name="Money" component="global.Money" />
 	<type name="Password" component="global.Password" />

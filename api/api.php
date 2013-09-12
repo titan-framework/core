@@ -13,7 +13,7 @@ try
 	$_auth = Api::singleton ()->getActiveApp ();
 	
 	if (!is_object ($_auth))
-		throw new ApiException (__ ('Invalid credentials!'), ApiException::ERROR_APP_AUTH, ApiException::BAD_REQUEST, 'This application is not enable in system!');
+		throw new ApiException (__ ('Invalid credentials!'), ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED, 'This application is not enable in system!');
 	
 	$_auth->authenticate ();
 	
