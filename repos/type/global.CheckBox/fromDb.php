@@ -1,5 +1,5 @@
 <?
-$field->setValue (json_decode ($value));
+$field->setValue (explode (';', $value));
 
 return $field;
 ?>
