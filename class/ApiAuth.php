@@ -70,6 +70,8 @@ abstract class ApiAuth
 	abstract static protected function sanitizeParam ($param, $value);
 	
 	abstract public static function getHeaders ();
+	
+	abstract public function registerGoogleCloudMessage ($gcm);
 }
 
 /**
@@ -136,6 +138,8 @@ class EmbrapaAuth extends ApiAuth
 			
 			if ($this->clientSignature != self::encrypt ($this->timestamp, $client->id, $client->pk))
 				throw new ApiException (__ ('Invalid client credentials!'), ApiException::ERROR_CLIENT_AUTH, ApiException::UNAUTHORIZED);
+			
+			MobileDevice::registerDeviceAccess ($this->clientId);
 			
 			if (in_array (self::C_CLIENT_USER, $this->context))
 				$this->user = $client->user;
@@ -270,6 +274,18 @@ class EmbrapaAuth extends ApiAuth
 			return FALSE;
 		
 		return TRUE;
+	}
+	
+	public function registerGoogleCloudMessage ($gcm)
+	{
+		try
+		{
+			return MobileDevice::registerGoogleCloudMessage ($this->clientId, $gcm);
+		}
+		catch (Exception $e)
+		{
+			throw new ApiException ($e->getMessage (), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
+		}
 	}
 }
 ?>

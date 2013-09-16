@@ -42,6 +42,12 @@ try
 			
 			break;
 		
+		case 'gcm':
+			
+			require $corePath .'api/gcm.php';
+			
+			break;
+		
 		default:
 			
 			if (!Business::singleton ()->sectionExists ($_uri [0]))

@@ -105,4 +105,40 @@ class MobileDevice
 		
 		return $sth->fetch (PDO::FETCH_OBJ);
 	}
+	
+	public static function registerDeviceAccess ($id)
+	{
+		$id = (int) preg_replace ('/[^0-9]/i', '', $id);
+		
+		if (!is_integer ($id) || !$id)
+			throw new Exception ('Invalid value to parameter Client ID!');
+		
+		$db = Database::singleton ();
+		
+		$sth = $db->prepare ("UPDATE _mobile SET _access = now(), _counter = _counter + 1 WHERE _id = :id");
+		
+		$sth->bindParam (':id', $id, PDO::PARAM_INT);
+		
+		return $sth->execute ();
+	}
+	
+	public static function registerGoogleCloudMessage ($id, $gcm)
+	{
+		$id = (int) preg_replace ('/[^0-9]/i', '', $id);
+		
+		if (!is_integer ($id) || !$id)
+			throw new Exception ('Invalid value to parameter Client ID!');
+		
+		if (trim ($gcm) == '')
+			throw new Exception ('Invalid value to Registration ID of Google Cloud Message!');
+		
+		$db = Database::singleton ();
+		
+		$sth = $db->prepare ("UPDATE _mobile SET _gcm = :gcm, _update = now() WHERE _id = :id");
+		
+		$sth->bindParam (':id', $id, PDO::PARAM_INT);
+		$sth->bindParam (':gcm', $gcm, PDO::PARAM_STR);
+		
+		return $sth->execute ();
+	}
 }
