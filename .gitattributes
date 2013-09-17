@@ -2138,6 +2138,7 @@ interface/icon/grey/alerts.gif -text
 interface/icon/grey/camera.gif -text
 interface/icon/grey/cancel.gif -text
 interface/icon/grey/confirm.gif -text
+interface/icon/grey/confirmed.gif -text
 interface/icon/grey/copy.gif -text
 interface/icon/grey/create.gif -text
 interface/icon/grey/delete.gif -text

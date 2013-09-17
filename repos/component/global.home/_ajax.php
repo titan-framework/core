@@ -404,7 +404,7 @@ class Ajax
 			$sth->execute ();
 			
 			while ($device = $sth->fetch (PDO::FETCH_OBJ))
-				$list [] = '{ name: "'. $device->_name .'", id: "'. $device->_id .'", pk: "'. MobileDevice::formatPrivateKey ($device->_pk) .'" }';
+				$list [] = '{ name: "'. $device->_name .'", id: "'. $device->_id .'", pk: "'. MobileDevice::formatPrivateKey ($device->_pk) .'", sync: '. (is_null ($device->_access) ? 'false' : 'true') .' }';
 			
 			return 'devices = new Array ('. implode (', ', $list) .');';
 		}

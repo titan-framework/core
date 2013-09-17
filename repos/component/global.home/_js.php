@@ -281,7 +281,7 @@ function showMobileDevices ()
 	
 	if (MobileDevice::isActive ())
 	{
-		array_unshift ($list, '<li id="_MOBILE_HEADER_" class="header" style="display: none;"><div class="name">'. __ ('Name') .'</div><div class="id">'. __ ('Identifier') .'</div><div class="pk">'. __ ('Private Key') .'</div><div class="icons">'. __ ('Actions') .'</div></li>');
+		array_unshift ($list, '<li id="_MOBILE_HEADER_" class="header" style="display: none;"><div class="name">'. __ ('Name') .'</div><div class="id">'. __ ('Identifier') .'</div><div class="pk">'. __ ('Private Key') .'</div><div class="sync"></div><div class="icons">'. __ ('Actions') .'</div></li>');
 		
 		$button = '<div style="width: 750px; text-align: center;"><input type="button" class="buttonToRegisterMobileDevice" value="'. __ ('Register New Device') .'" onclick="JavaScript: registerDevice ();" /></div>';			
 	}
@@ -408,6 +408,18 @@ function addDeviceLine (device)
 	div = document.createElement ('div');
 	div.className = 'pk';
 	div.innerHTML = device.pk;
+	
+	li.appendChild (div);
+	
+	div = document.createElement ('div');
+	div.className = 'sync';
+	
+	img = document.createElement ('img');
+	img.src = 'titan.php?target=loadFile&file=interface/icon/' + (device.sync ? '' : 'grey/') + 'confirmed.gif';
+	img.border = '0';
+	img.title = device.sync ? '<?= __ ('Paired device') ?>' : '<?= __ ('Device is not synchronized') ?>';
+	
+	div.appendChild (img);
 	
 	li.appendChild (div);
 	

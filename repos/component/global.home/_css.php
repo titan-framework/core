@@ -133,7 +133,7 @@ ul.mobileDevices li div.id
 
 ul.mobileDevices li div.pk
 {
-	width: 200px;
+	width: 215px;
 	font-family: "Courier New", Courier, monospace;
 	font-weight: bold;
 	font-size: 12px;
@@ -142,14 +142,25 @@ ul.mobileDevices li div.pk
 
 ul.mobileDevices li.header div.pk
 {
-	width: 200px;
 	font-family: "Lucida Grande", Arial, sans-serif;
 	font-weight: bold;
+	letter-spacing: normal;
+}
+
+ul.mobileDevices li div.sync
+{
+	width: 35px;
+	text-align: center;
+}
+
+ul.mobileDevices li div.sync img
+{
+	margin: 5px;
 }
 
 ul.mobileDevices li div.icons
 {
-	width: 150px;
+	width: 100px;
 }
 
 ul.mobileDevices li div.icons img
