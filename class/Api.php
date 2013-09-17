@@ -104,4 +104,26 @@ class Api
 	{
 		return $_SERVER['REQUEST_METHOD'];
 	}
+	
+	public function getApp ($name = FALSE)
+	{
+		if ($name !== FALSE)
+		{
+			if (!array_key_exists ($name, $this->applications))
+				return NULL;
+			
+			return $this->applications [$name];
+		}
+		
+		$app = each ($this->applications);
+		
+		if ($app === FALSE)
+		{
+			reset ($this->applications);
+			
+			return NULL;
+		}
+		
+		return $app ['value'];
+	}
 }

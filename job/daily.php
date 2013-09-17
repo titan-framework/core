@@ -1,4 +1,5 @@
-<?
+<?php
+
 if (Alert::isActive ())
 {
 	Alert::singleton ()->sendMail ();
@@ -8,4 +9,3 @@ if (Alert::isActive ())
 
 if (Backup::singleton ()->isActive ())
 	Backup::clear ();
-?>

@@ -2307,6 +2307,7 @@ interface/menu/version.png -text
 interface/menu/view.png -text
 interface/swf/top.swf -text
 job/daily.php -text
+job/minutely.php -text
 js/actb.js -text
 js/actb_fck.js -text
 js/ajax-dynamic-content.js -text

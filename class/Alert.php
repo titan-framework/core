@@ -108,6 +108,58 @@ class Alert
 		return $array;
 	}
 	
+	public function getAlertMessage ($id, $user, $useUntil = TRUE)
+	{
+		$sql = "SELECT a.*, au._read, at._name AS author, av._name AS user,
+				CASE WHEN a._until IS NULL THEN to_char (now(), 'MM-DD-YYYY') ELSE to_char (a._until, 'MM-DD-YYYY') END AS f_until, 
+				extract (epoch from a._until) as u_until,
+				to_char (a._create, 'HH24-MI-SS-MM-DD-YYYY') AS f_create
+				FROM _alert_user au 
+				INNER JOIN _alert a ON a._id = au._alert
+				LEFT JOIN _user at ON at._id = a._user
+				INNER JOIN _user av ON av._id = au._user
+				WHERE au._user = :user AND a._id = :id";
+		
+		if ($useUntil)
+			$sql .= " AND (a._until IS NULL OR a._until > CURRENT_TIMESTAMP)";
+		
+		$sth = Database::singleton ()->prepare ($sql);
+		
+		$sth->bindParam (':id', $id, PDO::PARAM_INT);
+		$sth->bindParam (':user', $user, PDO::PARAM_INT);
+		
+		$sth->execute ();
+		
+		$array = array ();
+		
+		$dTags = array ('[SYSTEM]' => Instance::singleton ()->getName (),
+						'[URL]' => Instance::singleton ()->getUrl ());
+		
+		$obj = $sth->fetch (PDO::FETCH_OBJ);
+		
+		if (!is_object ($obj) || !array_key_exists ($obj->_template, $this->templates))
+			return '';
+		
+		$tags = $dTags;
+		
+		$tags ['[AUTHOR]'] = is_null ($obj->author) ? Instance::singleton ()->getName () : $obj->author;
+		$tags ['[USER]'] = $obj->user;
+		$tags ['[DAYS_MISSING]'] = (int) $obj->u_until <= 0 ? 0 : floor (($obj->u_until - time ()) / (60 * 60 * 24));
+		
+		$u = explode ('-', $obj->f_until);
+		$tags ['[UNTIL]'] = strftime ('%x', mktime (0, 0, 0, (int) $u [0], (int) $u [1], (int) $u [2]));
+		
+		$d = explode ('-', $obj->f_create);
+		$tags ['[DATE]'] = strftime ('%c', mktime ((int) $d [0], (int) $d [1], (int) $d [2], (int) $d [3], (int) $d [4], (int) $d [5]));
+		
+		$uTags = unserialize ($obj->_parameters);
+		
+		if (is_array ($uTags))
+			$tags = array_merge ($tags, $uTags);
+		
+		return str_replace (array_keys ($tags), $tags, $this->getFromTemplate ($obj->_template, 'message'));
+	}
+	
 	private function getFromTemplate ($template, $attribute)
 	{
 		if (!array_key_exists ($template, $this->templates))
@@ -471,6 +523,42 @@ class Alert
 			self::$active = Database::tableExists ('_alert');
 		 
 		 return self::$active;
+	}
+	
+	public static function sendMobileNotification ()
+	{
+		if (!self::isActive () || !MobileDevice::isActive () || !Api::isActive ())
+			return FALSE;
+		
+		$db = Database::singleton ();
+		
+		$mark = $db->prepare ("UPDATE _alert_user SET _mobile = B'1' WHERE _alert = :id AND _user = :user");
+		
+		$sql = "SELECT _alert AS id, _user AS user FROM _alert_user WHERE _mobile = B'0' AND _read = B'0' AND _delete = B'0' ORDER BY _alert DESC";
+		
+		$sth = $db->prepare ($sql);
+		
+		$sth->execute ();
+		
+		while ($obj = $sth->fetch (PDO::FETCH_OBJ))
+		{
+			$message = self::singleton ()->getAlertMessage ($obj->id, $obj->user);
+			
+			if (trim ($message) == '')
+				continue;
+			
+			while ($app = Api::singleton ()->getApp ())
+			{
+				if (!$app->sendAlerts ())
+					continue;
+				
+				$data = array ('id' => $obj->id, 'message' => $message);
+				
+				$app->sendNotification ($obj->user, $data);
+				
+				$mark->execute (array (':id' => $obj->id, ':user' => $obj->user));
+			}
+		}
 	}
 }
 ?>

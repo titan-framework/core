@@ -7,6 +7,10 @@ abstract class ApiAuth
 	
 	protected $token;
 	
+	protected $gcmApiKey = NULL;
+	
+	protected $sendAlerts = FALSE;
+	
 	protected $context = array ();
 	
 	protected static $headers = NULL;
@@ -39,6 +43,12 @@ abstract class ApiAuth
 		
 		if (array_key_exists ('request-timeout', $app))
 			$this->timeout = (int) preg_replace ('/[^0-9]/i', '', $app ['request-timeout']);
+		
+		if (array_key_exists ('gcm-api-key', $app))
+			$this->gcmApiKey = trim ($app ['gcm-api-key']);
+		
+		if (array_key_exists ('send-alerts', $app))
+			$this->sendAlerts = strtoupper (trim ($app ['send-alerts'])) == 'TRUE' ? TRUE : FALSE;
 	}
 	
 	public function getUser ()
@@ -57,6 +67,11 @@ abstract class ApiAuth
 		return FALSE;
 	}
 	
+	public function sendAlerts ()
+	{
+		return $this->sendAlerts;
+	}
+	
 	abstract public function authenticate ();
 	
 	abstract protected function loadParamsByHeaders ();
@@ -65,13 +80,15 @@ abstract class ApiAuth
 	
 	abstract public function isActive ();
 	
-	abstract static protected function encrypt ($timestamp, $id, $signature);
+	// abstract static protected function encrypt ($timestamp, $id, $signature);
 	
-	abstract static protected function sanitizeParam ($param, $value);
+	// abstract static protected function sanitizeParam ($param, $value);
 	
-	abstract public static function getHeaders ();
+	// abstract public static function getHeaders ();
 	
-	abstract public function registerGoogleCloudMessage ($gcm);
+	abstract public function registerGoogleCloudMessage ($gcmRegistrationId);
+	
+	abstract public function sendNotification ($user, $message);
 }
 
 /**
@@ -276,16 +293,34 @@ class EmbrapaAuth extends ApiAuth
 		return TRUE;
 	}
 	
-	public function registerGoogleCloudMessage ($gcm)
+	public function registerGoogleCloudMessage ($gcmRegistrationId)
 	{
 		try
 		{
-			return MobileDevice::registerGoogleCloudMessage ($this->clientId, $gcm);
+			return MobileDevice::registerGoogleCloudMessage ($this->clientId, $gcmRegistrationId);
 		}
 		catch (Exception $e)
 		{
 			throw new ApiException ($e->getMessage (), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 		}
+	}
+	
+	public function sendNotification ($user, $message)
+	{
+		if (is_integer ($user))
+			$user = array ($user);
+		
+		if (!is_array ($user) || !sizeof ($user) || !is_array ($message) || !sizeof ($message))
+			return FALSE;
+		
+		$sth = Database::singleton ()->prepare ("SELECT _gcm FROM _mobile WHERE _user IN (". implode (",", $user) .") AND _gcm IS NOT NULL");
+		
+		$sth->execute ();
+		
+		$ids = $sth->fetchAll (PDO::FETCH_COLUMN);
+		
+		if (sizeof ($ids))
+			MobileDevice::sendNotification ($this->gcmApiKey, $ids, $message);
 	}
 }
 ?>

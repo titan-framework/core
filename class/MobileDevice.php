@@ -141,4 +141,29 @@ class MobileDevice
 		
 		return $sth->execute ();
 	}
+	
+	public static function sendNotification ($apiKey, $ids, $message)
+	{
+		if (trim ($apiKey) == '' || !is_array ($ids) || !sizeof ($ids) || (!is_array ($message) && !is_object ($message)))
+			return FALSE;
+		
+		$headers = array ('Content-Type: application/json', 'Authorization: key='. $apiKey);
+		
+		$data = array ('data' => $message, 'registration_ids' => $ids);
+		
+		$ch = curl_init ();
+		
+		curl_setopt ($ch, CURLOPT_HTTPHEADER, $headers); 
+		curl_setopt ($ch, CURLOPT_URL, 'https://android.googleapis.com/gcm/send');
+		curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt ($ch, CURLOPT_POSTFIELDS, json_encode ($data));
+		
+		$response = curl_exec ($ch);
+		
+		curl_close ($ch);
+		
+		return $response;
+	}
 }
