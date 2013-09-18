@@ -9,4 +9,11 @@ if (!$_auth->hasContext ('CLIENT', 'CLIENT-AS-USER'))
 if (!isset ($_POST ['gcm']) || trim ($_POST ['gcm']) == '')
 	throw new ApiException (__ ('Registration ID of Google Cloud Message for device is missing or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 
-$_auth->registerGoogleCloudMessage ($_POST ['gcm']);
+$device = $_auth->registerGoogleCloudMessage ($_POST ['gcm']);
+
+if ($device === FALSE)
+	throw new ApiException (__ ('Impossible to registry device! Please, contact administrator.'), ApiException::ERROR_NOT_FOUND, ApiException::NOT_FOUND);
+
+header ('Content-Type: application/json');
+
+echo json_encode ($device);

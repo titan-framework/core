@@ -119,7 +119,18 @@ class MobileDevice
 		
 		$sth->bindParam (':id', $id, PDO::PARAM_INT);
 		
-		return $sth->execute ();
+		if (!$sth->execute ())
+			return FALSE;
+		
+		$sth = $db->prepare ("SELECT _name FROM _mobile WHERE _id = :id");
+		
+		$sth->bindParam (':id', $id, PDO::PARAM_INT);
+		
+		$sth->execute ();
+		
+		$obj = $sth->fetch (PDO::FETCH_OBJ);
+		
+		return $obj->_name;
 	}
 	
 	public static function registerGoogleCloudMessage ($id, $gcm)

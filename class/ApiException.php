@@ -146,6 +146,7 @@ class ApiException extends Exception
 	const ERROR_SYSTEM = 'ERROR_SYSTEM';
 	const ERROR_DB = 'ERROR_DB';
 	const ERROR_NOT_FOUND = 'ERROR_NOT_FOUND';
+	const ERROR_GENERIC = 'ERROR_GENERIC';
 	
 	private $titanErrorCode = '';
 	private $titanTechnical = '';
