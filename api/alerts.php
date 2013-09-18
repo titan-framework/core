@@ -10,8 +10,6 @@ if (Api::getHttpRequestMethod () != Api::GET)
 
 $array = Alert::singleton ()->getAlerts ($user);
 
-$array = array_reverse ($array, TRUE);
-
 $json = array ();
 
 foreach ($array as $key => $value)
