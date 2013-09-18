@@ -158,7 +158,7 @@ class MobileDevice
 		if (trim ($apiKey) == '' || !is_array ($ids) || !sizeof ($ids) || (!is_array ($message) && !is_object ($message)))
 			return FALSE;
 		
-		$headers = array ('Content-Type: application/json', 'Authorization: key='. $apiKey);
+		$headers = array ('Content-Type:application/json', 'Authorization:key='. $apiKey);
 		
 		$data = array ('data' => $message, 'registration_ids' => $ids);
 		

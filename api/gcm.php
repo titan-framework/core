@@ -16,4 +16,4 @@ if ($device === FALSE)
 
 header ('Content-Type: application/json');
 
-echo json_encode ($device);
+echo json_encode (array ('device' => $device));
