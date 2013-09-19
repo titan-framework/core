@@ -14,7 +14,7 @@ abstract class Type
 {
 	protected $value = NULL;
 	
-	protected $name	= '';
+	protected $name = '';
 	
 	protected $label = '';
 	
@@ -53,6 +53,10 @@ abstract class Type
 	protected $ldap = '';
 	
 	protected $doc = '';
+	
+	protected $api = '';
+	
+	protected $apiPlainText = TRUE;
 	
 	protected function __construct ($table, $field)
 	{
@@ -95,17 +99,20 @@ abstract class Type
 		else
 			$this->setApiColumn ($this->getColumn ());
 		
+		if (array_key_exists ('api-plain-text', $field))
+			$this->setApiPlainText (strtoupper (trim ($field ['api-plain-text'])) == 'FALSE' ? FALSE : TRUE);
+		
 		if (array_key_exists ('on-ldap-as', $field))
 			$this->setLdap ($field ['on-ldap-as']);
 		
 		if (array_key_exists ('required', $field))
-			$this->setRequired (strtoupper ($field ['required']) == 'TRUE' ? TRUE : FALSE);
+			$this->setRequired (strtoupper (trim ($field ['required'])) == 'TRUE' ? TRUE : FALSE);
 		
 		if (array_key_exists ('unique', $field))
-			$this->setUnique (strtoupper ($field ['unique']) == 'TRUE' ? TRUE : FALSE);
+			$this->setUnique (strtoupper (trim ($field ['unique'])) == 'TRUE' ? TRUE : FALSE);
 		
 		if (array_key_exists ('read-only', $field))
-			$this->setReadOnly (strtoupper ($field ['read-only']) == 'TRUE' ? TRUE : FALSE);
+			$this->setReadOnly (strtoupper (trim ($field ['read-only'])) == 'TRUE' ? TRUE : FALSE);
 		
 		if (array_key_exists ('style', $field))
 			$this->setStyle ($field ['style']);
@@ -114,16 +121,16 @@ abstract class Type
 			$this->setRestrict (explode (',', $field ['restrict']));
 		
 		if (array_key_exists ('loadable', $field))
-			$this->setLoadable (strtoupper ($field ['loadable']) == 'TRUE' ? TRUE : FALSE);
+			$this->setLoadable (strtoupper (trim ($field ['loadable'])) == 'TRUE' ? TRUE : FALSE);
 		
 		if (array_key_exists ('savable', $field))
-			$this->setSavable (strtoupper ($field ['savable']) == 'TRUE' ? TRUE : FALSE);
+			$this->setSavable (strtoupper (trim ($field ['savable'])) == 'TRUE' ? TRUE : FALSE);
 		
 		if (array_key_exists ('submittable', $field))
-			$this->setSubmittable (strtoupper ($field ['submittable']) == 'TRUE' ? TRUE : FALSE);
+			$this->setSubmittable (strtoupper (trim ($field ['submittable'])) == 'TRUE' ? TRUE : FALSE);
 		
 		if (array_key_exists ('use-bind', $field))
-			$this->setBind (strtoupper ($field ['use-bind']) == 'TRUE' ? TRUE : FALSE);
+			$this->setBind (strtoupper (trim ($field ['use-bind'])) == 'TRUE' ? TRUE : FALSE);
 		
 		if (array_key_exists ('doc', $field))
 			$this->setDoc ($field ['doc']);
@@ -188,6 +195,17 @@ abstract class Type
 	public function setApiColumn ($name)
 	{
 		$this->api = $name;
+	}
+	
+	public function onApiAsPlainText ()
+	{
+		return $this->apiPlainText;
+	}
+	
+	public function setApiPlainText ($value)
+	{
+		if (is_bool ($value))
+			$this->apiPlainText = $value;
 	}
 	
 	public function getLabel ()

@@ -2919,6 +2919,14 @@ repos/template/global.view.php -text
 repos/tool/global.ConvertToUtf8/bootstrap.php -text
 repos/tool/global.DatabaseMaker/bootstrap.php -text
 repos/tool/global.FilesMimeType/bootstrap.php -text
+repos/tool/global.MobileSource/android/contract.php -text
+repos/tool/global.MobileSource/android/converter.php -text
+repos/tool/global.MobileSource/android/dao.php -text
+repos/tool/global.MobileSource/android/layout.php -text
+repos/tool/global.MobileSource/android/model.php -text
+repos/tool/global.MobileSource/android/view.php -text
+repos/tool/global.MobileSource/bootstrap.php -text
+repos/tool/global.MobileSource/function.php -text
 repos/tool/global.Translate/bootstrap.php -text
 repos/type/global.Amount/Amount.php -text
 repos/type/global.Amount/_js.php -text

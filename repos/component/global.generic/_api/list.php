@@ -5,7 +5,7 @@ if (!isset ($_uri [2]) || !is_numeric ($_uri [2]))
 
 $_TIME = (int) $_uri [2];
 
-$view = new View ('api.xml', 'list.xml');
+$view = new View ('api.xml');
 
 $view->setPaginate (0);
 

@@ -232,7 +232,8 @@ class Instance
 		$this->tools = array ('ConvertToUtf8' => $this->getReposPath () .'tool/global.ConvertToUtf8/bootstrap.php',
 							  'DatabaseMaker' => $this->getReposPath () .'tool/global.DatabaseMaker/bootstrap.php',
 							  'FilesMimeType' => $this->getReposPath () .'tool/global.FilesMimeType/bootstrap.php',
-							  'Translate'     => $this->getReposPath () .'tool/global.Translate/bootstrap.php');
+							  'Translate'     => $this->getReposPath () .'tool/global.Translate/bootstrap.php',
+							  'MobileSource'  => $this->getReposPath () .'tool/global.MobileSource/bootstrap.php');
 		
 		if (is_array ($this->tool) && array_key_exists ('xml-path', $this->tool) && trim ($this->tool ['xml-path']) != '')
 		{

@@ -513,5 +513,10 @@ class Section
 	
 		return $b1;
 	}
+	
+	function getPath ()
+	{
+		return 'section' . DIRECTORY_SEPARATOR . $this->getName () . DIRECTORY_SEPARATOR;
+	}
 }
 ?>
