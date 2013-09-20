@@ -1282,6 +1282,7 @@ ul.alert li div
 	vertical-align: middle;
 	font: "Lucida Grande", Arial, sans-serif;
 	text-align: left;
+	text-wrap: none;
 	font-size: 12px;
 	line-height: 30px;
 	overflow: hidden;
