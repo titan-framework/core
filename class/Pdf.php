@@ -301,7 +301,7 @@ class Pdf extends TitanFPDF
 		
 		$coordY=$this->GetY();
 		//echo $coordY." ".$text[0]."<br>";
-		if ($this->FimdaPagina($coordY))
+		if ($this->PageEnd($coordY))
 		{	
 			$this->SetXY(15,$coordY);
 			return $this->PrintLine($width, $text,$x,$coordY,$border,$tipo,$ind_J,$B);		
@@ -364,6 +364,11 @@ class Pdf extends TitanFPDF
 		}
 		//echo "altura = $altura <br>";
 		return $altura;
+	}
+	
+	function PageEnd ($coordY)
+	{
+		return $coordY >= $this->h;
 	}
 }
 ?>
