@@ -162,9 +162,7 @@ class ApiEntity
 		$this->sth = $db->prepare ($sql);
 
 		$this->sth->execute ();
-
-		$this->page = $page;
-
+		
 		$this->sql = $sql;
 
 		$this->where = $where;
