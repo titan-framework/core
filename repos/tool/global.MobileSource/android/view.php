@@ -78,7 +78,7 @@ foreach ($fields as $trash => $obj)
 	{
 		case 'String':
 			?>
-		if (<?= $object ?>.get<?= ucfirst ($obj->class) ?> ().equals ("") || <?= $object ?>.get<?= ucfirst ($obj->class) ?> ().equals ("null"))
+		if (<?= $object ?>.get<?= ucfirst ($obj->class) ?> ().equals (""))
 		{
 			<?= $obj->class ?>.setVisibility (View.GONE);
 			<?= $obj->class ?>Title.setVisibility (View.GONE);

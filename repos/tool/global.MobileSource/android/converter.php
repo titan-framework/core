@@ -101,15 +101,15 @@ foreach ($fields as $trash => $obj)
 	switch ($obj->type)
 	{
 		case 'Boolean':
-			echo "			item.set". ucwords ($obj->class) ." (cursor.getInt (cursor.getColumnIndexOrThrow (". $model ."Contract.". strtoupper ($obj->json) .")) == 1 ? true : false);\n";
+			echo "		item.set". ucwords ($obj->class) ." (cursor.getInt (cursor.getColumnIndexOrThrow (". $model ."Contract.". strtoupper ($obj->json) .")) == 1 ? true : false);\n";
 			break;
 		
 		case 'Date':
-			echo "			item.set". ucwords ($obj->class) ." (new Date (cursor.getLong (cursor.getColumnIndexOrThrow (". $model ."Contract.". strtoupper ($obj->json) .")) * 1000));\n";
+			echo "		item.set". ucwords ($obj->class) ." (new Date (cursor.getLong (cursor.getColumnIndexOrThrow (". $model ."Contract.". strtoupper ($obj->json) .")) * 1000));\n";
 			break;
 		
 		default:
-			echo "			item.set". ucwords ($obj->class) ." (cursor.get". $obj->type ." (cursor.getColumnIndexOrThrow (". $model ."Contract.". strtoupper ($obj->json) .")));\n";
+			echo "		item.set". ucwords ($obj->class) ." (cursor.get". $obj->type ." (cursor.getColumnIndexOrThrow (". $model ."Contract.". strtoupper ($obj->json) .")));\n";
 	}
 ?>
 		
@@ -125,15 +125,15 @@ foreach ($fields as $trash => $obj)
 	switch ($obj->type)
 	{
 		case 'Boolean':
-			echo "			value.put (". $model ."Contract.". strtoupper ($obj->json) .", item.get". ucwords ($obj->class) ." () ? 1 : 0);\n";
+			echo "		value.put (". $model ."Contract.". strtoupper ($obj->json) .", item.get". ucwords ($obj->class) ." () ? 1 : 0);\n";
 			break;
 		
 		case 'Date':
-			echo "			value.put (". $model ."Contract.". strtoupper ($obj->json) .", item.get". ucwords ($obj->class) ." ().getTime () / 1000);\n";
+			echo "		value.put (". $model ."Contract.". strtoupper ($obj->json) .", item.get". ucwords ($obj->class) ." ().getTime () / 1000);\n";
 			break;
 		
 		default:
-			echo "			value.put (". $model ."Contract.". strtoupper ($obj->json) .", alert.get". ucwords ($obj->class) ." ());\n";
+			echo "		value.put (". $model ."Contract.". strtoupper ($obj->json) .", alert.get". ucwords ($obj->class) ." ());\n";
 	}
 ?>
 		

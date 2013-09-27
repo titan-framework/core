@@ -1042,59 +1042,6 @@ class Form
 		return strip_tags ($field->getValue ());
 	}
 	
-	public static function toApi ($field)
-	{
-		if (!is_object ($field))
-			return $field;
-
-		$instance = Instance::singleton ();
-
-		$fieldId = 'field_'. $field->getAssign ();
-
-		$db = Database::singleton ();
-		
-		$type = get_class ($field);
-
-		do
-		{
-			$file = $instance->getTypePath ($type) .'toApi.php';
-
-			if (file_exists ($file))
-				return include $file;
-
-			$type = get_parent_class ($type);
-
-		} while ($type != 'Type' && $type !== FALSE);
-		
-		$type = get_class ($field);
-
-		do
-		{
-			$file = $instance->getTypePath ($type) .'toText.php';
-
-			if (file_exists ($file))
-				return include $file;
-
-			$type = get_parent_class ($type);
-
-		} while ($type != 'Type' && $type !== FALSE);
-
-		$type = get_class ($field);
-
-		do
-		{
-			$file = $instance->getTypePath ($type) .'toHtml.php';
-
-			if (file_exists ($file))
-				return include $file;
-
-			$type = get_parent_class ($type);
-
-		} while ($type != 'Type' && $type !== FALSE);
-
-		return strip_tags ($field->getValue ());
-	}
-
 	public static function toHelp ($field)
 	{
 		if (trim ($field->getHelp ()) == '')

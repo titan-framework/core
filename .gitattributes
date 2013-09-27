@@ -14,6 +14,7 @@ class/AjaxPasswd.php -text
 class/Alert.php -text
 class/Api.php -text
 class/ApiAuth.php -text
+class/ApiEntity.php -text
 class/ApiException.php -text
 class/Archive.php -text
 class/Backup.php -text
@@ -2406,6 +2407,7 @@ repos/component/global.contact/reply.prepare.php -text
 repos/component/global.contact/view.php -text
 repos/component/global.contact/view.prepare.php -text
 repos/component/global.generic/_ajax.php -text
+repos/component/global.generic/_api/active.php -text
 repos/component/global.generic/_api/list.php -text
 repos/component/global.generic/_css.php -text
 repos/component/global.generic/_doc/.en_US.txt -text

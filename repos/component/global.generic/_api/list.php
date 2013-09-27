@@ -3,35 +3,36 @@
 if (!isset ($_uri [2]) || !is_numeric ($_uri [2]))
 	throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 
+if (Api::getHttpRequestMethod () != Api::GET)
+	throw new ApiException (__ ('Invalid URI request method!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::METHOD_NOT_ALLOWED);
+
 $_TIME = (int) $_uri [2];
 
-$view = new View ('api.xml');
+$entity = new ApiEntity ('api.xml');
 
-$view->setPaginate (0);
-
-$update = $view->getField ('_API_UPDATE_UNIX_TIMESTAMP_');
+$update = $entity->getField ('_API_UPDATE_UNIX_TIMESTAMP_');
 
 if (is_object ($update))
 	$columnUp = $update->getTable () .'.'. $update->getColumn ();
 else
 	$columnUp = $view->getTable () . '._update';
 
-if (!$view->load ($_TIME ." < extract (epoch from ". $columnUp .")"))
+if (!$entity->load ($_TIME ." < extract (epoch from ". $columnUp .")"))
 	throw new Exception (__ ('Unable to load data!'));
 
 $json = array ();
 
-while ($view->getItem ())
+while ($entity->getItem ())
 {
 	$object = array ();
 	
-	$object [$view->getPrimary ()] = $view->getId ();
+	$object [$entity->getPrimary ()] = $entity->getId ();
 	
-	while ($field = $view->getField ())
+	while ($field = $entity->getField ())
 		if ($field->getAssign () == '_API_UPDATE_UNIX_TIMESTAMP_')
 			$object [$field->getApiColumn ()] = $field->getUnixTime ();
 		else
-			$object [$field->getApiColumn ()] = $field->isEmpty () ? '' : Form::toApi ($field);
+			$object [$field->getApiColumn ()] = $field->isEmpty () ? '' : ApiEntity::toApi ($field);
 	
 	$json [] = (object) $object;
 }
