@@ -34,7 +34,7 @@ import <?= $app ?>.model.<?= $model ?>;
 
 public class <?= $model ?>Converter 
 {
-	private AlertConverter ()
+	private <?= $model ?>Converter ()
 	{}
 	
 	public static List<<?= $model ?>> fromJsonString (String json)
@@ -133,7 +133,7 @@ foreach ($fields as $trash => $obj)
 			break;
 		
 		default:
-			echo "		value.put (". $model ."Contract.". strtoupper ($obj->json) .", alert.get". ucwords ($obj->class) ." ());\n";
+			echo "		value.put (". $model ."Contract.". strtoupper ($obj->json) .", item.get". ucwords ($obj->class) ." ());\n";
 	}
 ?>
 		

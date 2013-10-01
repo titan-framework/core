@@ -27,6 +27,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import <?= $app ?>.contract.<?= $model ?>Contract;
 import <?= $app ?>.converter.<?= $model ?>Converter;
+import <?= $app ?>.exception.TechnicalException;
 import <?= $app ?>.model.<?= $model ?>;
 import <?= $app ?>.util.Database;
 
@@ -61,6 +62,19 @@ public class <?= $model ?>DAO
 		cursor.close ();
 		
 		return list;
+	}
+	
+	public <?= $model ?> get (long id)
+	{
+		Cursor cursor = db.query (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.columns (), <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " = ?", new String [] { String.valueOf (id) }, null, null, null, "1");
+
+		cursor.moveToNext ();
+
+		<?= $model ?> p = <?= $model ?>Converter.from (cursor);
+		
+		cursor.close ();
+		
+		return p;
 	}
 	
 	public void truncate ()
@@ -100,7 +114,7 @@ public class <?= $model ?>DAO
 		
 		try
 		{
-			db.update (<?= $model ?>Contract.TABLE, v, <?= $model ?>Contract.<?= strtoupper ($fields [0]->json) ?> + " = ?", new String [] { String.valueOf (item.get<?= ucwords ($fields [0]->class) ?> ()) });
+			db.update (<?= $model ?>Contract.TABLE, v, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " = ?", new String [] { String.valueOf (item.get<?= ucwords ($fields [$primary]->class) ?> ()) });
 		}
 		catch (SQLException e)
 		{
@@ -111,7 +125,7 @@ public class <?= $model ?>DAO
 	public void insertOrUpdate (List<<?= $model ?>> list)
 	{
 		for (<?= $model ?> item : list)
-			insertOrUpate (item);
+			insertOrUpdate (item);
 	}
 	
 	public void insertOrUpdate (<?= $model ?> item)
@@ -124,18 +138,23 @@ public class <?= $model ?>DAO
 		}
 		catch (SQLException e)
 		{
-			db.update (<?= $model ?>Contract.TABLE, v, <?= $model ?>Contract.<?= strtoupper ($fields [0]->json) ?> + " = ?", new String [] { String.valueOf (item.get<?= ucwords ($fields [0]->class) ?> ()) });
+			db.update (<?= $model ?>Contract.TABLE, v, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " = ?", new String [] { String.valueOf (item.get<?= ucwords ($fields [$primary]->class) ?> ()) });
 		}
 	}
 	
 	public void delete (Long id)
 	{
-		db.delete (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.<?= strtoupper ($fields [0]->json) ?> + " = ?", new String [] { String.valueOf (id) });
+		db.delete (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " = ?", new String [] { String.valueOf (id) });
 	}
 	
 	public void delete (<?= $model ?> item)
 	{
-		db.delete (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.<?= strtoupper ($fields [0]->json) ?> + " = ?", new String [] { String.valueOf (item.get<?= ucwords ($fields [0]->class) ?> ()) });
+		db.delete (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " = ?", new String [] { String.valueOf (item.get<?= ucwords ($fields [$primary]->class) ?> ()) });
+	}
+	
+	public void deleteNonActive (String active)
+	{		
+		db.delete (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " NOT IN (" + active.replaceAll ("[^0-9,]", "") + ")", null);
 	}
 }
 <?

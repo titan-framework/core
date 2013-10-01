@@ -30,8 +30,10 @@ foreach ($fields as $trash => $obj)
 	{
 		String ddl = "CREATE TABLE " + TABLE + " (" +
 <?
+$size = sizeof ($fields);
+$count = 1;
 foreach ($fields as $trash => $obj)
-	echo "				". strtoupper ($obj->json) ." + \"". $obj->db .", \" +\n";
+	echo "				". strtoupper ($obj->json) ." + \"". $obj->db . ($count++ < $size ? ", \" +\n" : "\"\n");
 ?>
 			");";
 		

@@ -31,16 +31,18 @@ Business::singleton ()->setCurrent ($section, $action);
 foreach (Instance::singleton ()->getTypes () as $type => $path)
 	require_once $path . $type .'.php';
 
-$view = new View ('api.xml');
+$view = new ApiEntity ('api.xml');
 
 if (!isset ($_GET ['table']))
 	$table = array_pop (explode ('.', $view->getTable ()));
 else
 	$table = $_GET ['table'];
 
+$primary = $view->getPrimary ();
+
 $fields = array ();
 
-$fields [$view->getPrimary ()] = (object) array ('json' => $view->getPrimary (), 'class' => translateFieldName ($view->getPrimary ()), 'type' => 'Long', 'db' => 'INTEGER PRIMARY KEY');
+$fields [$primary] = (object) array ('json' => $primary, 'class' => translateFieldName ($primary), 'type' => 'Long', 'db' => 'INTEGER PRIMARY KEY');
 
 while ($field = $view->getField ())
 	$fields [$field->getApiColumn ()] = (object) array (
@@ -58,7 +60,10 @@ $path = $base .'src'. DIRECTORY_SEPARATOR . implode (DIRECTORY_SEPARATOR, explod
 $packages = array ( 'contract' => 'Contract',
 					'model' => '',
 					'converter' => 'Converter',
-					'dao' => 'DAO');
+					'dao' => 'DAO',
+					'task' => 'Task',
+					'ws' => 'WebService',
+					'adapter' => 'Adapter');
 
 foreach ($packages as $pack => $sufix)
 {
@@ -89,9 +94,13 @@ $path = $base .'res'. DIRECTORY_SEPARATOR .'layout'. DIRECTORY_SEPARATOR;
 if (!file_exists ($path) && !@mkdir ($path, 0777, TRUE))
 	die ('Impossible to create folder ['. $path .'].');
 
-$output = require dirname (__FILE__) . DIRECTORY_SEPARATOR .'android'. DIRECTORY_SEPARATOR .'layout.php';
+$output = require dirname (__FILE__) . DIRECTORY_SEPARATOR .'android'. DIRECTORY_SEPARATOR .'layoutView.php';
 
 $file = $path . $modelUnderScore .'_view.xml';
+
+$output = require dirname (__FILE__) . DIRECTORY_SEPARATOR .'android'. DIRECTORY_SEPARATOR .'layoutRow.php';
+
+$file = $path . $modelUnderScore .'_row.xml';
 
 if (file_put_contents ($file, $output))
 	echo "SUCCESS > File generated! [". $file ."] \n";
