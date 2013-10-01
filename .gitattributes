@@ -3106,6 +3106,7 @@ repos/type/global.Float/toValue.php -text
 repos/type/global.Integer/Integer.php -text
 repos/type/global.Integer/_js.php -text
 repos/type/global.Integer/fromForm.php -text
+repos/type/global.Integer/toApi.php -text
 repos/type/global.Integer/toBind.php -text
 repos/type/global.Integer/toDbMaker.php -text
 repos/type/global.Integer/toForm.php -text

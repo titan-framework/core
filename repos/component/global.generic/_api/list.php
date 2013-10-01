@@ -24,15 +24,17 @@ $json = array ();
 
 while ($entity->getItem ())
 {
+	$itemId = $entity->getId ();
+	
 	$object = array ();
 	
-	$object [$entity->getPrimary ()] = $entity->getId ();
+	$object [$entity->getPrimary ()] = $itemId;
 	
 	while ($field = $entity->getField ())
 		if ($field->getAssign () == '_API_UPDATE_UNIX_TIMESTAMP_')
 			$object [$field->getApiColumn ()] = $field->getUnixTime ();
 		else
-			$object [$field->getApiColumn ()] = $field->isEmpty () ? '' : ApiEntity::toApi ($field);
+			$object [$field->getApiColumn ()] = ApiEntity::toApi ($field, $itemId);
 	
 	$json [] = (object) $object;
 }

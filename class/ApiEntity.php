@@ -213,7 +213,7 @@ class ApiEntity
 		return $obj;
 	}
 	
-	public static function toApi ($field)
+	public static function toApi ($field, $itemId = NULL)
 	{
 		if (!is_object ($field))
 			return $field;

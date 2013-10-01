@@ -509,7 +509,7 @@ class View
 		return '<a class="labelView" href="titan.php?target=body&amp;toSection='. $section->getName () .'&amp;toAction='. $action->getName () .'&itemId='. $itemId .'&page='. $page .'&order='. $field->getAssign () .'&invert=1">'. $field->getLabel () .'</a> <img src="titan.php?target=loadFile&amp;file=interface/image/arrow.down.gif" border="0" style="vertical-align: middle;" />';
 	}
 	
-	public static function toList ($field, $itemId = 0)
+	public static function toList ($field, $itemId = NULL)
 	{
 		if (!is_object ($field))
 			return $field;
