@@ -8,7 +8,7 @@ try
 		throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid URI!');
 	
 	if (!Api::isActive ())
-		throw new ApiException (__ ('Application API is not active!'));
+		throw new ApiException (__ ('Application API is not active!'), ApiException::ERROR_SYSTEM, ApiException::SERVICE_UNAVAILABLE);
 	
 	$_auth = Api::singleton ()->getActiveApp ();
 	

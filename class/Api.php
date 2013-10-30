@@ -133,4 +133,11 @@ class Api
 		
 		return utf8_encode (mcrypt_decrypt (MCRYPT_BLOWFISH, $key, base64_decode (trim ($input)), 'ecb'));
 	}
+	
+	public static function encrypt ($input, $key)
+	{
+		$key = substr ($key, 0, 16);
+		
+		return base64_encode (mcrypt_encrypt (MCRYPT_BLOWFISH, $key, utf8_decode ($input), 'ecb'));
+	}
 }
