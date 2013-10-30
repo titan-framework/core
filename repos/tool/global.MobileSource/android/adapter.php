@@ -46,7 +46,7 @@ public class <?= $model ?>ListAdapter extends ArrayAdapter<<?= $model ?>>
 		ImageView image = (ImageView) view.findViewById (R.id.<?= $modelUnderScore ?>_row_image);
 		
 		if (getItem (position).getImage () != 0)
-			(new LoadUrlImageTask (image, "http://your_app.cnpgc.embrapa.br/photo/" + getItem (position).getImage () + "_0x100_0.jpg", context)).execute ();
+			(new LoadUrlImageTask (image, "http://www.<?= implode ('.', array_reverse (explode ('.', $app))) ?>/photo/" + getItem (position).getImage () + "_0x100_0.jpg", context)).execute ();
 
 		TextView title = (TextView) view.findViewById (R.id.<?= $modelUnderScore ?>_row_title);
 		title.setText (getItem (position).getTitle ());

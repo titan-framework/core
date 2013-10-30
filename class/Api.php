@@ -126,4 +126,11 @@ class Api
 		
 		return $app ['value'];
 	}
+	
+	public static function decrypt ($input, $key)
+	{
+		$key = substr ($key, 0, 16);
+		
+		return utf8_encode (mcrypt_decrypt (MCRYPT_BLOWFISH, $key, base64_decode (trim ($input)), 'ecb'));
+	}
 }

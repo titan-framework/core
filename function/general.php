@@ -612,11 +612,11 @@ function swf ($path, $width, $height)
 	<?
 }
 
-function encrypt ($input)
+function encrypt ($input, $key = '84826372')
 {
-	$cipher = mcrypt_module_open (MCRYPT_BLOWFISH, '', 'cbc', '');
+	$cipher = mcrypt_module_open (MCRYPT_BLOWFISH, '', 'ebc', '');
 	
-	mcrypt_generic_init ($cipher, Security::singleton ()->getHash (), '84826372');
+	mcrypt_generic_init ($cipher, Security::singleton ()->getHash (), $key);
 
 	$encrypt = base64_encode (mcrypt_generic ($cipher, $input));
 	
@@ -625,11 +625,11 @@ function encrypt ($input)
 	return $encrypt;
 }
 
-function decrypt ($encrypted)
+function decrypt ($encrypted, $key = '84826372')
 {
-	$cipher = mcrypt_module_open (MCRYPT_BLOWFISH, '', 'cbc', '');
+	$cipher = mcrypt_module_open (MCRYPT_BLOWFISH, '', 'ebc', '');
 	
-	mcrypt_generic_init ($cipher, Security::singleton ()->getHash (), '84826372');
+	mcrypt_generic_init ($cipher, Security::singleton ()->getHash (), $key);
 	
 	$decrypt = mdecrypt_generic ($cipher, base64_decode ($encrypted));
 	

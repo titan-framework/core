@@ -21,7 +21,7 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
-import <?= $app ?>.YourApp;
+import <?= $app ?>.<?= $appName ?>;
 import <?= $app ?>.<?= $model ?>ListActivity;
 import <?= $app ?>.converter.<?= $model ?>Converter;
 import <?= $app ?>.dao.<?= $model ?>DAO;
@@ -101,7 +101,7 @@ public class <?= $model ?>Task extends AsyncTask<Void, Void, Boolean>
 		if (!success && exception != null)
 			activity.fail (exception.getMessage ());
 		
-		((YourApp) activity.getApplication ()).checkSync (activity.getClass ().getName ());
+		((<?= $appName ?>) activity.getApplication ()).checkSync (activity.getClass ().getName ());
 		
 		activity.refresh ();
 	}

@@ -3,7 +3,7 @@ require dirname (__FILE__) . DIRECTORY_SEPARATOR .'_library'. DIRECTORY_SEPARATO
 
 class FacebookDriver extends SocialDriver
 {
-	private $profile = NULL;
+	protected $profile = NULL;
 	
 	public function __construct ($array, $path)
 	{
@@ -24,7 +24,7 @@ class FacebookDriver extends SocialDriver
 	
 	public function getId ()
 	{
-		$profile = $this->getProfile ();
+		$profile = $this->loadProfile ();
 		
 		if (isset ($profile ['username']) && trim ($profile ['username']) != '')
 			return $profile ['username'];
@@ -65,7 +65,7 @@ class FacebookDriver extends SocialDriver
 		return TRUE;
 	}
 	
-	public function getProfile ($full = FALSE)
+	public function loadProfile ($full = FALSE)
 	{
 		if (!$this->isAuthenticated ())
 			return array ();
@@ -87,26 +87,14 @@ class FacebookDriver extends SocialDriver
 		if ($full)
 			return $profile;
 		
-		$out = array ();
+		$this->setProfile ($profile);
 		
-		while ($att = $this->getAttribute ())
-		{
-			$out [$att->getName ()] = @$profile [$att->getName ()];
-			
-			$this->attributes [$att->getName ()]->setValue (@$profile [$att->getName ()]);
-		}
-		
-		if (array_key_exists ('picture', $this->attributes))
-			$this->attributes ['picture']->setValue ($profile ['username']);
-		
-		$this->profile = $out;
-		
-		return $out;
+		return $this->getProfile ();
 	}
 	
 	public function login ()
 	{
-		$profile = $this->getProfile ();
+		$profile = $this->loadProfile ();
 		
 		if (!array_key_exists ('email', $profile) || trim ($profile ['email']) == '' ||
 			!array_key_exists ('name', $profile) || trim ($profile ['name']) == '' ||
@@ -122,6 +110,13 @@ class FacebookDriver extends SocialDriver
 		catch (Exception $e)
 		{}
 		
+		$this->register ($profile);
+		
+		return User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['username']);
+	}
+	
+	public function register ($profile)
+	{
 		$db = Database::singleton ();
 		
 		$sql = "SELECT _id, _type FROM _user WHERE _email = :email";
@@ -295,8 +290,6 @@ class FacebookDriver extends SocialDriver
 				throw new Exception (__ ('Impossible to save your data! Please, contact administrator.'));
 			}
 		}
-		
-		return User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['username']);
 	}
 	
 	public function getLoginUrl ()

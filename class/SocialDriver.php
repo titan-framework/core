@@ -109,9 +109,30 @@ abstract class SocialDriver
 		return $this->autoRegister;
 	}
 	
+	public function setProfile ($profile)
+	{
+		$out = array ('id' => $profile ['id']);
+		
+		while ($att = $this->getAttribute ())
+		{
+			$out [$att->getName ()] = @$profile [$att->getName ()];
+			
+			$this->attributes [$att->getName ()]->setValue (@$profile [$att->getName ()]);
+		}
+		
+		$this->profile = $out;
+	}
+	
+	public function getProfile ($profile)
+	{
+		return $this->profile;
+	}
+	
 	abstract public function authenticate ();
 	
-	abstract public function getProfile ();
+	abstract public function register ($profile);
+	
+	abstract public function loadProfile ();
 	
 	abstract public function getLoginUrl ();
 	

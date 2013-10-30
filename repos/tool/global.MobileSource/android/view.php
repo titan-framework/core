@@ -76,17 +76,9 @@ foreach ($fields as $key => $obj)
 foreach ($fields as $trash => $obj)
 	switch ($obj->type)
 	{
-		case 'String':
-			?>
-		if (<?= $object ?>.get<?= ucfirst ($obj->class) ?> ().equals (""))
-		{
-			<?= $obj->class ?>.setVisibility (View.GONE);
-			<?= $obj->class ?>Title.setVisibility (View.GONE);
-		}
-		else
-			<?= $obj->class ?>.setText (<?= $object ?>.get<?= ucfirst ($obj->class) ?> ());
-		
-<?
+		case 'Integer':
+			echo "		". $obj->class .".setText (String.valueOf (". $object .".get". ucfirst ($obj->class) ." ()));\n";
+			echo "		\n";
 			break;
 		
 		case 'Double':
@@ -102,6 +94,19 @@ foreach ($fields as $trash => $obj)
 		case 'Boolean':
 			echo "		". $obj->class .".setText (". $object .".get". ucfirst ($obj->class) ." () ? \"Sim\" : \"Não\");\n";
 			echo "		\n";
+			break;
+		
+		default:
+			?>
+		if (<?= $object ?>.get<?= ucfirst ($obj->class) ?> ().equals (""))
+		{
+			<?= $obj->class ?>.setVisibility (View.GONE);
+			<?= $obj->class ?>Title.setVisibility (View.GONE);
+		}
+		else
+			<?= $obj->class ?>.setText (<?= $object ?>.get<?= ucfirst ($obj->class) ?> ());
+		
+<?
 			break;
 	}
 ?>

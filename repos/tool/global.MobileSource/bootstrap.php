@@ -22,6 +22,8 @@ $object = lcfirst ($model);
 
 $app = $_GET ['package'];
 
+$appName = ucwords (array_pop (explode ('.', $app)));
+
 require dirname (__FILE__) . DIRECTORY_SEPARATOR .'function.php';
 
 $action = $section->getAction (Action::TAPI);

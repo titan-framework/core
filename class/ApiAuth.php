@@ -17,6 +17,8 @@ abstract class ApiAuth
 	
 	protected $user = NULL;
 	
+	protected $register = NULL;
+	
 	const C_USER_LOGIN = 'USER';
 	const C_USER_ID = 'USER-BY-ID';
 	const C_USER_MAIL = 'USER-BY-MAIL';
@@ -49,6 +51,9 @@ abstract class ApiAuth
 		
 		if (array_key_exists ('send-alerts', $app))
 			$this->sendAlerts = strtoupper (trim ($app ['send-alerts'])) == 'TRUE' ? TRUE : FALSE;
+		
+		if (array_key_exists ('register-as', $app) && trim ($app ['register-as']) != '' && Security::singleton ()->userTypeExists ($app ['register-as']))
+			$this->register = trim ($app ['register-as']);
 	}
 	
 	public function getUser ()
@@ -70,6 +75,24 @@ abstract class ApiAuth
 	public function sendAlerts ()
 	{
 		return $this->sendAlerts;
+	}
+	
+	public function getRegisterType ()
+	{
+		if (is_null ($this->register))
+			return NULL;
+		
+		return Security::singleton ()->getUserType ($this->register);
+	}
+	
+	public function getName ()
+	{
+		return $this->name;
+	}
+	
+	public function getToken ()
+	{
+		return $this->token;
 	}
 	
 	abstract public function authenticate ();

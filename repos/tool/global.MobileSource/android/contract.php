@@ -33,7 +33,7 @@ foreach ($fields as $trash => $obj)
 $size = sizeof ($fields);
 $count = 1;
 foreach ($fields as $trash => $obj)
-	echo "				". strtoupper ($obj->json) ." + \"". $obj->db . ($count++ < $size ? ", \" +\n" : "\"\n");
+	echo "				". strtoupper ($obj->json) ." + \" ". $obj->db . ($count++ < $size ? ", \" +\n" : "\"\n");
 ?>
 			");";
 		

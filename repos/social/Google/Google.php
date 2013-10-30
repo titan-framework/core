@@ -4,7 +4,7 @@ require dirname (__FILE__) . DIRECTORY_SEPARATOR .'_library'. DIRECTORY_SEPARATO
 
 class GoogleDriver extends SocialDriver
 {
-	private $profile = NULL;
+	protected $profile = NULL;
 	
 	public function __construct ($array, $path)
 	{
@@ -38,7 +38,7 @@ class GoogleDriver extends SocialDriver
 	
 	public function getId ()
 	{
-		$profile = $this->getProfile ();
+		$profile = $this->loadProfile ();
 		
 		if (isset ($profile ['id']) && trim ($profile ['id']) != '')
 			return $profile ['id'];
@@ -76,7 +76,7 @@ class GoogleDriver extends SocialDriver
 		return $this->user;
 	}
 	
-	public function getProfile ($full = FALSE)
+	public function loadProfile ($full = FALSE)
 	{
 		if (!$this->isAuthenticated ())
 			return array ();
@@ -91,23 +91,14 @@ class GoogleDriver extends SocialDriver
 		if ($full)
 			return $profile;
 		
-		$out = array ('id' => $profile ['id']);
+		$this->setProfile ($profile);
 		
-		while ($att = $this->getAttribute ())
-		{
-			$out [$att->getName ()] = @$profile [$att->getName ()];
-			
-			$this->attributes [$att->getName ()]->setValue (@$profile [$att->getName ()]);
-		}
-		
-		$this->profile = $out;
-		
-		return $out;
+		return $this->getProfile ();
 	}
 	
 	public function login ()
 	{
-		$profile = $this->getProfile ();
+		$profile = $this->loadProfile ();
 		
 		if (!array_key_exists ('id', $profile) || trim ($profile ['id']) == '' ||
 			!array_key_exists ('email', $profile) || trim ($profile ['email']) == '' ||
@@ -123,6 +114,13 @@ class GoogleDriver extends SocialDriver
 		catch (Exception $e)
 		{}
 		
+		$this->register ($profile);
+		
+		return User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['id']);
+	}
+	
+	public function register ($profile)
+	{
 		$db = Database::singleton ();
 		
 		$sql = "SELECT _id, _type FROM _user WHERE _email = :email";
@@ -296,8 +294,6 @@ class GoogleDriver extends SocialDriver
 				throw new Exception (__ ('Impossible to save your data! Please, contact administrator.'));
 			}
 		}
-		
-		return User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['id']);
 	}
 	
 	public function getLoginUrl ()

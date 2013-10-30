@@ -4,6 +4,7 @@ api/alerts.php -text
 api/api.php -text
 api/auth.php -text
 api/gcm.php -text
+api/register.php -text
 assembly/breadcrumb.php -text
 assembly/menu.php -text
 assembly/section.php -text

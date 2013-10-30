@@ -15,18 +15,25 @@ try
 	if (!is_object ($_auth))
 		throw new ApiException (__ ('Invalid credentials!'), ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED, 'This application is not enable in system!');
 	
-	$_auth->authenticate ();
+	$_uri = explode ('/', $_GET['uri']);
+	
+	if ($_uri [0] != 'register')
+		$_auth->authenticate ();
 	
 	if (isset ($_GET['language']) && trim ($_GET['language']) != '')
 		Localization::singleton ()->setLanguage ($_GET['language']);
-	
-	$_uri = explode ('/', $_GET['uri']);
 	
 	switch ($_uri [0])
 	{
 		case 'auth':
 			
 			require $corePath .'api/auth.php';
+			
+			break;
+		
+		case 'register':
+			
+			require $corePath .'api/register.php';
 			
 			break;
 		
