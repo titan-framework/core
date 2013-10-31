@@ -7,7 +7,7 @@ try
 	
 	$user = (int) $query->fetch (PDO::FETCH_COLUMN);
 	
-	if (!$user)
+	if (!$user || trim ($value) == '')
 		return NULL;
 	
 	$image = file_get_contents ($value);
@@ -16,7 +16,7 @@ try
 	
 	$file = Archive::singleton ()->getDataPath () . 'file_'. str_pad ($id, 7, '0', STR_PAD_LEFT);
 	
-	if (trim ($file) == '' || !@file_put_contents ($file, $image))
+	if (!file_put_contents ($file, $image))
 		return NULL;
 	
 	$mime = 'image/jpeg';
