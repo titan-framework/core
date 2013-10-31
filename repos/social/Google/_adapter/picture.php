@@ -16,7 +16,7 @@ try
 	
 	$file = Archive::singleton ()->getDataPath () . 'file_'. str_pad ($id, 7, '0', STR_PAD_LEFT);
 	
-	if (!@file_put_contents ($file, $image))
+	if (trim ($file) == '' || !@file_put_contents ($file, $image))
 		return NULL;
 	
 	$mime = 'image/jpeg';
