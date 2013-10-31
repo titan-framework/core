@@ -95,7 +95,11 @@ class Api
 	{
 		foreach ($this->applications as $name => $app)
 			if ($app->isActive ())
+			{
+				$app->load ();
+				
 				return $app;
+			}
 		
 		return NULL;
 	}

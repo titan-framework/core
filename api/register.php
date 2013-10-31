@@ -3,9 +3,6 @@
 if (Api::getHttpRequestMethod () != Api::POST && Api::getHttpRequestMethod () != Api::PUT)
 	throw new ApiException (__ ('Invalid URI request method!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::METHOD_NOT_ALLOWED);
 
-if (!$_auth->hasContext ('USER', 'USER-BY-MAIL'))
-	throw new ApiException ('Invalid authenticate method!', ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED, 'The application API must be configured to user be recognized by e-mail (add USER-BY-MAIL context).');
-
 if (!Social::singleton ()->socialNetworkExists ('Google'))
 	throw new ApiException (__ ('Web application is not capable to register device user! Please, alert support team.'), ApiException::ERROR_SYSTEM, ApiException::SERVICE_UNAVAILABLE, 'Must enable Google Plus at Social Network configuration!');
 
@@ -16,7 +13,7 @@ if (!isset ($_POST ['email']) || trim ($_POST ['email']) == '' ||
 $email = trim ($_POST ['email']);
 $device = isset ($_POST ['device']) && trim ($_POST ['device']) != '' ? $_POST ['device'] : __ ('Generic Mobile Device');
 
-$token = Api::decrypt ($_POST ['token'], $_auth->getToken ());
+$token = $_auth->decrypt ($_POST ['token']);
 
 $token = preg_replace ('/[^\x20-\x7f]/i', '', $token);
 
@@ -59,7 +56,7 @@ if (!(int) $obj->_id)
 $obj = MobileDevice::register ($device, $obj->_id);
 
 $output = array ('id' => $obj->id,
-				 'pk' => Api::encrypt ($obj->pk, $_auth->getToken ()));
+				 'pk' => $_auth->encrypt ($obj->pk));
 
 header ('Content-Type: application/json');
 

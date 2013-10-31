@@ -85,14 +85,19 @@ abstract class ApiAuth
 		return Security::singleton ()->getUserType ($this->register);
 	}
 	
-	public function getName ()
+	public function encrypt ($input)
 	{
-		return $this->name;
+		return Api::encrypt ($input, md5 ($this->token . (string) $this->timestamp));
 	}
 	
-	public function getToken ()
+	public function decrypt ($input)
 	{
-		return $this->token;
+		return Api::decrypt ($input, md5 ($this->token . (string) $this->timestamp));
+	}
+	
+	public function load ()
+	{
+		$this->loadParamsByHeaders ();
 	}
 	
 	abstract public function authenticate ();
@@ -103,11 +108,11 @@ abstract class ApiAuth
 	
 	abstract public function isActive ();
 	
-	// abstract static protected function encrypt ($timestamp, $id, $signature);
+	abstract static protected function signature ($timestamp, $id, $signature);
 	
-	// abstract static protected function sanitizeParam ($param, $value);
+	abstract static protected function sanitizeParam ($param, $value);
 	
-	// abstract public static function getHeaders ();
+	abstract public static function getHeaders ();
 	
 	abstract public function registerGoogleCloudMessage ($gcmRegistrationId);
 	
@@ -153,8 +158,6 @@ class EmbrapaAuth extends ApiAuth
 	
 	public function authenticate ()
 	{
-		$this->loadParamsByHeaders ();
-		
 		$this->requiredParamsIsFilled ();
 		
 		if (time () < $this->timestamp - 180)
@@ -163,7 +166,7 @@ class EmbrapaAuth extends ApiAuth
 		if (time () - $this->timestamp > $this->timeout)
 			throw new ApiException (__ ('Request timeout!'), ApiException::ERROR_REQUEST_TIMESTAMP, ApiException::REQUEST_TIME_OUT, 'UNIX timestamp of request is very old!');
 		
-		if (sizeof (array_intersect (array (self::C_APP), $this->context)) && $this->appSignature != self::encrypt ($this->timestamp, $this->name, $this->token))
+		if (sizeof (array_intersect (array (self::C_APP), $this->context)) && $this->appSignature != self::signature ($this->timestamp, $this->name, $this->token))
 			throw new ApiException (__ ('Invalid application credentials!'), ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED);
 		
 		if (sizeof (array_intersect (array (self::C_CLIENT, self::C_CLIENT_USER), $this->context)))
@@ -176,7 +179,7 @@ class EmbrapaAuth extends ApiAuth
 			if (!is_object ($client))
 				throw new ApiException (__ ('This client is not registered!'), ApiException::ERROR_CLIENT_AUTH, ApiException::UNAUTHORIZED);
 			
-			if ($this->clientSignature != self::encrypt ($this->timestamp, $client->id, $client->pk))
+			if ($this->clientSignature != self::signature ($this->timestamp, $client->id, $client->pk))
 				throw new ApiException (__ ('Invalid client credentials!'), ApiException::ERROR_CLIENT_AUTH, ApiException::UNAUTHORIZED);
 			
 			MobileDevice::registerDeviceAccess ($this->clientId);
@@ -228,7 +231,7 @@ class EmbrapaAuth extends ApiAuth
 			if (!is_object ($user))
 				throw new ApiException (__ ('User not found!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 			
-			if ($this->userSignature != self::encrypt ($this->timestamp, $user->id, $user->passwd))
+			if ($this->userSignature != self::signature ($this->timestamp, $user->id, $user->passwd))
 				throw new ApiException (__ ('Invalid user credentials!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 			
 			$this->user = $user->_id;
@@ -276,7 +279,7 @@ class EmbrapaAuth extends ApiAuth
 		return self::$headers;
 	}
 	
-	static protected function encrypt ($timestamp, $id, $signature)
+	static protected function signature ($timestamp, $id, $signature)
 	{
 		return hash_hmac ('sha1', $timestamp . $id, $signature);
 	}
