@@ -156,6 +156,24 @@ class EmbrapaAuth extends ApiAuth
 		parent::__construct ($app);
 	}
 	
+	public function authenticateForRegister ()
+	{
+		if (!$this->timestamp)
+			throw new ApiException (__ ('Has a problem with your device clock! Please, verify.'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: UNIX timestamp is empty!');
+		
+		if (sizeof (array_intersect (array (self::C_APP), $this->context)) && ($this->name == '' || $this->token == ''))
+			throw new ApiException (__ ('Application credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: Application credentials are incorrect or empty!');
+		
+		if (time () < $this->timestamp - 180)
+			throw new ApiException (__ ('The time of your device must be correct!'), ApiException::ERROR_REQUEST_TIMESTAMP, ApiException::BAD_REQUEST, 'UNIX timestamp of request is invalid (higher than server time)!');
+		
+		if (time () - $this->timestamp > $this->timeout)
+			throw new ApiException (__ ('Request timeout!'), ApiException::ERROR_REQUEST_TIMESTAMP, ApiException::REQUEST_TIME_OUT, 'UNIX timestamp of request is very old!');
+		
+		if (sizeof (array_intersect (array (self::C_APP), $this->context)) && $this->appSignature != self::signature ($this->timestamp, $this->name, $this->token))
+			throw new ApiException (__ ('Invalid application credentials!'), ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED);
+	}
+	
 	public function authenticate ()
 	{
 		$this->requiredParamsIsFilled ();

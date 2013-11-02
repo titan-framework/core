@@ -19,6 +19,8 @@ try
 	
 	if ($_uri [0] != 'register')
 		$_auth->authenticate ();
+	else
+		$_auth->authenticateForRegister ();
 	
 	if (isset ($_GET['language']) && trim ($_GET['language']) != '')
 		Localization::singleton ()->setLanguage ($_GET['language']);
