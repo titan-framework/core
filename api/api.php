@@ -60,7 +60,7 @@ try
 		default:
 			
 			if (!Business::singleton ()->sectionExists ($_uri [0]))
-				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
+				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Section ['. $_uri [0] .'] do not exists!');
 			
 			$_section = Business::singleton ()->getSection ($_uri [0]);
 			
@@ -85,7 +85,7 @@ try
 			$file = $_section->getComponentPath () .'_api'. DIRECTORY_SEPARATOR . $_service .'.php';
 			
 			if (!file_exists ($file))
-				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid URI!');
+				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'File ['. $file .'] do not exists!');
 			
 			require $file;
 	}
