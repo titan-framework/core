@@ -119,6 +119,19 @@ class FacebookDriver extends SocialDriver
 	{
 		$db = Database::singleton ();
 		
+		$sql = "SELECT _id FROM _user WHERE _facebook = :facebook";
+
+		$sth = $db->prepare ($sql);
+		
+		$sth->bindParam (':facebook', $profile ['username'], PDO::PARAM_STR);
+		
+		$sth->execute ();
+
+		$obj = $sth->fetch (PDO::FETCH_OBJ);
+
+		if ($obj)
+			return $obj->_id;
+		
 		$sql = "SELECT _id, _type FROM _user WHERE _email = :email";
 
 		$sth = $db->prepare ($sql);
@@ -144,19 +157,50 @@ class FacebookDriver extends SocialDriver
 			$sth->bindParam (':id', $obj->_id, PDO::PARAM_INT);
 			
 			$sth->execute ();
+			
+			return $obj->_id;
 		}
-		else
+		
+		if (!$this->autoRegister ())
+			throw new Exception (__ ('There is no user in the system linked to this social network profile!'));
+		
+		$_id = Database::nextId ('_user', '_id');
+		
+		while ($type = Security::singleton ()->getUserType ())
 		{
-			if (!$this->autoRegister ())
-				throw new Exception (__ ('There is no user in the system linked to this social network profile!'));
+			if (!$type->useLdap ())
+				continue;
 			
-			$_id = Database::nextId ('_user', '_id');
+			$ldap = $type->getLdap ();
 			
-			while ($type = Security::singleton ()->getUserType ())
+			if (!$ldap->connect (FALSE, FALSE, TRUE))
 			{
-				if (!$type->useLdap ())
-					continue;
+				$ldap->close ();
 				
+				throw new Exception (__ ('This user type require LDAP integration! Please, contact administrator.'));
+			}
+			
+			$search = $ldap->search (array ('uid'), '(mail='. $profile ['email'] .')');
+			
+			$ldap->close ();
+			
+			if (!(int) $search ['count'])
+				continue;
+			
+			$_login = $search [0]['uid'][0];
+			
+			break;
+		}
+		
+		if (!isset ($_login))
+		{
+			if (!Security::singleton ()->userTypeExists ($this->getUserType ()))
+				throw new Exception (__ ('Invalid user type!'));
+			
+			$type = Security::singleton ()->getUserType ($this->getUserType ());
+			
+			if ($type->useLdap ())
+			{
 				$ldap = $type->getLdap ();
 				
 				if (!$ldap->connect (FALSE, FALSE, TRUE))
@@ -166,130 +210,101 @@ class FacebookDriver extends SocialDriver
 					throw new Exception (__ ('This user type require LDAP integration! Please, contact administrator.'));
 				}
 				
-				$search = $ldap->search (array ('uid'), '(mail='. $profile ['email'] .')');
+				$_login = $this->getAttribute ('username')->getValue ();
+				
+				$count = 0;
+				
+				do
+				{
+					$query = $db->query ("SELECT COUNT(*) AS n FROM _user WHERE _login ILIKE '". $_login ."'");
+					
+					if ($count)
+						$_login = $profile ['username'] . $count;
+					
+					$count++;
+					
+				} while ((int) $query->fetch (PDO::FETCH_COLUMN) || $ldap->userExists ($_login));
+				
+				$ldap->create ($ldap->getEssentialInput ($_login, $this->getAttribute ('name')->getValue (), $this->getAttribute ('email')->getValue (), randomHash (10), $_id), $_login);
 				
 				$ldap->close ();
-				
-				if (!(int) $search ['count'])
-					continue;
-				
-				$_login = $search [0]['uid'][0];
-				
-				break;
 			}
-			
-			if (!isset ($_login))
+			else
 			{
-				if (!Security::singleton ()->userTypeExists ($this->getUserType ()))
-					throw new Exception (__ ('Invalid user type!'));
+				$_login = $this->getAttribute ('username')->getValue ();
 				
-				$type = Security::singleton ()->getUserType ($this->getUserType ());
+				$count = 0;
 				
-				if ($type->useLdap ())
+				do
 				{
-					$ldap = $type->getLdap ();
+					$query = $db->query ("SELECT COUNT(*) AS n FROM _user WHERE _login ILIKE '". $_login ."'");
 					
-					if (!$ldap->connect (FALSE, FALSE, TRUE))
-					{
-						$ldap->close ();
-						
-						throw new Exception (__ ('This user type require LDAP integration! Please, contact administrator.'));
-					}
+					if ($count)
+						$_login = $profile ['username'] . $count;
 					
-					$_login = $this->getAttribute ('username')->getValue ();
+					$count++;
 					
-					$count = 0;
-					
-					do
-					{
-						$query = $db->query ("SELECT COUNT(*) AS n FROM _user WHERE _login ILIKE '". $_login ."'");
-						
-						if ($count)
-							$_login = $profile ['username'] . $count;
-						
-						$count++;
-						
-					} while ((int) $query->fetch (PDO::FETCH_COLUMN) || $ldap->userExists ($_login));
-					
-					$ldap->create ($ldap->getEssentialInput ($_login, $this->getAttribute ('name')->getValue (), $this->getAttribute ('email')->getValue (), randomHash (10), $_id), $_login);
-					
-					$ldap->close ();
-				}
-				else
-				{
-					$_login = $this->getAttribute ('username')->getValue ();
-					
-					$count = 0;
-					
-					do
-					{
-						$query = $db->query ("SELECT COUNT(*) AS n FROM _user WHERE _login ILIKE '". $_login ."'");
-						
-						if ($count)
-							$_login = $profile ['username'] . $count;
-						
-						$count++;
-						
-					} while ((int) $query->fetch (PDO::FETCH_COLUMN));
-				}
-			}
-			
-			$fields = array ('_id' 	 	 => array ($_id, PDO::PARAM_INT),
-							 '_login' 	 => array ($_login, PDO::PARAM_STR),
-							 '_name'	 => array ($this->getAttribute ('name')->getValue (), PDO::PARAM_STR),
-							 '_email'	 => array ($this->getAttribute ('email')->getValue (), PDO::PARAM_STR),
-							 '_password' => array (randomHash (13) .'_INVALID_HASH_'. randomHash (13), PDO::PARAM_STR),
-							 '_active'	 => array ('1', PDO::PARAM_STR),
-							 '_deleted'	 => array ('0', PDO::PARAM_STR),
-							 '_type'	 => array ($type->getName (), PDO::PARAM_STR),
-							 '_facebook' => array ($profile ['username'], PDO::PARAM_STR));
-			
-			$alreadyAtts = array ('username', 'name', 'email');
-			
-			while ($att = $this->getAttribute ())
-				if (!in_array ($att->getName (), $alreadyAtts))
-					$fields [$att->getColumn ()] = array ($att->getValue ());
-			
-			try
-			{
-				$db->beginTransaction ();
-				
-				$sql = "INSERT INTO _user (". implode (", ", array_keys ($fields)) .") VALUES (:". implode (", :", array_keys ($fields)) .")";
-				
-				$sth = $db->prepare ($sql);
-				
-				foreach ($fields as $key => $array)
-					if (sizeof ($array) > 1)
-						$sth->bindParam (':'. $key, $array [0], $array [1]);
-					else
-						$sth->bindParam (':'. $key, $array [0]);
-				
-				$sth->execute ();
-				
-				$sql = "SELECT _group FROM _type_group WHERE _type = :type";
-				
-				$sth = $db->prepare ($sql);
-				
-				$sth->bindParam (':type', $type->getName (), PDO::PARAM_STR);
-				
-				$sth->execute ();
-				
-				$sthUser = $db->prepare ("INSERT INTO _user_group (_user, _group) VALUES (:id, :group)");
-				
-				while ($obj = $sth->fetch (PDO::FETCH_OBJ))
-					$sthUser->execute (array (':id' => $_id, ':group' => $obj->_group));
-				
-				$db->commit ();
-			}
-			catch (PDOException $e)
-			{
-				$db->rollBack ();
-				
-				toLog ('Impossible to save user data in _user table. ['. $e->getMessage () .'] ['. print_r ($fields, TRUE) .']');
-				
-				throw new Exception (__ ('Impossible to save your data! Please, contact administrator.'));
+				} while ((int) $query->fetch (PDO::FETCH_COLUMN));
 			}
 		}
+		
+		$fields = array ('_id' 	 	 => array ($_id, PDO::PARAM_INT),
+						 '_login' 	 => array ($_login, PDO::PARAM_STR),
+						 '_name'	 => array ($this->getAttribute ('name')->getValue (), PDO::PARAM_STR),
+						 '_email'	 => array ($this->getAttribute ('email')->getValue (), PDO::PARAM_STR),
+						 '_password' => array (randomHash (13) .'_INVALID_HASH_'. randomHash (13), PDO::PARAM_STR),
+						 '_active'	 => array ('1', PDO::PARAM_STR),
+						 '_deleted'	 => array ('0', PDO::PARAM_STR),
+						 '_type'	 => array ($type->getName (), PDO::PARAM_STR),
+						 '_facebook' => array ($profile ['username'], PDO::PARAM_STR));
+		
+		$alreadyAtts = array ('username', 'name', 'email');
+		
+		while ($att = $this->getAttribute ())
+			if (!in_array ($att->getName (), $alreadyAtts))
+				$fields [$att->getColumn ()] = array ($att->getValue ());
+		
+		try
+		{
+			$db->beginTransaction ();
+			
+			$sql = "INSERT INTO _user (". implode (", ", array_keys ($fields)) .") VALUES (:". implode (", :", array_keys ($fields)) .")";
+			
+			$sth = $db->prepare ($sql);
+			
+			foreach ($fields as $key => $array)
+				if (sizeof ($array) > 1)
+					$sth->bindParam (':'. $key, $array [0], $array [1]);
+				else
+					$sth->bindParam (':'. $key, $array [0]);
+			
+			$sth->execute ();
+			
+			$sql = "SELECT _group FROM _type_group WHERE _type = :type";
+			
+			$sth = $db->prepare ($sql);
+			
+			$sth->bindParam (':type', $type->getName (), PDO::PARAM_STR);
+			
+			$sth->execute ();
+			
+			$sthUser = $db->prepare ("INSERT INTO _user_group (_user, _group) VALUES (:id, :group)");
+			
+			while ($obj = $sth->fetch (PDO::FETCH_OBJ))
+				$sthUser->execute (array (':id' => $_id, ':group' => $obj->_group));
+			
+			$db->commit ();
+			
+			return $_id;
+		}
+		catch (PDOException $e)
+		{
+			$db->rollBack ();
+			
+			toLog ('Impossible to save user data in _user table. ['. $e->getMessage () .'] ['. print_r ($fields, TRUE) .']');
+		}
+		
+		throw new Exception (__ ('Impossible to save your data! Please, contact administrator.'));
 	}
 	
 	public function getLoginUrl ()

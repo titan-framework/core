@@ -34,26 +34,12 @@ if (!isset ($profile ['email']) || trim ($profile ['email']) == '' || trim ($pro
 
 $social = Social::singleton ()->getSocialNetwork ('Google');
 
-$social->setProfile ($profile);
+$id = $social->register ($profile);
 
-$social->register ($profile);
-
-$db = Database::singleton ();
-
-$sql = "SELECT _id FROM _user WHERE _email = :email";
-
-$sth = $db->prepare ($sql);
-
-$sth->bindParam (':email', $email, PDO::PARAM_STR);
-
-$sth->execute ();
-
-$obj = $sth->fetch (PDO::FETCH_OBJ);
-
-if (!(int) $obj->_id)
+if (!(int) $id)
 	throw new ApiException (__ ('User is not registered in Web application!'), ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED);
 
-$obj = MobileDevice::register ($device, $obj->_id);
+$obj = MobileDevice::register ($device, $id);
 
 $output = array ('id' => $obj->id,
 				 'pk' => $_auth->encrypt ($obj->pk));
