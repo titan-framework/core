@@ -17,6 +17,8 @@ ob_start ();
 
 package <?= $app ?>.task;
 
+import java.util.List;
+
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -58,7 +60,7 @@ public class <?= $model ?>Task extends AsyncTask<Void, Void, Boolean>
 		{
 			String active = <?= $model ?>WebService.active ();
 			
-			<?= $model ?>DAO.singleton ().delete (active);
+			<?= $model ?>DAO.singleton ().deleteNonActive (active);
 			
 			SharedPreferences preferences = Preferences.singleton ();
 			

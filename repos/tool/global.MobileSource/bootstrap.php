@@ -100,6 +100,11 @@ $output = require dirname (__FILE__) . DIRECTORY_SEPARATOR .'android'. DIRECTORY
 
 $file = $path . $modelUnderScore .'_view.xml';
 
+if (file_put_contents ($file, $output))
+	echo "SUCCESS > File generated! [". $file ."] \n";
+else
+	echo "FAIL > Impossible to generate code! [". $file ."] \n";
+
 $output = require dirname (__FILE__) . DIRECTORY_SEPARATOR .'android'. DIRECTORY_SEPARATOR .'layoutRow.php';
 
 $file = $path . $modelUnderScore .'_row.xml';

@@ -17,6 +17,9 @@ ob_start ();
 
 package <?= $app ?>;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
