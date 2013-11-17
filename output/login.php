@@ -302,6 +302,21 @@ if (Social::isActive ())
 				</div>
 				<?
 			}
+			
+			$mobileButtons = Instance::singleton ()->getMobile ();
+			
+			if (sizeof ($mobileButtons))
+			{
+				?>
+				<div class="cMobile">
+					<?
+					if (isset ($mobileButtons ['android']))
+						echo '<img src="titan.php?target=loadFile&amp;file=interface/image/google-play.png" onclick="JavaScript: document.location=\''. $mobileButtons ['android'] .'\';" border="0" style="float: right;" />'
+					?>
+					<div><?= __ ('Get our mobile app:') ?></div>
+				</div>
+				<?
+			}
 			?>
 		</div>
 		<div id="idBase">

@@ -397,3 +397,30 @@ div.unselected iframe
 	margin-left: 10px;
 	cursor: pointer;
 }
+.cMobile
+{
+	clear: both;
+	width: 962px;
+	height: 60px;
+	margin: 0px auto 40px;
+	padding: 10px;
+	background-color: #F4F4F4;
+	border: #DDD 1px solid;
+}
+.cMobile div
+{
+	font-family: Georgia, serif;
+	font-size: 24px;
+	color: #4E443C;
+	font-variant: small-caps;
+	text-transform: none;
+	font-weight: 100;
+	height: 60px;
+	line-height: 60px;
+	float: right;
+}
+.cMobile img
+{
+	margin-left: 10px;
+	cursor: pointer;
+}
