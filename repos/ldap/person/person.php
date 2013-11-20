@@ -12,16 +12,8 @@ class LdapPerson extends LdapClass
 		
 		$first = trim (implode (' ', $pieces));
 		
-		if ($first == '')
-			$first = $uid;
-		
-		if ($last == '')
-			$last = $uid;
-		
-		if ($name == '')
-			$name = $uid;
-		
-		//throw new Exception (__ ('Your name is invalid! Please, put at least your first and last name in appropriate field. [[1]]', $name));
+		if ($first == '' || $last == '')
+			throw new Exception (__ ('Your name is invalid! Please, put at least your first and last name in appropriate field. [[1]]', $name));
 		
 		if (trim ($password) == '')
 			throw new Exception (__ ('Your password is invalid! Please, put a valid password in appropriate field.'));
