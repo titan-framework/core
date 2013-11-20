@@ -12,8 +12,16 @@ class LdapInetOrgPerson extends LdapClass
 		
 		$first = trim (implode (' ', $pieces));
 		
-		if ($first == '' || $last == '')
-			throw new Exception (__ ('Your name is invalid! Please, put at least your first and last name in appropriate field. [[1]]', $name));
+		if ($first == '')
+			$first = $uid;
+		
+		if ($last == '')
+			$last = $uid;
+		
+		if ($name == '')
+			$name = $uid;
+		
+		//throw new Exception (__ ('Your name is invalid! Please, put at least your first and last name in appropriate field. [[1]]', $name));
 		
 		if (trim ($email) == '')
 			throw new Exception (__ ('Your e-mail is invalid! Please, put a valid e-mail in appropriate field. [[1]]', $email));
