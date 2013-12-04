@@ -319,7 +319,7 @@ header ('Content-Encoding: gzip');
 						echo '<div class="flag" style="background-image: url(titan.php?target=loadFile&amp;file=interface/locale/'. $language .'.png);'. ($language == Localization::singleton ()->getLanguage () ? ' background-position: top;" onclick="JavaScript: Modalbox.hide ();"' : '" onclick="JavaScript: changeLanguage (\\\''. $language .'\\\');"') .' title="'. $label .'"></div>';
 					?></div>';
 			
-			Modalbox.show (source, { title: '<?= __ ('Choose Your Language') ?>', width: <?= $size < 180 ? 200 : $size + 20 ?>, height: 90 });
+			Modalbox.show (source, { title: '<?= __ ('Choose Your Language') ?>', width: <?= $size < 240 ? 260 : $size + 20 ?>, height: 90 });
 		}
 		
 		function getHelp ()

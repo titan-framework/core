@@ -7,7 +7,7 @@ try
 	
 	$user = (int) $query->fetch (PDO::FETCH_COLUMN);
 	
-	if (!$user)
+	if (!$user || trim ($value) == '')
 		return NULL;
 	
 	$image = file_get_contents ('http://graph.facebook.com/'. $value .'/picture?type=large');

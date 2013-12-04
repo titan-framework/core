@@ -123,7 +123,7 @@ abstract class SocialDriver
 		$this->profile = $out;
 	}
 	
-	public function getProfile ($profile)
+	public function getProfile ()
 	{
 		return $this->profile;
 	}

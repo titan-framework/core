@@ -37,7 +37,7 @@
 	<message from="in" to="no" />
 	<message from="Alerts" to="Alertas" />
 	<message from="No alerts!" to="Nenhum alerta!" />
-	<message from="Choose Language" to="Selecione Seu Idioma" />
+	<message from="Choose Your Language" to="Selecione Seu Idioma" />
 
 	<message from="January" to="Janeiro" />
 	<message from="February" to="Fevereiro" />

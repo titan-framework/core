@@ -87,6 +87,8 @@ class FacebookDriver extends SocialDriver
 		if ($full)
 			return $profile;
 		
+		$profile ['picture'] = $profile ['username'];
+		
 		$this->setProfile ($profile);
 		
 		return $this->getProfile ();

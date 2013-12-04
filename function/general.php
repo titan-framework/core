@@ -462,6 +462,9 @@ function toLog ($message)
 
 	if (!file_exists ($path) && !@mkdir ($path, 0777))
 		throw new Exception ('Impossible to create folder ['. $path .'].');
+	
+	if (!file_exists ($path .'.htaccess') && !file_put_contents ($path .'.htaccess', 'deny from all'))
+		throw new Exception ('Impossible to enhance security for folder ['. $path .'].');
 
 	$fd = fopen ($path .'log.'. date ('Ym'), 'a');
 
