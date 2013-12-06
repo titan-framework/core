@@ -1448,6 +1448,12 @@ ul.shopCar li div.final div
 	height: 34px;
 	line-height: 34px;
 	margin: 10px auto 15px;
+	text-align: center;
+}
+
+.cMenuInPlace span
+{
+	display: inline-block;
 }
 
 .cMenuInPlace ul,
@@ -1455,6 +1461,7 @@ ul.shopCar li div.final div
 {
 	margin: 0px;
 	padding: 0px;
+	text-align: left;
 }
 
 .cMenuInPlace ul li.cItemLong img

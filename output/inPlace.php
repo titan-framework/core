@@ -217,7 +217,7 @@ $skin = Skin::singleton ();
 				<?= $_OUTPUT ['SECTION'] ?>
 			</div>
 			<div class="cMenuInPlace">
-				<?= $_OUTPUT ['SECTION_MENU'] ?>
+				<span><?= $_OUTPUT ['SECTION_MENU'] ?></span>
 			</div>
 		</div>
 		<div id="idBody" style="display: none;"></div>
