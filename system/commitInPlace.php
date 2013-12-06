@@ -12,8 +12,10 @@ try
 	
 	$message->save ();
 	
-	header ('Location: '. $_SERVER['PHP_SELF'] .'?target=inPlace&toSection='. $section->getName () .'&toAction='. $action->getName () .'&itemId='. $itemId);
-	
+	// header ('Location: '. $_SERVER['PHP_SELF'] .'?target=inPlace&toSection='. $section->getName () .'&toAction='. $action->getName () .'&itemId='. $itemId);
+	?>
+	<html><body onload="JavaScript: parent.location.reload ();"></body></html>
+	<?
 	exit ();
 }
 catch (PDOException $e)
