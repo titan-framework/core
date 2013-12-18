@@ -3203,6 +3203,7 @@ repos/type/global.String/toText.php -text
 repos/type/global.String/toValue.php -text
 repos/type/global.String/toWhere.SQLite.php -text
 repos/type/global.String/toWhere.php -text
+repos/type/global.Text/Text.php -text
 repos/type/global.Time/Time.php -text
 repos/type/global.Time/_js.php -text
 repos/type/global.Time/fromDb.php -text

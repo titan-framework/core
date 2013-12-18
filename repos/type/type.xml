@@ -23,6 +23,7 @@
 	<type name="Password" component="global.Password" />
 	<type name="Rga" component="global.Rga" />
 	<type name="PlainText" component="global.PlainText" />
+	<type name="Text" component="global.Text" legacy="true" />
 	<type name="Collection" component="global.Collection" />
 	<type name="Multiply" component="global.Multiply" />
 	<type name="Coordinate" component="global.Coordinate" />
