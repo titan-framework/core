@@ -22,7 +22,7 @@
 	<type name="Money" component="global.Money" />
 	<type name="Password" component="global.Password" />
 	<type name="Rga" component="global.Rga" />
-	<type name="Text" component="global.Text" />
+	<type name="PlainText" component="global.PlainText" />
 	<type name="Collection" component="global.Collection" />
 	<type name="Multiply" component="global.Multiply" />
 	<type name="Coordinate" component="global.Coordinate" />

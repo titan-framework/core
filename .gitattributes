@@ -3151,7 +3151,7 @@ repos/type/global.Phone/toForm.php -text
 repos/type/global.Phone/toHtml.php -text
 repos/type/global.Phone/toLdap.php -text
 repos/type/global.Phone/toText.php -text
-repos/type/global.PlainText/Text.php -text
+repos/type/global.PlainText/PlainText.php -text
 repos/type/global.PlainText/toDbMaker.php -text
 repos/type/global.PlainText/toForm.php -text
 repos/type/global.PlainText/toHtml.php -text
