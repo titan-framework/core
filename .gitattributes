@@ -3151,8 +3151,13 @@ repos/type/global.Phone/toForm.php -text
 repos/type/global.Phone/toHtml.php -text
 repos/type/global.Phone/toLdap.php -text
 repos/type/global.Phone/toText.php -text
+repos/type/global.PlainText/Text.php -text
+repos/type/global.PlainText/toDbMaker.php -text
+repos/type/global.PlainText/toForm.php -text
+repos/type/global.PlainText/toHtml.php -text
 repos/type/global.Radio/Radio.php -text
 repos/type/global.Radio/toForm.php -text
+repos/type/global.Radio/toSearch.php -text
 repos/type/global.Rga/Rga.php -text
 repos/type/global.Rga/_js.php -text
 repos/type/global.Rga/fromForm.php -text
@@ -3198,10 +3203,6 @@ repos/type/global.String/toText.php -text
 repos/type/global.String/toValue.php -text
 repos/type/global.String/toWhere.SQLite.php -text
 repos/type/global.String/toWhere.php -text
-repos/type/global.Text/Text.php -text
-repos/type/global.Text/toDbMaker.php -text
-repos/type/global.Text/toForm.php -text
-repos/type/global.Text/toHtml.php -text
 repos/type/global.Time/Time.php -text
 repos/type/global.Time/_js.php -text
 repos/type/global.Time/fromDb.php -text

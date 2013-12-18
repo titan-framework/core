@@ -166,6 +166,9 @@ class Date extends Type
 	
 	public function __toString ()
 	{
+		if (!array_sum ($this->getValue ()))
+			return '';
+		
 		$buffer = strftime ('%x', $this->getUnixTime ());
 		
 		if ($this->showTime ())
