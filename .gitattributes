@@ -2924,6 +2924,7 @@ repos/tool/global.ConvertToUtf8/bootstrap.php -text
 repos/tool/global.DatabaseMaker/bootstrap.php -text
 repos/tool/global.FilesMimeType/bootstrap.php -text
 repos/tool/global.MobileSource/android/adapter.php -text
+repos/tool/global.MobileSource/android/assets.php -text
 repos/tool/global.MobileSource/android/contract.php -text
 repos/tool/global.MobileSource/android/converter.php -text
 repos/tool/global.MobileSource/android/dao.php -text

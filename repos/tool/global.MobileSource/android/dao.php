@@ -17,13 +17,18 @@ ob_start ();
 
 package <?= $app ?>.dao;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
 
 import android.content.ContentValues;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import <?= $app ?>.contract.<?= $model ?>Contract;
 import <?= $app ?>.converter.<?= $model ?>Converter;
@@ -48,6 +53,42 @@ public class <?= $model ?>DAO
 			dao = new <?= $model ?>DAO ();
 		
 		return dao;
+	}
+	
+	public int load (AssetManager assets)
+	{
+		int lines = 0;
+		
+		try
+		{
+			if (!this.empty ())
+				return 0;
+			
+			InputStream is = assets.open ("<?= $table ?>.sql");
+			
+			BufferedReader br = new BufferedReader (new InputStreamReader (is));
+			
+			String line;
+			
+			while ((line = br.readLine ()) != null)
+			{
+				Log.i (getClass ().getName (), line);
+				
+				db.execSQL (line);
+				
+				lines++;
+			}
+			
+			br.close ();
+			
+			is.close ();
+		}
+		catch (Exception e)
+		{
+			throw new TechnicalException ("Impossível carregar os dados iniciais!", e);
+		}
+		
+		return lines;
 	}
 	
 	public List<<?= $model ?>> list ()
@@ -155,6 +196,13 @@ public class <?= $model ?>DAO
 	public void deleteNonActive (String active)
 	{		
 		db.delete (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " NOT IN (" + active.replaceAll ("[^0-9,]", "") + ")", null);
+	}
+	
+	public boolean empty ()
+	{
+		Cursor cursor = db.query (<?= $model ?>Contract.TABLE, new String [] { <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> }, null, null, null, null, null);
+		
+		return cursor.getCount () == 0 ? true : false;
 	}
 }
 <?

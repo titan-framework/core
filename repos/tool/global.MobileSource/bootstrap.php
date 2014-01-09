@@ -113,5 +113,19 @@ if (file_put_contents ($file, $output))
 	echo "SUCCESS > File generated! [". $file ."] \n";
 else
 	echo "FAIL > Impossible to generate code! [". $file ."] \n";
+
+$path = $base .'assets'. DIRECTORY_SEPARATOR;
+
+if (!file_exists ($path) && !@mkdir ($path, 0777, TRUE))
+	die ('Impossible to create folder ['. $path .'].');
+
+$output = require dirname (__FILE__) . DIRECTORY_SEPARATOR .'android'. DIRECTORY_SEPARATOR .'assets.php';
+
+$file = $path . $table .'.sql';
+
+if (file_put_contents ($file, $output))
+	echo "SUCCESS > File generated! [". $file ."] \n";
+else
+	echo "FAIL > Impossible to generate code! [". $file ."] \n";
 ?>
 </pre>
