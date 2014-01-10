@@ -18,6 +18,12 @@ class ApiEntity
 	protected $file = '';
 
 	protected $primary = '';
+	
+	protected $itemId = 0;
+	
+	protected $codeColumn = '';
+	
+	protected $code = NULL;
 
 	protected $table = '';
 
@@ -85,10 +91,13 @@ class ApiEntity
 		$this->file = $fileName;
 
 		if (array_key_exists ('table', $array))
-			$this->table = $array ['table'];
+			$this->table = trim ($array ['table']);
 
 		if (array_key_exists ('primary', $array))
-			$this->primary = $array ['primary'];
+			$this->primary = trim ($array ['primary']);
+		
+		if (array_key_exists ('code', $array))
+			$this->codeColumn = trim ($array ['code']);
 		
 		$user = User::singleton ();
 
@@ -119,6 +128,16 @@ class ApiEntity
 	{
 		return $this->primary;
 	}
+	
+	public function getCodeColumn ()
+	{
+		return $this->codeColumn;
+	}
+	
+	public function useCode ()
+	{
+		return $this->getCodeColumn () != '';
+	}
 
 	public function getFields ()
 	{
@@ -128,6 +147,11 @@ class ApiEntity
 	public function getId ()
 	{
 		return $this->itemId;
+	}
+	
+	public function getCode ()
+	{
+		return $this->code;
 	}
 
 	public function getSth ()
@@ -150,7 +174,7 @@ class ApiEntity
 				if ($field->isLoadable ())
 					$fields [] = Database::toSql ($field);
 			
-			$sql = "SELECT ". $this->getTable () .".". $this->getPrimary () .", ". (sizeof ($fields) ? implode (", ", $fields) : "*") ." FROM ". $this->getTable () . (trim ($where) != '' ? " WHERE ". $where : "");
+			$sql = "SELECT ". $this->getTable () .".". $this->getPrimary () .", ". ($this->getCodeColumn () == '' ? "" : $this->getTable () .".". $this->getCodeColumn () .", ") . (sizeof ($fields) ? implode (", ", $fields) : "*") ." FROM ". $this->getTable () . (trim ($where) != '' ? " WHERE ". $where : "");
 
 			reset ($this->fields);
 		}
@@ -199,9 +223,16 @@ class ApiEntity
 			return NULL;
 
 		$primary = $this->getPrimary ();
-
+		
 		$this->itemId = $obj->$primary;
-
+		
+		if ($this->getCodeColumn() != '')
+		{
+			$code = $this->getCodeColumn ();
+			
+			$this->code = $obj->$code;
+		}
+		
 		foreach ($this->fields as $assign => $field)
 			if ($field->isLoadable ())
 				$this->fields [$assign] = Database::fromDb ($field, $obj);

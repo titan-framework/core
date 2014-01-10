@@ -40,11 +40,18 @@ if (!isset ($_GET ['table']))
 else
 	$table = $_GET ['table'];
 
+$useCode = $view->useCode ();
+
 $primary = $view->getPrimary ();
+
+$code = $view->getCodeColumn ();
 
 $fields = array ();
 
-$fields [$primary] = (object) array ('json' => $primary, 'class' => translateFieldName ($primary), 'type' => 'Long', 'db' => 'INTEGER PRIMARY KEY');
+if ($useCode)
+	$fields [$primary] = (object) array ('json' => $code, 'class' => translateFieldName ($code), 'type' => 'String', 'db' => 'TEXT PRIMARY KEY');
+else
+	$fields [$primary] = (object) array ('json' => $primary, 'class' => translateFieldName ($primary), 'type' => 'Long', 'db' => 'INTEGER PRIMARY KEY');
 
 while ($field = $view->getField ())
 	$fields [$field->getApiColumn ()] = (object) array (

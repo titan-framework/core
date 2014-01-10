@@ -50,7 +50,7 @@ public class <?= $model ?>Task extends AsyncTask<Void, Void, Boolean>
 	{
 		ScreenHelper.lock (activity);
 		
-		progress = ProgressDialog.show (activity, "Sincronizando", "Sincronizando itens! Se esta for a primeira vez que você faz esta sincronização, poderá demorar alguns segundos.", true, false);
+		progress = ProgressDialog.show (activity, "Sincronizando...", "Aguarde! Se esta for a primeira vez que você faz esta sincronização, poderá demorar alguns minutos.", true, false);
 	}
 
 	@Override

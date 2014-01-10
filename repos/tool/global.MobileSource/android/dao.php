@@ -105,9 +105,9 @@ public class <?= $model ?>DAO
 		return list;
 	}
 	
-	public <?= $model ?> get (long id)
+	public <?= $model ?> get (<?= $useCode ? 'String code' : 'long id' ?>)
 	{
-		Cursor cursor = db.query (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.columns (), <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " = ?", new String [] { String.valueOf (id) }, null, null, null, "1");
+		Cursor cursor = db.query (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.columns (), <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " = ?", new String [] { <?= $useCode ? 'code' : 'String.valueOf (id)' ?> }, null, null, null, "1");
 
 		cursor.moveToNext ();
 
@@ -183,9 +183,9 @@ public class <?= $model ?>DAO
 		}
 	}
 	
-	public void delete (Long id)
+	public void delete (<?= $useCode ? 'String code' : 'long id' ?>)
 	{
-		db.delete (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " = ?", new String [] { String.valueOf (id) });
+		db.delete (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " = ?", new String [] { <?= $useCode ? 'code' : 'String.valueOf (id)' ?> });
 	}
 	
 	public void delete (<?= $model ?> item)
@@ -195,7 +195,7 @@ public class <?= $model ?>DAO
 	
 	public void deleteNonActive (String active)
 	{		
-		db.delete (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " NOT IN (" + active.replaceAll ("[^0-9,]", "") + ")", null);
+		db.delete (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " NOT IN (" + active.replaceAll ("[^0-9,.]", "") + ")", null);
 	}
 	
 	public boolean empty ()

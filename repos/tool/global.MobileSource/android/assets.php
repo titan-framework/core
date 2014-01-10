@@ -6,8 +6,16 @@ if (!$view->load ())
 
 while ($view->getItem ())
 {
-	$assetsColumns = array ($primary);
-	$assetsValues = array ($view->getId ());
+	if ($useCode)
+	{
+		$assetsColumns = array ($code);
+		$assetsValues = array ('"'. $view->getCode () .'"');
+	}
+	else
+	{
+		$assetsColumns = array ($primary);
+		$assetsValues = array ($view->getId ());
+	}
 	
 	while ($field = $view->getField ())
 	{

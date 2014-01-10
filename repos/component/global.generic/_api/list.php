@@ -28,7 +28,10 @@ while ($entity->getItem ())
 	
 	$object = array ();
 	
-	$object [$entity->getPrimary ()] = $itemId;
+	if ($entity->useCode ())
+		$object [$entity->getCodeColumn ()] = $entity->getCode ();
+	else
+		$object [$entity->getPrimary ()] = $itemId;
 	
 	while ($field = $entity->getField ())
 		if ($field->getAssign () == '_API_UPDATE_UNIX_TIMESTAMP_')

@@ -5,7 +5,10 @@ if (Api::getHttpRequestMethod () != Api::GET)
 
 $entity = new ApiEntity ('api.xml');
 
-$sql = "SELECT ". $entity->getPrimary () ." FROM ". $entity->getTable ();
+if ($entity->useCode ())
+	$sql = "SELECT ". $entity->getCodeColumn () ." FROM ". $entity->getTable ();
+else
+	$sql = "SELECT ". $entity->getPrimary () ." FROM ". $entity->getTable ();
 
 $sth = Database::singleton ()->prepare ($sql);
 

@@ -24,12 +24,11 @@ public class <?= $model ?>
 <?
 foreach ($fields as $trash => $obj)
 	echo "	private ". $obj->type ." ". $obj->class .";\n";
-?>
-	
-<?
+
 foreach ($fields as $trash => $obj)
 {
 	?>
+	
 	public <?= $obj->type ?> get<?= ucwords ($obj->class) ?> ()
 	{
 		return <?= $obj->class ?>;
@@ -39,7 +38,6 @@ foreach ($fields as $trash => $obj)
 	{
 		this.<?= $obj->class ?> = <?= $obj->class ?>;
 	}
-	
 <?
 }
 ?>

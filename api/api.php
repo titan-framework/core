@@ -57,6 +57,12 @@ try
 			
 			break;
 		
+		case 'disambiguation':
+			
+			require $corePath .'api/disambiguation.php';
+			
+			break;
+		
 		default:
 			
 			if (!Business::singleton ()->sectionExists ($_uri [0]))

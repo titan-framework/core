@@ -3,6 +3,7 @@ api/alert.php -text
 api/alerts.php -text
 api/api.php -text
 api/auth.php -text
+api/disambiguation.php -text
 api/gcm.php -text
 api/register.php -text
 assembly/breadcrumb.php -text
