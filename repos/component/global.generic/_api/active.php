@@ -16,4 +16,4 @@ $sth->execute ();
 
 header ('Content-Type: application/json; charset=UTF-8');
 
-echo json_encode (implode (',', $sth->fetchAll (PDO::FETCH_COLUMN)));
+echo json_encode ($sth->fetchAll (PDO::FETCH_COLUMN));

@@ -46,6 +46,8 @@ $primary = $view->getPrimary ();
 
 $code = $view->getCodeColumn ();
 
+$update = $view->getField ('_API_UPDATE_UNIX_TIMESTAMP_')->getApiColumn ();
+
 $fields = array ();
 
 if ($useCode)

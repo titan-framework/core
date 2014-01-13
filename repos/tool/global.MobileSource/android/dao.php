@@ -24,6 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -35,6 +36,7 @@ import <?= $app ?>.converter.<?= $model ?>Converter;
 import <?= $app ?>.exception.TechnicalException;
 import <?= $app ?>.model.<?= $model ?>;
 import <?= $app ?>.util.Database;
+import <?= $app ?>.util.Preferences;
 
 public class <?= $model ?>DAO 
 {
@@ -64,7 +66,7 @@ public class <?= $model ?>DAO
 			if (!this.empty ())
 				return 0;
 			
-			InputStream is = assets.open ("<?= $table ?>.sql");
+			InputStream is = assets.open (<?= $model ?>Contract.TABLE + ".sql");
 			
 			BufferedReader br = new BufferedReader (new InputStreamReader (is));
 			
@@ -82,6 +84,20 @@ public class <?= $model ?>DAO
 			br.close ();
 			
 			is.close ();
+			
+			Cursor cursor = db.query (<?= $model ?>Contract.TABLE, new String [] { <?= $model ?>Contract.<?= strtoupper ($fields [$update]->json) ?> }, null, null, null, null, <?= $model ?>Contract.<?= strtoupper ($fields [$update]->json) ?> + " DESC", "1");
+
+			cursor.moveToNext ();
+			
+			SharedPreferences preferences = Preferences.singleton ();
+			
+			SharedPreferences.Editor editor = preferences.edit ();
+			
+			editor.putLong ("lastSyncFor<?= $model ?>", cursor.getLong (cursor.getColumnIndexOrThrow (<?= $model ?>Contract.<?= strtoupper ($fields [$update]->json) ?>)));
+
+			editor.commit ();
+			
+			cursor.close ();
 		}
 		catch (Exception e)
 		{
@@ -194,15 +210,15 @@ public class <?= $model ?>DAO
 	}
 	
 	public void deleteNonActive (String active)
-	{		
-		db.delete (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " NOT IN (" + active.replaceAll ("[^0-9,.]", "") + ")", null);
+	{
+		db.delete (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " NOT IN (" + active.replaceAll ("<?= $useCode ? '[^0-9,\\\\.\"]' : '[^0-9,]' ?>", "") + ")", null);
 	}
 	
 	public boolean empty ()
 	{
 		Cursor cursor = db.query (<?= $model ?>Contract.TABLE, new String [] { <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> }, null, null, null, null, null);
 		
-		return cursor.getCount () == 0 ? true : false;
+		return cursor.getCount () == 0;
 	}
 }
 <?
