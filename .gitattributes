@@ -3169,6 +3169,7 @@ repos/type/global.Rga/toHtml.php -text
 repos/type/global.Select/Select.php -text
 repos/type/global.Select/_js.php -text
 repos/type/global.Select/_script/search.php -text
+repos/type/global.Select/toApi.php -text
 repos/type/global.Select/toBind.php -text
 repos/type/global.Select/toConstraint.php -text
 repos/type/global.Select/toDbMaker.php -text

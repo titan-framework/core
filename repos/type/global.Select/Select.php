@@ -5,6 +5,8 @@ class Select extends Type
 	
 	protected $linkColumn = '';
 	
+	protected $linkApi = '';
+	
 	protected $linkView = '';
 	
 	protected $columns = array ();
@@ -38,6 +40,11 @@ class Select extends Type
 		
 		if (array_key_exists ('link-color', $field))
 			$this->setLinkColor ($field ['link-color']);
+		
+		if (array_key_exists ('link-api', $field))
+			$this->setLinkApi ($field ['link-api']);
+		else
+			$this->setLinkApi ($this->getLinkColumn ());
 		
 		if (array_key_exists ('search', $field))
 			$this->setSearch ($field ['search']);
@@ -111,6 +118,16 @@ class Select extends Type
 	public function setLinkColor ($linkColor)
 	{
 		$this->linkColor = $linkColor;
+	}
+	
+	public function getLinkApi ()
+	{
+		return $this->linkApi;
+	}
+	
+	public function setLinkApi ($linkApi)
+	{
+		$this->linkApi = $linkApi;
 	}
 	
 	public function setWhere ($where)

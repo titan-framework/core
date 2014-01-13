@@ -17,7 +17,7 @@ if (is_object ($update))
 else
 	$columnUp = $view->getTable () . '._update';
 
-if (!$entity->load ($_TIME ." < extract (epoch from ". $columnUp .")"))
+if (!$entity->load ($_TIME ." < extract (epoch from ". $columnUp .")::integer"))
 	throw new Exception (__ ('Unable to load data!'));
 
 $json = array ();
