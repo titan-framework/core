@@ -34,6 +34,8 @@ if (!isset ($profile ['email']) || trim ($profile ['email']) == '' || trim ($pro
 
 $social = Social::singleton ()->getSocialNetwork ('Google');
 
+$social->setProfile ($profile);
+
 $id = $social->register ($profile);
 
 if (!(int) $id)
