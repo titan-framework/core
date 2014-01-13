@@ -39,7 +39,7 @@ class Social
 					!array_key_exists ('auth-secret', $social) || trim ($social ['auth-secret']) == '')
 					continue;
 				
-				if ((!array_key_exists ('auto-register', $social) || strtoupper (trim ($array ['auto-register'])) != 'FALSE') &&
+				if ((!array_key_exists ('auto-register', $social) || strtoupper (trim ($social ['auto-register'])) != 'FALSE') &&
 					(!array_key_exists ('register-as', $social) || trim ($social ['register-as']) == '' || !Security::singleton ()->userTypeExists ($social ['register-as'])))
 					continue;
 				
