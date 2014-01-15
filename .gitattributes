@@ -18,6 +18,7 @@ class/Api.php -text
 class/ApiAuth.php -text
 class/ApiEntity.php -text
 class/ApiException.php -text
+class/ApiList.php -text
 class/Archive.php -text
 class/Backup.php -text
 class/Business.php -text
@@ -2411,7 +2412,11 @@ repos/component/global.contact/view.php -text
 repos/component/global.contact/view.prepare.php -text
 repos/component/global.generic/_ajax.php -text
 repos/component/global.generic/_api/active.php -text
+repos/component/global.generic/_api/delete.php -text
+repos/component/global.generic/_api/get.php -text
 repos/component/global.generic/_api/list.php -text
+repos/component/global.generic/_api/post.php -text
+repos/component/global.generic/_api/put.php -text
 repos/component/global.generic/_css.php -text
 repos/component/global.generic/_doc/.en_US.txt -text
 repos/component/global.generic/_doc/.es_ES.txt -text
@@ -3032,6 +3037,7 @@ repos/type/global.Cpf/toValue.php -text
 repos/type/global.Date/Date.php -text
 repos/type/global.Date/_css.php -text
 repos/type/global.Date/_js.php -text
+repos/type/global.Date/fromApi.php -text
 repos/type/global.Date/fromDb.php -text
 repos/type/global.Date/fromForm.php -text
 repos/type/global.Date/fromLdap.php -text

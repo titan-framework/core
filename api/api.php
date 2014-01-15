@@ -70,9 +70,7 @@ try
 			
 			$_section = Business::singleton ()->getSection ($_uri [0]);
 			
-			$_service = str_replace ('..', '', trim (@$_uri [1]));
-			
-			if (!is_object ($_section) || $_service == '')
+			if (!is_object ($_section))
 				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 			
 			$_action = $_section->getAction (Action::TAPI);
@@ -88,10 +86,20 @@ try
 			if (file_exists ($_section->getCompPath () .'_function.php'))
 				include $_section->getCompPath () .'_function.php';
 			
-			$file = $_section->getComponentPath () .'_api'. DIRECTORY_SEPARATOR . $_service .'.php';
+			$path = $_section->getComponentPath () .'_api'. DIRECTORY_SEPARATOR;
 			
-			if (!file_exists ($file))
-				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'File ['. $file .'] do not exists!');
+			$_service = str_replace ('..', '', trim (@$_uri [1]));
+			
+			if (trim ($_service) == '' || !file_exists ($path . $_service .'.php'))
+				$_service = strtolower (Api::getHttpRequestMethod ());
+			
+			if (trim ($_service) == '' || !file_exists ($path . $_service .'.php'))
+				throw new ApiException (__ ('Invalid URI request method!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::METHOD_NOT_ALLOWED);
+			
+			if (Api::getHttpRequestMethod () == Api::PUT)
+				parse_str (file_get_contents ('php://input'), $_POST);
+			
+			$file = $_section->getComponentPath () .'_api'. DIRECTORY_SEPARATOR . $_service .'.php';
 			
 			require $file;
 	}
@@ -118,7 +126,7 @@ catch (PDOException $e)
 	
 	$array = array ('ERROR' => 'DATABASE_ERROR',
 					'MESSAGE' => __ ('Database error! Please, contact administrator.'),
-					'TECHNICAL' => $e->getMessage ());
+					'TECHNICAL' => '[Line #'. $e->getLine () .'] '. $e->getMessage ());
 	
 	echo json_encode ($array);
 }

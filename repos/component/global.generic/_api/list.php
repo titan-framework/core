@@ -8,7 +8,7 @@ if (Api::getHttpRequestMethod () != Api::GET)
 
 $_TIME = (int) $_uri [2];
 
-$entity = new ApiEntity ('api.xml');
+$entity = new ApiList ('api-list.xml', 'api.xml');
 
 $update = $entity->getField ('_API_UPDATE_UNIX_TIMESTAMP_');
 
@@ -34,10 +34,7 @@ while ($entity->getItem ())
 		$object [$entity->getPrimary ()] = $itemId;
 	
 	while ($field = $entity->getField ())
-		if ($field->getAssign () == '_API_UPDATE_UNIX_TIMESTAMP_')
-			$object [$field->getApiColumn ()] = $field->getUnixTime ();
-		else
-			$object [$field->getApiColumn ()] = ApiEntity::toApi ($field, $itemId);
+		$object [$field->getApiColumn ()] = ApiEntity::toApi ($field, $itemId);
 	
 	$json [] = (object) $object;
 }

@@ -98,9 +98,11 @@ class User
 				to_char(_update_date, 'HH24-MI-SS-MM-DD-YYYY') AS _update_date,
 				to_char(_last_logon, 'HH24-MI-SS-MM-DD-YYYY') AS _last_logon
 				FROM _user
-				WHERE _login = '". $login ."'";
+				WHERE _login = :login";
 
 		$sth = $db->prepare ($sql);
+		
+		$sth->bindParam (':login', $login, PDO::PARAM_STR);
 
 		$sth->execute ();
 
