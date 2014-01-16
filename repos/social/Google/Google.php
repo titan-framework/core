@@ -237,18 +237,17 @@ class GoogleDriver extends SocialDriver
 			{
 				$_login = $aux = array_shift (explode ('@', $profile ['email']));
 				
-				$count = 0;
+				$count = 1;
 				
-				do
+				while (TRUE)
 				{
 					$query = $db->query ("SELECT COUNT(*) AS n FROM _user WHERE _login ILIKE '". $_login ."'");
 					
-					if ($count)
-						$_login = $aux . $count;
+					if (!(int) $query->fetch (PDO::FETCH_COLUMN))
+						break;
 					
-					$count++;
-					
-				} while ((int) $query->fetch (PDO::FETCH_COLUMN));
+					$_login = $aux . $count++;
+				}
 			}
 		}
 		
