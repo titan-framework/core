@@ -165,33 +165,38 @@ class User
 				
 				$userId = Database::nextId ('_user', '_id');
 				
-				$fields = array ('_id' 	 	 => "'". $userId ."'",
-								 '_login' 	 => "'". $login ."'",
-								 '_name'	 => "'". $name ."'",
-								 '_email'	 => "'". (array_key_exists ('mail', $array) ? trim ($array [$mail]) : '') ."'",
-								 '_password' => "'". randomHash (13) .'_INVALID_HASH_'. randomHash (13) ."'",
-								 '_active'	 => "B'1'",
-								 '_deleted'	 => "B'0'",
-								 '_type'	 => "'". $type->getName () ."'");
+				$fields = array ('_id' 	 	 => array ($userId, PDO::PARAM_INT),
+								 '_login' 	 => array ($login, PDO::PARAM_STR),
+								 '_name'	 => array ($name, PDO::PARAM_STR),
+								 '_email'	 => array (trim (@$array [$mail]), PDO::PARAM_STR),
+								 '_password' => array (randomHash (13) .'_INVALID_HASH_'. randomHash (13), PDO::PARAM_STR),
+								 '_active'	 => array (1, PDO::PARAM_INT),
+								 '_deleted'	 => array (0, PDO::PARAM_INT),
+								 '_type'	 => array ($type->getName (), PDO::PARAM_STR));
 				
-				$sql = "INSERT INTO _user (". implode (", ", array_keys ($fields)) .") VALUES (". implode (", ", $fields) .")";
+				$sql = "INSERT INTO _user (". implode (", ", array_keys ($fields)) .") VALUES (:". implode (", :", array_keys ($fields)) .")";
 				
 				$sth = $db->prepare ($sql);
+				
+				foreach ($fields as $key => $aux)
+					$sth->bindParam (':'. $key, $aux [0], $aux [1]);
 				
 				$sth->execute ();
 				
 				try
 				{
-					$sql = "SELECT _group FROM _type_group WHERE _type = '". $type->getName () ."'";
+					$sql = "SELECT _group FROM _type_group WHERE _type = :type";
 				
 					$sth = $db->prepare ($sql);
+					
+					$sth->prepare (':type', $type->getName (), PDO::PARAM_STR);
 				
 					$sth->execute ();
 				
-					$sthUser = $db->prepare ("INSERT INTO _user_group (_user, _group) VALUES ('". $userId ."', :group)");
+					$sthUser = $db->prepare ("INSERT INTO _user_group (_user, _group) VALUES (:user, :group)");
 				
 					while ($obj = $sth->fetch (PDO::FETCH_OBJ))
-						$sthUser->execute (array (':group' => $obj->_group));
+						$sthUser->execute (array (':user' => $userId, ':group' => $obj->_group));
 				}
 				catch (PDOException $e)
 				{
@@ -203,10 +208,12 @@ class User
 						to_char(_update_date, 'HH24-MI-SS-MM-DD-YYYY') AS _update_date,
 						to_char(_last_logon, 'HH24-MI-SS-MM-DD-YYYY') AS _last_logon
 						FROM _user
-						WHERE _login = '". $login ."'";
+						WHERE _login = :login";
 		
 				$sth = $db->prepare ($sql);
-		
+				
+				$sth->bindParam (':login', $login, PDO::PARAM_STR);
+				
 				$sth->execute ();
 		
 				$obj = $sth->fetch (PDO::FETCH_OBJ);
