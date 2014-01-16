@@ -2984,6 +2984,7 @@ repos/type/global.CheckBox/toForm.php -text
 repos/type/global.CheckBox/toHtml.php -text
 repos/type/global.CheckBox/toSearch.php -text
 repos/type/global.CheckBox/toSql.php -text
+repos/type/global.CheckBox/toText.php -text
 repos/type/global.CheckBox/toValue.php -text
 repos/type/global.CheckBox/toWhere.php -text
 repos/type/global.City/City.php -text
