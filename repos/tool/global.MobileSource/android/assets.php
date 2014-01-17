@@ -2,7 +2,7 @@
 ob_start ();
 
 if (!$view->load ())
-	toLog ('Impossible to load items from table ['. $view->getTable () .']!');
+	die ('CRITICAL > Impossible to load items from table ['. $view->getTable () .']!');
 
 while ($view->getItem ())
 {
@@ -41,7 +41,7 @@ while ($view->getItem ())
 		}
 	}
 	
-	echo "INSERT INTO ". $table ." (". implode (", ", $assetsColumns) .") VALUES (". implode (", ", $assetsValues) .")\n";
+	echo "INSERT INTO ". $table ." (". implode (", ", $assetsColumns) .") VALUES (". implode (", ", $assetsValues) .");\n";
 }
 
 return ob_get_clean ();

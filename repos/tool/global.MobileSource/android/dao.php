@@ -63,33 +63,36 @@ public class <?= $model ?>DAO
 		
 		try
 		{
-			if (!this.empty ())
+			SharedPreferences preferences = Preferences.singleton ();
+			
+			if (preferences.getLong ("lastSyncFor<?= $model ?>", 0) > 0)
 				return 0;
 			
-			InputStream is = assets.open (<?= $model ?>Contract.TABLE + ".sql");
-			
-			BufferedReader br = new BufferedReader (new InputStreamReader (is));
-			
-			String line;
-			
-			while ((line = br.readLine ()) != null)
+			if (this.empty ())
 			{
-				Log.i (getClass ().getName (), line);
+				InputStream is = assets.open (<?= $model ?>Contract.TABLE + ".sql");
 				
-				db.execSQL (line);
+				BufferedReader br = new BufferedReader (new InputStreamReader (is));
 				
-				lines++;
+				String line;
+				
+				while ((line = br.readLine ()) != null)
+				{
+					Log.i (getClass ().getName (), line);
+					
+					db.execSQL (line);
+					
+					lines++;
+				}
+				
+				br.close ();
+				
+				is.close ();
 			}
-			
-			br.close ();
-			
-			is.close ();
 			
 			Cursor cursor = db.query (<?= $model ?>Contract.TABLE, new String [] { <?= $model ?>Contract.<?= strtoupper ($fields [$update]->json) ?> }, null, null, null, null, <?= $model ?>Contract.<?= strtoupper ($fields [$update]->json) ?> + " DESC", "1");
 
 			cursor.moveToNext ();
-			
-			SharedPreferences preferences = Preferences.singleton ();
 			
 			SharedPreferences.Editor editor = preferences.edit ();
 			

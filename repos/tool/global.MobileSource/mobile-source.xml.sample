@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mobile-source>
+	<application name="Taurus" package="br.embrapa.taurus">
+		<entity active="true" model="City" section="city" xml="api.xml" table="city" assets="true" />
+		<entity active="true" model="Action" section="action" xml="api.xml" table="action" assets="true" />
+		<entity active="true" model="Category" section="category" xml="api.xml" table="category" assets="true" />
+		<entity active="true" model="Situation" section="situation" xml="api.xml" table="situation" assets="true" />
+		<entity active="true" model="Skin" section="skin" xml="api.xml" table="skin" assets="true" />
+		<entity active="true" model="Breed" section="breed" xml="api.xml" table="breed" assets="true" />
+		<entity active="true" model="Genetic" section="genetic" xml="api.xml" table="genetic" assets="true" />
+		<entity active="true" model="Blood" section="blood" xml="api.xml" table="blood" assets="true" />
+		<entity active="true" model="Food" section="food" xml="api.xml" table="food" assets="true" />
+		<entity active="true" model="MedicineType" section="medicine.type" xml="api.xml" table="medicine_type" assets="true" />
+		<entity active="true" model="PlaceType" section="place.type" xml="api.xml" table="place_type" assets="true" />
+		<entity active="true" model="Place" section="place" xml="api.xml" table="place" assets="false" />
+		<entity active="true" model="Animal" section="animal" xml="api.xml" table="animal" assets="false" />
+	</application>
+</mobile-source>

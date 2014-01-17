@@ -3,138 +3,39 @@
 set_time_limit (0);
 ini_set ('memory_limit', '-1');
 
-if (!isset ($_GET ['section']) || !Business::singleton ()->sectionExists ($_GET ['section']) || !isset ($_GET ['model']) || !isset ($_GET ['package']))
-	die ('Parameter [section] or [model] is missing!');
-
-$section = Business::singleton ()->getSection ($_GET ['section']);
-
-if (is_null ($section))
-	die ('Impossible to load section ['. $_GET ['section'] .']!');
-
-if (!file_exists ($section->getPath () .'api.xml'))
-	die ('Impossible to open ['. $section->getPath () .'api.xml' .']!');
-
-$model = $_GET ['model'];
-
-$modelUnderScore = strtolower (preg_replace ('/([a-z])([A-Z])/', '$1_$2', $model));
-
-$object = lcfirst ($model);
-
-$app = $_GET ['package'];
-
-$appName = ucwords (array_pop (explode ('.', $app)));
-
 require dirname (__FILE__) . DIRECTORY_SEPARATOR .'function.php';
 
-$action = $section->getAction (Action::TAPI);
+$configure = 'configure'. DIRECTORY_SEPARATOR .'mobile-source.xml';
 
-Business::singleton ()->setCurrent ($section, $action);
+if (!file_exists ($configure))
+	die ('You need create configuration file to usage ['. $configure .']! See sample at folder tool in Titan repository.');
 
-foreach (Instance::singleton ()->getTypes () as $type => $path)
-	require_once $path . $type .'.php';
+$xml = new Xml ($configure);
 
-$view = new ApiEntity ('api.xml');
+$array = $xml->getArray ();
 
-if (!isset ($_GET ['table']))
-	$table = array_pop (explode ('.', $view->getTable ()));
-else
-	$table = $_GET ['table'];
+if (!isset ($array ['mobile-source'][0]['application']))
+	die ('The tag &lt;mobile-source&gt;&lt;/mobile-source&gt; has not found in XML ['. $configure .']!');
 
-$useCode = $view->useCode ();
+$cache = Instance::singleton ()->getCachePath () .'mobile'. DIRECTORY_SEPARATOR;
 
-$primary = $view->getPrimary ();
+if (!file_exists ($cache) && !@mkdir ($cache, 0777))
+	die ('Impossible to create folder ['. $cache .'].');
 
-$code = $view->getCodeColumn ();
+if (!file_exists ($cache .'.htaccess') && !file_put_contents ($cache .'.htaccess', 'deny from all'))
+	die ('Impossible to enhance security for folder ['. $cache .'].');
 
-$update = $view->getField ('_API_UPDATE_UNIX_TIMESTAMP_')->getApiColumn ();
+foreach ($array ['mobile-source'][0]['application'] as $trash => $app)
+	foreach ($app ['entity'] as $trash => $params)
+		if (strtoupper (trim ($params ['active'])) == 'TRUE')
+		{
+			echo $app ['name'] .": Generating for ". $params ['model'] ."...\n\n";
+			
+			generate ($app ['name'], $app ['package'], $params ['section'], $params ['model'], $params ['xml'], $params ['table'], $params ['assets']);
+			
+			echo "\n";
+		}
 
-$fields = array ();
-
-if ($useCode)
-	$fields [$primary] = (object) array ('json' => $code, 'class' => translateFieldName ($code), 'type' => 'String', 'db' => 'TEXT PRIMARY KEY');
-else
-	$fields [$primary] = (object) array ('json' => $primary, 'class' => translateFieldName ($primary), 'type' => 'Long', 'db' => 'INTEGER PRIMARY KEY');
-
-while ($field = $view->getField ())
-	$fields [$field->getApiColumn ()] = (object) array (
-		'json' => $field->getApiColumn (), 
-		'class' => translateFieldName ($field->getApiColumn ()), 
-		'type' => translateType ($field),
-		'db' => translateDatabase ($field),
-		'label' => $field->getLabel ()
-	);
-
-$base = Instance::singleton ()->getCachePath () .'mobile'. DIRECTORY_SEPARATOR .'android' . DIRECTORY_SEPARATOR;
-
-$path = $base .'src'. DIRECTORY_SEPARATOR . implode (DIRECTORY_SEPARATOR, explode ('.', $app)) . DIRECTORY_SEPARATOR;
-
-$packages = array ( 'contract' => 'Contract',
-					'model' => '',
-					'converter' => 'Converter',
-					'dao' => 'DAO',
-					'task' => 'Task',
-					'ws' => 'WebService',
-					'adapter' => 'Adapter');
-
-foreach ($packages as $pack => $sufix)
-{
-	if (!file_exists ($path . $pack) && !@mkdir ($path . $pack, 0777, TRUE))
-		die ('Impossible to create folder ['. $path . $pack .'].');
-	
-	$output = require dirname (__FILE__) . DIRECTORY_SEPARATOR .'android'. DIRECTORY_SEPARATOR . $pack .'.php';
-	
-	$file = $path . $pack . DIRECTORY_SEPARATOR . $model . $sufix .'.java';
-	
-	if (file_put_contents ($file, $output))
-		echo "SUCCESS > File generated! [". $file ."] \n";
-	else
-		echo "FAIL > Impossible to generate code! [". $file ."] \n";
-}
-
-$output = require dirname (__FILE__) . DIRECTORY_SEPARATOR .'android'. DIRECTORY_SEPARATOR .'view.php';
-
-$file = $path . $model .'ViewActivity.java';
-
-if (file_put_contents ($file, $output))
-	echo "SUCCESS > File generated! [". $file ."] \n";
-else
-	echo "FAIL > Impossible to generate code! [". $file ."] \n";
-
-$path = $base .'res'. DIRECTORY_SEPARATOR .'layout'. DIRECTORY_SEPARATOR;
-
-if (!file_exists ($path) && !@mkdir ($path, 0777, TRUE))
-	die ('Impossible to create folder ['. $path .'].');
-
-$output = require dirname (__FILE__) . DIRECTORY_SEPARATOR .'android'. DIRECTORY_SEPARATOR .'layoutView.php';
-
-$file = $path . $modelUnderScore .'_view.xml';
-
-if (file_put_contents ($file, $output))
-	echo "SUCCESS > File generated! [". $file ."] \n";
-else
-	echo "FAIL > Impossible to generate code! [". $file ."] \n";
-
-$output = require dirname (__FILE__) . DIRECTORY_SEPARATOR .'android'. DIRECTORY_SEPARATOR .'layoutRow.php';
-
-$file = $path . $modelUnderScore .'_row.xml';
-
-if (file_put_contents ($file, $output))
-	echo "SUCCESS > File generated! [". $file ."] \n";
-else
-	echo "FAIL > Impossible to generate code! [". $file ."] \n";
-
-$path = $base .'assets'. DIRECTORY_SEPARATOR;
-
-if (!file_exists ($path) && !@mkdir ($path, 0777, TRUE))
-	die ('Impossible to create folder ['. $path .'].');
-
-$output = require dirname (__FILE__) . DIRECTORY_SEPARATOR .'android'. DIRECTORY_SEPARATOR .'assets.php';
-
-$file = $path . $table .'.sql';
-
-if (file_put_contents ($file, $output))
-	echo "SUCCESS > File generated! [". $file ."] \n";
-else
-	echo "FAIL > Impossible to generate code! [". $file ."] \n";
+echo "All done!";
 ?>
 </pre>

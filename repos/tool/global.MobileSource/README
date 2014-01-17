@@ -1,0 +1,8 @@
+Titan Framework: Mobile Source Generator Tool
+=============================================
+
+For activate the source generation copy the file 'mobile-source.xml.sample' to folder 'configure' at your instance (removing posfix '.sample').
+
+Edit the file adding mobile applications with correspondent sections.
+
+Enjoy it!
