@@ -29,14 +29,26 @@ define ('XOAD_AUTOHANDLE', true);
 
 require_once Instance::singleton ()->getCorePath () .'class/Xoad.php';
 
-if (file_exists (Instance::singleton ()->getReposPath () .'component/'. $section->getComponent () .'/_ajax.php'))
-	include_once Instance::singleton ()->getReposPath () .'component/'. $section->getComponent () .'/_ajax.php';
+if (file_exists ($section->getCompPath () .'_ajax.php'))
+	include_once $section->getCompPath () .'_ajax.php';
 else
 	require_once Instance::singleton ()->getCorePath () .'class/Ajax.php';
 
+$allow = array ('Xoad', 'Ajax');
+
+foreach (Instance::singleton ()->getTypes () as $type => $path)
+{
+	if (!file_exists ($path .'_ajax.php'))
+		continue;
+	
+	require_once $path . '_ajax.php';
+	
+	$allow [] = 'x'. $type;
+}
+
 require_once Instance::singleton ()->getCorePath () .'xoad/xoad.php';
 
-XOAD_Server::allowClasses ('Xoad', 'Ajax');
+XOAD_Server::allowClasses ($allow);
 
 if (XOAD_Server::runServer ())
 	exit ();
