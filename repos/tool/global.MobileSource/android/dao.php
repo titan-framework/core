@@ -57,6 +57,22 @@ public class <?= $model ?>DAO
 		return dao;
 	}
 	
+	public String next ()
+	{
+		Cursor cursor = db.query (<?= $model ?>Contract.TABLE, new String [] { <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> }, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " LIKE ?", new String [] { <?= $appName ?>.singleton ().getDisambiguation () + ".%" }, null, null, <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " DESC", "1");
+		
+		if (cursor.getCount () == 0)
+			return <?= $appName ?>.singleton ().getDisambiguation () + ".1";
+		
+		cursor.moveToFirst ();
+		
+		String code = cursor.getString (cursor.getColumnIndexOrThrow (<?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?>));
+		
+		int next = Integer.valueOf (code.replaceFirst ("[0-9]+\\.", ""));
+		
+		return <?= $appName ?>.singleton ().getDisambiguation () + "." + String.valueOf (next + 1);
+	}
+	
 	public int load (AssetManager assets)
 	{
 		int lines = 0;

@@ -1,0 +1,3 @@
+<?
+return (string) $field->getValue ();
+?>

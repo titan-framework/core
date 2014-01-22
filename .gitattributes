@@ -3014,6 +3014,7 @@ repos/type/global.Collection/toText.php -text
 repos/type/global.Color/Color.php -text
 repos/type/global.Color/_js.php -text
 repos/type/global.Color/fromForm.php -text
+repos/type/global.Color/toApi.php -text
 repos/type/global.Color/toDbMaker.php -text
 repos/type/global.Color/toForm.php -text
 repos/type/global.Color/toHtml.php -text

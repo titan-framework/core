@@ -611,10 +611,19 @@ class Xoad
 				throw new Exception (__ ('You dont have permission to access, edit or delete this item!'));
 			
 			$db = Database::singleton ();
-
-			$sth = $db->prepare ("UPDATE ". $table ." SET ". $column ." = '". $value ."' WHERE ". $primary ." = '". $itemId ."'");
 			
-			$sth->execute ();
+			try
+			{
+				$sth = $db->prepare ("UPDATE ". $table ." SET ". $column ." = '". $value ."', _update = now() WHERE ". $primary ." = '". $itemId ."'");
+				
+				$sth->execute ();
+			}
+			catch (PDOException $e)
+			{
+				$sth = $db->prepare ("UPDATE ". $table ." SET ". $column ." = '". $value ."' WHERE ". $primary ." = '". $itemId ."'");
+				
+				$sth->execute ();
+			}
 
 			$message->addMessage (__ ('The status has been changed!'));
 		}

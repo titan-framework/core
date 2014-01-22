@@ -125,11 +125,14 @@ foreach ($fields as $trash => $obj)
 	switch ($obj->type)
 	{
 		case 'Boolean':
-			echo "		value.put (". $model ."Contract.". strtoupper ($obj->json) .", item.get". ucwords ($obj->class) ." () ? 1 : 0);\n";
+			echo "		value.put (". $model ."Contract.". strtoupper ($obj->json) .", item.get". ucwords ($obj->class) ." () != null && item.get". ucwords ($obj->class) ." () ? 1 : 0);\n";
 			break;
 		
 		case 'Date':
-			echo "		value.put (". $model ."Contract.". strtoupper ($obj->json) .", item.get". ucwords ($obj->class) ." ().getTime () / 1000);\n";
+			echo "		\n";
+			echo "		if (item.get". ucwords ($obj->class) ." () != null)\n";
+			echo "			value.put (". $model ."Contract.". strtoupper ($obj->json) .", item.get". ucwords ($obj->class) ." ().getTime () / 1000);\n";
+			echo "		\n";
 			break;
 		
 		default:
