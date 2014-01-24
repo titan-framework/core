@@ -26,6 +26,26 @@ foreach ($fields as $trash => $obj)
 	echo "	private ". $obj->type ." ". $obj->class .";\n";
 
 foreach ($fields as $trash => $obj)
+	if (get_class ($obj->object) == 'Enum')
+	{
+		?>
+	
+	public static final Map<String, String> <?= $obj->class ?>Map;
+	static
+	{
+		<?= $obj->class ?>Map = new HashMap<String, String> ();
+		
+<?	
+		$items = $obj->object->getMapping ();
+		
+		foreach ($items as $value => $label)
+			echo "		". $obj->class ."Map.put (\"". $value ."\", \"". $label ."\");\n";
+		?>
+	}
+<?
+	}
+
+foreach ($fields as $trash => $obj)
 {
 	?>
 	
@@ -33,6 +53,21 @@ foreach ($fields as $trash => $obj)
 	{
 		return <?= $obj->class ?>;
 	}
+<?
+	if (get_class ($obj->object) == 'Enum')
+	{
+		?>
+	
+	public String get<?= ucwords ($obj->class) ?>Label ()
+	{
+		if (<?= $obj->class ?>Map.containsKey (<?= $obj->class ?>))
+			return <?= $obj->class ?>Map.get (<?= $obj->class ?>);
+		
+		return <?= $obj->class ?>;
+	}
+<?
+	}
+	?>
 	
 	public void set<?= ucwords ($obj->class) ?> (<?= $obj->type ?> <?= $obj->class ?>)
 	{

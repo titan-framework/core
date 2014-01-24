@@ -8,7 +8,7 @@ if (Api::getHttpRequestMethod () != Api::GET)
 
 $_TIME = (int) $_uri [2];
 
-$entity = new ApiList ('api-list.xml', 'api.xml');
+$entity = new ApiList ('api-list.xml', 'api-get.xml', 'api.xml');
 
 $update = $entity->getField ('_API_UPDATE_UNIX_TIMESTAMP_');
 

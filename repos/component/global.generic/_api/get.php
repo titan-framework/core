@@ -10,7 +10,7 @@ $user = $_auth->getUser ();
 
 $id = trim ($_uri [1]);
 
-$entity = new ApiEntity ('api-delete.xml', 'api.xml');
+$entity = new ApiEntity ('api-get.xml', 'api.xml');
 
 if (!$entity->load ($id))
 	throw new Exception (__ ('Unable to load data!'));

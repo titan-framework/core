@@ -140,6 +140,20 @@ public class <?= $model ?>DAO
 		return list;
 	}
 	
+	public List<<?= $model ?>> changed (long time)
+	{
+		Cursor cursor = db.query (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.columns (), <?= $model ?>Contract.<?= strtoupper ($fields [$update]->json) ?> + " > ?", new String [] { String.valueOf (time) }, null, null, null);
+		
+		List<<?= $model ?>> list = new LinkedList<<?= $model ?>> ();
+		
+		while (cursor.moveToNext ())
+			list.add (<?= $model ?>Converter.from (cursor));
+		
+		cursor.close ();
+		
+		return list;
+	}
+	
 	public <?= $model ?> get (<?= $useCode ? 'String code' : 'long id' ?>)
 	{
 		Cursor cursor = db.query (<?= $model ?>Contract.TABLE, <?= $model ?>Contract.columns (), <?= $model ?>Contract.<?= strtoupper ($fields [$primary]->json) ?> + " = ?", new String [] { <?= $useCode ? 'code' : 'String.valueOf (id)' ?> }, null, null, null, "1");

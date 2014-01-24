@@ -113,9 +113,9 @@ function generate ($appication, $package, $section, $model, $xml, $table, $asset
 	$fields = array ();
 	
 	if ($useCode)
-		$fields [$primary] = (object) array ('json' => $code, 'class' => translateFieldName ($code), 'type' => 'String', 'db' => 'TEXT PRIMARY KEY');
+		$fields [$primary] = (object) array ('json' => $code, 'class' => translateFieldName ($code), 'type' => 'String', 'db' => 'TEXT PRIMARY KEY', 'label' => 'Código', 'object' => new stdClass ());
 	else
-		$fields [$primary] = (object) array ('json' => $primary, 'class' => translateFieldName ($primary), 'type' => 'Long', 'db' => 'INTEGER PRIMARY KEY');
+		$fields [$primary] = (object) array ('json' => $primary, 'class' => translateFieldName ($primary), 'type' => 'Long', 'db' => 'INTEGER PRIMARY KEY', 'label' => 'Identificador', 'object' => new stdClass ());
 	
 	while ($field = $view->getField ())
 		$fields [$field->getApiColumn ()] = (object) array (
@@ -123,7 +123,8 @@ function generate ($appication, $package, $section, $model, $xml, $table, $asset
 			'class' => translateFieldName ($field->getApiColumn ()), 
 			'type' => translateType ($field),
 			'db' => translateDatabase ($field),
-			'label' => $field->getLabel ()
+			'label' => $field->getLabel (),
+			'object' => $field
 		);
 	
 	$base = Instance::singleton ()->getCachePath () .'mobile'. DIRECTORY_SEPARATOR . $appName . DIRECTORY_SEPARATOR .'android' . DIRECTORY_SEPARATOR;
