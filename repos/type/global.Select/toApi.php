@@ -3,7 +3,7 @@ if ($field->isEmpty ())
 	return '';
 
 if ($field->getLinkColumn () == $field->getLinkApi ())
-	return $value;
+	return $field->getValue ();
 
 $sth = $db->prepare ("SELECT ". $field->getLinkApi () ." FROM ". $field->getLink () ." WHERE ". $field->getLinkColumn () ." = :value");
 
