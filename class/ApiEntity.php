@@ -301,7 +301,7 @@ class ApiEntity
 
 		reset ($this->fields);
 
-		if (!is_null ($user) && is_integer ($user) && (int) $user)
+		if (!is_null ($user) && is_numeric ($user) && (int) $user)
 		{
 			array_push ($fields, '_user');
 			array_push ($values, ':_user');
