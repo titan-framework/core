@@ -334,7 +334,7 @@ class ApiEntity
 				$ins [] = ":". $field ." AS ". $field;
 			
 			$sqlInsert = "INSERT INTO ". $this->getTable () ." (". $this->getCodeColumn () .", ". implode (", ", $fields) .") 
-						  SELECT :". $this->getCodeColumn () ." AS ". $this->getCodeColumn () .", ". implode (", ", $ins) ." WHERE NOT EXISTS (SELECT 1 FROM ". $this->getTable () ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () .")";
+						  SELECT (:". $this->getCodeColumn () .")::varchar AS ". $this->getCodeColumn () .", ". implode (", ", $ins) ." WHERE NOT EXISTS (SELECT 1 FROM ". $this->getTable () ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () .")";
 			
 			$sthInsert = $db->prepare ($sqlInsert);
 			
