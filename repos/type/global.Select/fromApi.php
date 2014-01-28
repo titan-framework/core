@@ -5,14 +5,11 @@ if ($field->isEmpty ())
 if ($field->getLinkColumn () == $field->getLinkApi ())
 	return $value;
 
-$sth = $db->prepare ("SELECT ". $field->getLinkColumn () ." FROM ". $field->getLink () ." WHERE ". $field->getLinkApi () ." = :value");
+$sth = Database::singleton ()->prepare ("SELECT ". $field->getLinkColumn () ." FROM ". $field->getLink () ." WHERE ". $field->getLinkApi () ." = :value");
 
 $value = $field->getValue ();
-$bind  = $field->getBindType ();
 
-$sth->bindParam (':value', $value);
-
-$sth->execute ();
+$sth->execute (array (':value' => $value));
 
 $obj = $sth->fetch (PDO::FETCH_OBJ);
 

@@ -41,7 +41,7 @@ class Select extends Type
 		if (array_key_exists ('link-color', $field))
 			$this->setLinkColor ($field ['link-color']);
 		
-		if (array_key_exists ('link-api', $field))
+		if (array_key_exists ('link-api', $field) && trim ($field ['link-api']) != '')
 			$this->setLinkApi ($field ['link-api']);
 		else
 			$this->setLinkApi ($this->getLinkColumn ());
