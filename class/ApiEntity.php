@@ -307,6 +307,7 @@ class ApiEntity
 			array_push ($values, ':_user');
 			array_push ($binds, (int) $user);
 			array_push ($types, PDO::PARAM_INT);
+			array_push ($sizes, 0);
 		}
 
 		// throw new Exception ($itemId);
