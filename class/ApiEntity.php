@@ -185,10 +185,17 @@ class ApiEntity
 		
 		foreach ($this->fields as $assign => $field)
 		{
-			if ($field->isReadOnly () || !array_key_exists ($field->getApiColumn (), $data))
+			if ($field->isReadOnly ())
 				continue;
 			
-			$this->fields [$assign]->setValue (self::fromApi ($this->fields [$assign], $data [$field->getApiColumn ()]));
+			if (array_key_exists ($field->getApiColumn (), $data))
+				$value = $data [$field->getApiColumn ()];
+			elseif (array_key_exists ($field->getApiColumn (), $_FILES))
+				$value = $_FILES [$field->getApiColumn ()];
+			else
+				continue;
+			
+			$this->fields [$assign]->setValue (self::fromApi ($this->fields [$assign], $value));
 		}
 
 		return TRUE;
@@ -368,8 +375,10 @@ class ApiEntity
 			$this->setCode ($id);
 		}
 		else
-			if (!is_null ($id) && is_integer ($id) && (int) $id)
+			if (!is_null ($id) && is_numeric ($id) && (int) $id)
 			{
+				$id = (int) $id;
+				
 				if ($onlyLast)
 					$sqlUpdate = "UPDATE ". $this->getTable () ." SET ". implode (", ", $aux) ." WHERE ". $this->getPrimary () ." = :". $this->getPrimary () ." AND ". $update->getUnixTime () ." > extract (epoch from ". $update->getColumn () .")::integer";
 				else
@@ -377,7 +386,7 @@ class ApiEntity
 				
 				$sth = $db->prepare ($sqlUpdate);
 				
-				$sth->bindParam (':'. $this->getPrimary (), (int) $id, PDO::PARAM_INT);
+				$sth->bindParam (':'. $this->getPrimary (), $id, PDO::PARAM_INT);
 				
 				foreach ($binds as $assign => $trash)
 					if ($sizes [$assign] && $types [$assign] == PDO::PARAM_STR)
@@ -387,7 +396,7 @@ class ApiEntity
 				
 				$sth->execute ();
 				
-				$itemId = (int) $id;
+				$itemId = $id;
 			}
 			else
 			{

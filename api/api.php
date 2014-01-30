@@ -97,7 +97,7 @@ try
 				throw new ApiException (__ ('Invalid URI request method!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::METHOD_NOT_ALLOWED);
 			
 			if (Api::getHttpRequestMethod () == Api::PUT)
-				parse_str (file_get_contents ('php://input'), $_POST);
+				retrievePut ();
 			
 			$file = $_section->getComponentPath () .'_api'. DIRECTORY_SEPARATOR . $_service .'.php';
 			
@@ -139,7 +139,7 @@ catch (Exception $e)
 	
 	$array = array ('ERROR' => 'SYSTEM_ERROR',
 					'MESSAGE' => 'System error! Please, contact administrator.',
-					'TECHNICAL' => $e->getMessage ());
+					'TECHNICAL' => '[Line #'. $e->getLine () .'] '. $e->getMessage ());
 	
 	echo json_encode ($array);
 }

@@ -1,4 +1,5 @@
-<?
+<?php
+
 function __autoload ($className)
 {
 	$instance = Instance::singleton ();
@@ -752,4 +753,89 @@ function shortlyHash ($hash)
 	
 	return $short;
 }
-?>
+
+function retrievePut ()
+{
+	$raw = file_get_contents ('php://input');
+	
+	$boundary = substr($raw, 0, strpos($raw, "\r\n"));
+	
+	if (empty ($boundary))
+	{
+		parse_str ($raw, $_POST);
+		
+		return;
+	}
+	
+	$parts = array_slice (explode ($boundary, $raw), 1);
+	
+	$data = array ();
+	
+	foreach ($parts as $part)
+	{
+		// If this is the last part, break
+		if ($part == "--\r\n")
+			break;
+		
+		// Separate content from headers
+		$part = ltrim ($part, "\r\n");
+		
+		list ($rawHeaders, $body) = explode ("\r\n\r\n", $part, 2);
+		
+		// Parse the headers list
+		$rawHeaders = explode ("\r\n", $rawHeaders);
+		
+		$headers = array ();
+		
+		foreach ($rawHeaders as $header)
+		{
+			list ($name, $value) = explode (':', $header);
+			
+			$headers [strtolower ($name)] = ltrim ($value, ' ');
+		}
+		
+		// Parse the Content-Disposition to get the field name, etc.
+		if (isset ($headers ['content-disposition']))
+		{
+			$filename = NULL;
+			
+			$tmp_name = NULL;
+		
+			preg_match ('/^(.+); *name="([^"]+)"(; *filename="([^"]+)")?/', $headers ['content-disposition'], $matches);
+			
+			list(, $type, $name) = $matches;
+			
+			//Parse File
+			if (isset ($matches[4]))
+			{
+				//if labeled the same as previous, skip
+				if (isset ($_FILES [$matches [2]]))
+					continue;
+				
+				//get filename
+				$filename = $matches [4];
+				
+				//get tmp name
+				$filename_parts = pathinfo ($filename);
+				
+				$tmp_name = tempnam (ini_get ('upload_tmp_dir'), $filename_parts ['filename']);
+				
+				//populate $_FILES with information, size may be off in multibyte situation
+				$_FILES [$matches [2]] = array (
+					'error' => 0,
+					'name' => trim ($filename),
+					'tmp_name' => $tmp_name,
+					'size' => strlen ($body),
+					'type' => trim ($value)
+				);
+	
+				//place in temporary directory
+				file_put_contents ($tmp_name, $body);
+			}
+			else
+				$data [$name] = substr ($body, 0, strlen ($body) - 2);
+		}
+	}
+	
+	$_POST = $data;
+}

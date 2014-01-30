@@ -3109,6 +3109,8 @@ repos/type/global.Fck/toSearch.php -text
 repos/type/global.Fck/toWhere.php -text
 repos/type/global.File/File.php -text
 repos/type/global.File/_js.php -text
+repos/type/global.File/fromApi.php -text
+repos/type/global.File/toApi.php -text
 repos/type/global.File/toBind.php -text
 repos/type/global.File/toConstraint.php -text
 repos/type/global.File/toForm.php -text
