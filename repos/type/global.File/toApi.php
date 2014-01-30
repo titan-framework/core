@@ -1,6 +1,6 @@
 <?
 if ($field->isEmpty ())
-	return NULL;
+	return 0;
 	
 return $field->getValue ();
 ?>
