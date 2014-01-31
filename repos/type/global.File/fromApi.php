@@ -16,13 +16,15 @@ $fileSize = $value ['size'];
 $fileType = $value ['type'];
 $fileName = fileName ($value ['name']);
 
+$genericMimes = array ('application/octet-stream', 'binary');
+
 $db = Database::singleton ();
 
 try
 {
 	$db->beginTransaction ();
 	
-	if ($fileType == 'application/octet-stream')
+	if (in_array ($fileType, $genericMimes))
 		$fileType = $archive->getMimeByExtension (array_pop (explode ('.', $value ['name'])));
 
 	if (!$archive->isAcceptable ($fileType) || !$field->isAcceptable ($fileType))
