@@ -34,8 +34,6 @@ try
 	
 	$sql = "INSERT INTO _file (_id, _name, _mimetype, _size, _user) VALUES (:id, :name, :mime, :size, :user)";
 	
-	// throw new Exception ($id .'#'. $fileName .'#'. $fileType .'#'. $fileSize .'#'. $user);
-	
 	$sth = $db->prepare ($sql);
 	
 	$sth->bindParam (':id', $id, PDO::PARAM_INT);

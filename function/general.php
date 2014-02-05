@@ -756,9 +756,12 @@ function shortlyHash ($hash)
 
 function retrievePut ()
 {
+	$_POST = array ();
+	$_FILES = array ();
+	
 	$raw = file_get_contents ('php://input');
 	
-	$boundary = substr($raw, 0, strpos($raw, "\r\n"));
+	$boundary = substr ($raw, 0, strpos($raw, "\r\n"));
 	
 	if (empty ($boundary))
 	{

@@ -302,7 +302,7 @@ class Xoad
 		return $str;
 	}
 	
-	public function getFileResume ($id)
+	public function getFileResume ($id, $details = TRUE, $dimension = 100)
 	{
 		$message = Message::singleton ();
 		
@@ -324,17 +324,27 @@ class Xoad
 			
 			ob_start ();
 			
-			?>
-			<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
-				<a href="titan.php?target=openFile&amp;fileId=<?= $id ?>" target="_blank"><img src="titan.php?target=viewThumb&amp;fileId=<?= $id ?>&width=100&height=100" border="0"></a>
-			</div>
-			<div style="position: relative; width: 190px; top: 10px; left: 110px; overflow: hidden;">
-				<b><?= $obj->_name ?></b> <br />
-				<?= $obj->_size ?> Bytes <br />
-				<?= $obj->_mimetype ?> <br />
-				<font color="#000000"><?= $obj->_description ?></font> <br />
-			</div>
-			<?
+			if ($details)
+			{
+				?>
+				<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
+					<a href="titan.php?target=openFile&amp;fileId=<?= $id ?>" target="_blank"><img src="titan.php?target=viewThumb&amp;fileId=<?= $id ?>&width=100&height=100" border="0" /></a>
+				</div>
+				<div style="position: relative; width: 190px; top: 10px; left: 110px; overflow: hidden;">
+					<b><?= $obj->_name ?></b> <br />
+					<?= $obj->_size ?> Bytes <br />
+					<?= $obj->_mimetype ?> <br />
+					<font color="#000000"><?= $obj->_description ?></font> <br />
+				</div>
+				<?
+			}
+			else
+			{
+				$alt = $obj->_name ."\n". $obj->_size ." Bytes\n". $obj->_mimetype ."\n". $obj->_description;
+				?>
+				<a href="titan.php?target=openFile&amp;fileId=<?= $id ?>" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=viewThumb&amp;fileId=<?= $id ?>&height=<?= $dimension ?>" alt="<?= $alt ?>" border="0" /></a>
+				<?
+			}
 			
 			return ob_get_clean ();
 		}

@@ -5,12 +5,22 @@ class File extends Integer
 	
 	protected $ownerOnly = FALSE;
 	
+	protected $showDetails = TRUE;
+	
+	protected $resolution = 100;
+	
 	public function __construct ($table, $field)
 	{
 		parent::__construct ($table, $field);
 		
 		if (array_key_exists ('owner-only', $field))
-			$this->setOwnerOnly (strtoupper ($field ['owner-only']) == 'TRUE' ? TRUE : FALSE);
+			$this->setOwnerOnly (strtoupper (trim ($field ['owner-only'])) == 'TRUE' ? TRUE : FALSE);
+		
+		if (array_key_exists ('show-details', $field))
+			$this->showDetails = strtoupper (trim ($field ['show-details'])) == 'TRUE' ? TRUE : FALSE;
+		
+		if (array_key_exists ('resolution', $field) && is_numeric ($field ['resolution']))
+			$this->resolution = (int) trim ($field ['resolution']);
 		
 		if (array_key_exists ('mime-type', $field))
 		{
@@ -81,6 +91,16 @@ class File extends Integer
 	public function isEmpty ()
 	{
 		return is_null ($this->getValue ()) || !is_numeric ($this->getValue ()) || $this->getValue () == 0;
+	}
+	
+	public function showDetails ()
+	{
+		return $this->showDetails;
+	}
+	
+	public function getResolution ()
+	{
+		return $this->resolution;
 	}
 }
 ?>
