@@ -3002,6 +3002,7 @@ repos/type/global.Cnpj/toBind.php -text
 repos/type/global.Cnpj/toDbMaker.php -text
 repos/type/global.Cnpj/toForm.php -text
 repos/type/global.Cnpj/toHtml.php -text
+repos/type/global.Cnpj/toSearch.php -text
 repos/type/global.Cnpj/toText.php -text
 repos/type/global.Cnpj/toValue.php -text
 repos/type/global.Collection/Collection.php -text
@@ -3120,6 +3121,7 @@ repos/type/global.File/toText.php -text
 repos/type/global.File/toValue.php -text
 repos/type/global.Float/Float.php -text
 repos/type/global.Float/_js.php -text
+repos/type/global.Float/fromApi.php -text
 repos/type/global.Float/fromForm.php -text
 repos/type/global.Float/toApi.php -text
 repos/type/global.Float/toBind.php -text
