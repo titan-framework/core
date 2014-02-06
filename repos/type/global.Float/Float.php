@@ -35,7 +35,7 @@ class Float extends Type
 
 	public static function validate ($str)
 	{
-		return preg_replace ('/[^0-9.]/i', '', $str);
+		return preg_replace ('/[^0-9.-]/i', '', (string) $str);
 	}
 }
 ?>
