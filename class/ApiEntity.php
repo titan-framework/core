@@ -188,12 +188,20 @@ class ApiEntity
 			if ($field->isReadOnly ())
 				continue;
 			
-			if (array_key_exists ($field->getApiColumn (), $data))
-				$value = $data [$field->getApiColumn ()];
-			elseif (array_key_exists ($field->getApiColumn (), $_FILES))
+			if (!array_key_exists ($field->getApiColumn (), $data) && !array_key_exists ($field->getApiColumn (), $_FILES))
+			{
+				if ($field->isRequired ())
+					throw new ApiException (__ ('Required field [[1]] is missing or empty!', $field->getLabel ()), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
+				
+				unset ($this->fields [$assign]);
+				
+				continue;
+			}
+			
+			if (array_key_exists ($field->getApiColumn (), $_FILES))
 				$value = $_FILES [$field->getApiColumn ()];
 			else
-				continue;
+				$value = $data [$field->getApiColumn ()];
 			
 			$this->fields [$assign]->setValue (self::fromApi ($this->fields [$assign], $value));
 		}

@@ -32,6 +32,9 @@ while ($view->getItem ())
 				break;
 			
 			case 'Double':
+				$assetsValues [] = $field->isEmpty () ? 'NULL' : (string) number_format ($field->getValue (), $field->getPrecision (), '.', '');
+				break;
+				
 			case 'Long':
 				$assetsValues [] = $field->isEmpty () ? 'NULL' : (string) $field->getValue ();
 				break;
