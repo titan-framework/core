@@ -186,15 +186,15 @@ class User
 				try
 				{
 					$sql = "SELECT _group FROM _type_group WHERE _type = :type";
-				
+					
 					$sth = $db->prepare ($sql);
 					
-					$sth->prepare (':type', $type->getName (), PDO::PARAM_STR);
+					$sth->bindParam (':type', $type->getName (), PDO::PARAM_STR);
 				
 					$sth->execute ();
 				
 					$sthUser = $db->prepare ("INSERT INTO _user_group (_user, _group) VALUES (:user, :group)");
-				
+					
 					while ($obj = $sth->fetch (PDO::FETCH_OBJ))
 						$sthUser->execute (array (':user' => $userId, ':group' => $obj->_group));
 				}
