@@ -27,9 +27,18 @@ if (!$field->useCheckBoxes ())
 	</select>
 	<script language="javascript" type="text/javascript">
 	<?
-	$sth = $db->prepare ("SELECT l.". implode (", l.", $field->getColumnsView ()) .", l.". $field->getLinkColumn () ." FROM ". $field->getRelation () ." r INNER JOIN ". $field->getLink () ." l ON r.". array_pop (explode ('.', $field->getLink ())) ." = l.". $field->getLinkColumn () ." WHERE r.". $field->getColumn () ." IN ('". implode ("', '", $values) ."')");
-	
-	$sth->execute ();
+	try
+	{
+		$sth = $db->prepare ("SELECT l.". implode (", l.", $field->getColumnsView ()) .", l.". $field->getLinkColumn () ." FROM ". $field->getRelation () ." r INNER JOIN ". $field->getLink () ." l ON r.". $field->getColumn () ." = l.". $field->getLinkColumn () ." WHERE r.". $field->getColumn () ." IN ('". implode ("', '", $values) ."')");
+		
+		$sth->execute ();
+	}
+	catch (PDOException $e)
+	{
+		ob_end_clean ();
+		
+		throw $e;
+	}
 	
 	while ($obj = $sth->fetch (PDO::FETCH_OBJ))
 	{
@@ -43,9 +52,18 @@ if (!$field->useCheckBoxes ())
 }
 else
 {
-	$aux = $db->prepare ("SELECT ". array_pop (explode ('.', $field->getLink ())) ." FROM ". $field->getRelation () ." WHERE ". $field->getColumn () ." IN ('". implode ("', '", $values) ."')");
-	
-	$aux->execute ();
+	try
+	{
+		$aux = $db->prepare ("SELECT ". array_pop (explode ('.', $field->getLink ())) ." FROM ". $field->getRelation () ." WHERE ". $field->getColumn () ." IN ('". implode ("', '", $values) ."')");
+		
+		$aux->execute ();
+	}
+	catch (PDOException $e)
+	{
+		ob_end_clean ();
+		
+		throw $e;
+	}
 	
 	$checked = $aux->fetchAll (PDO::FETCH_COLUMN);
 	?>

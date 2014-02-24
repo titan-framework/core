@@ -91,7 +91,7 @@ class Multiply extends Select
 			
 			$db->exec ("DELETE FROM ". $this->getRelation () ." WHERE ". $this->getRelationLink () ." = '". $id ."'");
 			
-			$sth = $db->prepare ("INSERT INTO ". $this->getRelation () ." (". $this->getRelationLink () .", ". array_pop (explode ('.', $this->getLink ())) .") VALUES ('". $id ."', :link)");
+			$sth = $db->prepare ("INSERT INTO ". $this->getRelation () ." (". $this->getRelationLink () .", ". $this->getColumn () .") VALUES ('". $id ."', :link)");
 			
 			foreach ($this->getValue () as $trash => $linkId)
 				$sth->execute (array (':link' => $linkId));
