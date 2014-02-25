@@ -2979,6 +2979,8 @@ repos/type/global.Cep/toDbMaker.php -text
 repos/type/global.Cep/toForm.php -text
 repos/type/global.Cep/toHtml.php -text
 repos/type/global.CheckBox/CheckBox.php -text
+repos/type/global.CheckBox/_i18n/pt_BR.xml -text
+repos/type/global.CheckBox/_js.php -text
 repos/type/global.CheckBox/fromDb.php -text
 repos/type/global.CheckBox/fromForm.php -text
 repos/type/global.CheckBox/toApi.php -text
