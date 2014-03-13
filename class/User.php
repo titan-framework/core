@@ -78,6 +78,57 @@ class User
 
 		return NULL;
 	}
+	
+	public function loadById ($id)
+	{
+		$sql = "SELECT *,
+				to_char(_create_date, 'HH24-MI-SS-MM-DD-YYYY') AS _create_date,
+				to_char(_update_date, 'HH24-MI-SS-MM-DD-YYYY') AS _update_date,
+				to_char(_last_logon, 'HH24-MI-SS-MM-DD-YYYY') AS _last_logon
+				FROM _user
+				WHERE _id = :id";
+
+		$sth = Database::singleton ()->prepare ($sql);
+		
+		$sth->bindParam (':id', $id, PDO::PARAM_INT);
+
+		$sth->execute ();
+
+		$obj = $sth->fetch (PDO::FETCH_OBJ);
+		
+		$this->id 	 	= $obj->_id;
+		$this->name  	= $obj->_name;
+		$this->login 	= $obj->_login;
+		$this->email 	= $obj->_email;
+		$this->active 	= (int) $obj->_active  ? TRUE : FALSE;
+		$this->deleted 	= (int) $obj->_deleted ? TRUE : FALSE;
+		$this->type		= Security::singleton ()->getUserType ($obj->_type);
+		
+		if (isset ($obj->_language))
+			Localization::singleton ()->setLanguage ($obj->_language);
+		
+		if (isset ($obj->_alert))
+			$this->alerts = (int) $obj->_alert ? TRUE : FALSE;
+		
+		if (isset ($obj->_timezone) && trim ($obj->_timezone) != '')
+			Instance::singleton ()->setTimeZone ($obj->_timezone);
+		
+		$cd = explode ('-', $obj->_create_date);
+		$ud = explode ('-', $obj->_update_date);
+		$ll = explode ('-', $obj->_last_logon);
+		
+		$this->createDate  	= strftime ('%c', mktime ((int) $cd [0], (int) $cd [1], (int) $cd [2], (int) $cd [3], (int) $cd [4], (int) $cd [5]));
+		$this->updateDate 	= strftime ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
+		$this->lastLogon 	= strftime ('%c', mktime ((int) $ll [0], (int) $ll [1], (int) $ll [2], (int) $ll [3], (int) $ll [4], (int) $ll [5]));
+		
+		$this->lastAccess = time ();
+
+		$this->hash	= sha1 ($this->login . Security::singleton ()->getHash () . $this->lastAccess);
+
+		$this->setGroups ();
+		
+		return TRUE;
+	}
 
 	public function authenticate ($login, $password)
 	{

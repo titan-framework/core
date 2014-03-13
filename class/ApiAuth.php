@@ -61,6 +61,13 @@ abstract class ApiAuth
 		return $this->user;
 	}
 	
+	public function setUser ($id)
+	{
+		$this->user = $id;
+		
+		User::singleton ()->loadById ($id);
+	}
+	
 	public function hasContext ()
 	{
 		$args = func_get_args ();
@@ -203,7 +210,7 @@ class EmbrapaAuth extends ApiAuth
 			MobileDevice::registerDeviceAccess ($this->clientId);
 			
 			if (in_array (self::C_CLIENT_USER, $this->context))
-				$this->user = $client->user;
+				$this->setUser ($client->user);
 		}
 		
 		if (sizeof (array_intersect (array (self::C_USER_ID, self::C_USER_LOGIN, self::C_USER_MAIL), $this->context)))
@@ -252,7 +259,7 @@ class EmbrapaAuth extends ApiAuth
 			if ($this->userSignature != self::signature ($this->timestamp, $user->id, $user->passwd))
 				throw new ApiException (__ ('Invalid user credentials!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 			
-			$this->user = $user->_id;
+			$this->setUser ($user->_id);
 		}
 		
 		return TRUE;
