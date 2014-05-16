@@ -233,7 +233,9 @@ class EmbrapaAuth extends ApiAuth
 			{
 				$sth = $db->prepare ("SELECT _id, _id AS id, _password AS passwd FROM _user WHERE _id = :id LIMIT 1");
 				
-				$sth->bindParam (':id', (int) preg_replace ('/[^0-9]/i', '', $this->userId), PDO::PARAM_INT);
+				$uid = (int) preg_replace ('/[^0-9]/i', '', $this->userId);
+				
+				$sth->bindParam (':id', $uid, PDO::PARAM_INT);
 				
 				$sth->execute ();
 				
