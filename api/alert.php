@@ -18,7 +18,7 @@ if (Api::getHttpRequestMethod () == Api::DELETE)
 	exit ();
 }
 
-if (Api::getHttpRequestMethod () == Api::POST)
+if (Api::getHttpRequestMethod () == Api::PUT || Api::getHttpRequestMethod () == Api::POST)
 {
 	if (!Alert::singleton ()->read ($id, $user))
 		throw new ApiException (__ ('Alert does not exists!'), ApiException::ERROR_NOT_FOUND, ApiException::NOT_FOUND);

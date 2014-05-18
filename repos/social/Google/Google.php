@@ -20,6 +20,8 @@ class GoogleDriver extends SocialDriver
 		
 		$this->driver->setScopes (array ('openid', 'profile', 'email'));
 		
+		$this->driver->setApprovalPrompt ('auto');
+		
 		if (User::singleton ()->isLogged ())
 			$this->driver->setRedirectUri (Instance::singleton ()->getUrl () .'titan.php?target=social&driver='. $this->getName () .'&section='. $_GET['section'] .'&action='. $_GET['action']);
 		else
