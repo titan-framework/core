@@ -207,6 +207,8 @@ function revertRevision (version)
 	<table>
 		<tr>
 			<?
+			$columns = sizeof ($view->getFields ()) + 1;
+			
 			while ($field = $view->getField ())
 				echo '<td class="cTableHeader">'. View::toLabel ($field) .'</td>';
 			?>
@@ -230,11 +232,11 @@ function revertRevision (version)
 					<? while ($icon = $view->getIcon ()) echo $icon .'&nbsp;'; ?>
 				</td>
 			</tr>
-			<tr class="cSeparatorHalf"><td></td></tr>
+			<tr class="cSeparatorHalf"><td colspan="<?= $columns ?>"></td></tr>
 			<tr id="_ROW_<?= $view->getId () ?>" style="display: none;">
 				<td style="padding: 5px;" colspan="<?= $count ?>"><div id="_REVISION_<?= $view->getId () ?>"></div></td>
 			</tr>
-			<tr class="cSeparatorHalf"><td></td></tr>
+			<tr class="cSeparatorHalf"><td colspan="<?= $columns ?>"></td></tr>
 			<?
 		}
 		?>

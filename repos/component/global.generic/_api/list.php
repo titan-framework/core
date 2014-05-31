@@ -15,7 +15,7 @@ $update = $entity->getField ('_API_UPDATE_UNIX_TIMESTAMP_');
 if (is_object ($update))
 	$columnUp = $update->getTable () .'.'. $update->getColumn ();
 else
-	$columnUp = $view->getTable () . '._update';
+	$columnUp = $entity->getTable () . '._update';
 
 if (!$entity->load ($_TIME ." < extract (epoch from ". $columnUp .")::integer"))
 	throw new Exception (__ ('Unable to load data!'));
