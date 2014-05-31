@@ -86,10 +86,13 @@ class Schedule
 		
 		$_END = time ();
 		
-		$path = Instance::singleton ()->getCachePath () .'job/';
+		$path = Instance::singleton ()->getCachePath () .'job'. DIRECTORY_SEPARATOR;
 	
 		if (!file_exists ($path) && !@mkdir ($path, 0777))
 			toLog ('Impossible to create folder ['. $path .'].');
+		
+		if (!file_exists ($path .'.htaccess') && !file_put_contents ($path .'.htaccess', 'deny from all'))
+			throw new Exception ('Impossible to enhance security for folder ['. $path .'].');
 	
 		$fd = fopen ($path . $job .'.'. date ('Ymd'), 'a');
 	

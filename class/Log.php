@@ -38,6 +38,9 @@ class Log
 			if (!self::genLogDb ($this->getPath ()))
 				return;
 		
+		if (!file_exists (dirname ($this->getPath ()) . DIRECTORY_SEPARATOR . '.htaccess'))
+			self::restrictAccess ($this->getPath ());
+		
 		try
 		{
 			$dbh = new PDO ('sqlite:'. $this->getPath ());
@@ -221,7 +224,19 @@ class Log
 			return FALSE;
 		}
 		
+		self::restrictAccess ($path);
+		
 		return TRUE;
+	}
+	
+	public static function restrictAccess ($path)
+	{
+		$dir = dirname ($path);
+		
+		$content = "\n# Protect access to Log Database\n<Files .". DIRECTORY_SEPARATOR . basename ($path) .">\nOrder Allow,Deny\nDeny from all\n</Files>\n";
+		
+		if (!file_put_contents ($dir . DIRECTORY_SEPARATOR . '.htaccess', $content, FILE_APPEND))
+			toLog ('Impossible to restrict access to Log Database!');
 	}
 	
 	public function getXmlPath ()
