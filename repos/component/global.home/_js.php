@@ -287,7 +287,7 @@ function showMobileDevices ()
 	}
 	?>
 	
-	Modalbox.show ('<ul id="_MOBILE_DEVICES_" class="mobileDevices"><?= implode ('', $list) ?></ul><?= $button ?>', { title: '<?= __ ('Mobile Devices') ?>', width: 800 });
+	Modalbox.show ('<ul id="_MOBILE_DEVICES_" class="mobileDevices"><?= implode ('', $list) ?></ul><?= $button ?>', { title: '<?= __ ('Mobile Devices') ?>', width: 810 });
 	
 	ajax.delay (function ()
 	{
