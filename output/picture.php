@@ -1,4 +1,5 @@
-<?
+<?php
+
 if (!isset ($_GET ['user']) || !is_numeric ($_GET['user']) || !(int) $_GET['user'])
 	throw new ApiException ('Invalid URI!', ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 
@@ -111,4 +112,5 @@ try
 }
 catch (PDOException $e)
 {}
-?>
+
+exit ();
