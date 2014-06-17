@@ -2010,6 +2010,7 @@ interface/file/icon/dwt.png -text
 interface/file/icon/emf.png -text
 interface/file/icon/exc.png -text
 interface/file/icon/file.png -text
+interface/file/icon/fla.png -text
 interface/file/icon/fon.png -text
 interface/file/icon/gif.png -text
 interface/file/icon/hlp.png -text
@@ -2357,6 +2358,7 @@ output/lucene.php -text
 output/main.php -text
 output/password.php -text
 output/pdf.php -text
+output/picture.php -text
 output/print.php -text
 output/register.php -text
 output/rss.php -text

@@ -750,6 +750,13 @@ try
 			
 			break;
 		
+		case 'picture':
+			
+			require Instance::singleton ()->getCorePath () .'output/picture.php';
+			
+			break;
+			
+		
 		case 'tools':
 			
 			if (!isset ($_GET['tool']) || trim ($_GET['tool']) == '')
