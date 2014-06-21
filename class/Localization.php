@@ -171,6 +171,13 @@ class Localization
 			$packs [] = Instance::singleton ()->getCachePath () .'i18n/'. $language .'-type-'. fileName ($type) .'.php';
 		}
 		
+		if (Instance::singleton ()->onDebugMode ())
+			foreach (Instance::singleton ()->getTools () as $tool => $path)
+			{
+				$files [] = $path .'_i18n/'. $language .'.xml';
+				$packs [] = Instance::singleton ()->getCachePath () .'i18n/'. $language .'-tool-'. fileName ($tool) .'.php';
+			}
+		
 		foreach ($files as $key => $file)
 		{
 			if (!file_exists ($file))
@@ -204,10 +211,13 @@ class Localization
 			
 			$array = array_merge ($array, $aFile);
 			
-			$content  = "<? \n";
-			$content .= "/* Language Pack (i18n) - ". date ('d-m-Y H:i:s') ." */ \n\n";
-			$content .= "return ". var_export ($aFile, TRUE) ."; \n";
-			$content .= "?>";
+			$content  = "<?php \n";
+			$content .= "/* \n";
+			$content .= " * Titan Framework \n";
+			$content .= " * Cache of Language Pack (i18n) \n";
+			$content .= " * Generated at ". date ('d-m-Y H:i:s') ." \n";
+			$content .= " */ \n\n";
+			$content .= "return ". var_export ($aFile, TRUE) .";";
 			
 			$path = Instance::singleton ()->getCachePath () .'i18n/';
 			
