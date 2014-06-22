@@ -534,7 +534,7 @@ class Alert
 		
 		$mark = $db->prepare ("UPDATE _alert_user SET _mobile = B'1' WHERE _alert = :id AND _user = :user");
 		
-		$sql = "SELECT DISTINCT _user AS user, _alert AS id FROM _alert_user WHERE _mobile = B'0' AND _read = B'0' AND _delete = B'0' ORDER BY _alert DESC";
+		$sql = "SELECT _user AS user, MIN(_alert) AS id FROM _alert_user WHERE _mobile = B'0' AND _read = B'0' AND _delete = B'0' GROUP BY _user";
 		
 		$sth = $db->prepare ($sql);
 		

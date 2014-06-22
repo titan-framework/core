@@ -175,6 +175,8 @@ class MobileDevice
 		
 		curl_close ($ch);
 		
+		echo "Google Cloud Messaging Response: ". $response ." [for: ". implode (", ", $ids) ."] \n";
+		
 		return $response;
 	}
 }
