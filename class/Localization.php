@@ -174,8 +174,10 @@ class Localization
 		if (Instance::singleton ()->onDebugMode ())
 			foreach (Instance::singleton ()->getTools () as $tool => $path)
 			{
-				$files [] = $path .'_i18n/'. $language .'.xml';
-				$packs [] = Instance::singleton ()->getCachePath () .'i18n/'. $language .'-tool-'. fileName ($tool) .'.php';
+				$path = dirname (realpath ($path));
+				
+				$files [] = $path . DIRECTORY_SEPARATOR .'_i18n'. DIRECTORY_SEPARATOR . $language .'.xml';
+				$packs [] = Instance::singleton ()->getCachePath () .'i18n'. DIRECTORY_SEPARATOR . $language .'-tool-'. fileName ($tool) .'.php';
 			}
 		
 		foreach ($files as $key => $file)
