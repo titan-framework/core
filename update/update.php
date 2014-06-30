@@ -216,7 +216,7 @@ try
 			if (!tableExists ($_db, $_versionTable))
 				$_db->exec ("CREATE TABLE ". $_versionTable ." (_version CHAR(14) NOT NULL, _author VARCHAR(64) NOT NULL, _date TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, CONSTRAINT _version_pkey PRIMARY KEY(_version))");
 			
-			$query = $_db->query ("SELECT u._email FROM _user u JOIN _user_group ug ON ug._user = u._id JOIN _group g ON g._id = ug._group WHERE g._admin = B'1'");
+			$query = $_db->query ("SELECT u._email FROM ". $schema ."._user u JOIN ". $schema ."._user_group ug ON ug._user = u._id JOIN ". $schema ."._group g ON g._id = ug._group WHERE g._admin = B'1'");
 			
 			$_mails = $query->fetchAll (PDO::FETCH_COLUMN);
 			
