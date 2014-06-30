@@ -216,6 +216,13 @@ try
 			if (!tableExists ($_db, $_versionTable))
 				$_db->exec ("CREATE TABLE ". $_versionTable ." (_version CHAR(14) NOT NULL, _author VARCHAR(64) NOT NULL, _date TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, CONSTRAINT _version_pkey PRIMARY KEY(_version))");
 			
+			$query = $db->query ("SELECT u._email FROM _user u JOIN _user_group ug ON ug._user = u._id JOIN _group g ON g._id = ug._group WHERE g._admin = B'1'");
+			
+			$_mails = $query->fetchAll (PDO::FETCH_COLUMN);
+			
+			if (!sizeof ($_mails))
+				$_mails = array (@$_xml ['e-mail']);
+			
 			/*
 			 * Titan modifications in instance database 
 			 */
@@ -519,7 +526,7 @@ try
 			
 			$buffer = ob_get_clean ();
 			
-			@mail (@$_xml ['e-mail'], '=?utf-8?B?'. base64_encode ($subject) .'?=', $buffer, "From: ". @$_xml ['e-mail'] ."\r\nContent-Type: text/plain; charset=utf-8");
+			@mail (implode (',', $_mails), '=?utf-8?B?'. base64_encode ($subject) .'?=', $buffer, "From: ". @$_xml ['e-mail'] ."\r\nContent-Type: text/plain; charset=utf-8");
 			
 			echo $buffer;
 		}
@@ -538,7 +545,7 @@ try
 			$buffer = ob_get_clean ();
 			
 			if ($sendErrorReport)
-				@mail (@$_xml ['e-mail'], '=?utf-8?B?'. base64_encode ($subject) .'?=', $buffer, "From: ". @$_xml ['e-mail'] ."\r\nContent-Type: text/plain; charset=utf-8");
+				@mail (isset ($_mails) ? implode (',', $_mails) : @$_xml ['e-mail'], '=?utf-8?B?'. base64_encode ($subject) .'?=', $buffer, "From: ". @$_xml ['e-mail'] ."\r\nContent-Type: text/plain; charset=utf-8");
 			
 			echo $buffer;
 		}
