@@ -375,7 +375,7 @@ class Alert
 			if (!@mail ($obj->u_mail,
 						'=?utf-8?B?'. base64_encode (str_replace (array_keys ($tags), $tags, $this->getFromTemplate ($obj->_template, 'subject'))) .'?=',
 						str_replace (array_keys ($tags), $tags, $this->getFromTemplate ($obj->_template, 0)),
-						"From: ". $auth ." <". $mail .">\r\nReply-To: ". $mail ."\r\nX-Mailer: PHP/". phpversion () ."\r\nContent-Type: text/plain; charset=utf-8"))
+						"From: ". $auth ." <". Instance::singleton ()->getEmail () .">\r\nReply-To: ". $mail ."\r\nX-Mailer: PHP/". phpversion () ."\r\nContent-Type: text/plain; charset=utf-8"))
 			{
 				toLog ('Impossible to send alert mail! [To: '. $obj->u_mail .'] [Subject: '. str_replace (array_keys ($tags), $tags, $this->getFromTemplate ($obj->_template, 'subject')) .']');
 				

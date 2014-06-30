@@ -31,6 +31,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import <?= $app ?>.<?= $appName ?>;
 import <?= $app ?>.contract.<?= $model ?>Contract;
 import <?= $app ?>.converter.<?= $model ?>Converter;
 import <?= $app ?>.exception.TechnicalException;

@@ -669,9 +669,9 @@ class Xoad
 			$subject = '[Titan Framework] Bug Report';
 			
 			if (trim ($formData ['mail']) != '')
-				$header = "From: ". trim ($formData ['mail']) ."\r\n";
+				$header = "From: ". Instance::singleton ()->getEmail () ."\r\nReply-To: ". trim ($formData ['mail']) ."\r\n";
 			else
-				$header = "";
+				$header = "From: ". Instance::singleton ()->getEmail ();
 			
 			$header .= "Content-Type: text/plain; charset=utf-8";
 			

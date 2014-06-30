@@ -519,7 +519,7 @@ try
 			
 			$buffer = ob_get_clean ();
 			
-			@mail (@$_xml ['e-mail'], '=?utf-8?B?'. base64_encode ($subject) .'?=', $buffer, 'Content-Type: text/plain; charset=utf-8');
+			@mail (@$_xml ['e-mail'], '=?utf-8?B?'. base64_encode ($subject) .'?=', $buffer, "From: ". @$_xml ['e-mail'] ."\r\nContent-Type: text/plain; charset=utf-8");
 			
 			echo $buffer;
 		}
@@ -538,7 +538,7 @@ try
 			$buffer = ob_get_clean ();
 			
 			if ($sendErrorReport)
-				@mail (@$_xml ['e-mail'], '=?utf-8?B?'. base64_encode ($subject) .'?=', $buffer, 'Content-Type: text/plain; charset=utf-8');
+				@mail (@$_xml ['e-mail'], '=?utf-8?B?'. base64_encode ($subject) .'?=', $buffer, "From: ". @$_xml ['e-mail'] ."\r\nContent-Type: text/plain; charset=utf-8");
 			
 			echo $buffer;
 		}

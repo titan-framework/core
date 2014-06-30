@@ -137,7 +137,7 @@ function generate ($appication, $package, $section, $model, $xml, $table, $asset
 						'dao' => 'DAO',
 						'task' => 'Task',
 						'ws' => 'WebService',
-						'adapter' => 'Adapter');
+						'adapter' => 'ListAdapter');
 	
 	foreach ($packages as $pack => $sufix)
 	{
