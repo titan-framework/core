@@ -37,8 +37,8 @@ try
 	if (!(int) ini_get ('register_argc_argv'))
 		throw new Exception ("CRITICAL > This is a command-line script! You must enable 'register_argc_argv' directive.");
 	
-	if ($argc < 2)
-		throw new Exception ("CRITICAL > You must pass at least one path for a Titan instance.");
+	// if ($argc < 2)
+	//	throw new Exception ("CRITICAL > You must pass at least one path for a Titan instance.");
 	
 	if (!function_exists ('svn_ls') || !function_exists ('svn_status'))
 		throw new Exception ("CRITICAL > You need install SVN PECL package for PHP!");
