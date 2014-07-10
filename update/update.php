@@ -67,7 +67,7 @@ try
 		
 		$fileWithStableRevision = $_corePath . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'STABLE';
 		
-		system (SVN .' up '. $fileWithStableRevision .' --no-auth-cache --non-interactive -q', $return);
+		system (SVN .' up '. $fileWithStableRevision .' --accept \'mine-conflict\' --no-auth-cache --non-interactive -q', $return);
 		
 		if ($return || !file_exists ($fileWithStableRevision))
 			throw new Exception ("Fail to update file with last stable revision! [". $fileWithStableRevision ."]");
@@ -95,7 +95,7 @@ try
 		{
 			echo "INFO > Updating (or downgrading) CORE of Titan Framework [". $_corePath ."] from revision #". $coreActualRevision ." to stable revision #". $coreLastStableRevision ." (the last revision in repository is #". $coreLastRevision .")... \n";
 			
-			system (SVN .' up -r '. $coreLastStableRevision .' '. $_corePath .' --no-auth-cache --non-interactive -q', $return);
+			system (SVN .' up -r '. $coreLastStableRevision .' '. $_corePath .' --accept \'mine-conflict\' --no-auth-cache --non-interactive -q', $return);
 			
 			if ($return)
 				echo "ERROR > Fail to update Titan Framework [". $_corePath ."]! \n";
@@ -251,7 +251,7 @@ try
 			 */
 			echo "INFO > Updating black list of revisions [update/blacklist.txt] to head revision... \n";
 				
-			system (SVN .' up '. $_folder .'update'. DIRECTORY_SEPARATOR .'blacklist.txt --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --no-auth-cache --non-interactive -q', $return);
+			system (SVN .' up '. $_folder .'update'. DIRECTORY_SEPARATOR .'blacklist.txt --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --accept \'mine-conflict\' --no-auth-cache --non-interactive -q', $return);
 			
 			if ($return)
 				throw new Exception ("CRITICAL > Impossible update black list [". $_folder ."update". DIRECTORY_SEPARATOR ."blacklist.txt]! Verify SVN login and password at [configure/titan.xml].");
@@ -311,7 +311,7 @@ try
 			 */
 			while ($_actualRevision++ < $_headRevision)
 			{
-				system (SVN .' up '. $_folder . $_pathToFileOfPaths .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --no-auth-cache --non-interactive -q -r '. $_actualRevision, $return);
+				system (SVN .' up '. $_folder . $_pathToFileOfPaths .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --accept \'mine-conflict\' --no-auth-cache --non-interactive -q -r '. $_actualRevision, $return);
 				
 				if ($return)
 					throw new Exception ("CRITICAL > Fail to update [". $_pathToFileOfPaths ."] to revision #". $_actualRevision ."!");
@@ -362,7 +362,7 @@ try
 				
 				echo "INFO > Updating migration folder [". $_folder . $_pathToMigrationFiles ."]... \n";
 				
-				system (SVN .' up '. $_folder . $_pathToMigrationFiles .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --no-auth-cache --non-interactive -q -r '. $_actualRevision, $return);
+				system (SVN .' up '. $_folder . $_pathToMigrationFiles .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --accept \'mine-conflict\' --no-auth-cache --non-interactive -q -r '. $_actualRevision, $return);
 				
 				if ($return)
 					throw new Exception ("CRITICAL > Fail to update migration folder [". $_pathToMigrationFiles ."] to revision #". $_actualRevision ."! \n");
@@ -410,12 +410,12 @@ try
 							
 							echo "ERROR > Reverting revision for file of paths [". $_pathToFileOfPaths ."] and migration folder [". $_pathToMigrationFiles ."] from #". $_actualRevision ." to #". $_revertRevision ."... \n";
 							
-							system (SVN .' up '. $_folder . $_pathToFileOfPaths .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --no-auth-cache --non-interactive -q -r '. $_revertRevision, $return);
+							system (SVN .' up '. $_folder . $_pathToFileOfPaths .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --accept \'mine-conflict\' --no-auth-cache --non-interactive -q -r '. $_revertRevision, $return);
 							
 							if ($return)
 								echo "CRITICAL > Fail to revert [". $_pathToFileOfPaths ."] to revision #". $_revertRevision ."! Please, access the server to solve problem. \n";
 							
-							system (SVN .' up '. $_folder . $_pathToMigrationFiles .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --no-auth-cache --non-interactive -q -r '. $_revertRevision, $return);
+							system (SVN .' up '. $_folder . $_pathToMigrationFiles .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --accept \'mine-conflict\' --no-auth-cache --non-interactive -q -r '. $_revertRevision, $return);
 							
 							if ($return)
 								echo "CRITICAL > Fail to revert migration folder [". $_pathToMigrationFiles ."] to revision #". $_revertRevision ."! Please, access the server to solve problem.";
@@ -435,7 +435,7 @@ try
 						{
 							echo "INFO > Updating specific migration file to head revision [". $_pathToMigrationFiles . $file .".sql]... \n";
 				
-							system (SVN .' up '. $_pathToMigrationFiles . $file .'.sql --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --no-auth-cache --non-interactive -q', $return);
+							system (SVN .' up '. $_pathToMigrationFiles . $file .'.sql --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --accept \'mine-conflict\' --no-auth-cache --non-interactive -q', $return);
 							
 							if ($return)
 								throw new PDOException ("CRITICAL > Fail to update specifc migration file [". $_pathToMigrationFiles . $file .".sql] to head revision! \n");
@@ -471,12 +471,12 @@ try
 						
 						echo "ERROR > Reverting revision for file of paths [". $_pathToFileOfPaths ."] and migration folder [". $_pathToMigrationFiles ."] from #". $_actualRevision ." to #". $_revertRevision ."... \n";
 						
-						system (SVN .' up '. $_folder . $_pathToFileOfPaths .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --no-auth-cache --non-interactive -q -r '. $_revertRevision, $return);
+						system (SVN .' up '. $_folder . $_pathToFileOfPaths .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --accept \'mine-conflict\' --no-auth-cache --non-interactive -q -r '. $_revertRevision, $return);
 						
 						if ($return)
 							echo "CRITICAL > Fail to revert [". $_pathToFileOfPaths ."] to revision #". $_revertRevision ."! Please, access the server to solve problem. \n";
 						
-						system (SVN .' up '. $_folder . $_pathToMigrationFiles .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --no-auth-cache --non-interactive -q -r '. $_revertRevision, $return);
+						system (SVN .' up '. $_folder . $_pathToMigrationFiles .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --accept \'mine-conflict\' --no-auth-cache --non-interactive -q -r '. $_revertRevision, $return);
 						
 						if ($return)
 							echo "CRITICAL > Fail to revert migration folder [". $_pathToMigrationFiles ."] to revision #". $_revertRevision ."! Please, access the server to solve problem.";
@@ -503,7 +503,7 @@ try
 						continue;
 					}
 				
-					system (SVN .' up '. $_folder . $file .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --no-auth-cache --non-interactive -q -r '. $_actualRevision, $return);
+					system (SVN .' up '. $_folder . $file .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --accept \'mine-conflict\' --no-auth-cache --non-interactive -q -r '. $_actualRevision, $return);
 							
 					if ($return)
 						echo "ERROR > Fail to update file or folder [". $_folder . $file ."] to revision #". $_actualRevision ."! \n";
