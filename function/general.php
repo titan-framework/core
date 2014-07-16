@@ -576,21 +576,21 @@ function isFirefox ($force = FALSE)
 function getBrowser ()
 {
 	$cache = Instance::singleton ()->getCachePath ();
-
+	
 	if (!file_exists ($cache .'browscap') && !mkdir ($cache .'browscap', 0775))
 		return '';
-
+	
 	try
 	{
 		$browscap = new Browscap ($cache .'browscap');
 		
 		if (!is_object ($browscap))
-			throw new Excpetion ('Error to get Browscap object!');
+			throw new Exception ('Error to get Browscap object!');
 		
 		$browser = $browscap->getBrowser ();
 		
-		if (!is_object ($browser))
-			throw new Excpetion ('Error to get Browscap BROWSER object!');
+		if (!is_object ($browser) || !isset ($browser->Parent))
+			throw new Exception ('Error to get Browscap BROWSER object!');
 		
 		return $browser->Parent;
 	}

@@ -94,7 +94,7 @@ if (Social::isActive ())
 				if ($driver->login ())
 				{
 					?>
-					<html><body onLoad="document.location='titan.php';"></body></html>
+					<html><body onload="document.location='titan.php';"></body></html>
 					<?
 					exit ();
 				}
