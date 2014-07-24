@@ -99,6 +99,8 @@ try
 			if (Api::getHttpRequestMethod () == Api::PUT)
 				retrievePut ();
 			
+			convertApiParametersToUtf8 ();
+			
 			$file = $_section->getComponentPath () .'_api'. DIRECTORY_SEPARATOR . $_service .'.php';
 			
 			require $file;

@@ -843,6 +843,16 @@ function retrievePut ()
 	$_POST = $data;
 }
 
+function convertApiParametersToUtf8 ()
+{
+	require Instance::singleton ()->getCorePath () .'extra/Encoding.php';
+	
+	array_walk_recursive($_POST, function (&$item, $key)
+	{
+		$item = Encoding::toUTF8 ($item);
+	});
+}
+
 if (!function_exists ('apache_request_headers'))
 {
 	function apache_request_headers()
