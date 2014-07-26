@@ -108,7 +108,7 @@ if (Social::isActive ())
 				$_GET ['error'] .= $e->getMessage ();
 			}
 		
-		$socialButtons [$driver->getName ()] = array ($driver->getLoginUrl (), $driver->getPath () .'_resource/button.png');
+		$socialButtons [$driver->getName ()] = array ($driver->getLoginUrl (), 'titan.php?target=loadFile&amp;file=repos/social/'. $driver->getName () .'/_resource/button.png');
 	}
 }
 ?>

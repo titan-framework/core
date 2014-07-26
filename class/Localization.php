@@ -108,7 +108,10 @@ class Localization
 		
 		$this->language = $language;
 		
-		if (setlocale (LC_ALL, $this->getLocale ()) === FALSE)
+		putenv ('LANG='. $this->getLocale () .'.UTF8');    
+		putenv ('LANGUAGE='. $this->getLocale () .'.UTF8');
+		
+		if (setlocale (LC_ALL, $this->getLocale () .'.utf8') === FALSE && setlocale (LC_ALL, $this->getLocale ()) === FALSE)
 			toLog ('Impossible to set system locale ['. $this->getLocale () .'].');
 		
 		return TRUE;

@@ -10,8 +10,6 @@ $entity = new ApiEntity ('api-post.xml', 'api.xml');
 if (!$entity->recovery ())
 	throw new Exception (__ ('Unable to retrieve the data submitted!'));
 
-toLog (print_r ($entity, TRUE));
-
 if (!$entity->save ($user))
 	throw new Exception (__ ('Unable to save the data submitted!'));
 
