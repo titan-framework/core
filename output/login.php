@@ -94,7 +94,7 @@ if (Social::isActive ())
 				if ($driver->login ())
 				{
 					?>
-					<html><body onLoad="document.location='titan.php';"></body></html>
+					<html><body onload="document.location='titan.php';"></body></html>
 					<?
 					exit ();
 				}
@@ -334,6 +334,7 @@ if (Social::isActive ())
 				if (trim (Instance::singleton ()->getAuthor ()) == '')
 				{
 					?>
+					<a href="http://creativecommons.org/licenses/by-nd/4.0/" target="_blank" title="Creative Commons License"><img alt="Creative Commons License" style="border-width:0" src="titan.php?target=loadFile&amp;file=interface/image/cc.png" /></a>
 					<label>&copy; 2005 - <?= date ('Y') ?> &curren; <a href="http://www.carromeu.com/" target="_blank">Camilo Carromeu</a></label>
 					<?
 				}
