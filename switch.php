@@ -638,9 +638,8 @@ try
 			break;
 		
 		case 'license':
-			include $corePath .'output/license.php';
 			
-			break;
+			exit ();
 		
 		case 'unreadAlerts':
 			if (!isset ($_GET ['id']) || !is_numeric ($_GET ['id']) || !(int) $_GET ['id'])

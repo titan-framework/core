@@ -94,7 +94,7 @@ if (Social::isActive ())
 				if ($driver->login ())
 				{
 					?>
-					<html><body onload="document.location='titan.php';"></body></html>
+					<html><body onLoad="document.location='titan.php';"></body></html>
 					<?
 					exit ();
 				}
@@ -172,7 +172,7 @@ if (Social::isActive ())
 				<?= trim ($skin->getLogo ()) == '' || !file_exists ($skin->getLogo ()) ? '<h1>'. $instance->getName () .'</h1>' : '<img src="'. $skin->getLogo () .'" border="0" alt="'. $instance->getName () .'" title="'. $instance->getName () .'" />' ?>
 			</div>
 			<div class="cName">
-				<a href="http://www.titanframework.com/" target="_blank"><img src="titan.php?target=loadFile&amp;file=interface/image/logo.titan.png" border="0" alt="Titan Framework" title="Titan Framework" /></a>
+				<a href="http://www.titanframework.com/" target="_blank" title="Titan Framework"><img src="titan.php?target=loadFile&amp;file=interface/image/logo.titan.png" border="0" alt="Titan Framework" alt="Titan Framework" /></a>
 			</div>
 		</div>
 		<div id="idBody" style="width: 1000px; margin: 0 auto;">
@@ -321,15 +321,20 @@ if (Social::isActive ())
 		</div>
 		<div id="idBase">
 			<div class="cResources">
-				Powered by <a href="http://www.titanframework.com" target="_blank">Titan Framework</a>
+				<?
+				$path = Instance::singleton ()->getCorePath () .'update'. DIRECTORY_SEPARATOR;
+				
+				$version = trim (file_get_contents ($path .'VERSION'));
+				$release = trim (file_get_contents ($path .'STABLE'));
+				?>
+				Powered by <a href="http://www.titanframework.com" target="_blank">Titan Framework</a> (<?= $version ?>-<?= $release ?>)
 			</div>
 			<div class="cPowered">
 				<?
 				if (trim (Instance::singleton ()->getAuthor ()) == '')
 				{
 					?>
-					<img alt="Creative Commons License" style="border-width:0" src="titan.php?target=loadFile&amp;file=interface/image/cc.png" onClick="JavaScript: message ('titan.php?target=license', 450, 150, false);" />
-					<label>&copy; 2006 - <?= date ('Y') ?> &curren; <a href="http://www.carromeu.com/" target="_blank">Camilo Carromeu</a></label>
+					<label>&copy; 2005 - <?= date ('Y') ?> &curren; <a href="http://www.carromeu.com/" target="_blank">Camilo Carromeu</a></label>
 					<?
 				}
 				else

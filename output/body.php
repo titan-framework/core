@@ -458,15 +458,22 @@ header ('Content-Encoding: gzip');
 		</div>
 		<div id="idBase">
 			<div class="cResources">
-				<img src="titan.php?target=loadFile&amp;file=interface/image/assign.titan.png" border="0" title="Titan Framework" onclick="JavaScript: message ('titan.php?target=license', 450, 150, false);" />
+				<?
+				$path = Instance::singleton ()->getCorePath () .'update'. DIRECTORY_SEPARATOR;
+				
+				$version = trim (file_get_contents ($path .'VERSION'));
+				$release = trim (file_get_contents ($path .'STABLE'));
+				
+				$alt = 'Powered by Titan Framework ('. $version .'-'. $release .')';
+				?>
+				<a href="http://www.titanframework.com" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=loadFile&amp;file=interface/image/assign.titan.png" border="0" alt="<?= $alt ?>" /></a>
 			</div>
 			<div class="cPowered">
 				<?
 				if (trim (Instance::singleton ()->getAuthor ()) == '')
 				{
 					?>
-					<img alt="Creative Commons License" style="border-width:0" src="titan.php?target=loadFile&amp;file=interface/image/cc.png" onclick="JavaScript: message ('titan.php?target=license', 450, 150, false);" />
-					<label>&copy; 2006 - <?= date ('Y') ?> &curren; <a href="http://www.carromeu.com/" target="_blank">Camilo Carromeu</a></label>
+					<label>&copy; 2005 - <?= date ('Y') ?> &curren; <a href="http://www.carromeu.com/" target="_blank">Camilo Carromeu</a></label>
 					<?
 				}
 				else
