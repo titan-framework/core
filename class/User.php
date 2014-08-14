@@ -196,7 +196,7 @@ class User
 				
 				$search = array ('displayname', 'cn', 'givenname', 'mail');
 				
-				$array = $ldap->load ($login);
+				$array = $ldap->load ($login, $search);
 				
 				$ldap->close ();
 				
@@ -219,7 +219,7 @@ class User
 				$fields = array ('_id' 	 	 => array ($userId, PDO::PARAM_INT),
 								 '_login' 	 => array ($login, PDO::PARAM_STR),
 								 '_name'	 => array ($name, PDO::PARAM_STR),
-								 '_email'	 => array (trim (@$array [$mail]), PDO::PARAM_STR),
+								 '_email'	 => array (trim (@$array ['mail']), PDO::PARAM_STR),
 								 '_password' => array (randomHash (13) .'_INVALID_HASH_'. randomHash (13), PDO::PARAM_STR),
 								 '_active'	 => array (1, PDO::PARAM_INT),
 								 '_deleted'	 => array (0, PDO::PARAM_INT),
