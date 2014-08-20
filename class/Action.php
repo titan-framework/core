@@ -78,6 +78,9 @@ class Action
 		if (array_key_exists ('warning', $input))
 			$this->setWarning ($input ['warning']);
 		
+		if (array_key_exists ('doc', $input))
+			$this->setDoc ($input ['doc']);
+		
 		if (array_key_exists ('index-to', $input))
 			$this->setIndex ($input ['index-to']);
 		
