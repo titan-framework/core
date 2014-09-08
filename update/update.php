@@ -251,6 +251,11 @@ try
 			
 			$_folder = getcwd () . DIRECTORY_SEPARATOR;
 			
+			system (SVN .' cleanup '. $_folder .' --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --no-auth-cache --non-interactive --trust-server-cert', $return);
+			
+			if ($return)
+				throw new Exception ("CRITICAL > Impossible to clean up folder [". $_folder ."]! Verify SVN login and password at [configure/titan.xml].");
+			
 			/*
 			 * Blacklist treatment
 			 */
