@@ -242,6 +242,7 @@ input.button:hover
 #idBase .cPowered img
 {
 	float: left;
+	border-width: 0;
 }
 #idBase .cPowered label
 {
@@ -254,6 +255,16 @@ input.button:hover
 	position: relative;
 	padding: 5px;
 	color: #FFFFFF;
+}
+#idBase .cResources img
+{
+	float: right;
+	border-width: 0;
+}
+#idBase .cResources label
+{
+	float: right;
+	margin-left: 5px;
 }
 #idBase a
 {
@@ -423,4 +434,26 @@ div.unselected iframe
 {
 	margin-left: 10px;
 	cursor: pointer;
+}
+
+.cReleaseInfo
+{
+	width: 240px;
+	height: 160px;
+	background: url(titan.php?target=loadFile&file=interface/image/arrow.down.large.png) center bottom no-repeat;
+	position: fixed;
+	bottom: 30px;
+	right: 45px;
+	z-index: 9999; 
+}
+.cReleaseInfo div
+{
+	text-align: left;
+	font-size: 10px;
+	width: 240px;
+	height: 140px;
+	background: #606060;
+	color: #FFF;
+	text-decoration: none;
+	padding: 5px;
 }

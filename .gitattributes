@@ -2213,6 +2213,7 @@ interface/image/firefox.titan.png -text
 interface/image/get.firefox.png -text
 interface/image/google-play.png -text
 interface/image/indicatormediumgb6.gif -text
+interface/image/info.gif -text
 interface/image/info.png -text
 interface/image/info_alert.png -text
 interface/image/loader.gif -text
