@@ -358,9 +358,19 @@ if (Social::isActive ())
 					$appRelease = $file ['version'];
 					$appEnvironment = $file ['environment'];
 					$appDate = strftime ('%x %X', $file ['date']);
+					
+					$fileOfVersion = 'update'. DIRECTORY_SEPARATOR .'VERSION';
+					
+					if (file_exists ($fileOfVersion) && is_readable ($fileOfVersion))
+					{
+						$appVersion = trim (file_get_contents ($fileOfVersion, 0, NULL, 0, 16));
+						
+						if (!empty ($appVersion))
+							$appRelease = $appVersion .'-'. $appRelease;
+					}
 					?>
-					<label>Powered by <a href="http://www.titanframework.com" target="_blank" title="<?= $version .'-'. $release ?>">Titan Framework</a></label>
-					<img id="_TITAN_INFO_ICON_" src="titan.php?target=loadFile&amp;file=interface/image/info.gif" alt="Release Info" />
+					<a href="http://www.titanframework.com" target="_blank" title="Titan Framework (<?= $version .'-'. $release ?>)"><img class="cTitanAssign" src="titan.php?target=loadFile&amp;file=interface/image/assign.titan.png" /></a>
+					<img class="cIconInfo" id="_TITAN_INFO_ICON_" src="titan.php?target=loadFile&amp;file=interface/image/info.gif" alt="Release Info" />
 					<div id="_TITAN_INFO_TEXT_" class="cReleaseInfo" style="display: none;">
 						<div>
 							<?= __ ('This web application, named "<b>[1]</b>", is in version <b>[2]</b> for <b>[3]</b> environment (released <b>[4]</b>).', Instance::singleton ()->getName (), $appRelease, $appEnvironment, $appDate); ?>

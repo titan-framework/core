@@ -63,6 +63,15 @@ try
 	{
 		echo "INFO > Updating Titan Framework... \n";
 		
+		echo "INFO > Cleaning up CORE folder [". $_corePath ."]... \n";
+		
+		system (SVN .' cleanup '. $_corePath .' --no-auth-cache --non-interactive --trust-server-cert', $return);
+		
+		if ($return)
+			echo "ERROR > Impossible to clean up CORE folder [". $_corePath ."]! \n";
+		else
+			echo "SUCCESS > Titan Framework's CORE folder is cleaned! \n";
+		
 		echo "INFO > Getting last stable revision... \n";
 		
 		$fileWithStableRevision = $_corePath . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'STABLE';
@@ -539,6 +548,13 @@ try
 				echo "SUCCESS > Files and DB updated to revision #". $_actualRevision ."! \n";
 				
 				$_revertRevision = $_actualRevision;
+				
+				echo "INFO > Updating VERSION file [update/VERSION] to revision #". $_actualRevision ."! \n";
+					
+				system (SVN .' up '. $_folder .'update'. DIRECTORY_SEPARATOR .'VERSION --username "'. $_conf ['svn-login'] .'" --password "'. $_conf ['svn-password'] .'" --accept \'mine-conflict\' --no-auth-cache --non-interactive -q -r '. $_actualRevision, $return);
+				
+				if ($return)
+					echo "ERROR > Impossible update VERSION file [". $_folder ."update". DIRECTORY_SEPARATOR ."VERSION]! Verify SVN login and password at [configure/titan.xml].";
 			}
 			
 			echo "FINISH > All done after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n";

@@ -48,47 +48,6 @@ a:hover
 	padding: 5px;
 }
 
-#idBase
-{
-	clear: both;
-	border-top: #36817C 3px solid;
-	background-color: #575556;
-	height: 23px;
-	width: 100%;
-}
-
-#idBase a
-{
-	color: #FFFFFF;
-	font-size: 10px;
-}
-
-#idBase .cPowered
-{
-	float: left;
-	padding: 5px;
-	font-size: 9px;
-	color: #FFFFFF;
-}
-
-#idBase .cPowered img
-{
-	float: left;
-}
-
-#idBase .cPowered label
-{
-	float: left;
-	margin-left: 5px;
-}
-
-#idBase .cResources
-{
-	float: right;
-	padding: 3px;
-	margin-right: 5px;
-}
-
 #idBody
 {
 	width: 700px;
@@ -136,4 +95,88 @@ a:hover
 	font-weight: bold;
 	float: left;
 	margin-right: 15px;
+}
+
+#idBase
+{
+	clear: both;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	border-top: #36817C 3px solid;
+	background-color: #575556;
+	height: 23px;
+	width: 100%;
+	z-index: 3;
+}
+#idBase .cPowered
+{
+	float: left;
+	position: relative;
+	padding: 5px;
+	font-size: 10px;
+	color: #FFF;
+}
+#idBase .cPowered img
+{
+	float: left;
+	border-width: 0;
+}
+#idBase .cPowered label
+{
+	float: left;
+	margin-left: 5px;
+}
+#idBase .cResources
+{
+	float: right;
+	position: relative;
+	padding: 5px;
+	color: #FFF;
+	min-width: 180px;
+}
+#idBase .cResources img.cIconInfo
+{
+	float: left;
+	border-width: 0;
+}
+#idBase .cResources img.cTitanAssign
+{
+	float: right;
+	border-width: 0;
+}
+#idBase .cResources label
+{
+	float: right;
+	margin-left: 5px;
+}
+#idBase a
+{
+	color: #FFF;
+	font-size: 10px;
+}
+.cReleaseInfo
+{
+	width: 250px;
+	height: 160px;
+	background: url(titan.php?target=loadFile&file=interface/image/arrow.down.large.png) center bottom no-repeat;
+	position: fixed;
+	bottom: 30px;
+	right: 55px;
+	z-index: 4;
+}
+.cReleaseInfo div
+{
+	text-align: left;
+	font-size: 10px;
+	width: 230px;
+	height: 130px;
+	background: #606060;
+	color: #FFF;
+	text-decoration: none;
+	padding: 10px;
+	z-index: 5;
+	box-shadow: 0 0 5px #606060;
+	-webkit-box-shadow: 0 0 5px #606060; 
+	-moz-box-shadow: 0 0 5px #606060;
 }

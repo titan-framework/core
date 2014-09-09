@@ -59,15 +59,72 @@ Log::singleton ()->add ('BROWSER', '', Log::INFO, FALSE, FALSE);
 				<a href="http://portableapps.com/apps/internet/firefox_portable" target="_blank"><img style="margin: 15px 0px 0px 190px;" src="titan.php?target=loadFile&amp;file=interface/image/firefox.portable.png" border="0" /></a>
 			</div>
 		</div>
-		<div id="idBase" style="position: absolute; bottom: 0px;">
-			<div class="cResources">
+		<div id="idBase">
+			<div class="cResources" id="_TITAN_INFO_">
 				<?
 				$path = Instance::singleton ()->getCorePath () .'update'. DIRECTORY_SEPARATOR;
 				
 				$version = trim (file_get_contents ($path .'VERSION'));
 				$release = trim (file_get_contents ($path .'STABLE'));
+				
+				$appReleasePath = Instance::singleton ()->getCachePath () .'RELEASE';
+				
+				$autoDeploy = FALSE;
+				
+				if (file_exists ($appReleasePath) && is_readable ($appReleasePath))
+				{
+					$file = parse_ini_file ($appReleasePath);
+					
+					if (is_array ($file)) 
+					{
+						$autoDeploy = TRUE;
+						
+						$requiredKeys = array ('version', 'environment', 'date', 'author');
+						
+						foreach ($requiredKeys as $trash => $key)
+							if (!array_key_exists ($key, $file) || trim ((string) $file [$key]) == '')
+								$autoDeploy = FALSE;
+					}
+				}
+				
+				if (!$autoDeploy)
+				{
+					?>
+					<label>Powered by <a href="http://www.titanframework.com" target="_blank" title="<?= $version .'-'. $release ?>">Titan Framework</a> (<?= $version .'-'. $release ?>)</label>
+					<?
+				}
+				else
+				{
+					$appRelease = $file ['version'];
+					$appEnvironment = $file ['environment'];
+					$appDate = strftime ('%x %X', $file ['date']);
+					
+					$fileOfVersion = 'update'. DIRECTORY_SEPARATOR .'VERSION';
+					
+					if (file_exists ($fileOfVersion) && is_readable ($fileOfVersion))
+					{
+						$appVersion = trim (file_get_contents ($fileOfVersion, 0, NULL, 0, 16));
+						
+						if (!empty ($appVersion))
+							$appRelease = $appVersion .'-'. $appRelease;
+					}
+					?>
+					<a href="http://www.titanframework.com" target="_blank" title="Titan Framework (<?= $version .'-'. $release ?>)"><img class="cTitanAssign" src="titan.php?target=loadFile&amp;file=interface/image/assign.titan.png" /></a>
+					<img class="cIconInfo" id="_TITAN_INFO_ICON_" src="titan.php?target=loadFile&amp;file=interface/image/info.gif" alt="Release Info" />
+					<div id="_TITAN_INFO_TEXT_" class="cReleaseInfo" style="display: none;">
+						<div>
+							<?= __ ('This web application, named "<b>[1]</b>", is in version <b>[2]</b> for <b>[3]</b> environment (released <b>[4]</b>).', Instance::singleton ()->getName (), $appRelease, $appEnvironment, $appDate); ?>
+							<br /><br />
+							<?= __ ('It was developed using the <b>Titan Framework</b>, version <b>[1]</b>.', $version .'-'. $release); ?>
+						</div>
+					</div>
+					<script type="text/javascript">
+					document.getElementById ('_TITAN_INFO_ICON_').onmouseover = function ()	{ document.getElementById ('_TITAN_INFO_TEXT_').style.display = 'block'; };
+					document.getElementById ('_TITAN_INFO_ICON_').onmouseout = function () { document.getElementById ('_TITAN_INFO_TEXT_').style.display = 'none'; };
+					</script>
+					<?
+				}
 				?>
-				Powered by <a href="http://www.titanframework.com" target="_blank">Titan Framework</a> (<?= $version ?>-<?= $release ?>)
 			</div>
 			<div class="cPowered">
 				<?
