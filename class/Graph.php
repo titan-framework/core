@@ -255,10 +255,10 @@ class Graph
 			
 			$field = Database::fromDb ($field, $obj);
 			
-			if (is_null ($obj->$column))
+			if (trim ((string) $obj->$column) == '')
 				$legends [] = __ ('N/A');
 			else
-				$legends [] = Form::toHtml ($field);
+				$legends [] = Form::toText ($field);
 			
 			$pieces [] = $obj->$unique;
 		}

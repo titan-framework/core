@@ -48,9 +48,8 @@ try
 
 	$validate = array ("'", '"', '\\', '--', '/*', '*/');
 	$validLogin = str_replace ($validate, '', $login);
-	$validHash = str_replace ($validate, '', $hash);
 
-	if ($login !== $validLogin || $hash !== $validHash)
+	if ($login !== $validLogin)
 		throw new Exception ('Attention! Probably attack detected. Access Denied!');
 
 	$db = Database::singleton ();
@@ -94,12 +93,8 @@ try
 	
 	$vHash = sha1 ($systemHash . $name . $systemHash . $passwd . $systemHash . $email . $systemHash);
 	
-	// toLog ($systemHash .'#'. $name .'#'. $passwd .'#'. $email);
-	// toLog ($vHash);
-	// toLog (shortlyHash ($vHash));
-	
-	//if ((strlen ($hash) != 10 && $hash != $vHash) || (strlen ($hash) != 40 && $hash != shortlyHash ($vHash)))
-	//	throw new Exception (__ ('Invalid link! Use the link \'Recovery Password\' at the logon page for receive a valid link.'));
+	if ((strlen ($hash) != 10 && $hash != $vHash) || (strlen ($hash) != 40 && $hash != shortlyHash ($vHash)))
+		throw new Exception (__ ('Invalid link! Use the link \'Recovery Password\' at the logon page for receive a valid link.'));
 	
 	$skin = Skin::singleton ();
 }
