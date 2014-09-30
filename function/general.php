@@ -1,10 +1,13 @@
 <?php
 
-function __autoload ($className)
+function __autoload ($class)
 {
-	$instance = Instance::singleton ();
-
-	require_once $instance->getCorePath () .'class/'. $className . '.php';
+	$file = Instance::singleton ()->getCorePath () .'class'. DIRECTORY_SEPARATOR . $class . '.php';
+	
+	if (!file_exists ($file))
+		return FALSE;
+	
+	require_once $file;
 }
 
 function __ ()
