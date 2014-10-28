@@ -3018,6 +3018,7 @@ repos/type/global.Boolean/toDbMaker.php -text
 repos/type/global.Boolean/toForm.php -text
 repos/type/global.Boolean/toHtml.php -text
 repos/type/global.Boolean/toSearch.php -text
+repos/type/global.Boolean/toText.php -text
 repos/type/global.Boolean/toValue.php -text
 repos/type/global.Cascade/Cascade.php -text
 repos/type/global.Cascade/LICENSE -text
