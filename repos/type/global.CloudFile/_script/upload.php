@@ -3,7 +3,7 @@ if (!User::singleton ()->isLogged ())
 	throw new Exception (__ ('Attention! Probably attack detected. Access Denied!'));
 
 if (!isset ($_GET['fieldId']))
-	throw new Exception ('There was lost of variables!');
+	throw new Exception (__ ('There was lost of variables!'));
 
 $idFieldFile = $_GET['fieldId'];
 
@@ -59,26 +59,25 @@ ob_start ();
 				if (sizeof ($uploadFilter) && !in_array ($fileType, $uploadFilter))
 					throw new Exception (__ ('This type of file is not accept at this field! Files accepts are : [1]', implode (', ', $uploadFilter)));
 
-				$fileId = Database::nextId ('_file', '_id');
-				
-				$sth = $db->prepare ("INSERT INTO _file (_id, _name, _mimetype, _size, _description, _user)
-									  VALUES (:id, :name, :type, :size, :description, :user)");
+				$fileId = Database::nextId ('_cloud', '_id');
+
+				$sth = $db->prepare ("INSERT INTO _cloud (_id, _name, _mimetype, _size, _user, _ready, _creation_date, _last_change)
+									  VALUES (:id, :name, :type, :size, :user, B'1', now(), now())");
 				
 				$sth->bindParam (':id', $fileId, PDO::PARAM_INT);
 				$sth->bindParam (':name', $fileName, PDO::PARAM_STR);
 				$sth->bindParam (':type', $fileType, PDO::PARAM_STR);
 				$sth->bindParam (':size', $fileSize, PDO::PARAM_INT);
-				$sth->bindParam (':description', $fileDesc, PDO::PARAM_STR);
 				$sth->bindParam (':user', User::singleton ()->getId (), PDO::PARAM_INT);
 				
 				$sth->execute ();
 
-				if (move_uploaded_file ($fileTemp, $archive->getDataPath () . 'file_'. str_pad ($fileId, 7, '0', STR_PAD_LEFT)))
+				if (move_uploaded_file ($fileTemp, $archive->getDataPath () . 'cloud_'. str_pad ($fileId, 7, '0', STR_PAD_LEFT)))
 				{
 					Lucene::singleton ()->saveFile ($fileId);
 					?>
 					<script language="javascript" type="text/javascript">
-						parent.global.File.load (<?= $fileId ?>, '<?= $idFieldFile ?>');
+						parent.global.CloudFile.load (<?= $fileId ?>, '<?= $idFieldFile ?>');
 					</script>
 					<?
 				}
@@ -123,7 +122,7 @@ ob_start ();
 		}
 		function loadFilter ()
 		{
-			document.getElementById ('upload_filter').value = parent.global.File.getFilter ('<?= $idFieldFile ?>');
+			document.getElementById ('upload_filter').value = parent.global.CloudFile.getFilter ('<?= $idFieldFile ?>');
 		}
 		</script>
 	</head>
@@ -143,7 +142,6 @@ ob_start ();
 				<p class="pFile" style="margin-top: 10px;"><label class="labelFile" for="up_name"><?= __ ('Name') ?>:</label> <input type="text" class="fieldFile" name="name" id="up_name" /></p>
 				<p class="pFile"><label class="labelFile" for="up_file"><?= __ ('File') ?>:</label> <input type="file" class="fieldFile" name="file" id="up_file" /></p>
 				<p class="pFile"><label class="infoFile"><?= __ ('Maximum file size') ?>: <b style="color: #900;"><?= $archive->getUploadLimit () ?>MB</b></label></p>
-				<p class="pFile"><label class="labelFile" for="up_description"><?= __ ('Description') ?>:</label> <input type="text" class="fieldFile" name="description" id="up_description" /></p>
 				<p class="pFile"><input type="button" class="buttonFile" value="<?= __ ('Send File') ?>" onClick="JavaScript: upload ();" /></p>
 			</form>
 		</div>

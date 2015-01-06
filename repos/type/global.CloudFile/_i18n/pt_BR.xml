@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="pt_BR">
+	<message
+		from="The file has not been fully loaded and can not be displayed until it is."
+		to="O arquivo ainda não foi totalmente carregado e não poderá ser exibido até que seja."
+	/>
+	
+	<message
+		from="There is no associated file!"
+		to="Não há nenhum arquivo associado!"
+	/>
+	
+	<message
+		from=""
+		to=""
+	/>
+	
+	<message
+		from=""
+		to=""
+	/>
+	
+	<message
+		from=""
+		to=""
+	/>
+	
+	<message
+		from=""
+		to=""
+	/>
+</i18n>

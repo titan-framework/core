@@ -63,6 +63,32 @@ try
 			
 			break;
 		
+		case 'type':
+			
+			$_type = ucfirst (preg_replace ("/\-(.)/e", "strtoupper('\\1')", trim (@$_uri [1])));
+			
+			if (!Instance::singleton ()->typeExists ($_type))
+				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Type ['. $_type .'] do not exists!');
+			
+			$path = Instance::singleton ()->getTypePath ($_type) .'_api'. DIRECTORY_SEPARATOR;
+			
+			$_service = str_replace ('..', '', trim (@$_uri [2]));
+			
+			if (trim ($_service) == '' || !file_exists ($path . $_service .'.php'))
+				$_service = strtolower (Api::getHttpRequestMethod ());
+			
+			if (trim ($_service) == '' || !file_exists ($path . $_service .'.php'))
+				throw new ApiException (__ ('Invalid URI request method!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::METHOD_NOT_ALLOWED, $path . $_service .'.php');
+			
+			if (Api::getHttpRequestMethod () == Api::PUT)
+				retrievePut ();
+			
+			convertApiParametersToUtf8 ();
+			
+			require $path . $_service .'.php';
+			
+			break;
+		
 		default:
 			
 			if (!Business::singleton ()->sectionExists ($_uri [0]))
@@ -101,9 +127,7 @@ try
 			
 			convertApiParametersToUtf8 ();
 			
-			$file = $_section->getComponentPath () .'_api'. DIRECTORY_SEPARATOR . $_service .'.php';
-			
-			require $file;
+			require $path . $_service .'.php';
 	}
 	
 	restore_error_handler ();
