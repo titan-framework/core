@@ -4,29 +4,18 @@ class CloudFile extends File
 {	
 	public function __construct ($table, $field)
 	{
+		if (!Database::tableExists ('_cloud'))
+			throw new Exception ('The mandatory table [_cloud] do not exists! Its necessary to use type CloudFile.');
+		
 		parent::__construct ($table, $field);
 	}
 	
-	public function getInfo ()
+	public static function formatFileSizeForHuman ($bytes, $decimals = 0)
 	{
-		if (!$this->getValue ())
-			return NULL;
+		$size = array ('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 		
-		$db = Database::singleton ();
+		$factor = floor ((strlen ($bytes) - 1) / 3);
 		
-		$sth = $db->prepare ("SELECT _name, _size, _mimetype FROM _cloud WHERE _id = :id AND _ready = B'1' AND _deleted = B'0'");
-		
-		$sth->bindParam (':id', $this->getValue (), PDO::PARAM_INT);
-		
-		$sth->execute ();
-		
-		$obj = $sth->fetch (PDO::FETCH_OBJ);
-		
-		if (!$obj)
-			return NULL;
-		
-		return array ('_NAME_' => $obj->_name,
-					  '_SIZE_' => $obj->_size,
-					  '_MIME_' => $obj->_mimetype);
+		return sprintf ("%.{$decimals}f", $bytes / pow (1024, $factor)) .' '. @$size [$factor];
 	}
 }

@@ -57,7 +57,11 @@ class xCloudFile
 			
 			$db = Database::singleton ();
 			
-			$sth = $db->prepare ("SELECT _name, _size, _mimetype FROM _cloud WHERE _id = :id AND _ready = B'1' AND _deleted = B'0'");
+			$sth = $db->prepare ("SELECT c._name AS name, c._size AS size, c._mimetype AS mime, u._name AS user, u._email AS email,
+								  EXTRACT (EPOCH FROM _taken) AS taken
+								  FROM _cloud c 
+								  LEFT JOIN _user u ON u._id = c._user
+								  WHERE c._id = :id AND c._ready = B'1' AND c._deleted = B'0'");
 			
 			$sth->bindParam (':id', $id, PDO::PARAM_INT);
 			
@@ -76,16 +80,17 @@ class xCloudFile
 				<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
 					<a href="titan.php?target=tScript&amp;type=CloudFile&amp;file=open&amp;fileId=<?= $id ?>" target="_blank"><img src="titan.php?target=tScript&amp;type=CloudFile&amp;file=thumbnail&amp;fileId=<?= $id ?>&width=100&height=100" border="0" /></a>
 				</div>
-				<div style="position: relative; width: 190px; top: 10px; left: 110px; overflow: hidden; background-color: #FFF;">
-					<b><?= $obj->_name ?></b> <br />
-					<?= $obj->_size ?> Bytes <br />
-					<?= $obj->_mimetype ?> <br />
+				<div style="position: relative; width: 190px; top: 10px; left: 110px; overflow: hidden; background-color: #FFF; text-align: left;">
+					<b><?= $obj->name ?></b> <br />
+					<?= CloudFile::formatFileSizeForHuman ($obj->size) ?> <br />
+					<?= $obj->mime ?> <br />
+					<?= __ ('By [1] ([2]) on [3]', $obj->user, $obj->email, strftime ('%x %X', $obj->taken)) ?>
 				</div>
 				<?
 			}
 			else
 			{
-				$alt = $obj->_name ."\n". $obj->_size ." Bytes\n". $obj->_mimetype;
+				$alt = $obj->name ." (". CloudFile::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3]', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
 				?>
 				<a href="titan.php?target=tScript&amp;type=CloudFile&amp;file=open&amp;fileId=<?= $id ?>" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&amp;type=CloudFile&amp;file=thumbnail&amp;fileId=<?= $id ?>&height=<?= $dimension ?>" alt="<?= $alt ?>" border="0" /></a>
 				<?

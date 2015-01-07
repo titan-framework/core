@@ -61,7 +61,7 @@ ob_start ();
 
 				$fileId = Database::nextId ('_cloud', '_id');
 
-				$sth = $db->prepare ("INSERT INTO _cloud (_id, _name, _mimetype, _size, _user, _ready, _creation_date, _last_change)
+				$sth = $db->prepare ("INSERT INTO _cloud (_id, _name, _mimetype, _size, _user, _ready, _taken, _change)
 									  VALUES (:id, :name, :type, :size, :user, B'1', now(), now())");
 				
 				$sth->bindParam (':id', $fileId, PDO::PARAM_INT);

@@ -72,7 +72,7 @@ try
 	{
 		$id = Database::nextId ('_cloud', '_id');
 		
-		$sql = "INSERT INTO _cloud (_id, _code, _name, _mimetype, _size, _user, _creation_date, _last_change, _ready) VALUES (:id, :code, :name, :mime, :size, :user, :creation, :last, B'1')";
+		$sql = "INSERT INTO _cloud (_id, _code, _name, _mimetype, _size, _user, _taken, _change, _ready) VALUES (:id, :code, :name, :mime, :size, :user, :creation, :last, B'1')";
 		
 		$sth = $db->prepare ($sql);
 		
@@ -89,7 +89,7 @@ try
 	{
 		$id = $obj->_id;
 		
-		$sql = "UPDATE _cloud SET _name = :name, _mimetype = :mime, _size = :size, _creation_date = :creation, _last_change = :last, _update = now(), _ready = B'1' WHERE _id = :id";
+		$sql = "UPDATE _cloud SET _name = :name, _mimetype = :mime, _size = :size, _taken = :creation, _change = :last, _update = now(), _ready = B'1' WHERE _id = :id";
 		
 		$sth = $db->prepare ($sql);
 		
