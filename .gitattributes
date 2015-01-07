@@ -3058,11 +3058,11 @@ repos/type/global.City/_ajax.php -text
 repos/type/global.City/_js.php -text
 repos/type/global.City/toForm.php -text
 repos/type/global.CloudFile/CloudFile.php -text
+repos/type/global.CloudFile/LICENSE -text
 repos/type/global.CloudFile/_ajax.php -text
+repos/type/global.CloudFile/_api/delete.php -text
 repos/type/global.CloudFile/_api/get.php -text
-repos/type/global.CloudFile/_api/post.php -text
 repos/type/global.CloudFile/_api/put.php -text
-repos/type/global.CloudFile/_api/template/send.php -text
 repos/type/global.CloudFile/_i18n/pt_BR.xml -text
 repos/type/global.CloudFile/_js.php -text
 repos/type/global.CloudFile/_script/open.php -text
