@@ -540,6 +540,12 @@ class Form
 				array_push ($fields, '_user', '_update');
 				array_push ($values, User::singleton ()->getId (), 'NOW()');
 			}
+		
+		if (Database::columnExists ($this->getTable (), '_change'))
+		{
+			array_push ($fields, '_change');
+			array_push ($values, 'NOW()');
+		}
 
 		// throw new Exception ($itemId);
 
@@ -563,7 +569,7 @@ class Form
 		$db = Database::singleton ();
 
 		$sth = $db->prepare ($sql);
-		toLog (print_r ($binds, true));
+		
 		foreach ($binds as $assign => $trash)
 			if ($sizes [$assign] && $types [$assign] == PDO::PARAM_STR)
 				$sth->bindParam ($values [$assign], $binds [$assign], $types [$assign], $sizes [$assign]);

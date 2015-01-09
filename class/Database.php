@@ -534,6 +534,44 @@ class Database
 		
 		return FALSE;
 	}
+	
+	public static function columnExists ($table, $column)
+	{
+		$db = self::singleton ();
+		
+		$array = explode ('.', $table);
+		
+		if (sizeof ($array) == 2)
+		{
+			$schema = $array [0];
+			$table = $array [1];
+		}
+		else
+		{
+			$schema = $db->getSchema ();
+			$table = $array [0];
+		}
+		
+		try
+		{
+			$sth = $db->prepare ("SELECT 1 AS answer FROM information_schema.columns WHERE table_name = :table AND table_schema = :schema AND column_name = :column");
+			
+			$sth->bindParam (':table', $table, PDO::PARAM_STR);
+			$sth->bindParam (':schema', $schema, PDO::PARAM_STR);
+			$sth->bindParam (':column', $column, PDO::PARAM_STR);
+			
+			$sth->execute ();
+			
+			if ((int) $sth->fetchColumn ())
+				return TRUE;
+			
+			return FALSE;
+		}
+		catch (PDOException $e)
+		{}
+		
+		return FALSE;
+	}
 
 	/**
 	 * Returns formatted values for build SQL string.
