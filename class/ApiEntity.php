@@ -172,6 +172,27 @@ class ApiEntity
 		return NULL;
 	}
 	
+	public function takeOutField ($assign)
+	{
+		if (!array_key_exists ($assign, $this->fields))
+			return NULL;
+		
+		$out = $this->fields [$assign];
+		
+		unset ($this->fields [$assign]);
+		
+		return $out;
+	}
+	
+	public function getFieldByColumn ($column)
+	{
+		foreach ($this->fields as $assign => $field)
+			if ($field->getColumn () == $column)
+				return $field;
+		
+		return NULL;
+	}
+	
 	public function recovery ($data = FALSE)
 	{
 		if (is_array ($data))
@@ -279,19 +300,33 @@ class ApiEntity
 		return TRUE;
 	}
 	
-	public function save ($user = NULL, $id = NULL, $onlyLast = TRUE)
+	public function save ($user, $id = NULL)
 	{
+		$_change = $this->getFieldByColumn ('_change');
+		
+		if (is_null ($_change) || !is_object ($_change) || !$_change->getUnixTime ())
+			throw new Exception (__ ('Has a problem with column of last change control! Please, alert system responsible.'));
+		
+		$_devise = $this->getFieldByColumn ('_devise');
+		
+		if (is_null ($_devise) || !is_object ($_devise) || !$_devise->getUnixTime ())
+			$hasDevise = FALSE;
+		else
+			$hasDevise = TRUE;
+		
 		$fields = array ();
 		$values = array ();
 		$binds  = array ();
+		$types  = array ();
+		$sizes  = array ();
 		
-		$update = $this->getField ('_API_UPDATE_UNIX_TIMESTAMP_');
-		
-		if ($onlyLast && (is_null ($update) || !is_object ($update) || !$update->getUnixTime ()))
-			throw new Exception (__ ('Has a problem with column of last change control! Please, alert system responsible.'));
+		$mandatory = array ('_create', '_update', '_user');
 		
 		foreach ($this->fields as $key => $field)
 		{
+			if (in_array ($field->getColumn (), $mandatory))
+				continue;
+			
 			if ($field->isReadOnly () || !$field->isSavable ())
 				continue;
 			
@@ -313,18 +348,15 @@ class ApiEntity
 			else
 				$values [$assign] = Database::toValue ($field);
 		}
-
-		reset ($this->fields);
-
-		if (!is_null ($user) && is_numeric ($user) && (int) $user)
-		{
-			array_push ($fields, '_user');
-			array_push ($values, ':_user');
-			array_push ($binds, (int) $user);
-			array_push ($types, PDO::PARAM_INT);
-			array_push ($sizes, 0);
-		}
-
+		
+		$key = self::getNextKey ($fields);
+		
+		$fields [$key] = '_user';
+		$values [$key] = ':_user';
+		$binds  [$key] = (int) $user;
+		$types  [$key] = PDO::PARAM_INT;
+		$sizes  [$key] = 0;
+		
 		// throw new Exception ($itemId);
 		
 		$db = Database::singleton ();
@@ -338,24 +370,34 @@ class ApiEntity
 			if (is_null ($id) || trim ($id) == '')
 				throw new Exception (__ ('Invalid code!'));
 			
-			if ($onlyLast)
-				$sqlUpdate = "UPDATE ". $this->getTable () ." SET ". implode (", ", $aux) ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () ." AND ". $update->getUnixTime () ." > extract (epoch from ". $update->getColumn () .")::integer";
-			else
-				$sqlUpdate = "UPDATE ". $this->getTable () ." SET ". implode (", ", $aux) ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn ();
+			$sqlUpdate = "UPDATE ". $this->getTable () ." SET ". implode (", ", $aux) .", _update = now() WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () ." AND ". $_change->getUnixTime () ." > extract (epoch from _change)::integer";
 			
 			$sthUpdate = $db->prepare ($sqlUpdate);
 			
-			$ins = array ();
-			foreach ($fields as $key => $field)
-				$ins [] = ":". $field ." AS ". $field;
+			$iFields = $fields;
 			
-			$sqlInsert = "INSERT INTO ". $this->getTable () ." (". $this->getCodeColumn () .", ". implode (", ", $fields) .") 
-						  SELECT (:". $this->getCodeColumn () .")::varchar AS ". $this->getCodeColumn () .", ". implode (", ", $ins) ." WHERE NOT EXISTS (SELECT 1 FROM ". $this->getTable () ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () .")";
+			$iValues = array ();
+			
+			foreach ($fields as $key => $field)
+				$iValues [] = ":". $field ." AS ". $field;
+			
+			if (!$hasDevise)
+			{
+				$iFields [] = '_devise';
+				$iValues [] = ":_devise AS _devise";
+			}
+			
+			$sqlInsert = "INSERT INTO ". $this->getTable () ." (". $this->getCodeColumn () .", _update, _create, ". implode (", ", $iFields) .") 
+						  SELECT (:". $this->getCodeColumn () .")::varchar AS ". $this->getCodeColumn () .", now() AS _update, now() AS _create, ". implode (", ", $iValues) ." 
+						  WHERE NOT EXISTS (SELECT 1 FROM ". $this->getTable () ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () .")";
 			
 			$sthInsert = $db->prepare ($sqlInsert);
 			
 			$sthUpdate->bindParam (':'. $this->getCodeColumn (), $id, PDO::PARAM_STR);
 			$sthInsert->bindParam (':'. $this->getCodeColumn (), $id, PDO::PARAM_STR);
+			
+			if (!$hasDevise)
+				$sthInsert->bindParam (':_devise', Database::toBind ($_change), PDO::PARAM_STR);
 			
 			foreach ($binds as $assign => $trash)
 				if ($sizes [$assign] && $types [$assign] == PDO::PARAM_STR)
@@ -387,10 +429,7 @@ class ApiEntity
 			{
 				$id = (int) $id;
 				
-				if ($onlyLast)
-					$sqlUpdate = "UPDATE ". $this->getTable () ." SET ". implode (", ", $aux) ." WHERE ". $this->getPrimary () ." = :". $this->getPrimary () ." AND ". $update->getUnixTime () ." > extract (epoch from ". $update->getColumn () .")::integer";
-				else
-					$sqlUpdate = "UPDATE ". $this->getTable () ." SET ". implode (", ", $aux) ." WHERE ". $this->getPrimary () ." = :". $this->getPrimary ();
+				$sqlUpdate = "UPDATE ". $this->getTable () ." SET ". implode (", ", $aux) .", _update = now() WHERE ". $this->getPrimary () ." = :". $this->getPrimary () ." AND ". $_change->getUnixTime () ." > extract (epoch from _change)::integer";
 				
 				$sth = $db->prepare ($sqlUpdate);
 				
@@ -410,9 +449,22 @@ class ApiEntity
 			{
 				$id = (int) Database::nextId ($this->getTable (), $this->getPrimary ());
 				
-				$sth = $db->prepare ("INSERT INTO ". $this->getTable () ." (". $this->getPrimary () .", ". implode (", ", $fields) .") VALUES (:". $this->getPrimary () .", ". implode (", ", $values) .")");
+				$iFields = $fields;
+				$iValues = $values;
+				
+				if (!$hasDevise)
+				{
+					$iFields [] = '_devise';
+					$iValues [] = ':_devise';
+				}
+				
+				$sth = $db->prepare ("INSERT INTO ". $this->getTable () ." (". $this->getPrimary () .", _update, _create, ". implode (", ", $iFields) .") 
+									  VALUES (:". $this->getPrimary () .", now(), now(), ". implode (", ", $iValues) .")");
 				
 				$sth->bindParam (':'. $this->getPrimary (), $id, PDO::PARAM_INT);
+				
+				if (!$hasDevise)
+					$sth->bindParam (':_devise', Database::toBind ($_change), PDO::PARAM_STR);
 				
 				foreach ($binds as $assign => $trash)
 					if ($sizes [$assign] && $types [$assign] == PDO::PARAM_STR)
@@ -532,6 +584,16 @@ class ApiEntity
 			$object [$field->getApiColumn ()] = ApiEntity::toApi ($field, $itemId);
 		
 		return json_encode ((object) $object);
+	}
+	
+	public static function getNextKey ($array)
+	{
+		$key = 0;
+		
+		while (array_key_exists ($key, $array))
+			$key++;
+		
+		return $key;
 	}
 	
 	public static function toApi ($field, $itemId = NULL)

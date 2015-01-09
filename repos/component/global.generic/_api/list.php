@@ -10,14 +10,7 @@ $_TIME = (int) $_uri [2];
 
 $entity = new ApiList ('api-list.xml', 'api-get.xml', 'api.xml');
 
-$update = $entity->getField ('_API_UPDATE_UNIX_TIMESTAMP_');
-
-if (is_object ($update))
-	$columnUp = $update->getTable () .'.'. $update->getColumn ();
-else
-	$columnUp = $entity->getTable () . '._update';
-
-if (!$entity->load ($_TIME ." < extract (epoch from ". $columnUp .")::integer"))
+if (!$entity->load ($_TIME ." < EXTRACT (EPOCH FROM _update)::integer"))
 	throw new Exception (__ ('Unable to load data!'));
 
 $json = array ();
