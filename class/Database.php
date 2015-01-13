@@ -572,6 +572,35 @@ class Database
 		
 		return FALSE;
 	}
+	
+	public static function getMandatoryColumns ($table)
+	{
+		$db = self::singleton ();
+		
+		$array = explode ('.', $table);
+		
+		if (sizeof ($array) == 2)
+		{
+			$schema = $array [0];
+			$table = $array [1];
+		}
+		else
+		{
+			$schema = $db->getSchema ();
+			$table = $array [0];
+		}
+		
+		$columns = array ('_user', '_create', '_update', '_author', '_devise', '_change');
+		
+		$sth = $db->prepare ("SELECT column_name FROM information_schema.columns WHERE table_name = :table AND table_schema = :schema AND column_name IN ('". implode ("', '", $columns) ."')");
+		
+		$sth->bindParam (':table', $table, PDO::PARAM_STR);
+		$sth->bindParam (':schema', $schema, PDO::PARAM_STR);
+		
+		$sth->execute ();
+		
+		return $sth->fetchAll (PDO::FETCH_COLUMN, 0);
+	}
 
 	/**
 	 * Returns formatted values for build SQL string.

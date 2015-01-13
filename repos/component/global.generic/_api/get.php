@@ -13,6 +13,6 @@ $id = trim ($_uri [1]);
 $entity = new ApiEntity ('api-get.xml', 'api.xml');
 
 if (!$entity->load ($id))
-	throw new Exception (__ ('Unable to load data!'));
+	throw new ApiException (__ ('Unable to load data!'), ApiException::ERROR_SYSTEM, ApiException::INTERNAL_SERVER_ERROR);
 
 echo $entity->json ();

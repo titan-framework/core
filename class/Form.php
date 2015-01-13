@@ -526,25 +526,35 @@ class Form
 				else
 					$values [$assign] = Database::toValue ($field);
 			}
-
-		reset ($this->fields);
-
-		if ($useLog)
-			if (array_pop (explode ('.', $this->getTable ())) == '_user')
-			{
-				array_push ($fields, '_update_date');
-				array_push ($values, 'NOW()');
-			}
-			else
-			{
-				array_push ($fields, '_user', '_update');
-				array_push ($values, User::singleton ()->getId (), 'NOW()');
-			}
 		
-		if (Database::columnExists ($this->getTable (), '_change'))
+		// Legacy code. Old pattern to save last date of update still used by mandatory '_user' table.
+		if ($useLog && array_pop (explode ('.', $this->getTable ())) == '_user')
 		{
-			array_push ($fields, '_change');
-			array_push ($values, 'NOW()');
+			$fields [] = '_update_date';
+			$values [] = 'NOW()';
+		}
+		
+		$mandatory = Database::getMandatoryColumns ($this->getTable ());
+		
+		foreach ($mandatory as $trash => $column)
+			$$column = $this->getFieldByColumn ($column);
+		
+		if (in_array ('_user', $mandatory) && !isset ($_user))
+		{
+			$fields [] = '_user';
+			$values [] = User::singleton ()->getId ();
+		}
+		
+		if (in_array ('_update', $mandatory) && !isset ($_update))
+		{
+			$fields [] = '_update';
+			$values [] = 'NOW()';
+		}
+		
+		if (in_array ('_change', $mandatory) && !isset ($_change))
+		{
+			$fields [] = '_change';
+			$values [] = 'NOW()';
 		}
 
 		// throw new Exception ($itemId);
@@ -559,6 +569,12 @@ class Form
 		}
 		else
 		{
+			if (in_array ('_author', $mandatory) && !isset ($_author))
+			{
+				$fields [] = '_author';
+				$values [] = User::singleton ()->getId ();
+			}
+			
 			$itemId = Database::nextId ($this->getTable (), $this->getPrimary ());
 
 			$sql = "INSERT INTO ". $this->getTable () ." (". $this->getPrimary () .", ". implode (", ", $fields) .") VALUES (". $itemId .", ". implode (", ", $values) .")";
@@ -892,6 +908,15 @@ class Form
 
 		reset ($this->fields);
 
+		return NULL;
+	}
+	
+	public function getFieldByColumn ($column)
+	{
+		foreach ($this->fields as $assign => $field)
+			if ($field->getColumn () == $column)
+				return $field;
+		
 		return NULL;
 	}
 

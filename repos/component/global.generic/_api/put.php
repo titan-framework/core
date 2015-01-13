@@ -13,9 +13,9 @@ $id = trim ($_uri [1]);
 $entity = new ApiEntity ('api-put.xml', 'api.xml');
 
 if (!$entity->recovery ())
-	throw new Exception (__ ('Unable to retrieve the data submitted!'));
+	throw new ApiException (__ ('Unable to retrieve the data submitted!'), ApiException::ERROR_SYSTEM, ApiException::INTERNAL_SERVER_ERROR);
 
 if (!$entity->save ($user, $id))
-	throw new Exception (__ ('Unable to save the data submitted!'));
+	throw new ApiException (__ ('Unable to save the data submitted!'), ApiException::ERROR_SYSTEM, ApiException::INTERNAL_SERVER_ERROR);
 
 Log::singleton ()->add ('EDIT', $entity->getResume ());

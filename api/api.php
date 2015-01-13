@@ -150,7 +150,7 @@ catch (PDOException $e)
 	header ('HTTP/1.1 '. ApiException::INTERNAL_SERVER_ERROR .' '. ApiException::$status [ApiException::INTERNAL_SERVER_ERROR]);
 	header ('Content-Type: application/json');
 	
-	$array = array ('ERROR' => 'DATABASE_ERROR',
+	$array = array ('ERROR' => ApiException::ERROR_DB,
 					'MESSAGE' => __ ('Database error! Please, contact administrator.'),
 					'TECHNICAL' => '[Line #'. $e->getLine () .'] '. $e->getMessage ());
 	
@@ -163,7 +163,7 @@ catch (Exception $e)
 	header ('HTTP/1.1 '. ApiException::INTERNAL_SERVER_ERROR .' '. ApiException::$status [ApiException::INTERNAL_SERVER_ERROR]);
 	header ('Content-Type: application/json');
 	
-	$array = array ('ERROR' => 'SYSTEM_ERROR',
+	$array = array ('ERROR' => ApiException::ERROR_SYSTEM,
 					'MESSAGE' => 'System error! Please, contact administrator.',
 					'TECHNICAL' => '[Line #'. $e->getLine () .'] '. $e->getMessage ());
 	
