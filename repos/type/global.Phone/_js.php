@@ -23,8 +23,9 @@ global.Phone.format = function (field, e)
 	else
 		char = '';
 		
-	if (field.value.length > 28)
+	if (field.value.length > 15)
 		return false;
+	
 	if (field.value.length == 0)
 		field.value = '(' + field.value;
 	else if (field.value.length == 3)
@@ -33,6 +34,8 @@ global.Phone.format = function (field, e)
 		field.value = field.value + ' ';
 	else if (field.value.length == 9)
 		field.value = field.value + '-';
+	else if (field.value.length == 14)
+		field.value = field.value.replace (/[^0-9]/g, '').replace (/(\d{2})(\d{5})(\d{3})/, "($1) $2-$3");
 	
 	return true;
 }
