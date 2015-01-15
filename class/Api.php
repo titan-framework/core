@@ -11,6 +11,7 @@ class Api
 	const POST = 'POST';
 	const PUT = 'PUT';
 	const DELETE = 'DELETE';
+	const PATCH = 'PATCH';
 	
 	private final function __construct ()
 	{

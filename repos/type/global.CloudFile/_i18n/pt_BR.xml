@@ -11,22 +11,22 @@
 	/>
 	
 	<message
-		from=""
-		to=""
+		from="This type of file is not accepted by the system ([1])!"
+		to="Este tipo de arquivo não é aceito pelo sistema ([1])!"
 	/>
 	
 	<message
-		from=""
-		to=""
+		from="Required field [[1]] is missing or empty!"
+		to="O campo obrigatório [[1]] não existe ou está vazio!"
 	/>
 	
 	<message
-		from=""
-		to=""
+		from="You do not have permission to access this file!"
+		to="Você não tem permissão de acessar este arquivo!"
 	/>
 	
 	<message
-		from=""
-		to=""
+		from="Unable copy file to directory [[1]]!"
+		to="Impossível copiar arquivo para o diretório [[1]]!"
 	/>
 </i18n>

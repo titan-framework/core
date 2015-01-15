@@ -19,7 +19,7 @@ $sth->execute ();
 $obj = $sth->fetch (PDO::FETCH_OBJ);
 
 if (!$obj)
-	throw new ApiException (__ ('This file is not available!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
+	throw new ApiException (__ ('This file is not available!'), ApiException::ERROR_RESOURCE_MISSING, ApiException::NOT_FOUND);
 
 $archive = Archive::singleton ();
 
@@ -29,7 +29,7 @@ if (!$archive->isAcceptable ($obj->_mimetype))
 $filePath = $archive->getDataPath () . 'cloud_' . str_pad ($obj->_id, 7, '0', STR_PAD_LEFT);
 
 if (!file_exists ($filePath))
-	throw new ApiException (__ ('This file is not available!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
+	throw new ApiException (__ ('This file is not available!'), ApiException::ERROR_RESOURCE_MISSING, ApiException::NOT_FOUND);
 		
 $contentType = $obj->_mimetype;
 
@@ -46,7 +46,7 @@ echo $buffer;
 
 try
 {
-	$sth = $db->prepare ("UPDATE _file SET _counter = _counter + 1 WHERE _id = :id");
+	$sth = $db->prepare ("UPDATE _cloud SET _counter = _counter + 1 WHERE _id = :id");
 	
 	$sth->bindParam (':id', $obj->_id, PDO::PARAM_INT);
 	

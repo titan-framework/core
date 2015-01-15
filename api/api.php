@@ -80,7 +80,7 @@ try
 			if (trim ($_service) == '' || !file_exists ($path . $_service .'.php'))
 				throw new ApiException (__ ('Invalid URI request method!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::METHOD_NOT_ALLOWED, $path . $_service .'.php');
 			
-			if (Api::getHttpRequestMethod () == Api::PUT)
+			if (Api::getHttpRequestMethod () == Api::PUT || Api::getHttpRequestMethod () == Api::PATCH)
 				retrievePut ();
 			
 			convertApiParametersToUtf8 ();
@@ -122,7 +122,7 @@ try
 			if (trim ($_service) == '' || !file_exists ($path . $_service .'.php'))
 				throw new ApiException (__ ('Invalid URI request method!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::METHOD_NOT_ALLOWED);
 			
-			if (Api::getHttpRequestMethod () == Api::PUT)
+			if (Api::getHttpRequestMethod () == Api::PUT || Api::getHttpRequestMethod () == Api::PATCH)
 				retrievePut ();
 			
 			convertApiParametersToUtf8 ();

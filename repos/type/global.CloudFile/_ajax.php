@@ -58,7 +58,7 @@ class xCloudFile
 			$db = Database::singleton ();
 			
 			$sth = $db->prepare ("SELECT c._name AS name, c._size AS size, c._mimetype AS mime, u._name AS user, u._email AS email,
-								  EXTRACT (EPOCH FROM _taken) AS taken
+								  EXTRACT (EPOCH FROM _devise) AS taken
 								  FROM _cloud c 
 								  LEFT JOIN _user u ON u._id = c._user
 								  WHERE c._id = :id AND c._ready = B'1' AND c._deleted = B'0'");

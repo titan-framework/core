@@ -307,7 +307,7 @@ class ApiEntity
 		$_change = $this->getFieldByColumn ('_change');
 		
 		if (!in_array ('_change', $mandatory) || is_null ($_change) || !is_object ($_change) || !$_change->getUnixTime ())
-			throw new Exception (__ ('Has a problem with column of last change control! Please, alert system responsible.'));
+			throw new ApiException (__ ('Has a problem with column of last change control! Please, alert system responsible.'), ApiException::ERROR_SYSTEM, ApiException::INTERNAL_SERVER_ERROR);
 		
 		$fields = array ();
 		$values = array ();
@@ -370,7 +370,7 @@ class ApiEntity
 		if ($this->useCode ())
 		{
 			if (is_null ($id) || trim ($id) == '')
-				throw new Exception (__ ('Invalid code!'));
+				throw new ApiException (__ ('Invalid code!'), ApiException::ERROR_SYSTEM, ApiException::INTERNAL_SERVER_ERROR);
 			
 			$sqlUpdate = "UPDATE ". $this->getTable () ." SET ". implode (", ", $aux) ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () ." AND ". $_change->getUnixTime () ." > extract (epoch from _change)::integer";
 			
@@ -401,7 +401,7 @@ class ApiEntity
 			$sqlInsert = "INSERT INTO ". $this->getTable () ." (". $this->getCodeColumn () .", ". implode (", ", $iFields) .") 
 						  SELECT (:". $this->getCodeColumn () .")::varchar AS ". $this->getCodeColumn () .", ". implode (", ", $iValues) ." 
 						  WHERE NOT EXISTS (SELECT 1 FROM ". $this->getTable () ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () .")";
-			//throw new Exception ($sqlInsert);
+			
 			$sthInsert = $db->prepare ($sqlInsert);
 			
 			$sthUpdate->bindParam (':'. $this->getCodeColumn (), $id, PDO::PARAM_STR);

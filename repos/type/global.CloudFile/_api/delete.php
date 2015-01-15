@@ -13,7 +13,7 @@ $user = $_auth->getUser ();
 if (!is_integer ($user) || !$user)
 	throw new ApiException ('Invalid user!', ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED, 'The application API must be configured to client connect as user (add CLIENT-AS-USER context).');
 
-$sth = Database::singleton ()->prepare ("UPDATE _cloud SET _deleted = B'1' WHERE _code = :code AND _user = :user");
+$sth = Database::singleton ()->prepare ("UPDATE _cloud SET _deleted = B'1', _user = :user, _update = NOW(), _change = NOW() WHERE _code = :code");
 
 $sth->bindParam (':code', $code, PDO::PARAM_STR);
 $sth->bindParam (':user', $user, PDO::PARAM_INT);
