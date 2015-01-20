@@ -40,4 +40,5 @@
 	<type name="Url" component="global.Url" />
 	<type name="ShoppingGateway" component="global.ShoppingGateway" />
 	<type name="CloudFile" component="global.CloudFile" />
+	<type name="Note" component="global.Note" />
 </type-mapping>

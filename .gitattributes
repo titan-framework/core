@@ -3062,6 +3062,7 @@ repos/type/global.CloudFile/LICENSE -text
 repos/type/global.CloudFile/_ajax.php -text
 repos/type/global.CloudFile/_api/delete.php -text
 repos/type/global.CloudFile/_api/get.php -text
+repos/type/global.CloudFile/_api/patch.php -text
 repos/type/global.CloudFile/_api/put.php -text
 repos/type/global.CloudFile/_i18n/pt_BR.xml -text
 repos/type/global.CloudFile/_js.php -text
@@ -3249,6 +3250,12 @@ repos/type/global.Multiply/toList.php -text
 repos/type/global.Multiply/toSearch.php -text
 repos/type/global.Multiply/toText.php -text
 repos/type/global.Multiply/toWhere.php -text
+repos/type/global.Note/Note.php -text
+repos/type/global.Note/_api/delete.php -text
+repos/type/global.Note/_api/get.php -text
+repos/type/global.Note/_api/put.php -text
+repos/type/global.Note/fromApi.php -text
+repos/type/global.Note/toApi.php -text
 repos/type/global.Passport/LICENSE -text
 repos/type/global.Passport/Passport.php -text
 repos/type/global.Passport/toBind.php -text
