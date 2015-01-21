@@ -1,12 +1,6 @@
-<?
-$instance = Instance::singleton ();
+<?php
 
-if (!Business::singleton ()->sectionExists ($_section))
-	throw new Exception ('Invalid link! Unknown section.');
-
-$file = Business::singleton ()->getSection ($_section)->getComponentPath () . '_resource/' . str_replace ('..', '', $_file);
-
-if (!file_exists ($file))
+if (!isset ($_file) || !file_exists ($_file))
 	throw new Exception ('This file is not available!');
 
 $controlMime = array (	'css' 	=> 'text/css', 
@@ -18,7 +12,7 @@ $controlMime = array (	'css' 	=> 'text/css',
 						'js' 	=> 'text/javascript',
 						'ico'	=> 'image/x-icon');
 
-$ext = array_pop (explode ('.', $file));
+$ext = array_pop (explode ('.', $_file));
 
 if (!array_key_exists ($ext, $controlMime))
 	throw new Exception ('Permission denied for specified file type!');
@@ -26,19 +20,20 @@ if (!array_key_exists ($ext, $controlMime))
 $mimeType = $controlMime [$ext];
 
 header ('Content-Type: '. $mimeType);
-header ('Content-Disposition: inline; filename=' . md5 ($file));
+header ('Content-Disposition: inline; filename=' . md5 ($_file));
 
-if (!$instance->onDebugMode ())
+if (!Instance::singleton ()->onDebugMode ())
 {
-	header ('Date: '. date ('D, j M Y G:i:s', filemtime ($file)) .' GMT');
+	header ('Date: '. date ('D, j M Y G:i:s', filemtime ($_file)) .' GMT');
 	header ('Expires: '. gmdate ('D, j M Y H:i:s', time () + 15552000) .' GMT');
 	header ('Cache-Control: must-revalidate');
 	header ('Pragma: cache');
 }
 
-$binary	= fopen ($file, 'rb');
+$handle	= fopen ($_file, 'rb');
 
-$buffer = fread ($binary, filesize ($file));
+$buffer = fread ($handle, filesize ($_file));
+
+fclose ($handle);
 
 echo $buffer;
-?>

@@ -3254,8 +3254,13 @@ repos/type/global.Note/Note.php -text
 repos/type/global.Note/_api/delete.php -text
 repos/type/global.Note/_api/get.php -text
 repos/type/global.Note/_api/put.php -text
+repos/type/global.Note/_js.php -text
+repos/type/global.Note/_resource/earth.png -text
+repos/type/global.Note/_resource/sandglass.png -text
+repos/type/global.Note/_script/kml.php -text
 repos/type/global.Note/fromApi.php -text
 repos/type/global.Note/toApi.php -text
+repos/type/global.Note/toHtml.php -text
 repos/type/global.Passport/LICENSE -text
 repos/type/global.Passport/Passport.php -text
 repos/type/global.Passport/toBind.php -text

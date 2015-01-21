@@ -488,8 +488,33 @@ try
 			if (!isset ($_GET['toSection']) || !isset ($_GET['file']) || trim ($_GET['toSection']) == '' || trim ($_GET['file']) == '')
 				throw new Exception ('Invalid link!');
 			
-			$_section = trim ($_GET['toSection']);
-			$_file = trim ($_GET['file']);
+			$section = trim ($_GET['toSection']);
+			
+			$file = trim ($_GET['file']);
+			
+			if (!Business::singleton ()->sectionExists ($section))
+				throw new Exception ('Invalid link! Unknown section.');
+			
+			$_file = Business::singleton ()->getSection ($section)->getComponentPath () . '_resource/' . str_replace ('..', '', $file);
+			
+			include $corePath .'system/loadResource.php';
+			
+			break;
+		
+		case 'tResource':
+			if (!isset ($_GET['type']) || !isset ($_GET['file']) || trim ($_GET['type']) == '' || trim ($_GET['file']) == '')
+				throw new Exception ('Invalid link!');
+			
+			$type = trim ($_GET['type']);
+			
+			$file = trim ($_GET['file']);
+			
+			$instance = Instance::singleton ();
+			
+			if (!$instance->typeExists ($type))
+				throw new Exception ('Invalid link! Unknown type.');
+			
+			$_file = $instance->getTypePath ($type) . '_resource/' . str_replace ('..', '', $file);
 			
 			include $corePath .'system/loadResource.php';
 			

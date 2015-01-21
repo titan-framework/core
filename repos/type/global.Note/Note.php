@@ -160,7 +160,7 @@ class Note extends Type
 	
 	public function load ($id)
 	{
-		if (!is_integer ($id) || !$id)
+		if (!is_numeric ($id) || !(int) $id)
 			throw new Exception (__ ('Invalid parameter!'));
 		
 		$db = Database::singleton ();

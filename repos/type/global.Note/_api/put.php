@@ -67,7 +67,9 @@ $sql = "UPDATE _note SET
 			_altitude = :altitude, 
 			_user = :user, 
 			_change = :change,
-			_update = now()
+			_update = now(),
+			_author = :author,
+			_devise = :devise
 		WHERE _id = :id";
 
 $sthUpdateNote = $db->prepare ($sql);
@@ -93,6 +95,8 @@ try
 	$sthUpdateNote->bindParam (':altitude', $altitude);
 	$sthUpdateNote->bindParam (':user', $user, PDO::PARAM_INT);
 	$sthUpdateNote->bindParam (':change', $change);
+	$sthUpdateNote->bindParam (':author', $author, PDO::PARAM_INT);
+	$sthUpdateNote->bindParam (':devise', $devise);
 	
 	$sthUpdateNote->execute ();
 	
