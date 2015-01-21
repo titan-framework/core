@@ -6,9 +6,9 @@ global.Note.view = function (id, icon)
     alert (id);
 }
 
-global.Note.earth = function (id, icon)
+global.Note.earth = function (id)
 {
-    alert (id);
+    document.location = 'titan.php?target=tScript&type=Note&file=kml&note=' + id;
 }
 
 global.Note.delete = function (id, icon)

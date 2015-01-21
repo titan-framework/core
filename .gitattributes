@@ -3067,6 +3067,8 @@ repos/type/global.CloudFile/_api/put.php -text
 repos/type/global.CloudFile/_i18n/pt_BR.xml -text
 repos/type/global.CloudFile/_js.php -text
 repos/type/global.CloudFile/_script/open.php -text
+repos/type/global.CloudFile/_script/play.php -text
+repos/type/global.CloudFile/_script/streaming.php -text
 repos/type/global.CloudFile/_script/thumbnail.php -text
 repos/type/global.CloudFile/_script/upload.php -text
 repos/type/global.CloudFile/fromApi.php -text
@@ -3256,10 +3258,13 @@ repos/type/global.Note/_api/get.php -text
 repos/type/global.Note/_api/put.php -text
 repos/type/global.Note/_js.php -text
 repos/type/global.Note/_resource/earth.png -text
+repos/type/global.Note/_resource/play.png -text
 repos/type/global.Note/_resource/sandglass.png -text
 repos/type/global.Note/_script/kml.php -text
 repos/type/global.Note/fromApi.php -text
+repos/type/global.Note/fromForm.php -text
 repos/type/global.Note/toApi.php -text
+repos/type/global.Note/toForm.php -text
 repos/type/global.Note/toHtml.php -text
 repos/type/global.Passport/LICENSE -text
 repos/type/global.Passport/Passport.php -text
