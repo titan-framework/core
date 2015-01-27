@@ -24,6 +24,8 @@ class Note extends Type
 		
 		$this->setSavable (FALSE);
 		
+		$this->setFullWidth (TRUE);
+		
 		if (array_key_exists ('relation', $field))
 			$this->setRelation ($field ['relation']);
 		else
@@ -105,8 +107,10 @@ class Note extends Type
 	
 	public function save ($id)
 	{
-		if (!is_integer ($id) || !$id)
+		if (!is_numeric ($id) || !(int) $id)
 			throw new Exception (__ ('Invalid parameter!'));
+		
+		$id = (int) $id;
 		
 		$db = Database::singleton ();
 		
@@ -188,7 +192,7 @@ class Note extends Type
 		
 		$sql = "SELECT n._code AS code FROM _note n
 				JOIN ". $this->getRelation () ." r ON r.". $this->getColumnNote () ." = n._id
-				WHERE ". $this->getColumnEntity () ." = :id";
+				WHERE r.". $this->getColumnEntity () ." = :id AND r._unlinked = B'0' AND n._deleted = B'0'";
 		
 		$sth = $db->prepare ($sql);
 		

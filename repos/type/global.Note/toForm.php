@@ -18,9 +18,9 @@ ob_start ();
 <div id="idList" style="margin: 0px;">
 	<table style="background-color: #FFF;">
 		<tr>
-			<td class="cTableHeader" width="5%"></td>
+			<td class="cTableHeader" width="2%"></td>
 			<td class="cTableHeader" width="15%"><?= __ ('Title') ?></td>
-			<td class="cTableHeader" width="45%"><?= __ ('Note') ?></td>
+			<td class="cTableHeader" width="48%"><?= __ ('Note') ?></td>
 			<td class="cTableHeader" width="15%"><?= __ ('Last Change') ?></td>
 			<td class="cTableHeader" width="15%"><?= __ ('Author') ?></td>
 			<td class="cTableHeader" width="5%"></td>
@@ -42,19 +42,17 @@ ob_start ();
 			}
 			else
 			{
+				$a = "JavaScript: global.Note.earth ('". $obj->_id ."', '". $fieldId ."', '". $obj->_latitude ."', '". $obj->_longitude ."', '". $obj->_title ."', '". strftime ('%x %X', $obj->_change) ."', '". $obj->_name ."', '". str_replace (array ("'", "\n", "\r"), array ('"', ' ', ''), trim ($obj->_note)) ."');";
 				?>
 				<tr class="cTableItem">
 					<td><input type="checkbox" name="<?= $fieldName ?>[]" value="<?= $obj->_code ?>" checked="checked" /></td>
-					<td><?= $obj->_title ?></td>
-					<td><?= $obj->_note ?></td>
-					<td><?= strftime ('%x %X', $obj->_change) ?></td>
-					<td><?= $obj->_name ?></td>
+					<td><a href="#" onclick="<?= $a ?>"><?= $obj->_title ?><a></td>
+					<td><a href="#" onclick="<?= $a ?>"><?= $obj->_note ?></a></td>
+					<td><a href="#" onclick="<?= $a ?>"><?= strftime ('%x %X', $obj->_change) ?></a></td>
+					<td><a href="#" onclick="<?= $a ?>"><?= $obj->_name ?></a></td>
 					<td class="icon" nowrap="nowrap">
-						<img src="titan.php?target=tResource&type=Note&file=earth.png" class="icon" border="0" title="<?= __ ('Tracking') ?>" alt="<?= __ ('Tracking') ?>" onclick="JavaScript: global.Note.earth ('<?= $obj->_id ?>', '<?= $fieldId ?>');" />&nbsp;
+						<a href="#" onclick="<?= $a ?>"><img src="titan.php?target=tResource&type=Note&file=earth.png" class="icon" border="0" title="<?= __ ('Tracking') ?>" alt="<?= __ ('Tracking') ?>" /></a>&nbsp;
 					</td>
-				</tr>
-				<tr id="_NOTE_MAP_<?= $fieldId ?>_<?= $obj->_id ?>" style="display: none; background-color: #FFF;">
-					<div id="teste" style="width: 100%; height: 100%;"></div>
 				</tr>
 				<tr class="cSeparator"><td colspan="6"></td></tr>
 				<?

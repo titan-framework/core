@@ -52,9 +52,6 @@ ob_start ();
 						<a href="#" onclick="<?= $a ?>"><img src="titan.php?target=tResource&type=Note&file=earth.png" class="icon" border="0" title="<?= __ ('Tracking') ?>" alt="<?= __ ('Tracking') ?>" /></a>&nbsp;
 					</td>
 				</tr>
-				<tr id="_NOTE_MAP_<?= $fieldId ?>_<?= $obj->_id ?>" style="display: none;">
-					<td colspan="5" style="height: 300px; padding: 3px; background-color: #F4F4F4;"><div style="width: 100%; height: 100%;"></div></td>
-				</tr>
 				<tr class="cSeparator"><td colspan="5"></td></tr>
 				<?
 			}
