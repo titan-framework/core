@@ -12,6 +12,10 @@ class Note extends Type
 	
 	protected $forGraph = FALSE;
 	
+	protected $apiKey = '';
+	
+	public static $apiIsLoaded = array ();
+	
 	public function __construct ($table, $field)
 	{
 		parent::__construct ($table, $field);
@@ -42,6 +46,13 @@ class Note extends Type
 			$this->setColumnNote ($field ['relation-note']);
 		else
 			$this->setColumnNote ('note');
+		
+		if (array_key_exists ('api-key', $field) && !is_null ($field ['api-key']))
+		{
+			$this->setApiKey ($field ['api-key']);
+			
+			self::$apiIsLoaded [$this->getApiKey ()] = FALSE;
+		}
 	}
 	
 	public function setRelation ($relation)
@@ -72,6 +83,16 @@ class Note extends Type
 	public function getColumnNote ()
 	{
 		return $this->columnNote;
+	}
+	
+	public function setApiKey ($key)
+	{
+		$this->apiKey = trim ($key);
+	}
+	
+	public function getApiKey ()
+	{
+		return $this->apiKey;
 	}
 	
 	public function isEmpty ()
@@ -176,5 +197,15 @@ class Note extends Type
 		$sth->execute ();
 		
 		$this->setValue ($sth->fetchAll (PDO::FETCH_COLUMN, 0));
+	}
+	
+	public static function useGoogleMapsApi ()
+	{
+		return trim (Instance::singleton ()->getAttribute ('Google_Maps_JavaScript_API_v3_Key')) != '';
+	}
+	
+	public static function getGoogleMapsApiKey ()
+	{
+		return trim (Instance::singleton ()->getAttribute ('Google_Maps_JavaScript_API_v3_Key'));
 	}
 }

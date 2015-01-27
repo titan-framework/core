@@ -15,6 +15,7 @@ $sth->execute ();
 
 ob_start ();
 ?>
+<div style="display: none"><div id="_TITAN_NOTE_MAP_<?= $fieldId ?>" style="margin: 0px; border: #CCC 2px solid; width: 0px; height: 0px;"></div></div>
 <div id="idList" style="margin: 0px;">
 	<table style="background-color: #FFF;">
 		<tr>
@@ -40,15 +41,19 @@ ob_start ();
 			}
 			else
 			{
+				$a = "JavaScript: global.Note.earth ('". $obj->_id ."', '". $fieldId ."', '". $obj->_latitude ."', '". $obj->_longitude ."', '". $obj->_title ."', '". strftime ('%x %X', $obj->_change) ."', '". $obj->_name ."', '". str_replace (array ("'", "\n", "\r"), array ('"', ' ', ''), trim ($obj->_note)) ."');";
 				?>
 				<tr class="cTableItem">
-					<td><?= $obj->_title ?></td>
-					<td><?= $obj->_note ?></td>
-					<td><?= strftime ('%x %X', $obj->_change) ?></td>
-					<td><?= $obj->_name ?></td>
+					<td><a href="#" onclick="<?= $a ?>"><?= $obj->_title ?><a></td>
+					<td><a href="#" onclick="<?= $a ?>"><?= $obj->_note ?></a></td>
+					<td><a href="#" onclick="<?= $a ?>"><?= strftime ('%x %X', $obj->_change) ?></a></td>
+					<td><a href="#" onclick="<?= $a ?>"><?= $obj->_name ?></a></td>
 					<td class="icon" nowrap="nowrap">
-						<img src="titan.php?target=tResource&type=Note&file=earth.png" class="icon" border="0" title="<?= __ ('Tracking') ?>" alt="<?= __ ('Tracking') ?>" onclick="JavaScript: global.Note.earth ('<?= $obj->_id ?>');" />&nbsp;
+						<a href="#" onclick="<?= $a ?>"><img src="titan.php?target=tResource&type=Note&file=earth.png" class="icon" border="0" title="<?= __ ('Tracking') ?>" alt="<?= __ ('Tracking') ?>" /></a>&nbsp;
 					</td>
+				</tr>
+				<tr id="_NOTE_MAP_<?= $fieldId ?>_<?= $obj->_id ?>" style="display: none;">
+					<td colspan="5" style="height: 300px; padding: 3px; background-color: #F4F4F4;"><div style="width: 100%; height: 100%;"></div></td>
 				</tr>
 				<tr class="cSeparator"><td colspan="5"></td></tr>
 				<?

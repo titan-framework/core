@@ -50,8 +50,11 @@ ob_start ();
 					<td><?= strftime ('%x %X', $obj->_change) ?></td>
 					<td><?= $obj->_name ?></td>
 					<td class="icon" nowrap="nowrap">
-						<img src="titan.php?target=tResource&type=Note&file=earth.png" class="icon" border="0" title="<?= __ ('Tracking') ?>" alt="<?= __ ('Tracking') ?>" onclick="JavaScript: global.Note.earth ('<?= $obj->_id ?>');" />&nbsp;
+						<img src="titan.php?target=tResource&type=Note&file=earth.png" class="icon" border="0" title="<?= __ ('Tracking') ?>" alt="<?= __ ('Tracking') ?>" onclick="JavaScript: global.Note.earth ('<?= $obj->_id ?>', '<?= $fieldId ?>');" />&nbsp;
 					</td>
+				</tr>
+				<tr id="_NOTE_MAP_<?= $fieldId ?>_<?= $obj->_id ?>" style="display: none; background-color: #FFF;">
+					<div id="teste" style="width: 100%; height: 100%;"></div>
 				</tr>
 				<tr class="cSeparator"><td colspan="6"></td></tr>
 				<?

@@ -45,25 +45,18 @@ if (isset ($_GET['assume']))
 else
 	$assume = $archive->getAssume ($obj->_mimetype);
 
-if (!file_exists ($archive->getDataPath () . 'file_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT)))
+if (!file_exists ($archive->getDataPath () . 'cloud_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT)))
 	die ();
-
-$filePath = Instance::singleton ()->getCorePath () .'interface/file/' . $archive->getIcon ($obj->_mimetype) . '.gif';
-
-$contentType = 'image/png';
 
 switch ($assume)
 {
 	case Archive::IMAGE:
-		$filePath = $archive->getDataPath () . 'cloud_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT);
-		
-		$contentType = $obj->_mimetype;
 		
 		if ($width && $height)
-			resize ($filePath, $contentType, $width, $height, TRUE);
+			CloudFile::resize ($fileId, $obj->_mimetype, $obj->_name, $width, $height, TRUE);
 		
 		if ($width || $height)
-			resize ($filePath, $contentType, $width, $height);
+			CloudFile::resize ($fileId, $obj->_mimetype, $obj->_name, $width, $height);
 		
 		break;
 }
@@ -71,13 +64,15 @@ switch ($assume)
 if (!file_exists ($filePath))
 	die ();
 
+$filePath = Instance::singleton ()->getCorePath () .'interface/file/' . $archive->getIcon ($obj->_mimetype) . '.gif';
+
 $binary = fopen ($filePath, 'rb');
 
 $buffer = fread ($binary, filesize ($filePath));
 
 fclose ($binary);
 
-header ('Content-Type: '. $contentType);
+header ('Content-Type: image/gif');
 
 echo $buffer;
 ?>
