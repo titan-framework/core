@@ -62,6 +62,8 @@ class Instance
 	
 	private $tools = array ();
 	
+	private $attributes = array ();
+	
 	private $cachePath = '/dev/null';
 	
 	private final function __construct ()
@@ -273,6 +275,36 @@ class Instance
 			foreach ($aux as $trash => $tool)
 				if (array_key_exists ('name', $tool) && array_key_exists ('bootstrap', $tool) && file_exists ($tool ['bootstrap']))
 					$this->tools [$tool ['name']] = $tool ['bootstrap'];
+		}
+		
+		if (isset ($array ['attribute'][0]['xml-path']) && trim ($array ['attribute'][0]['xml-path']) != '')
+		{
+			$file = $array ['attribute'][0]['xml-path'];
+			
+			if (!file_exists ($file))
+				throw new Exception ('O arquivo de configuração de Atributos Globais não existe no caminho ['. $file .'].');
+			
+			$cacheFile = $this->getCachePath () .'parsed/'. fileName ($file) .'_'. md5_file ($file) .'.php';
+			
+			if (file_exists ($cacheFile))
+				$aux = include $cacheFile;
+			else
+			{
+				$xml = new Xml ($file);
+				
+				$aux = $xml->getArray ();
+				
+				if (!isset ($aux ['attribute-mapping'][0]['attribute']))
+					throw new Exception ('A tag &lt;attribute-mapping&gt;&lt;/attribute-mapping&gt; não existe no arquivo ['. $file .'].');
+				
+				xmlCache ($cacheFile, $aux, $this->getCachePath () .'parsed/');
+			}
+			
+			$aux = $aux ['attribute-mapping'][0]['attribute'];
+			
+			foreach ($aux as $trash => $attribute)
+				if (array_key_exists ('name', $attribute) && array_key_exists ('value', $attribute))
+					$this->attributes [$attribute ['name']] = $attribute ['value'];
 		}
 	}
 	
@@ -504,6 +536,14 @@ class Instance
 	public function getTools ()
 	{
 		return $this->tools;
+	}
+	
+	public function getAttribute ($name)
+	{
+		if (array_key_exists ($name, $this->attributes))
+			return $this->attributes [$name];
+		
+		return NULL;
 	}
 }
 ?>
