@@ -3,6 +3,12 @@
 if (!isset ($_GET ['fileId']) || !$_GET['fileId'] || !is_numeric ($_GET['fileId']))
 	exit ();
 
+ob_clean();
+
+@apache_setenv ('no-gzip', 1);
+
+@ini_set ('zlib.output_compression', 'Off');
+
 require __DIR__ . DIRECTORY_SEPARATOR .'streaming.php';
 
 $fileId = (int) $_GET ['fileId'];
