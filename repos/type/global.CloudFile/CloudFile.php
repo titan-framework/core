@@ -121,6 +121,9 @@ class CloudFile extends File
 		if (!file_exists ($cache . 'cloud-file') && !@mkdir ($cache . 'cloud-file', 0777))
 			throw new Exception ('Unable create cache directory!');
 		
+		if (!file_exists ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
+			throw new Exception ('Impossible to enhance security for folder ['. $cache . 'cloud-file].');
+		
 		header ('Content-Type: '. $type);
 	
 		switch ($type)

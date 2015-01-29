@@ -90,7 +90,7 @@ global.Note.earth = function (id, field, latitude, longitude, title, date, autho
 				
 				case 'VIDEO':
 					content = ' <video width="320" height="240" controls="controls" autoplay="autoplay" preload="metadata">\
-									<source src="titan.php?target=tScript&type=CloudFile&file=play&fileId=' + locations [i].file + '"  type="' + locations [i].mimetype + '" />\
+									<source src="titan.php?target=tScript&type=CloudFile&file=play&fileId=' + locations [i].file + '" type="' + locations [i].mimetype + '" />\
 									<a href="titan.php?target=tScript&type=CloudFile&file=play&fileId=' + locations [i].file + '" target="_blank" title="<?= __ ('Play') ?>">\
 										<img src="titan.php?target=tResource&type=Note&file=play.png" border="0" alt="<?= __ ('Play') ?>" />\
 									</a>\
@@ -103,8 +103,8 @@ global.Note.earth = function (id, field, latitude, longitude, title, date, autho
 					break;
 				
 				case 'AUDIO':
-					content = ' <audio controls="controls">\
-									<source src="titan.php?target=tScript&type=CloudFile&file=play&fileId=' + locations [i].file + '"  type="' + locations [i].mimetype + '" />\
+					content = ' <audio controls="controls" autoplay="autoplay" preload="metadata">\
+									<source src="titan.php?target=tScript&type=CloudFile&file=play&fileId=' + locations [i].file + '" />\
 									<a href="titan.php?target=tScript&type=CloudFile&file=open&fileId=' + locations [i].file + '" target="_blank" title="<?= __ ('Play') ?>">\
 										<img src="titan.php?target=tResource&type=Note&file=play.png" border="0" alt="<?= __ ('Play') ?>" />\
 									</a>\

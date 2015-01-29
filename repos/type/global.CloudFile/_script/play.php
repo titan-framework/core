@@ -41,22 +41,71 @@ try
 	
 	if (!$archive->isAcceptable ($obj->_mimetype))
 		throw new Exception ('This file type is not supported!');
+
+	$file = $archive->getDataPath () . 'cloud_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT);
+	
+	if (!file_exists ($file))
+		throw new Exception ('This file is not available!');
+	
+	$supportedHtml5Types = array ('video/mp4', 'video/webm', 'video/ogg', 'audio/mpeg', 'audio/ogg', 'audio/wav');
+	
+	if (!in_array ($obj->_mimetype, $supportedHtml5Types))
+	{
+		switch ($obj->_mimetype)
+		{
+			case 'audio/3gpp':
+			case 'audio/3gpp2':
+				
+				$cache = Instance::singleton ()->getCachePath ();
+				
+				$encoded = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT) .'.ogg';
+				
+				if (file_exists ($encoded) && is_readable ($encoded) && filesize ($encoded))
+				{
+					$file = $encoded;
+					
+					break;
+				}
+				
+				if (!file_exists ($cache . 'cloud-file') && !@mkdir ($cache . 'cloud-file', 0777))
+					throw new Exception ('Unable create cache directory!');
+				
+				if (!file_exists ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
+					throw new Exception ('Impossible to enhance security for folder ['. $cache . 'cloud-file].');
+				
+				if (!function_exists ('system'))
+					throw new Exception ("Is needle enable OS call functions (verify if PHP is not in safe mode)!");
+				
+				$log = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'audio-encode.log';
+				
+				// MP3 Stereo Best Quality: avconv -y -i file/cloud_0000016 -acodec libmp3lame -ab 192k -ac 2 -ar 44100 cache/cloud-file/encoded_0000016.mp3
+				// MP3 Mono Poor Quality: avconv -y -i file/cloud_0000016 -acodec libmp3lame -ab 64k -ac 1 -ar 22050 cache/cloud-file/encoded_0000016.mp3
+				// OGG: avconv -y -i "file/cloud_0000016" -acodec libvorbis -ac 2 "cache/cloud-file/encoded_0000016.ogg"
+				
+				system ('avconv -y -i "'. $file .'" -acodec libvorbis -ac 2 "'. $encoded .'" 2> "'. $log .'"', $return);
+			
+				if ($return)
+					throw new Exception ('Has a problem with audio/video conversion! Verify if [avconv] exists in system and supports OGG codec (libvorbis). Read more in LOG file ['. $log .'].');
+				
+				$file = $encoded;
+				
+				break;
+		}
+		
+	}
 }
 catch (PDOException $e)
 {
 	toLog ($e->getMessage ());
 	
-	die ('Critical error!');
+	die ('Critical error! See the LOG file.');
 }
 catch (Exception $e)
 {
+	toLog ($e->getMessage ());
+	
 	die ($e->getMessage ());
 }
-
-$filePath = $archive->getDataPath () . 'cloud_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT);
-
-if (!file_exists ($filePath))
-	die ('This file is not available!');
 
 try
 {
@@ -69,6 +118,6 @@ try
 catch (PDOException $e)
 {}
 
-$stream = new VideoStream ($filePath);
+$stream = new VideoStream ($file);
 
 $stream->start ();
