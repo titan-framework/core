@@ -130,8 +130,6 @@ try
 		if (!rename ($temp, $file))
 			throw new Exception (__ ('Unable copy file to directory [[1]]!', $temp .' > '. $file));
 	
-	Lucene::singleton ()->saveFile ($id);
-	
 	$db->commit ();
 }
 catch (PDOException $e)
@@ -145,4 +143,17 @@ catch (Exception $e)
 	$db->rollBack ();
 	
 	throw $e;
+}
+
+if (function_exists ('curl_version'))
+{
+	$ch = curl_init ();
+
+	curl_setopt ($ch, CURLOPT_URL, Instance::singleton ()->getUrl () .'titan.php?target=tScript&type=CloudFile&file=encode&fileId='. $id);
+	curl_setopt ($ch, CURLOPT_FRESH_CONNECT, TRUE);
+	curl_setopt ($ch, CURLOPT_TIMEOUT_MS, 1);
+	 
+	curl_exec ($ch);
+	
+	curl_close ($ch);
 }
