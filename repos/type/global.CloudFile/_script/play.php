@@ -3,7 +3,7 @@
 if (!isset ($_GET ['fileId']) || !$_GET['fileId'] || !is_numeric ($_GET['fileId']))
 	exit ();
 
-ob_clean();
+ob_clean ();
 
 @apache_setenv ('no-gzip', 1);
 
@@ -76,7 +76,7 @@ try
 				if (!function_exists ('system'))
 					throw new Exception ("Is needle enable OS call functions (verify if PHP is not in safe mode)!");
 				
-				$log = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'audio-encode.log';
+				$log = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'3gp-ogg.log';
 				
 				// MP3 Stereo Best Quality: avconv -y -i file/cloud_0000016 -acodec libmp3lame -ab 192k -ac 2 -ar 44100 cache/cloud-file/encoded_0000016.mp3
 				// MP3 Mono Poor Quality: avconv -y -i file/cloud_0000016 -acodec libmp3lame -ab 64k -ac 1 -ar 22050 cache/cloud-file/encoded_0000016.mp3
@@ -85,7 +85,106 @@ try
 				system ('avconv -y -i "'. $file .'" -acodec libvorbis -ac 2 "'. $encoded .'" 2> "'. $log .'"', $return);
 			
 				if ($return)
-					throw new Exception ('Has a problem with audio/video conversion! Verify if [avconv] exists in system and supports OGG codec (libvorbis). Read more in LOG file ['. $log .'].');
+					throw new Exception ('Has a problem with audio conversion! Verify if [avconv] exists in system and supports OGG codec (libvorbis). Read more in LOG file ['. $log .'].');
+				
+				$file = $encoded;
+				
+				break;
+			
+			case 'video/quicktime':
+				
+				$cache = Instance::singleton ()->getCachePath ();
+				
+				$encoded = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT) .'.mp4';
+				
+				if (file_exists ($encoded) && is_readable ($encoded) && filesize ($encoded))
+				{
+					$file = $encoded;
+					
+					break;
+				}
+				
+				if (!file_exists ($cache . 'cloud-file') && !@mkdir ($cache . 'cloud-file', 0777))
+					throw new Exception ('Unable create cache directory!');
+				
+				if (!file_exists ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
+					throw new Exception ('Impossible to enhance security for folder ['. $cache . 'cloud-file].');
+				
+				if (!function_exists ('system'))
+					throw new Exception ("Is needle enable OS call functions (verify if PHP is not in safe mode)!");
+				
+				$log = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'mov-mp4.log';
+				
+				system ('avconv -y -i "'. $file .'" "'. $encoded .'" 2> "'. $log .'"', $return);
+			
+				if ($return)
+					throw new Exception ('Has a problem with video conversion! Verify if [avconv] exists in system and supports MP4 codec. Read more in LOG file ['. $log .'].');
+				
+				$file = $encoded;
+				
+				break;
+			
+			case 'video/x-ms-wmv':
+				
+				$cache = Instance::singleton ()->getCachePath ();
+				
+				$encoded = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT) .'.webm';
+				
+				if (file_exists ($encoded) && is_readable ($encoded) && filesize ($encoded))
+				{
+					$file = $encoded;
+					
+					break;
+				}
+				
+				if (!file_exists ($cache . 'cloud-file') && !@mkdir ($cache . 'cloud-file', 0777))
+					throw new Exception ('Unable create cache directory!');
+				
+				if (!file_exists ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
+					throw new Exception ('Impossible to enhance security for folder ['. $cache . 'cloud-file].');
+				
+				if (!function_exists ('system'))
+					throw new Exception ("Is needle enable OS call functions (verify if PHP is not in safe mode)!");
+				
+				$log = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'wmv-webm.log';
+				
+				system ('avconv -y -i "'. $file .'" "'. $encoded .'" 2> "'. $log .'"', $return);
+			
+				if ($return)
+					throw new Exception ('Has a problem with video conversion! Verify if [avconv] exists in system and supports WebM codec. Read more in LOG file ['. $log .'].');
+				
+				$file = $encoded;
+				
+				break;
+			
+			case 'audio/x-ms-wma':
+				
+				$cache = Instance::singleton ()->getCachePath ();
+				
+				$encoded = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT) .'.ogg';
+				
+				if (file_exists ($encoded) && is_readable ($encoded) && filesize ($encoded))
+				{
+					$file = $encoded;
+					
+					break;
+				}
+				
+				if (!file_exists ($cache . 'cloud-file') && !@mkdir ($cache . 'cloud-file', 0777))
+					throw new Exception ('Unable create cache directory!');
+				
+				if (!file_exists ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
+					throw new Exception ('Impossible to enhance security for folder ['. $cache . 'cloud-file].');
+				
+				if (!function_exists ('system'))
+					throw new Exception ("Is needle enable OS call functions (verify if PHP is not in safe mode)!");
+				
+				$log = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'wma-ogg.log';
+				
+				system ('avconv -y -i "'. $file .'" "'. $encoded .'" 2> "'. $log .'"', $return);
+			
+				if ($return)
+					throw new Exception ('Has a problem with video conversion! Verify if [avconv] exists in system and supports OGG codec (libvorbis). Read more in LOG file ['. $log .'].');
 				
 				$file = $encoded;
 				

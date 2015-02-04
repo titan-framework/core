@@ -15,7 +15,7 @@ class Xml
 	{
 		$regTag = '/<([a-zA-Z0-9-_]*)(\s.*?)?((>(.*?)<\/\\1>)|(\/>))/s';
 		$regDirective = '/([a-zA-Z0-9-_]*)="(.*?)"/s';
-		$regComentary = '/<!--(([^-])|(-[^-])|(--[^>]))*/s';
+		$regComentary = '/<!--(.*)-->/Uis';
 		
 		$text = preg_replace ($regComentary, '', $text);
 		

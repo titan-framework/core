@@ -3064,8 +3064,11 @@ repos/type/global.CloudFile/_api/delete.php -text
 repos/type/global.CloudFile/_api/get.php -text
 repos/type/global.CloudFile/_api/patch.php -text
 repos/type/global.CloudFile/_api/put.php -text
+repos/type/global.CloudFile/_css.php -text
 repos/type/global.CloudFile/_i18n/pt_BR.xml -text
 repos/type/global.CloudFile/_js.php -text
+repos/type/global.CloudFile/_resource/delete.png -text
+repos/type/global.CloudFile/_resource/no-file.png -text
 repos/type/global.CloudFile/_script/open.php -text
 repos/type/global.CloudFile/_script/play.php -text
 repos/type/global.CloudFile/_script/streaming.php -text

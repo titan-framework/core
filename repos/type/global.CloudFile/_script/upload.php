@@ -2,69 +2,54 @@
 if (!User::singleton ()->isLogged ())
 	throw new Exception (__ ('Attention! Probably attack detected. Access Denied!'));
 
-if (!isset ($_GET['fieldId']))
+if (!isset ($_GET['field']))
 	throw new Exception (__ ('There was lost of variables!'));
 
-$idFieldFile = $_GET['fieldId'];
-
-ob_start ();
+$field = $_GET['field'];
 ?>
 <html>
 	<head>
 		<?
-		$archive = Archive::singleton ();
-
-		if (isset ($_FILES['file']) && (int) $_FILES['file']['size'] && isset ($_POST['upload_filter']))
+		if (isset ($_FILES['file']) && (int) $_FILES['file']['size'] && isset ($_POST['filter']))
 		{
 			$file = $_FILES['file'];
-
-			if (isset ($_POST['name']))
-				$auxName = $_POST['name'];
-			else
-				$auxName = '';
-
-			if (isset ($_POST['description']))
-				$fileDesc = $_POST['description'];
-			else
-				$fileDesc = '';
-
+			
 			$fileTemp = $file ['tmp_name'];
 			$fileSize = $file ['size'];
 			$fileType = $file ['type'];
-
-			if (trim ($auxName) == '')
-				$fileName = $file ['name'];
-			else
-				$fileName = $auxName . substr ($file ['name'], strrpos ($file ['name'], '.'));
-
-			$fileName = fileName ($fileName);
-
+			$fileName = fileName ($file ['name']);
+			
 			try
 			{
 				$db = Database::singleton ();
 
 				$db->beginTransaction ();
+				
+				$archive = Archive::singleton ();
 
 				if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (array_pop (explode ('.', $file ['name'])))))
 					throw new Exception (__ ('This type of file is not accepted by the system !'));
-
+				
+				if ($fileType == 'video/3gpp' && !Archive::is3GPPVideo ($fileTemp))
+					$fileType = 'audio/3gpp';
+				
 				if (!$archive->isAcceptable ($fileType))
 					throw new Exception (__ ('This type of file is not accepted by the system ( [1] ) !', $fileType));
-
+				
 				$uploadFilter = array ();
 
-				if (trim ($_POST['upload_filter']) != '')
-					$uploadFilter = explode (',', $_POST['upload_filter']);
+				if (trim ($_POST['filter']) != '')
+					$uploadFilter = explode (',', $_POST['filter']);
 
 				if (sizeof ($uploadFilter) && !in_array ($fileType, $uploadFilter))
 					throw new Exception (__ ('This type of file is not accept at this field! Files accepts are : [1]', implode (', ', $uploadFilter)));
 
-				$fileId = Database::nextId ('_cloud', '_id');
+				$id = Database::nextId ('_cloud', '_id');
 
-				$sth = $db->prepare ("INSERT INTO _cloud (_id, _name, _mimetype, _size, _user, _ready, _taken, _change)
-									  VALUES (:id, :name, :type, :size, :user, B'1', now(), now())");
+				$sth = $db->prepare ("INSERT INTO _cloud (_id, _name, _mimetype, _size, _user, _ready, _devise, _change, _author)
+									  VALUES (:id, :name, :type, :size, :user, B'1', now(), now(), :user)");
 				
-				$sth->bindParam (':id', $fileId, PDO::PARAM_INT);
+				$sth->bindParam (':id', $id, PDO::PARAM_INT);
 				$sth->bindParam (':name', $fileName, PDO::PARAM_STR);
 				$sth->bindParam (':type', $fileType, PDO::PARAM_STR);
 				$sth->bindParam (':size', $fileSize, PDO::PARAM_INT);
@@ -72,12 +57,11 @@ ob_start ();
 				
 				$sth->execute ();
 
-				if (move_uploaded_file ($fileTemp, $archive->getDataPath () . 'cloud_'. str_pad ($fileId, 7, '0', STR_PAD_LEFT)))
+				if (move_uploaded_file ($fileTemp, CloudFile::getFilePath ($id)))
 				{
-					Lucene::singleton ()->saveFile ($fileId);
 					?>
 					<script language="javascript" type="text/javascript">
-						parent.global.CloudFile.load (<?= $fileId ?>, '<?= $idFieldFile ?>');
+						parent.global.CloudFile.load (<?= $id ?>, '<?= $field ?>');
 					</script>
 					<?
 				}
@@ -90,63 +74,55 @@ ob_start ();
 			{
 				$db->rollBack ();
 
-				$error = $e->getMessage ();
+				?>
+				<script language="javascript" type="text/javascript">
+					parent.global.CloudFile.error ('<?= $e->getMessage () ?>', '<?= $field ?>');
+				</script>
+				<?
 			}
 			catch (Exception $e)
 			{
 				$db->rollBack ();
 
-				$error = $e->getMessage ();
+				?>
+				<script language="javascript" type="text/javascript">
+					parent.global.CloudFile.error ('<?= $e->getMessage () ?>', '<?= $field ?>');
+				</script>
+				<?
 			}
 		}
 		?>
 		<link rel="stylesheet" href="titan.php?target=packerCss&amp;contexts=main" type="text/css" />
 		<!--[if IE]><link rel="stylesheet" type="text/css" href="titan.php?target=packerCss&amp;contexts=ie" /><![endif]-->
-		<style type="text/css">
-		body
-		{
-			background: none #FFF;
-		}
-		#idMessage .cError a.cReport
-		{
-			display: none;
-		}
-		</style>
+		<script language="javascript" type="text/javascript" src="titan.php?target=loadFile&file=js/prototype.js"></script>
 		<script language="javascript">
+		var status;
+		
 		function upload ()
 		{
-			document.getElementById ('form').style.display = 'none';
-			document.getElementById ('uploading').style.display = '';
+			parent.global.CloudFile.clear ('<?= $field ?>');
+			
+			$('_CLOUD_FORM_').style.display = 'none';
+			$('_CLOUD_PROGRESS_').style.display = '';
 
-			document.upload_file.submit ();
+			$('_CLOUD_FORM_').submit ();
 		}
 		function loadFilter ()
 		{
-			document.getElementById ('upload_filter').value = parent.global.CloudFile.getFilter ('<?= $idFieldFile ?>');
+			$('_CLOUD_FILTER_').value = parent.global.CloudFile.getFilter ('<?= $field ?>');
 		}
 		</script>
 	</head>
-	<body onLoad="JavaScript: loadFilter ();">
-		<div id="uploading" style="position: absolute; display: none; width: 340; height: 106; top: 0; left: 0; background-color: #FFFFFF;">
-			<div style="position: absolute; width: 96; height: 96; top: 3; left: 3; border-color: #ABCDEF; border-width: 2; border-style: solid;">
-				<div style="position: absolute; width: 16; height: 16; top: 42; left: 42;">
-					<img src="titan.php?target=loadFile&amp;file=interface/icon/upload.gif" border="0">
-				</div>
-			</div>
-			<div style="position: absolute; width: 190; top: 10; left: 110; color: #000099; font-weight: bold;"><?=__ ('Uploading file.<br />Wait!') ?></div>
+	<body onLoad="JavaScript: loadFilter ();" style="background: none #EEE; padding: 0px; height: 47px; overflow: hidden; vertical-align: middle;">
+		<div id="_CLOUD_PROGRESS_" style="display: none; margin: 0 auto; text-align: center; color: #656565;">
+			<b><?= __ ('Wait! Sending...') ?></b><br />
+			<img src="titan.php?target=loadFile&file=interface/image/loader.gif" />
 		</div>
-		<div id="form" style="position: absolute; width: 100%; height: 106px; top: 0; left: 0; overflow: auto; *overflow: hidden; *height: 256px;">
-			<?= isset ($error) ? '<div style="color: #990000; border: #900 1px solid; margin: 3px; padding: 3px;">'. $error .'</div>' : '' ?>
-			<form action="<?= $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'] ?>" id="upload_file" name="upload_file" method="POST" enctype="multipart/form-data">
-				<input type="hidden" id="upload_filter" name="upload_filter" value="" />
-				<p class="pFile" style="margin-top: 10px;"><label class="labelFile" for="up_name"><?= __ ('Name') ?>:</label> <input type="text" class="fieldFile" name="name" id="up_name" /></p>
-				<p class="pFile"><label class="labelFile" for="up_file"><?= __ ('File') ?>:</label> <input type="file" class="fieldFile" name="file" id="up_file" /></p>
-				<p class="pFile"><label class="infoFile"><?= __ ('Maximum file size') ?>: <b style="color: #900;"><?= $archive->getUploadLimit () ?>MB</b></label></p>
-				<p class="pFile"><input type="button" class="buttonFile" value="<?= __ ('Send File') ?>" onClick="JavaScript: upload ();" /></p>
-			</form>
-		</div>
+		<form action="<?= $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'] ?>" id="_CLOUD_FORM_" method="POST" enctype="multipart/form-data" style="display: block;">
+			<input type="hidden" id="_CLOUD_FILTER_" name="filter" value="" />
+			<input type="button" class="button" value="<?= __ ('Send File') ?>" onClick="JavaScript: upload ();" style="float: right;" />
+			<input type="file" name="file" id="_CLOUD_FILE_" /><br />
+			<div style="font-size: 10px; font-family: Verdana, Geneva, sans-serif; margin-top: 2px;"><?= __ ('Max Size:') .' <b style="color: #900">'. Archive::getServerUploadLimit () .' MB</b>' ?></div>
+		</form>
 	</body>
 </html>
-<?
-echo ob_get_clean ();
-?>

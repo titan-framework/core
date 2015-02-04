@@ -80,18 +80,18 @@ switch ($assume)
 		header ('Content-Disposition: inline; filename=' . fileName ($obj->_name));
 		break;
 	
-	case Archive::DOWNLOAD:
-		header('Content-Type: application/force-download');
-		header('Content-Disposition: attachment; filename=' . fileName ($obj->_name));
-		break;
-	
 	case Archive::OPEN:
 		header ('Content-Type: '. $contentType);
 		header ('Content-Disposition: inline; filename=' . fileName ($obj->_name));
 		break;
 	
+	case Archive::DOWNLOAD:
+	case Archive::VIDEO:
+	case Archive::AUDIO:
 	default:
-		die ('Tipo de arquivo nao aceito!');
+		header('Content-Type: application/force-download');
+		header('Content-Disposition: attachment; filename=' . fileName ($obj->_name));
+		break;
 }
 
 $binary = fopen ($filePath, 'rb');

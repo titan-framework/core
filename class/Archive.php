@@ -9,9 +9,11 @@ class Archive
 
 	private $dataPath = '/dev/null';
 
-	const IMAGE = '_FILE_IMAGE_';
-	const DOWNLOAD = '_FILE_DOWNLOAD_';
 	const OPEN = '_FILE_OPEN_';
+	const IMAGE = '_FILE_IMAGE_';
+	const VIDEO = '_FILE_VIDEO_';
+	const AUDIO = '_FILE_AUDIO_';
+	const DOWNLOAD = '_FILE_DOWNLOAD_';
 
 	private final function __construct ()
 	{
@@ -118,6 +120,12 @@ class Archive
 			case 'image':
 				return self::IMAGE;
 
+			case 'video':
+				return self::VIDEO;
+			
+			case 'audio':
+				return self::AUDIO;
+			
 			case 'open':
 				return self::OPEN;
 		}
@@ -150,18 +158,29 @@ class Archive
 	public function getMimeByExtension ($extension)
 	{
 		foreach ($this->mimeTypes as $mime => $array)
-			if ($array ['icon'] == $extension)
+		{
+			if (array_key_exists ('extension', $array) && $array ['extension'] == $extension)
 				return $mime;
+			
+			if (array_key_exists ('icon', $array) && $array ['icon'] == $extension)
+				return $mime;
+		}
 
 		return NULL;
 	}
 	
 	public function getExtensionByMime ($mime)
 	{
-		if (!isset ($this->mimeTypes [$mime]) || !isset ($this->mimeTypes [$mime]['icon']))
+		if (!array_key_exists ($mime, $this->mimeTypes))
 			return '';
 		
-		return $this->mimeTypes [$mime]['icon'];
+		if (array_key_exists ('extension', $this->mimeTypes [$mime]) && trim ($this->mimeTypes [$mime]['extension']) != '')
+			return $this->mimeTypes [$mime]['extension'];
+		
+		if (array_key_exists ('icon', $this->mimeTypes [$mime]) && trim ($this->mimeTypes [$mime]['icon']) != '')
+			return $this->mimeTypes [$mime]['icon'];
+		
+		return '';
 	}
 	
 	public function getUploadLimit ()
@@ -191,10 +210,20 @@ class Archive
 	public static function getServerUploadLimit ()
 	{
 		$upload = (int) (ini_get ('upload_max_filesize'));
+		
 		$post = (int) (ini_get ('post_max_size'));
+		
 		$memory = (int) (ini_get ('memory_limit'));
 		
 		return min ($upload, $post, $memory);
 	}
+	
+	public static function is3GPPVideo ($file)
+    {
+		if (!file_exists ($file) || !is_readable ($file) || !(int) filesize ($file))
+			return FALSE;
+		
+        return strpos (file_get_contents ($file), 'vide') !== FALSE;
+    }
 }
 ?>

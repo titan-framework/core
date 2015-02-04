@@ -61,11 +61,8 @@ switch ($assume)
 		break;
 }
 
-if (!file_exists ($filePath))
-	die ();
-
 $filePath = Instance::singleton ()->getCorePath () .'interface/file/' . $archive->getIcon ($obj->_mimetype) . '.gif';
-
+toLog ($filePath);
 $binary = fopen ($filePath, 'rb');
 
 $buffer = fread ($binary, filesize ($filePath));
