@@ -225,6 +225,9 @@ class ApiEntity
 				$value = $data [$field->getApiColumn ()];
 			
 			$this->fields [$assign]->setValue (self::fromApi ($this->fields [$assign], $value));
+			
+			if (!$this->fields [$assign]->isValid ())
+				throw new ApiException (__ ('The value of field [[1]] is invalid!', $field->getLabel ()), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 		}
 
 		return TRUE;

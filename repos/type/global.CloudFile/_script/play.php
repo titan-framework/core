@@ -42,7 +42,7 @@ try
 	}
 	
 	if (!Archive::singleton ()->isAcceptable ($obj->_mimetype))
-		throw new Exception ('This file type is not supported!');
+		throw new Exception ('This file type ('. $obj->mimetype .') is not supported!');
 	
 	$playable = CloudFile::getPlayableFile ($fileId, $obj->_mimetype);
 }

@@ -2422,6 +2422,7 @@ repos/component/global.generic/_api/active.php -text
 repos/component/global.generic/_api/delete.php -text
 repos/component/global.generic/_api/get.php -text
 repos/component/global.generic/_api/list.php -text
+repos/component/global.generic/_api/patch.php -text
 repos/component/global.generic/_api/post.php -text
 repos/component/global.generic/_api/put.php -text
 repos/component/global.generic/_css.php -text
@@ -3072,7 +3073,6 @@ repos/type/global.CloudFile/_resource/no-file.png -text
 repos/type/global.CloudFile/_script/encode.php -text
 repos/type/global.CloudFile/_script/open.php -text
 repos/type/global.CloudFile/_script/play.php -text
-repos/type/global.CloudFile/_script/status.php -text
 repos/type/global.CloudFile/_script/streaming.php -text
 repos/type/global.CloudFile/_script/thumbnail.php -text
 repos/type/global.CloudFile/_script/upload.php -text

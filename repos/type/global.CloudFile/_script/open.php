@@ -1,4 +1,5 @@
-<?
+<?php
+
 if (!isset ($_GET ['fileId']) || !$_GET['fileId'] || !is_numeric ($_GET['fileId']))
 	exit ();
 
@@ -45,7 +46,7 @@ try
 	$archive = Archive::singleton ();
 	
 	if (!$archive->isAcceptable ($obj->_mimetype))
-		throw new Exception ('This file type is not supported!');
+		throw new Exception ('This file type ('. $obj->mimetype .') is not supported!');
 }
 catch (PDOException $e)
 {
@@ -112,4 +113,3 @@ try
 }
 catch (PDOException $e)
 {}
-?>

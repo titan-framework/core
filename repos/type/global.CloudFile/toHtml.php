@@ -5,9 +5,10 @@ if ($field->getValue ())
 {
 	try
 	{
+		$out = CloudFile::synopsis ($field->getValue (), $field->getFilter (), $field->getResolution ());
 		?>
 		<div style="position: relative; border: 1px #CCC solid; background-color: #FFF; padding: 2px; float: left;">
-			<?= CloudFile::synopsis ($field->getValue (), $field->getFilter (), $field->getResolution ()) ?>
+			<?= $out ?>
 		</div>
 		<?
 	}

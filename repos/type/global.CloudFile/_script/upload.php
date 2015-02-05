@@ -30,13 +30,13 @@ $field = $_GET['field'];
 				$archive = Archive::singleton ();
 
 				if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (array_pop (explode ('.', $file ['name'])))))
-					throw new Exception (__ ('This type of file is not accepted by the system !'));
+					throw new Exception (__ ('This file type ([1]) is not supported!', $obj->_mimetype));
 				
 				if ($fileType == 'video/3gpp' && !Archive::is3GPPVideo ($fileTemp))
 					$fileType = 'audio/3gpp';
 				
 				if (!$archive->isAcceptable ($fileType))
-					throw new Exception (__ ('This type of file is not accepted by the system ( [1] ) !', $fileType));
+					throw new Exception (__ ('This type of file is not accepted by the system ([1])!', $fileType));
 				
 				$uploadFilter = array ();
 
@@ -44,7 +44,21 @@ $field = $_GET['field'];
 					$uploadFilter = explode (',', $_POST['filter']);
 
 				if (sizeof ($uploadFilter) && !in_array ($fileType, $uploadFilter))
-					throw new Exception (__ ('This type of file is not accept at this field! Files accepts are : [1]', implode (', ', $uploadFilter)));
+				{
+					$types = array ();
+					
+					foreach ($uploadFilter as $trash => $mime)
+					{
+						$aux = trim ($archive->getExtensionByMime ($mime));
+						
+						if (empty ($aux))
+							continue;
+						
+						$types [] = strtoupper ($aux);
+					}
+					
+					throw new Exception (__ ('This type of file ([1]) is not accept at this field! Files accepts are: [2].', $obj->mime, implode (', ', $types)));
+				}
 
 				$id = Database::nextId ('_cloud', '_id');
 
@@ -63,18 +77,14 @@ $field = $_GET['field'];
 				
 				if (move_uploaded_file ($fileTemp, $path))
 				{
-					$_SESSION ['_CLOUD_FILE_STATUS_'][$_POST ['status']] = __ ('File sended! Encoding to play...');
-					
 					try
 					{
-						CloudFile::getPlayableFile ($id, $fileType);
+						CloudFile::assyncEncodeFile ($id);
 					}
 					catch (Exception $e)
 					{
 						toLog ($e->getMessage ());
 					}
-					
-					$_SESSION ['_CLOUD_FILE_STATUS_'][$_POST ['status']] = __ ('All done! Loading...');
 					?>
 					<script language="javascript" type="text/javascript">
 						parent.global.CloudFile.load (<?= $id ?>, '<?= $field ?>');
@@ -124,10 +134,6 @@ $field = $_GET['field'];
 			
 			$('_CLOUD_PROGRESS_').style.display = '';
 			
-			new Ajax.PeriodicalUpdater ('_CLOUD_STATUS_', 'titan.php?target=tScript&type=CloudFile&file=status&unique=<?= $unique ?>&auth=1', {
-				method: 'get', frequency: 2
-			});
-
 			$('_CLOUD_FORM_').submit ();
 		}
 		function loadFilter ()
@@ -138,7 +144,7 @@ $field = $_GET['field'];
 	</head>
 	<body onLoad="JavaScript: loadFilter ();" style="background: none #EEE; padding: 0px; height: 47px; overflow: hidden; vertical-align: middle;">
 		<div id="_CLOUD_PROGRESS_" style="display: none; margin: 0 auto; text-align: center; color: #656565;">
-			<div id="_CLOUD_STATUS_" style="font-weight: bold; width: 100%; text-align: center;"><?= __ ('Wait! Sending...') ?></div>
+			<b><?= __ ('Wait! Sending...') ?></b> <br />
 			<img src="titan.php?target=loadFile&file=interface/image/loader.gif" border="0" />
 		</div>
 		<form action="<?= $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'] ?>" id="_CLOUD_FORM_" method="POST" enctype="multipart/form-data" style="display: block;">

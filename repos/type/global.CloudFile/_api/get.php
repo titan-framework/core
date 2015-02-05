@@ -24,7 +24,7 @@ if (!$obj)
 $archive = Archive::singleton ();
 
 if (!$archive->isAcceptable ($obj->_mimetype))
-	throw new ApiException (__ ('This file type is not supported!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
+	throw new ApiException (__ ('This file type ([1]) is not supported!', $obj->_mimetype), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 
 $filePath = $archive->getDataPath () . 'cloud_' . str_pad ($obj->_id, 7, '0', STR_PAD_LEFT);
 

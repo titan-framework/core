@@ -1,4 +1,5 @@
-<?
+<?php
+
 if (!isset ($_GET ['fileId']) || !$_GET['fileId'] || !is_numeric ($_GET['fileId']))
 	die ();
 
@@ -62,7 +63,7 @@ switch ($assume)
 }
 
 $filePath = Instance::singleton ()->getCorePath () .'interface/file/' . $archive->getIcon ($obj->_mimetype) . '.gif';
-toLog ($filePath);
+
 $binary = fopen ($filePath, 'rb');
 
 $buffer = fread ($binary, filesize ($filePath));
@@ -72,4 +73,3 @@ fclose ($binary);
 header ('Content-Type: image/gif');
 
 echo $buffer;
-?>
