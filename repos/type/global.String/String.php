@@ -90,9 +90,17 @@ class String extends Type
 		$config = HTMLPurifier_Config::createDefault ();
 		
 		$config->set ('Core.Encoding', 'UTF-8');
-		$config->set ('HTML.Doctype', 'XHTML 1.0 Transitional');
+		$config->set ('HTML.Doctype', 'HTML 4.01 Transitional');
+		$config->set ('CSS.AllowTricky', TRUE);
 		$config->set ('Attr.EnableID', TRUE);
 		$config->set ('Attr.AllowedFrameTargets', '_blank');
+		$config->set ('Output.FlashCompat', TRUE);
+		$config->set ('HTML.SafeEmbed', TRUE);
+		$config->set ('HTML.SafeObject', TRUE);
+		$config->set ('HTML.SafeIframe', TRUE);
+		$config->set ('URI.SafeIframeRegexp', '%^(http:|https:)?//(www.youtube(?:-nocookie)?.com/embed/|player.vimeo.com/video/)%');
+		$config->set ('HTML.DefinitionID', 'html5-definitions');
+		$config->set ('HTML.DefinitionRev', 1);
 		
 		if (!Instance::singleton ()->onDebugMode ())
 		{
@@ -105,6 +113,65 @@ class String extends Type
 		}
 		else
 			$config->set ('Cache.DefinitionImpl', NULL);
+		
+		if ($def = $config->maybeGetRawHTMLDefinition ())
+		{
+			$def->addElement ('section', 'Block', 'Flow', 'Common');
+			$def->addElement ('nav',     'Block', 'Flow', 'Common');
+			$def->addElement ('article', 'Block', 'Flow', 'Common');
+			$def->addElement ('aside',   'Block', 'Flow', 'Common');
+			$def->addElement ('header',  'Block', 'Flow', 'Common');
+			$def->addElement ('footer',  'Block', 'Flow', 'Common');
+			
+			$def->addElement ('address', 'Block', 'Flow', 'Common');
+			$def->addElement ('hgroup', 'Block', 'Required: h1 | h2 | h3 | h4 | h5 | h6', 'Common');
+			
+			$def->addElement ('figure', 'Block', 'Optional: (figcaption, Flow) | (Flow, figcaption) | Flow', 'Common');
+			$def->addElement ('figcaption', 'Inline', 'Flow', 'Common');
+			
+			$def->addElement ('video', 'Block', 'Optional: (source, Flow) | (Flow, source) | Flow', 'Common', array (
+				'src' => 'URI',
+				'type' => 'Text',
+				'width' => 'Length',
+				'height' => 'Length',
+				'poster' => 'URI',
+				'preload' => 'Enum#auto,metadata,none',
+				'controls' => 'Text',
+			));
+			
+			$def->addElement ('audio', 'Block', 'Optional: (source, Flow) | (Flow, source) | Flow', 'Common', array (
+				'src' => 'URI',
+				'type' => 'Text',
+				'width' => 'Length',
+				'height' => 'Length',
+				'poster' => 'URI',
+				'preload' => 'Enum#auto,metadata,none',
+				'controls' => 'Text',
+			));
+			
+			$def->addElement ('source', 'Block', 'Flow', 'Common', array (
+				'src' => 'URI',
+				'type' => 'Text',
+			));
+			
+			$def->addElement ('s',    'Inline', 'Inline', 'Common');
+			$def->addElement ('var',  'Inline', 'Inline', 'Common');
+			$def->addElement ('sub',  'Inline', 'Inline', 'Common');
+			$def->addElement ('sup',  'Inline', 'Inline', 'Common');
+			$def->addElement ('mark', 'Inline', 'Inline', 'Common');
+			$def->addElement ('wbr',  'Inline', 'Empty', 'Core');
+			
+			$def->addElement ('ins', 'Block', 'Flow', 'Common', array('cite' => 'URI', 'datetime' => 'CDATA'));
+			$def->addElement ('del', 'Block', 'Flow', 'Common', array('cite' => 'URI', 'datetime' => 'CDATA'));
+			
+			$def->addAttribute ('iframe', 'allowfullscreen', 'Bool');
+			$def->addAttribute ('table', 'height', 'Text');
+			$def->addAttribute ('td', 'border', 'Text');
+			$def->addAttribute ('th', 'border', 'Text');
+			$def->addAttribute ('tr', 'width', 'Text');
+			$def->addAttribute ('tr', 'height', 'Text');
+			$def->addAttribute ('tr', 'border', 'Text');
+		}
 		
 		$purifier = new HTMLPurifier ($config);
 		

@@ -19,6 +19,7 @@
 	<type name="Radio" component="global.Radio" />
 	<type name="CheckBox" component="global.CheckBox" />
 	<type name="Fck" component="global.Fck" />
+	<type name="CKEditor" component="global.CKEditor" />
 	<type name="Money" component="global.Money" />
 	<type name="Password" component="global.Password" />
 	<type name="Rga" component="global.Rga" />

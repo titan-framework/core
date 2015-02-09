@@ -12,7 +12,7 @@ $field = $_GET['field'];
 <html>
 	<head>
 		<?
-		if (isset ($_FILES['file']) && (int) $_FILES['file']['size'] && isset ($_POST['filter']) && isset ($_POST ['status']))
+		if (isset ($_FILES['file']) && (int) $_FILES['file']['size'] && isset ($_POST['filter']))
 		{
 			$file = $_FILES['file'];
 			
@@ -57,7 +57,7 @@ $field = $_GET['field'];
 						$types [] = strtoupper ($aux);
 					}
 					
-					throw new Exception (__ ('This type of file ([1]) is not accept at this field! Files accepts are: [2].', $obj->mime, implode (', ', $types)));
+					throw new Exception (__ ('This type of file ([1]) is not accept at this field! Files accepts are: [2].', $fileType, implode (', ', $types)));
 				}
 
 				$id = Database::nextId ('_cloud', '_id');
@@ -117,15 +117,11 @@ $field = $_GET['field'];
 				<?
 			}
 		}
-		
-		$unique = md5 (uniqid (rand (), TRUE));
 		?>
 		<link rel="stylesheet" href="titan.php?target=packerCss&amp;contexts=main" type="text/css" />
 		<!--[if IE]><link rel="stylesheet" type="text/css" href="titan.php?target=packerCss&amp;contexts=ie" /><![endif]-->
 		<script language="javascript" type="text/javascript" src="titan.php?target=loadFile&file=js/prototype.js"></script>
 		<script language="javascript">
-		var status;
-		
 		function upload ()
 		{
 			parent.global.CloudFile.clear ('<?= $field ?>');
@@ -149,7 +145,6 @@ $field = $_GET['field'];
 		</div>
 		<form action="<?= $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'] ?>" id="_CLOUD_FORM_" method="POST" enctype="multipart/form-data" style="display: block;">
 			<input type="hidden" id="_CLOUD_FILTER_" name="filter" value="" />
-			<input type="hidden" name="status" value="<?= $unique ?>" />
 			<input type="button" class="button" value="<?= __ ('Send File') ?>" onClick="JavaScript: upload ();" style="float: right;" />
 			<input type="file" name="file" id="_CLOUD_FILE_" /><br />
 			<div style="font-size: 10px; font-family: Verdana, Geneva, sans-serif; margin-top: 2px;"><?= __ ('Max Size:') .' <b style="color: #900">'. Archive::getServerUploadLimit () .' MB</b>' ?></div>

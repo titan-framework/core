@@ -299,7 +299,7 @@ class CloudFile extends File
 				<?
 		}
 		
-		return ob_get_clean ();
+		return str_replace ("\t", '', ob_get_clean ());
 	}
 	
 	public static function getPlayableFile ($id, $mimetype)
