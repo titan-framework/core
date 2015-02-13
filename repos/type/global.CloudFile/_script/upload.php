@@ -49,15 +49,15 @@ $field = $_GET['field'];
 					
 					foreach ($uploadFilter as $trash => $mime)
 					{
-						$aux = trim ($archive->getExtensionByMime ($mime));
+						$aux = strtoupper (trim ($archive->getExtensionByMime ($mime)));
 						
-						if (empty ($aux))
+						if (empty ($aux) || in_array ($aux, $types))
 							continue;
 						
-						$types [] = strtoupper ($aux);
+						$types [] = $aux;
 					}
 					
-					throw new Exception (__ ('This type of file ([1]) is not accept at this field! Files accepts are: [2].', $fileType, implode (', ', $types)));
+					throw new Exception (__ ('This type of file ([1]) is not accept at this field! Files accepts are: [2].', strtoupper ($archive->getExtensionByMime ($fileType)), implode (', ', $types)));
 				}
 
 				$id = Database::nextId ('_cloud', '_id');
@@ -118,8 +118,8 @@ $field = $_GET['field'];
 			}
 		}
 		?>
-		<link rel="stylesheet" href="titan.php?target=packerCss&amp;contexts=main" type="text/css" />
-		<!--[if IE]><link rel="stylesheet" type="text/css" href="titan.php?target=packerCss&amp;contexts=ie" /><![endif]-->
+		<link rel="stylesheet" href="titan.php?target=packerCss&contexts=main" type="text/css" />
+		<!--[if IE]><link rel="stylesheet" type="text/css" href="titan.php?target=packerCss&contexts=ie" /><![endif]-->
 		<script language="javascript" type="text/javascript" src="titan.php?target=loadFile&file=js/prototype.js"></script>
 		<script language="javascript">
 		function upload ()

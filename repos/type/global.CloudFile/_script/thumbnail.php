@@ -1,7 +1,10 @@
 <?php
 
+if (!User::singleton ()->isLogged ())
+	exit ();
+
 if (!isset ($_GET ['fileId']) || !$_GET['fileId'] || !is_numeric ($_GET['fileId']))
-	die ();
+	exit ();
 
 $archive = Archive::singleton ();
 
@@ -34,11 +37,11 @@ try
 }
 catch (PDOException $e)
 {
-	die ();
+	exit ();
 }
 catch (Exception $e)
 {
-	die ();
+	exit ();
 }
 
 if (isset ($_GET['assume']))
@@ -46,30 +49,40 @@ if (isset ($_GET['assume']))
 else
 	$assume = $archive->getAssume ($obj->_mimetype);
 
-if (!file_exists ($archive->getDataPath () . 'cloud_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT)))
-	die ();
+if (!file_exists (CloudFile::getFilePath ($fileId)))
+	exit ();
+
+$file = Instance::singleton ()->getCorePath () .'interface/file/' . $archive->getIcon ($obj->_mimetype) . '.gif';
+
+$type = 'image/gif';
 
 switch ($assume)
 {
 	case Archive::IMAGE:
 		
 		if ($width && $height)
-			CloudFile::resize ($fileId, $obj->_mimetype, $obj->_name, $width, $height, TRUE);
+			$file = CloudFile::resize ($fileId, $obj->_mimetype, $width, $height, TRUE);
 		
 		if ($width || $height)
-			CloudFile::resize ($fileId, $obj->_mimetype, $obj->_name, $width, $height);
+			$file = CloudFile::resize ($fileId, $obj->_mimetype, $width, $height);
+		
+		$type = $obj->_mimetype;
 		
 		break;
 }
 
-$filePath = Instance::singleton ()->getCorePath () .'interface/file/' . $archive->getIcon ($obj->_mimetype) . '.gif';
+ob_clean ();
 
-$binary = fopen ($filePath, 'rb');
+@apache_setenv ('no-gzip', 1);
 
-$buffer = fread ($binary, filesize ($filePath));
+@ini_set ('zlib.output_compression', 'Off');
+
+$binary = fopen ($file, 'rb');
+
+$buffer = fread ($binary, filesize ($file));
 
 fclose ($binary);
 
-header ('Content-Type: image/gif');
+header ('Content-Type: '. $type);
 
 echo $buffer;

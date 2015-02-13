@@ -106,6 +106,43 @@ class Archive
 	{
 		return $this->mimeTypes;
 	}
+	
+	public function getMimesByType ($type)
+	{
+		switch ($type)
+		{
+			case self::IMAGE:
+				$assume = 'image';
+				break;
+			
+			case self::VIDEO:
+				$assume = 'video';
+				break;
+			
+			case self::AUDIO:
+				$assume = 'audio';
+				break;
+			
+			case self::DOWNLOAD:
+				$assume = 'download';
+				break;
+			
+			case self::OPEN:
+				$assume = 'open';
+				break;
+			
+			default:
+				return array ();
+		}
+		
+		$array = array ();
+		
+		foreach ($this->mimeTypes as $mime => $data)
+			if ($data ['assume'] == $assume)
+				$array [] = $mime;
+		
+		return $array;
+	}
 
 	public function getAssume ($mime)
 	{

@@ -2,6 +2,8 @@
 <script language="javascript" type="text/javascript">
 'global.CKEditor'.namespace ();
 
+global.CKEditor.ajax = <?= class_exists ('xCKEditor', FALSE) ? XOAD_Client::register (new xCKEditor) : 'null' ?>;
+
 global.CKEditor.toolbar = [
 	{ name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Preview', 'Print', '-', 'Templates' ] },
 	{ name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
@@ -99,22 +101,22 @@ global.CKEditor.imageUploadClear = function (field, media)
 	div.innerHTML = '';
 }
 
-global.CKEditor.imageUploadSuccess = function (field, media, id)
+global.CKEditor.imageUploadSuccess = function (field, media, id, hash)
 {
 	var dialog = CKEDITOR.dialog.getCurrent ();
 	
 	switch (media)
 	{
 		case 'image':
-			dialog.setValueOf ('info', 'txtUrl', '<?= Instance::singleton ()->getUrl () ?>titan.php?target=tScript&type=CloudFile&file=open&fileId=' + id);
+			dialog.setValueOf ('info', 'txtUrl', '<?= Instance::singleton ()->getUrl () ?>titan.php?target=tScript&type=CKEditor&file=open&id=' + id + '&hash=' + hash);
 			break;
 		
 		case 'all':
-			dialog.setValueOf ('info', 'url', '<?= Instance::singleton ()->getUrl () ?>titan.php?target=tScript&type=CloudFile&file=open&fileId=' + id);
+			dialog.setValueOf ('info', 'url', '<?= Instance::singleton ()->getUrl () ?>titan.php?target=tScript&type=CKEditor&file=open&id=' + id + '&hash=' + hash);
 			break;
 		
 		case 'media':
-			var resume = global.CloudFile.ajax.getFileResume (id);
+			var resume = global.CKEditor.ajax.getFileResume (id, hash);
 			dialog.setValueOf ('iframe', 'embedArea', resume);
 			break;
 	}

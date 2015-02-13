@@ -97,8 +97,6 @@ class String extends Type
 		$config->set ('Output.FlashCompat', TRUE);
 		$config->set ('HTML.SafeEmbed', TRUE);
 		$config->set ('HTML.SafeObject', TRUE);
-		$config->set ('HTML.SafeIframe', TRUE);
-		$config->set ('URI.SafeIframeRegexp', '%^(http:|https:)?//(www.youtube(?:-nocookie)?.com/embed/|player.vimeo.com/video/)%');
 		$config->set ('HTML.DefinitionID', 'html5-definitions');
 		$config->set ('HTML.DefinitionRev', 1);
 		
@@ -164,7 +162,6 @@ class String extends Type
 			$def->addElement ('ins', 'Block', 'Flow', 'Common', array('cite' => 'URI', 'datetime' => 'CDATA'));
 			$def->addElement ('del', 'Block', 'Flow', 'Common', array('cite' => 'URI', 'datetime' => 'CDATA'));
 			
-			$def->addAttribute ('iframe', 'allowfullscreen', 'Bool');
 			$def->addAttribute ('table', 'height', 'Text');
 			$def->addAttribute ('td', 'border', 'Text');
 			$def->addAttribute ('th', 'border', 'Text');

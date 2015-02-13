@@ -1,21 +1,27 @@
 <?php
 
-class xCloudFile
+class xCKEditor
 {	
-	public function getFileResume ($id, $dimension = 200)
+	public function getFileResume ($id, $hash)
 	{
+		set_error_handler ('logPhpError');
+		
 		try
 		{
-			return CloudFile::synopsis ($id, array (), $dimension);
+			$output = CKEditor::synopsis ($id, $hash);
 		}
 		catch (Exception $e)
 		{
-			return '<div style="text-align: left; font-weight: bold; color: #900; margin: 10px;">'. $e->getMessage () .'</div>';
+			$output = '<div style="text-align: left; font-weight: bold; color: #900; margin: 10px;">'. $e->getMessage () .'</div>';
 		}
 		catch (PDOException $e)
 		{
-			return '<div style="text-align: left; font-weight: bold; color: #900; margin: 10px;">'. $e->getMessage () .'</div>';
+			$output = '<div style="text-align: left; font-weight: bold; color: #900; margin: 10px;">'. $e->getMessage () .'</div>';
 		}
+		
+		restore_error_handler ();
+		
+		return $output;
 	}
 	
 	public function showMessages ()

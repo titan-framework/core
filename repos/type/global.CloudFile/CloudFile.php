@@ -1,7 +1,9 @@
 <?php
 
 class CloudFile extends File
-{	
+{
+	const ENCODE_FOLDER = 'cloud-file';
+		
 	public function __construct ($table, $field)
 	{
 		if (!Database::tableExists ('_cloud'))
@@ -10,9 +12,30 @@ class CloudFile extends File
 		parent::__construct ($table, $field);
 	}
 	
+	public function getInfo ()
+	{
+		if (!$this->getValue ())
+			return NULL;
+		
+		$sth = Database::singleton ()->prepare ("SELECT _name, _size, _mimetype FROM _cloud WHERE _id = :id AND _deleted = B'0'");
+		
+		$sth->bindParam (':id', $this->getValue (), PDO::PARAM_INT);
+		
+		$sth->execute ();
+		
+		$obj = $sth->fetch (PDO::FETCH_OBJ);
+		
+		if (!$obj)
+			return NULL;
+		
+		return array ('_NAME_' => $obj->_name,
+					  '_SIZE_' => $obj->_size,
+					  '_MIME_' => $obj->_mimetype);
+	}
+	
 	public static function getFilePath ($id)
 	{
-		return Archive::singleton ()->getDataPath () . 'cloud_' . str_pad ($id, 7, '0', STR_PAD_LEFT);
+		return Archive::singleton ()->getDataPath () . 'cloud_' . str_pad ($id, 19, '0', STR_PAD_LEFT);
 	}
 	
 	public static function formatFileSizeForHuman ($bytes, $decimals = 0)
@@ -24,135 +47,21 @@ class CloudFile extends File
 		return sprintf ("%.{$decimals}f", $bytes / pow (1024, $factor)) .' '. @$size [$factor];
 	}
 	
-	public static function resize ($id, $type, $name, $width = 0, $height = 0, $force = FALSE, $bw = FALSE)
+	public static function resize ($id, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE)
 	{
+		$source = self::getFilePath ($id);
+		
 		$cache = Instance::singleton ()->getCachePath ();
 		
-		$resized = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'resized_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'_'. $width .'x'. $height .'_'. ($force ? '1' : '0') .'_'. ($bw ? '1' : '0');
-		
-		if (file_exists ($resized) && is_readable ($resized) && filesize ($resized))
-		{
-			header ('Content-Type: '. $type);
-			header ('Content-Disposition: inline; filename=' . fileName ($name));
-			
-			$binary = fopen ($resized, 'rb');
-			
-			$buffer = fread ($binary, filesize ($resized));
-			
-			fclose ($binary);
-			
-			echo $buffer;
-			
-			exit ();
-		}
-		
-		$file = Archive::singleton ()->getDataPath () . 'cloud_' . str_pad ($id, 7, '0', STR_PAD_LEFT);
-		
-		$buffer = FALSE;
-		
-		switch ($type)
-		{
-			case 'image/jpeg':
-			case 'image/pjpeg':
-				$buffer = imagecreatefromjpeg ($file);
-				break;
-	
-			case 'image/gif':
-				$buffer = imagecreatefromgif ($file);
-				break;
-	
-			case 'image/png':
-				$buffer = imagecreatefrompng ($file);
-				imagealphablending ($buffer, TRUE);
-				imagesavealpha ($buffer, TRUE);
-				break;
-		}
-	
-		if (!$buffer)
-			throw new Exception ('File mimetype is invalid or the image does not exists!');
-		
-		if ($bw)
-			@imagefilter ($buffer, IMG_FILTER_GRAYSCALE);
-		
-		$vetor = getimagesize ($file);
-	
-		$atualWidth  = $vetor [0];
-		$atualHeight = $vetor [1];
-	
-		if(!$force)
-		{
-			if (!$width || !$height)
-			{
-				if (!$width && !$height)
-				{
-					$width = $atualWidth;
-					$height = $atualHeight;
-				}
-				elseif ($width && !$height)
-					$height = ($atualHeight * $width) / $atualWidth;
-				else
-					$width = ($atualWidth * $height) / $atualHeight;
-			}
-	
-			if ($atualWidth < $atualHeight && $width > $height)
-			{
-				$aux = $width;
-				$width = $height;
-				$height = $aux;
-			}
-	
-			if ((int) $atualWidth < (int) $width)
-			{
-				$width = $atualWidth;
-	
-				$height = ($atualHeight * $width) / $atualWidth;
-			}
-		}
-	
-		if ($type != 'image/gif')
-		{
-			$thumb = imagecreatetruecolor ($width, $height);
-			$color = imagecolorallocatealpha ($thumb, 255, 255, 255, 75);
-			imagefill ($thumb, 0, 0, $color);
-		}
-		else
-			$thumb = imagecreate ($width, $height);
-	
-		$ok = imagecopyresized ($thumb, $buffer, 0, 0, 0, 0, $width, $height, $atualWidth, $atualHeight);
-	
-		if (!$ok)
-			throw new Exception ('Impossible to resize image!');
-		
-		if (!file_exists ($cache . 'cloud-file') && !@mkdir ($cache . 'cloud-file', 0777))
+		if (!file_exists ($cache . self::ENCODE_FOLDER) && !@mkdir ($cache . self::ENCODE_FOLDER, 0777))
 			throw new Exception ('Unable create cache directory!');
 		
-		if (!file_exists ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
-			throw new Exception ('Impossible to enhance security for folder ['. $cache . 'cloud-file].');
+		if (!file_exists ($cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
+			throw new Exception ('Impossible to enhance security for folder ['. $cache . self::CACHE_FOLDER .'].');
 		
-		header ('Content-Type: '. $type);
-	
-		switch ($type)
-		{
-			case 'image/jpeg':
-			case 'image/pjpeg':
-				imagejpeg ($thumb, $resized, 100);
-				imagejpeg ($thumb, NULL, 100);
-				break;
-	
-			case 'image/gif':
-				imagegif ($thumb, $resized);
-				imagegif ($thumb);
-				break;
-	
-			case 'image/png':
-				imagepng ($thumb, $resized);
-				imagepng ($thumb);
-				break;
-		}
-	
-		imagedestroy ($thumb);
-	
-		exit ();
+		$destination = $cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'resized_' . str_pad ($id, 19, '0', STR_PAD_LEFT) .'_'. $width .'x'. $height .'_'. ($force ? '1' : '0') .'_'. ($bw ? '1' : '0');
+		
+		return EncodeMedia::resizeImage ($source, $type, $destination, $width, $height, $force, $bw);
 	}
 	
 	public static function synopsis ($id, $filter = array (), $dimension = 200)
@@ -217,7 +126,7 @@ class CloudFile extends File
 			case Archive::IMAGE:
 				$alt = $obj->name ." (". CloudFile::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
 				?>
-				<a href="titan.php?target=tScript&amp;type=CloudFile&amp;file=open&amp;fileId=<?= $id ?>" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&amp;type=CloudFile&amp;file=thumbnail&amp;fileId=<?= $id ?>&height=<?= $dimension ?>" alt="<?= $alt ?>" border="0" /></a>
+				<a href="titan.php?target=tScript&type=CloudFile&file=open&fileId=<?= $id ?>&auth=1" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&type=CloudFile&file=thumbnail&fileId=<?= $id ?>&height=<?= $dimension ?>&auth=1" alt="<?= $alt ?>" border="0" /></a>
 				<?
 				break;
 			
@@ -227,8 +136,8 @@ class CloudFile extends File
 				{
 					?>
 					<video width="320" height="240" controls="controls" preload="metadata">
-						<source src="titan.php?target=tScript&type=CloudFile&file=play&fileId=<?= $id ?>" />
-						<a href="titan.php?target=tScript&type=CloudFile&file=play&fileId=<?= $id ?>" target="_blank" title="<?= __ ('Play') ?>">
+						<source src="titan.php?target=tScript&type=CloudFile&file=play&fileId=<?= $id ?>&auth=1" />
+						<a href="titan.php?target=tScript&type=CloudFile&file=play&fileId=<?= $id ?>&auth=1" target="_blank" title="<?= __ ('Play') ?>">
 							<img src="titan.php?target=tResource&type=Note&file=play.png" border="0" alt="<?= __ ('Play') ?>" />
 						</a>
 					</video>
@@ -240,7 +149,7 @@ class CloudFile extends File
 					?>
 					<div style="width: 343px; height: 106px;">
 						<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
-							<a href="titan.php?target=tScript&amp;type=CloudFile&amp;file=open&amp;fileId=<?= $id ?>" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&amp;type=CloudFile&amp;file=thumbnail&amp;fileId=<?= $id ?>&width=100&height=100" border="0" alt="<?= $alt ?>" /></a>
+							<a href="titan.php?target=tScript&type=CloudFile&file=open&fileId=<?= $id ?>&auth=1" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&type=CloudFile&file=thumbnail&fileId=<?= $id ?>&width=100&height=100&auth=1" border="0" alt="<?= $alt ?>" /></a>
 						</div>
 						<div style="position: relative; width: 220px; top: 10px; left: 110px; overflow: hidden; background-color: #FFF; text-align: justify;">
 							<b style="color: #900;"><?= __ ('This video is not supported by native player of your browser or still is being encoded to be displayed! Until then, you can download it directly to your computer to watch in player of your choice.') ?></b>
@@ -256,8 +165,8 @@ class CloudFile extends File
 				{
 					?>
 					<audio controls="controls" preload="metadata">
-						<source src="titan.php?target=tScript&type=CloudFile&file=play&fileId=<?= $id ?>" />
-						<a href="titan.php?target=tScript&type=CloudFile&file=open&fileId=<?= $id ?>" target="_blank" title="<?= __ ('Play') ?>">
+						<source src="titan.php?target=tScript&type=CloudFile&file=play&fileId=<?= $id ?>&auth=1" />
+						<a href="titan.php?target=tScript&type=CloudFile&file=open&fileId=<?= $id ?>&auth=1" target="_blank" title="<?= __ ('Play') ?>">
 							<img src="titan.php?target=tResource&type=Note&file=play.png" border="0" alt="<?= __ ('Play') ?>" />
 						</a>
 					</audio>
@@ -269,7 +178,7 @@ class CloudFile extends File
 					?>
 					<div style="width: 343px; height: 106px;">
 						<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
-							<a href="titan.php?target=tScript&amp;type=CloudFile&amp;file=open&amp;fileId=<?= $id ?>" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&amp;type=CloudFile&amp;file=thumbnail&amp;fileId=<?= $id ?>&width=100&height=100" border="0" alt="<?= $alt ?>" /></a>
+							<a href="titan.php?target=tScript&type=CloudFile&file=open&fileId=<?= $id ?>&auth=1" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&type=CloudFile&file=thumbnail&fileId=<?= $id ?>&width=100&height=100&auth=1" border="0" alt="<?= $alt ?>" /></a>
 						</div>
 						<div style="position: relative; width: 220px; top: 10px; left: 110px; overflow: hidden; background-color: #FFF; text-align: justify;">
 							<b style="color: #900;"><?= __ ('This audio is not supported by native player of your browser or still is being encoded to be displayed! Until then, you can download it directly to your computer to listen in player of your choice.') ?></b>
@@ -285,7 +194,7 @@ class CloudFile extends File
 				?>
 				<div style="width: 343px; height: 106px;">
 					<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
-						<a href="titan.php?target=tScript&amp;type=CloudFile&amp;file=open&amp;fileId=<?= $id ?>" target="_blank"><img src="titan.php?target=tScript&amp;type=CloudFile&amp;file=thumbnail&amp;fileId=<?= $id ?>&width=100&height=100" border="0" /></a>
+						<a href="titan.php?target=tScript&type=CloudFile&file=open&fileId=<?= $id ?>&auth=1" target="_blank"><img src="titan.php?target=tScript&type=CloudFile&file=thumbnail&fileId=<?= $id ?>&width=100&height=100&auth=1" border="0" /></a>
 					</div>
 					<div style="position: relative; width: 220px; top: 10px; left: 110px; overflow: hidden; background-color: #FFF; text-align: left;">
 						<b><?= $obj->name ?></b> <br />
@@ -304,200 +213,36 @@ class CloudFile extends File
 	
 	public static function getPlayableFile ($id, $mimetype)
 	{
-		$file = self::getFilePath ($id);
+		$source = self::getFilePath ($id);
 		
-		if (!file_exists ($file) || !is_readable ($file) || !(int) filesize ($file))
-			throw new Exception ('This file is not available!');
+		$cache = Instance::singleton ()->getCachePath ();
 		
-		$supportedHtml5Types = array ('video/mp4', 'video/webm', 'video/ogg', 'audio/mpeg', 'audio/ogg', 'audio/wav');
+		if (!file_exists ($cache . self::ENCODE_FOLDER) && !@mkdir ($cache . self::ENCODE_FOLDER, 0777))
+			throw new Exception ('Unable create cache directory!');
 		
-		if (in_array ($mimetype, $supportedHtml5Types))
-			return $file;
+		if (!file_exists ($cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
+			throw new Exception ('Impossible to enhance security for folder ['. $cache . self::CACHE_FOLDER .'].');
 		
-		switch ($mimetype)
-		{
-			case 'audio/3gpp':
-			case 'audio/3gpp2':
-				
-				$cache = Instance::singleton ()->getCachePath ();
-				
-				$encoded = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.ogg';
-				
-				if (file_exists ($encoded) && is_readable ($encoded) && filesize ($encoded))
-					return $encoded;
-				
-				if (!file_exists ($cache . 'cloud-file') && !@mkdir ($cache . 'cloud-file', 0777))
-					throw new Exception ('Unable create cache directory!');
-				
-				if (!file_exists ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
-					throw new Exception ('Impossible to enhance security for folder ['. $cache . 'cloud-file].');
-				
-				if (!function_exists ('system'))
-					throw new Exception ("Is needle enable OS call functions (verify if PHP is not in safe mode)!");
-				
-				$control = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.encoding';
-				
-				if (!file_put_contents ($control, strftime ('%c'), LOCK_EX))
-					throw new Exception ('Impossible to create control file!');
-				
-				$log = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.3gp-ogg.log';
-				
-				// MP3 Stereo Best Quality: avconv -y -i file/cloud_0000016 -acodec libmp3lame -ab 192k -ac 2 -ar 44100 cache/cloud-file/encoded_0000016.mp3
-				// MP3 Mono Poor Quality: avconv -y -i file/cloud_0000016 -acodec libmp3lame -ab 64k -ac 1 -ar 22050 cache/cloud-file/encoded_0000016.mp3
-				// OGG: avconv -y -i "file/cloud_0000016" -acodec libvorbis -ac 2 "cache/cloud-file/encoded_0000016.ogg"
-				
-				system ('avconv -y -i "'. $file .'" -acodec libvorbis -ac 2 "'. $encoded .'" 2> "'. $log .'"', $return);
-				
-				unlink ($control);
-				
-				if ($return)
-				{
-					@unlink ($encoded);
-					
-					throw new Exception ('Has a problem with audio conversion! Verify if [avconv] exists in system and supports OGG codec (libvorbis). Read more in LOG file ['. $log .'].');
-				}
-				
-				return $encoded;
-			
-			case 'video/quicktime':
-				
-				$cache = Instance::singleton ()->getCachePath ();
-				
-				$encoded = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.webm';
-				
-				if (file_exists ($encoded) && is_readable ($encoded) && filesize ($encoded))
-					return $encoded;
-				
-				if (!file_exists ($cache . 'cloud-file') && !@mkdir ($cache . 'cloud-file', 0777))
-					throw new Exception ('Unable create cache directory!');
-				
-				if (!file_exists ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
-					throw new Exception ('Impossible to enhance security for folder ['. $cache . 'cloud-file].');
-				
-				if (!function_exists ('system'))
-					throw new Exception ("Is needle enable OS call functions (verify if PHP is not in safe mode)!");
-				
-				$control = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.encoding';
-				
-				if (!file_put_contents ($control, strftime ('%c'), LOCK_EX))
-					throw new Exception ('Impossible to create control file!');
-				
-				$log = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.mov-webm.log';
-				
-				system ('avconv -y -i "'. $file .'" "'. $encoded .'" 2> "'. $log .'"', $return);
-			
-				unlink ($control);
-			
-				if ($return)
-				{
-					@unlink ($encoded);
-					
-					throw new Exception ('Has a problem with video conversion! Verify if [avconv] exists in system and supports MP4 codec. Read more in LOG file ['. $log .'].');
-				}
-				
-				return $encoded;
-			
-			case 'video/x-ms-wmv':
-				
-				$cache = Instance::singleton ()->getCachePath ();
-				
-				$encoded = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.webm';
-				
-				if (file_exists ($encoded) && is_readable ($encoded) && filesize ($encoded))
-					return $encoded;
-				
-				if (!file_exists ($cache . 'cloud-file') && !@mkdir ($cache . 'cloud-file', 0777))
-					throw new Exception ('Unable create cache directory!');
-				
-				if (!file_exists ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
-					throw new Exception ('Impossible to enhance security for folder ['. $cache . 'cloud-file].');
-				
-				if (!function_exists ('system'))
-					throw new Exception ("Is needle enable OS call functions (verify if PHP is not in safe mode)!");
-				
-				$control = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.encoding';
-				
-				if (!file_put_contents ($control, strftime ('%c'), LOCK_EX))
-					throw new Exception ('Impossible to create control file!');
-				
-				$log = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.wmv-webm.log';
-				
-				system ('avconv -y -i "'. $file .'" "'. $encoded .'" 2> "'. $log .'"', $return);
-				
-				unlink ($control);
-				
-				if ($return)
-				{
-					@unlink ($encoded);
-					
-					throw new Exception ('Has a problem with video conversion! Verify if [avconv] exists in system and supports WebM codec. Read more in LOG file ['. $log .'].');
-				}
-				
-				return $encoded;
-			
-			case 'audio/x-ms-wma':
-				
-				$cache = Instance::singleton ()->getCachePath ();
-				
-				$encoded = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.ogg';
-				
-				if (file_exists ($encoded) && is_readable ($encoded) && filesize ($encoded))
-					return $encoded;
-				
-				if (!file_exists ($cache . 'cloud-file') && !@mkdir ($cache . 'cloud-file', 0777))
-					throw new Exception ('Unable create cache directory!');
-				
-				if (!file_exists ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . 'cloud-file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
-					throw new Exception ('Impossible to enhance security for folder ['. $cache . 'cloud-file].');
-				
-				if (!function_exists ('system'))
-					throw new Exception ("Is needle enable OS call functions (verify if PHP is not in safe mode)!");
-				
-				$control = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.encoding';
-				
-				if (!file_put_contents ($control, strftime ('%c'), LOCK_EX))
-					throw new Exception ('Impossible to create control file!');
-				
-				$log = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.wma-ogg.log';
-				
-				system ('avconv -y -i "'. $file .'" "'. $encoded .'" 2> "'. $log .'"', $return);
-				
-				unlink ($control);
-				
-				if ($return)
-				{
-					@unlink ($encoded);
-					
-					throw new Exception ('Has a problem with video conversion! Verify if [avconv] exists in system and supports OGG codec (libvorbis). Read more in LOG file ['. $log .'].');
-				}
-				
-				return $encoded;
-		}
+		$playable = $cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR . 'encoded_' . str_pad ($id, 19, '0', STR_PAD_LEFT);
 		
-		return $file;
+		return EncodeMedia::getHtml5PlayableFile ($source, $mimetype, $playable);
 	}
 	
 	public static function isReadyToPlay ($id, $mimetype)
 	{
-		$convertible = array (
-			'audio/3gpp' => 'ogg',
-			'audio/3gpp2' => 'ogg',
-			'video/quicktime' => 'webm',
-			'video/x-ms-wmv' => 'webm',
-			'audio/x-ms-wma' => 'ogg'
-		);
-		
 		if (!in_array (Archive::singleton ()->getAssume ($mimetype), array (Archive::VIDEO, Archive::AUDIO)))
 			return FALSE;
+		
+		$convertible = EncodeMedia::getEncodableTypes ();
 		
 		if (!array_key_exists ($mimetype, $convertible))
 			return TRUE;
 		
 		$cache = Instance::singleton ()->getCachePath ();
 		
-		$encoded = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.'. $convertible [$mimetype];
+		$encoded = $cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 19, '0', STR_PAD_LEFT) .'.'. $convertible [$mimetype];
 		
-		$control = $cache . 'cloud-file'. DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 7, '0', STR_PAD_LEFT) .'.encoding';
+		$control = $cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'encoded_' . str_pad ($id, 19, '0', STR_PAD_LEFT) .'.encoding';
 		
 		if (!file_exists ($encoded) || (!(int) filesize ($encoded) && (!file_exists ($control) || filemtime ($control) < strtotime ('-1 day'))))
 		{

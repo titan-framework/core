@@ -18,6 +18,9 @@ class Note extends Type
 	
 	public function __construct ($table, $field)
 	{
+		if (!Database::tableExists ('_cloud'))
+			throw new Exception ('The mandatory table [_cloud] do not exists! Its necessary to use type CloudFile.');
+		
 		parent::__construct ($table, $field);
 		
 		$this->setLoadable (FALSE);

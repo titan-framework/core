@@ -9,6 +9,8 @@ ob_clean ();
 
 set_time_limit (0);
 
+@ini_set ('memory_limit', '-1');
+
 $fileId = (int) $_GET ['fileId'];
 
 try

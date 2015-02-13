@@ -26,6 +26,7 @@ class/Business.php -text
 class/Cache.php -text
 class/Database.php -text
 class/DatabaseMaker.php -text
+class/EncodeMedia.php -text
 class/Facade.php -text
 class/Form.php -text
 class/Graph.php -text
@@ -2999,6 +3000,7 @@ repos/template/global.rss.php -text
 repos/template/global.search.php -text
 repos/template/global.version.php -text
 repos/template/global.view.php -text
+repos/tool/global.ConvertFileToCloud/bootstrap.php -text
 repos/tool/global.ConvertToUtf8/bootstrap.php -text
 repos/tool/global.DatabaseMaker/bootstrap.php -text
 repos/tool/global.FilesMimeType/bootstrap.php -text
@@ -3420,8 +3422,12 @@ repos/type/global.CKEditor/CKEditor/skins/moono/readme.md -text
 repos/type/global.CKEditor/CKEditor/styles.js -text
 repos/type/global.CKEditor/LICENSE -text
 repos/type/global.CKEditor/README -text
+repos/type/global.CKEditor/_ajax.php -text
 repos/type/global.CKEditor/_css.php -text
 repos/type/global.CKEditor/_js.php -text
+repos/type/global.CKEditor/_script/open.php -text
+repos/type/global.CKEditor/_script/play.php -text
+repos/type/global.CKEditor/_script/streaming.php -text
 repos/type/global.CKEditor/_script/upload.php -text
 repos/type/global.CKEditor/toForm.php -text
 repos/type/global.Cascade/Cascade.php -text
@@ -3463,6 +3469,7 @@ repos/type/global.City/_js.php -text
 repos/type/global.City/toForm.php -text
 repos/type/global.CloudFile/CloudFile.php -text
 repos/type/global.CloudFile/LICENSE -text
+repos/type/global.CloudFile/MFCBFB3.tmp -text
 repos/type/global.CloudFile/_ajax.php -text
 repos/type/global.CloudFile/_api/delete.php -text
 repos/type/global.CloudFile/_api/get.php -text
@@ -3484,6 +3491,7 @@ repos/type/global.CloudFile/toApi.php -text
 repos/type/global.CloudFile/toConstraint.php -text
 repos/type/global.CloudFile/toForm.php -text
 repos/type/global.CloudFile/toHtml.php -text
+repos/type/global.CloudFile/toList.php -text
 repos/type/global.CloudFile/toText.php -text
 repos/type/global.Cnpj/Cnpj.php -text
 repos/type/global.Cnpj/LICENSE -text

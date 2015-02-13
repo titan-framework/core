@@ -124,7 +124,7 @@ try
 	
 	$sth->execute ();
 	
-	$file = realpath ($archive->getDataPath ()) . DIRECTORY_SEPARATOR .'cloud_'. str_pad ($id, 7, '0', STR_PAD_LEFT);
+	$file = realpath (CloudFile::getFilePath ($id));
 	
 	if (!move_uploaded_file ($temp, $file))
 		if (!rename ($temp, $file))

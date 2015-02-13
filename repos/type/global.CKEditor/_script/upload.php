@@ -78,38 +78,42 @@ $media = $_GET['media'];
 							$types [] = $aux;
 						}
 						
-						throw new Exception (__ ('This type of file ([1]) is not accept at this field! Files accepts are: [2].', $fileType, implode (', ', $types)));
+						throw new Exception (__ ('This type of file ([1]) is not accept at this field! Files accepts are: [2].', strtoupper ($archive->getExtensionByMime ($fileType)), implode (', ', $types)));
 					}
 				}
 
-				$id = Database::nextId ('_cloud', '_id');
+				$id = Database::nextId ('_ckeditor', '_id');
 				
-				$sth = $db->prepare ("INSERT INTO _cloud (_id, _name, _mimetype, _size, _user, _ready, _devise, _change, _author)
-									  VALUES (:id, :name, :type, :size, :user, B'1', now(), now(), :user)");
+				$hash = CKEditor::getRandomHash ();
+				
+				$sth = $db->prepare ("INSERT INTO _ckeditor (_id, _name, _mimetype, _size, _user, _hash)
+									  VALUES (:id, :name, :type, :size, :user, :hash)");
 				
 				$sth->bindParam (':id', $id, PDO::PARAM_INT);
-				$sth->bindParam (':name', $fileName, PDO::PARAM_STR);
-				$sth->bindParam (':type', $fileType, PDO::PARAM_STR);
+				$sth->bindParam (':name', $fileName, PDO::PARAM_STR, 256);
+				$sth->bindParam (':type', $fileType, PDO::PARAM_STR, 256);
 				$sth->bindParam (':size', $fileSize, PDO::PARAM_INT);
 				$sth->bindParam (':user', User::singleton ()->getId (), PDO::PARAM_INT);
+				$sth->bindParam (':hash', $hash, PDO::PARAM_STR, 32);
 				
 				$sth->execute ();
 				
-				$path = CloudFile::getFilePath ($id);
+				$path = CKEditor::getFilePath ($id);
 				
 				if (move_uploaded_file ($fileTemp, $path))
 				{
 					try
 					{
-						CloudFile::getPlayableFile ($id, $fileType);
+						CKEditor::getPlayableFile ($id, $fileType);
 					}
 					catch (Exception $e)
 					{
 						toLog ($e->getMessage ());
 					}
+					
 					?>
 					<script language="javascript" type="text/javascript">
-						parent.global.CKEditor.imageUploadSuccess ('<?= $field ?>', '<?= $media ?>', <?= $id ?>);
+						parent.global.CKEditor.imageUploadSuccess ('<?= $field ?>', '<?= $media ?>', <?= $id ?>, '<?= $hash ?>');
 					</script>
 					<?
 				}
