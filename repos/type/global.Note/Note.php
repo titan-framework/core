@@ -205,14 +205,4 @@ class Note extends Type
 		
 		$this->setValue ($sth->fetchAll (PDO::FETCH_COLUMN, 0));
 	}
-	
-	public static function useGoogleMapsApi ()
-	{
-		return trim (Instance::singleton ()->getAttribute ('Google_Maps_JavaScript_API_v3_Key')) != '';
-	}
-	
-	public static function getGoogleMapsApiKey ()
-	{
-		return trim (Instance::singleton ()->getAttribute ('Google_Maps_JavaScript_API_v3_Key'));
-	}
 }

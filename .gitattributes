@@ -3653,6 +3653,15 @@ repos/type/global.Login/LICENSE -text
 repos/type/global.Login/Login.php -text
 repos/type/global.Login/_js.php -text
 repos/type/global.Login/toForm.php -text
+repos/type/global.Map/Map.php -text
+repos/type/global.Map/_css.php -text
+repos/type/global.Map/_js.php -text
+repos/type/global.Map/fromDb.php -text
+repos/type/global.Map/toBind.php -text
+repos/type/global.Map/toForm.php -text
+repos/type/global.Map/toHtml.php -text
+repos/type/global.Map/toList.php -text
+repos/type/global.Map/toSql.php -text
 repos/type/global.Money/LICENSE -text
 repos/type/global.Money/Money.php -text
 repos/type/global.Money/fromDb.php -text

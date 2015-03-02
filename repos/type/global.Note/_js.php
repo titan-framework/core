@@ -1,3 +1,4 @@
+<script type="text/javascript" src="titan.php?target=tResource&type=Note&file=oms.min.js"></script>
 <script language="javascript" type="text/javascript">
 'global.Note'.namespace ();
 
@@ -14,17 +15,6 @@ global.Note.view = function (id, icon)
 
 global.Note.earth = function (id, field, latitude, longitude, title, date, author, description)
 {
-	<?
-	if (!Note::useGoogleMapsApi ())
-	{
-		?>
-		document.location = 'titan.php?target=tScript&type=Note&file=kml&note=' + id;
-		
-		return false;
-		<?
-	}
-	?>
-	
 	oBody = document.body;
 		
 	h = oBody.scrollHeight + (oBody.offsetHeight - oBody.clientHeight) - 70;
@@ -154,10 +144,3 @@ global.Note.delete = function (id, icon)
     alert (id);
 }
 </script>
-<?
-if (Note::useGoogleMapsApi ())
-{
-	echo '<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key='. Note::getGoogleMapsApiKey () .'&sensor=FALSE"></script>';
-	echo '<script type="text/javascript" src="titan.php?target=tResource&type=Note&file=oms.min.js"></script>';
-}
-?>
