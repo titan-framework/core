@@ -29,6 +29,7 @@ class/DatabaseMaker.php -text
 class/EncodeMedia.php -text
 class/Facade.php -text
 class/Form.php -text
+class/GoogleMaps.php -text
 class/Graph.php -text
 class/Group.php -text
 class/Icon.php -text
