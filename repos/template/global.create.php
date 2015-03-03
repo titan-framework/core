@@ -186,6 +186,7 @@
 				<legend onclick="JavaScript: showGroup (<?= $key ?>); return false;">
 					<?= $group->getLabel () ?>
 				</legend>
+				<?= trim ($group->getInfo ()) != '' ? '<div class="info">'. $group->getInfo () .'</div>' : '' ?>
 				<div>
 					<?= $output ?>
 				</div>
