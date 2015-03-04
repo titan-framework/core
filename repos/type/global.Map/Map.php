@@ -16,6 +16,9 @@ class Map extends Type
 	
 	public function setValue ($value)
 	{
+		if (is_string ($value))
+			$value = explode (',', $value);
+		
 		if (!is_array ($value) || sizeof ($value) != 2)
 			return;
 		
