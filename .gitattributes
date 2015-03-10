@@ -3473,6 +3473,7 @@ repos/type/global.CloudFile/LICENSE -text
 repos/type/global.CloudFile/_ajax.php -text
 repos/type/global.CloudFile/_api/delete.php -text
 repos/type/global.CloudFile/_api/get.php -text
+repos/type/global.CloudFile/_api/metadata.php -text
 repos/type/global.CloudFile/_api/patch.php -text
 repos/type/global.CloudFile/_api/put.php -text
 repos/type/global.CloudFile/_css.php -text
@@ -3752,6 +3753,8 @@ repos/type/global.ShoppingGateway/ShoppingGateway.php -text
 repos/type/global.ShoppingGateway/toForm.php -text
 repos/type/global.ShoppingGateway/toHtml.php -text
 repos/type/global.ShoppingGateway/toValue.php -text
+repos/type/global.Slider/Slider.php -text
+repos/type/global.Slider/toForm.php -text
 repos/type/global.Slug/LICENSE -text
 repos/type/global.Slug/Slug.php -text
 repos/type/global.Slug/_ajax.php -text

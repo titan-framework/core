@@ -9,6 +9,7 @@
 	<type name="Float" component="global.Float" />
 	<type name="File" component="global.File" />
 	<type name="Amount" component="global.Amount" />
+	<type name="Slider" component="global.Slider" />
 	<type name="Cep" component="global.Cep" />
 	<type name="City" component="global.City" />
 	<type name="State" component="global.State" />
