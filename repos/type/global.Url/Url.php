@@ -8,12 +8,19 @@ class Url extends String
 		parent::__construct ($table, $field);
 		
 		if (array_key_exists ('prefix', $field))
-			$this->prefix = trim ($field ['prefix']);
+			$this->setPrefix ($field ['prefix']);
 	}
 	
 	public function getPrefix ()
 	{
 		return $this->prefix;
+	}
+	
+	public function setPrefix ($prefix)
+	{
+		$prefix = str_replace ('[default]', Instance::singleton ()->getUrl (), trim ($prefix));
+		
+		$this->prefix = $prefix;
 	}
 	
 	public function isEmpty ()

@@ -1,3 +1,8 @@
 <?
-return '<a href="'. $field->getValue () .'" style="'. $field->getStyle () .'" target="_blank">'. ($field->getMaxLength () ? String::limit ($field->getValue (), $field->getMaxLength ()) : $field->getValue ()) .'</a>';
+if (strpos ($field->getValue (), $field->getPrefix ()) !== 0)
+	$value = $field->getPrefix () . $field->getValue ();
+else
+	$value = $field->getValue ();
+
+return '<a href="'. $value .'" style="'. $field->getStyle () .'" target="_blank">'. ($field->getMaxLength () ? String::limit ($value, $field->getMaxLength ()) : $value) .'</a>';
 ?>

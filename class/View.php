@@ -301,8 +301,11 @@ class View
 		if ($field !== FALSE)
 		{
 			$field = $field ['value'];
-
-			if ($this->default === FALSE || !is_object ($this->getDefaultIcon ()))
+			
+			$icon = $this->getDefaultIcon ();
+			
+			if ($this->default === FALSE || !is_object ($icon) ||
+				(array_key_exists ($icon->getId (), $this->disabledIcons) && is_array ($this->disabledIcons [$icon->getId ()]) && in_array ($this->getId (), $this->disabledIcons [$icon->getId ()])))
 				return (string) self::toList ($field, $this->getId ());
 
 			return '<a '. $this->getDefaultIcon ()->makeLink ($this->getId ()) .'>'. self::toList ($field, $this->getId ()) .'</a>';
