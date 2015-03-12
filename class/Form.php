@@ -537,7 +537,14 @@ class Form
 		$mandatory = Database::getMandatoryColumns ($this->getTable ());
 		
 		foreach ($mandatory as $trash => $column)
-			$$column = $this->getFieldByColumn ($column);
+		{
+			$aux = $this->getFieldByColumn ($column);
+			
+			if (is_null ($aux) || !is_object ($aux) || !$aux->isSavable ())
+				continue;
+			
+			$$column = $aux;
+		}
 		
 		if (in_array ('_user', $mandatory) && !isset ($_user))
 		{
@@ -556,9 +563,7 @@ class Form
 			$fields [] = '_change';
 			$values [] = 'NOW()';
 		}
-
-		// throw new Exception ($itemId);
-
+		
 		if (!is_numeric ($itemId) || (int) $itemId)
 		{
 			$aux = array ();
