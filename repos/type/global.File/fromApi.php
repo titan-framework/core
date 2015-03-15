@@ -1,4 +1,5 @@
-<?
+<?php
+
 $archive = Archive::singleton ();
 
 if (!isset ($value) || !is_array ($value) || !array_key_exists ('size', $value) || !(int) $value ['size'])
@@ -44,7 +45,7 @@ try
 	
 	$sth->execute ();
 	
-	$file = realpath ($archive->getDataPath ()) . DIRECTORY_SEPARATOR .'file_'. str_pad ($id, 7, '0', STR_PAD_LEFT);
+	$file = realpath (File::getFilePath ());
 
 	if (is_uploaded_file ($fileTemp))
 	{
@@ -74,4 +75,3 @@ catch (Exception $e)
 }
 
 return NULL;
-?>

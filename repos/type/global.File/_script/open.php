@@ -1,20 +1,7 @@
-<?
+<?php
+
 if (!isset ($_GET ['fileId']) || !$_GET['fileId'] || !is_numeric ($_GET['fileId']))
 	exit ();
-
-if (isset ($_GET['width']) && is_numeric ($_GET['width']))
-	$width = (int) $_GET['width'];
-else
-	$width = 0;
-
-if (isset ($_GET['height']) && is_numeric ($_GET['height']))
-	$height = (int) $_GET['height'];
-else
-	$height = 0;
-	
-$force = isset ($_GET['force']) && $_GET['force'] == '1' ? TRUE : FALSE;
-
-$bw = isset ($_GET['bw']) && $_GET['bw'] == '1' ? TRUE : FALSE;
 
 $fileId = (int) $_GET ['fileId'];
 
@@ -43,17 +30,13 @@ try
 	$archive = Archive::singleton ();
 	
 	if (!$archive->isAcceptable ($obj->_mimetype))
-		throw new Exception ('This file type is not supported!');
+		throw new Exception ('This file type ('. $obj->mimetype .') is not supported!');
 }
 catch (PDOException $e)
 {
 	toLog ($e->getMessage ());
 	
-	die ('Critical error!');
-}
-catch (Exception $e)
-{
-	die ($e->getMessage ());
+	throw new Exception ('Critical database error!');
 }
 
 if (isset ($_GET['assume']))
@@ -61,10 +44,10 @@ if (isset ($_GET['assume']))
 else
 	$assume = $archive->getAssume ($obj->_mimetype);
 
-$filePath = $archive->getDataPath () . 'file_' . str_pad ($fileId, 19, '0', STR_PAD_LEFT);
+$filePath = File::getFilePath ($fileId);
 
 if (!file_exists ($filePath))
-	$filePath = $archive->getDataPath () . 'file_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT);
+	$filePath = File::getLegacyFilePath ($fileId);
 
 if (!file_exists ($filePath))
 	die ('This file is not available!');
@@ -74,13 +57,6 @@ $contentType = $obj->_mimetype;
 switch ($assume)
 {
 	case Archive::IMAGE:
-		if ($width || $height || $bw)
-			resize ($filePath, $contentType, $width, $height, $force, $bw);
-		
-		header ('Content-Type: '. $contentType);
-		header ('Content-Disposition: inline; filename=' . fileName ($obj->_name));
-		break;
-	
 	case Archive::OPEN:
 		header ('Content-Type: '. $contentType);
 		header ('Content-Disposition: inline; filename=' . fileName ($obj->_name));
@@ -94,6 +70,12 @@ switch ($assume)
 		header('Content-Disposition: attachment; filename=' . fileName ($obj->_name));
 		break;
 }
+
+ob_clean ();
+
+@apache_setenv ('no-gzip', 1);
+
+@ini_set ('zlib.output_compression', 'Off');
 
 $binary = fopen ($filePath, 'rb');
 
@@ -113,4 +95,3 @@ try
 }
 catch (PDOException $e)
 {}
-?>

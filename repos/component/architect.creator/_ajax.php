@@ -528,17 +528,20 @@ class Ajax
 
 		try
 		{
-			$fileSrc = Archive::singleton ()->getDataPath () . 'file_' . str_pad ($id, 7, '0', STR_PAD_LEFT);
-
-			$fileDst = 'instance/' . $name . '/image/logo_' . str_pad ($id, 7, '0', STR_PAD_LEFT);
-
+			$fileSrc = File::getFilePath ($id);
+			
+			if (!file_exists ($fileSrc))
+				$fileSrc = File::getLegacyFilePath ($id);
+			
 			if (!file_exists ($fileSrc))
 				throw new Exception ('O arquivo não existe fisicamente no diretório de arquivos. ['. $fileSrc .']');
-
+			
+			$fileDst = 'instance/' . $name . '/image/logo_' . str_pad ($id, 19, '0', STR_PAD_LEFT);
+			
 			if (!copy ($fileSrc, $fileDst))
 				throw new Exception ('Impossível copiar o arquivo para a aplicação instanciada.');
 
-			$array = array ('skin' => array ('logo' => 'image/logo_' . str_pad ($id, 7, '0', STR_PAD_LEFT)));
+			$array = array ('skin' => array ('logo' => 'image/logo_' . str_pad ($id, 19, '0', STR_PAD_LEFT)));
 
 			customizeTitan ($array, 'instance/'. $name .'/configure/titan.xml');
 

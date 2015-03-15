@@ -83,7 +83,7 @@ class Archive
 	
 	public function getFilePath ($id)
 	{
-		return $this->dataPath . 'file_'. str_pad ($id, 7, '0', STR_PAD_LEFT);
+		return file_exists (File::getLegacyFilePath ($id)) ? File::getLegacyFilePath ($id) : File::getFilePath ($id);
 	}
 
 	public function isAcceptable ($mime, $assume = FALSE)

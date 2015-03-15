@@ -53,7 +53,7 @@ foreach ($files as $trash => $file)
 		
 		$sth->execute ();
 		
-		if (!move_uploaded_file ($fileTemp, Archive::singleton ()->getDataPath () . 'file_'. str_pad ($fileId, 7, '0', STR_PAD_LEFT)))
+		if (!move_uploaded_file ($fileTemp, File::getFilePath ($fileId)))
 			throw new Exception ('O arquivo ['. $fileName .'] não pode ser copiado na pasta ['. Archive::singleton ()->getDataPath () .'].');
 		
 		$db->commit ();

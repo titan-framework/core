@@ -38,15 +38,6 @@ class CloudFile extends File
 		return Archive::singleton ()->getDataPath () . 'cloud_' . str_pad ($id, 19, '0', STR_PAD_LEFT);
 	}
 	
-	public static function formatFileSizeForHuman ($bytes, $decimals = 0)
-	{
-		$size = array ('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
-		
-		$factor = floor ((strlen ($bytes) - 1) / 3);
-		
-		return sprintf ("%.{$decimals}f", $bytes / pow (1024, $factor)) .' '. @$size [$factor];
-	}
-	
 	public static function resize ($id, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE)
 	{
 		$source = self::getFilePath ($id);
@@ -57,7 +48,7 @@ class CloudFile extends File
 			throw new Exception ('Unable create cache directory!');
 		
 		if (!file_exists ($cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
-			throw new Exception ('Impossible to enhance security for folder ['. $cache . self::CACHE_FOLDER .'].');
+			throw new Exception ('Impossible to enhance security for folder ['. $cache . self::ENCODE_FOLDER .'].');
 		
 		$destination = $cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'resized_' . str_pad ($id, 19, '0', STR_PAD_LEFT) .'_'. $width .'x'. $height .'_'. ($force ? '1' : '0') .'_'. ($bw ? '1' : '0');
 		
@@ -76,7 +67,7 @@ class CloudFile extends File
 			$db = Database::singleton ();
 			
 			$sth = $db->prepare ("SELECT c._name AS name, c._size AS size, c._mimetype AS mime, u._name AS user, u._email AS email,
-								  EXTRACT (EPOCH FROM _devise) AS taken
+								  EXTRACT (EPOCH FROM c._devise) AS taken
 								  FROM _cloud c 
 								  LEFT JOIN _user u ON u._id = c._user
 								  WHERE c._id = :id AND c._ready = B'1' AND c._deleted = B'0'");
@@ -124,7 +115,7 @@ class CloudFile extends File
 		switch ($archive->getAssume ($obj->mime))
 		{
 			case Archive::IMAGE:
-				$alt = $obj->name ." (". CloudFile::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
+				$alt = $obj->name ." (". File::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
 				?>
 				<a href="titan.php?target=tScript&type=CloudFile&file=open&fileId=<?= $id ?>&auth=1" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&type=CloudFile&file=thumbnail&fileId=<?= $id ?>&height=<?= $dimension ?>&auth=1" alt="<?= $alt ?>" border="0" /></a>
 				<?
@@ -145,7 +136,7 @@ class CloudFile extends File
 				}
 				else
 				{
-					$alt = $obj->name ." (". CloudFile::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
+					$alt = $obj->name ." (". File::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
 					?>
 					<div style="width: 343px; height: 106px;">
 						<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
@@ -174,7 +165,7 @@ class CloudFile extends File
 				}
 				else
 				{
-					$alt = $obj->name ." (". CloudFile::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
+					$alt = $obj->name ." (". File::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
 					?>
 					<div style="width: 343px; height: 106px;">
 						<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
@@ -198,7 +189,7 @@ class CloudFile extends File
 					</div>
 					<div style="position: relative; width: 220px; top: 10px; left: 110px; overflow: hidden; background-color: #FFF; text-align: left;">
 						<b><?= $obj->name ?></b> <br />
-						<?= self::formatFileSizeForHuman ($obj->size) ?> <br />
+						<?= File::formatFileSizeForHuman ($obj->size) ?> <br />
 						<?= $obj->mime ?> <br /><br />
 						<?= $obj->user ?> <br />
 						<?= $obj->email ?> <br />

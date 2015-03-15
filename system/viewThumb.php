@@ -45,7 +45,8 @@ if (isset ($_GET['assume']))
 else
 	$assume = $archive->getAssume ($obj->_mimetype);
 
-if (!file_exists ($archive->getDataPath () . 'file_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT)))
+if (!file_exists ($archive->getDataPath () . 'file_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT)) &&
+	!file_exists ($archive->getDataPath () . 'file_' . str_pad ($fileId, 19, '0', STR_PAD_LEFT)))
 	die ();
 
 $filePath = Instance::singleton ()->getCorePath () .'interface/file/' . $archive->getIcon ($obj->_mimetype) . '.gif';
@@ -55,7 +56,10 @@ $contentType = 'image/png';
 switch ($assume)
 {
 	case Archive::IMAGE:
-		$filePath = $archive->getDataPath () . 'file_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT);
+		$filePath = $archive->getDataPath () . 'file_' . str_pad ($fileId, 19, '0', STR_PAD_LEFT);
+		
+		if (!file_exists ($filePath))
+			$filePath = $archive->getDataPath () . 'file_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT);
 		
 		$contentType = $obj->_mimetype;
 		

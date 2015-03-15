@@ -81,7 +81,10 @@ catch (Exception $e)
 	throw new ApiException ('System error!', ApiException::ERROR_SYSTEM);
 }
 
-$path = $archive->getDataPath () . 'file_' . str_pad ($photo, 7, '0', STR_PAD_LEFT);
+$path = File::getFilePath ($photo);
+
+if (!file_exists ($path))
+	$path = File::getLegacyFilePath ($photo);
 
 if (!file_exists ($path))
 	throw new ApiException ('The user does not have any photo!', ApiException::ERROR_RESOURCE_MISSING, ApiException::NOT_FOUND);

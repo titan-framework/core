@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="pt_BR">
+	<message
+		from="Unlink File"
+		to="Apagar Arquivo"
+	/>
+	
+	<message
+		from="There was a severe error when trying to load file! Please, contact your administrator."
+		to="Ocorre um erro severo ao tentar carregar o arquivo! Por favor, contacte o administrador."
+	/>
+	
+	<message
+		from="The file does not physically exist on the system."
+		to="O arquivo não existe fisicamente no sistema."
+	/>
+	
+	<message
+		from="There is no associated file!"
+		to="Não há um arquivo associado."
+	/>
+	
+	<message
+		from="This type of file is not accepted by the system ([1])!"
+		to="Este tipo de arquivo não é aceito pelo sistema ([1])!"
+	/>
+	
+	<message
+		from="This type of file ([1]) is not accept at this field! Files accepts are: [2]."
+		to="Este tipo de arquivo ([1]) não é aceito neste campo! Os arquivos aceitos são: [2]."
+	/>
+	
+	<message
+		from="By [1] ([2]) on [3]."
+		to="Por [1] ([2]) em [3]."
+	/>
+	
+	<message
+		from="Play"
+		to="Reproduzir"
+	/>
+	
+	<message
+		from="This video is not supported by native player of your browser or still is being encoded to be displayed! Until then, you can download it directly to your computer to watch in player of your choice."
+		to="Este vídeo não é suportado pelo reprodutor nativo do seu navegador ou ainda está sendo convertido para poder ser reproduzido! Até lá você pode baixá-lo diretamente para o seu computador para assistí-lo no reprodutor de sua preferência."
+	/>
+	
+	<message
+		from="This audio is not supported by native player of your browser or still is being encoded to be displayed! Until then, you can download it directly to your computer to listen in player of your choice."
+		to="Este áudio não é suportado pelo reprodutor nativo do seu navegador ou ainda está sendo convertido para poder ser reproduzido! Até lá você pode baixá-lo diretamente para o seu computador para ouví-lo no reprodutor de sua preferência."
+	/>
+	
+	<message
+		from="This file is not available!"
+		to="Este arquivo não está disponível!"
+	/>
+	
+	<message
+		from="You do not have permission to modify this file!"
+		to="Você não tem permissão para modificar este arquivo!"
+	/>
+	
+	<message
+		from="This file type ([1]) is not supported!"
+		to="Este tipo de arquivo ([1]) não é aceito pelo sistema!"
+	/>
+	
+	<message
+		from="Unable copy file to directory [[1]]!"
+		to="Impossível copiar o arquivo [[1]]!"
+	/>
+	
+	<message
+		from="Wait! Sending..."
+		to="Aguarde! Enviando..."
+	/>
+	
+	<message
+		from="Max Size:"
+		to="Tamanho Máximo:"
+	/>
+	
+	<message
+		from="Send File"
+		to="Enviar Arquivo"
+	/>
+	
+	<message
+		from="Recovery from archive..."
+		to="Recuperar do arquivo..."
+	/>
+	
+	<message
+		from="Showing recent files sent."
+		to="Exibindo arquivos recentemente enviados."
+	/>
+	
+	<message
+		from="This search term is too short. Use at least 3 characters."
+		to="Este termo de busca é muito curto. Utilize pelo menos 3 caracteres."
+	/>
+	
+	<message
+		from="results found"
+		to="resultados encontrados"
+	/>
+	
+	<message
+		from="Showing results for the term"
+		to="Exibindo resultados para o termo"
+	/>
+</i18n>

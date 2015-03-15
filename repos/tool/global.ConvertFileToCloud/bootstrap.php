@@ -112,6 +112,10 @@ try
 	while ($obj = $sth->fetch (PDO::FETCH_OBJ))
 	{
 		$src = $path . 'file_' . str_pad ($obj->_id, 7, '0', STR_PAD_LEFT);
+		
+		if (!file_exists ($src))
+			$src = $path . 'file_' . str_pad ($obj->_id, 19, '0', STR_PAD_LEFT);
+		
 		$dst = $path . 'cloud_' . str_pad ($obj->_id, 19, '0', STR_PAD_LEFT);
 		
 		if (file_exists ($src) && is_readable ($src) && (int) filesize ($src))

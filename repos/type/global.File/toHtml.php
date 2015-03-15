@@ -1,39 +1,24 @@
 <?
 ob_start ();
 
-$aux = new Xoad ();
-
-if ($field->showDetails ())
+if ($field->getValue ())
 {
-	?>
-	<div style="position: relative; width: 300px; height: 106px; top: 0px; left: 0px; border-width: 1px; border-color: #CCCCCC; border-style: solid; background-color: #FFFFFF;">
-		<div id="preload_file_<?= $fieldId ?>" style="display: <?= $field->getValue () ? '' : 'none' ?>; position: absolute; width: 300px; height: 106; top: 0px; left: 0px; background-color: #FFFFFF;">
-			<?
-			echo $aux->getFileResume ($field->getValue ());
-			?>
+	try
+	{
+		$out = File::synopsis ($field->getValue (), $field->getFilter (), $field->getResolution ());
+		?>
+		<div style="position: relative; border: 1px #CCC solid; background-color: #FFF; padding: 2px; float: left;">
+			<?= $out ?>
 		</div>
-		<div id="not_file_<?= $fieldId ?>" style="display: <?= $field->getValue () ? 'none' : '' ?>; position: absolute; width: 300px; height: 106px; top: 0px; left: 0px; background-color: #FFFFFF;">
-			<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
-				<img src="titan.php?target=loadFile&file=interface/file/file.gif" border="0">
-			</div>				
-			<div style="position: absolute; width: 190px; top: 10px; left: 105px; color: #990000; font-weight: bold; overflow: hidden;">Nenhum arquivo foi selecionado ou o arquivo não existe!</div>
-		</div>
-	</div>	
-	<?
+		<?
+	}
+	catch (Exception $e)
+	{
+		echo '<b style="color: #900;">'. $e->getMessage () .'</b>';
+	}
 }
 else
-{
-	?>
-	<span style="display: inline-block; border-width: 1px; border-color: #CCCCCC; border-style: solid; background-color: #FFFFFF; padding: 2px;">
-		<?
-		if ($field->getValue ())
-			echo $aux->getFileResume ($field->getValue (), $field->showDetails (), $field->getResolution ());
-		else
-			echo '<img src="titan.php?target=loadFile&file=interface/file/file.gif" border="0">';
-		?>
-	</span>
-	<?
-}
+	echo '<img src="titan.php?target=tResource&type=File&file=no-file.png" border="0" />';
 
 return ob_get_clean ();
 ?>

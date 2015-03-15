@@ -37,13 +37,15 @@ class Ajax
 
 				try
 				{
-					$sql = "DELETE FROM _file WHERE _id = '". $id ."'";
+					$sql = "DELETE FROM _file WHERE _id = :id";
 
-					$db->exec ($sql);
-
-					$file = $archive->getDataPath () . 'file_' . str_pad ($id, 7, '0', STR_PAD_LEFT);
-
-					if (!@unlink ($file) && file_exists ($file) && $instance->onDebugMode ())
+					$sth = $db->prepare ($sql);
+					
+					$sth->bindParam (':id', $id, PDO::PARAM_INT);
+					
+					$sth->execute ();
+					
+					if (!@unlink (File::getFilePath ($id)) && !@unlink (File::getLegacyFilePath ($id)))
 						throw new Exception ('O arquivo ['. $files [$id] .' ('. $id .')] foi apagado do BD, mas não pôde ser deletado da pasta de arquivos.');
 				}
 				catch (PDOException $e)

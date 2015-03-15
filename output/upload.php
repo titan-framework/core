@@ -73,7 +73,7 @@ ob_start ();
 				
 				$sth->execute ();
 
-				if (move_uploaded_file ($fileTemp, $archive->getDataPath () . 'file_'. str_pad ($fileId, 7, '0', STR_PAD_LEFT)))
+				if (move_uploaded_file ($fileTemp, File::getFilePath ($fileId)))
 				{
 					Lucene::singleton ()->saveFile ($fileId);
 					?>

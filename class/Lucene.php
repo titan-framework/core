@@ -446,7 +446,10 @@ class Lucene
 	{
 		$file = 'file_'. str_pad ($obj->_id, 7, '0', STR_PAD_LEFT);
 		
-		$original = Archive::singleton ()->getDataPath () . $file;
+		$original = File::getFilePath ($obj->_id);
+		
+		if (!file_exists ($original))
+			$original = File::getLegacyFilePath ($obj->_id);
 		
 		if (!file_exists ($original))
 			throw new Exception (__ ('File dont exists [[1]].', $original));
@@ -462,7 +465,7 @@ class Lucene
 		if (!file_exists ($path . $file) || !(int) filesize ($path . $file))
 			throw new Exception  (__ ('Impossible to create [[1]].', $path . $file));
 		
-		$content = $obj->_name ." \n\n". $obj->_description ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". file_get_contents ($path . $file);
+		$content = $obj->_name ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". file_get_contents ($path . $file);
 		
 		$url = 'titan.php?target=openFile&fileId='. $obj->_id;
 		
@@ -483,14 +486,17 @@ class Lucene
 	{
 		$file = 'file_'. str_pad ($obj->_id, 7, '0', STR_PAD_LEFT);
 		
-		$original = Archive::singleton ()->getDataPath () . $file;
+		$original = File::getFilePath ($obj->_id);
+		
+		if (!file_exists ($original))
+			$original = File::getLegacyFilePath ($obj->_id);
 		
 		if (!file_exists ($original))
 			throw new Exception (__ ('File dont exists [[1]].', $original));
 		
 		$doc = Zend_Search_Lucene_Document_Docx::loadDocxFile ($original, FALSE);
 		
-		$content = $obj->_name ." \n\n". $obj->_description ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". $doc->body;
+		$content = $obj->_name ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". $doc->body;
 		
 		$url = 'titan.php?target=openFile&fileId='. $obj->_id;
 		        
@@ -509,14 +515,17 @@ class Lucene
 	{
 		$file = 'file_'. str_pad ($obj->_id, 7, '0', STR_PAD_LEFT);
 		
-		$original = Archive::singleton ()->getDataPath () . $file;
+		$original = File::getFilePath ($obj->_id);
+		
+		if (!file_exists ($original))
+			$original = File::getLegacyFilePath ($obj->_id);
 		
 		if (!file_exists ($original))
 			throw new Exception (__ ('File dont exists [[1]].', $original));
 		
 		$doc = Zend_Search_Lucene_Document_Pptx::loadPptxFile ($original, FALSE);
 		
-		$content = $obj->_name ." \n\n". $obj->_description ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". $doc->body;
+		$content = $obj->_name ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". $doc->body;
 		
 		$url = 'titan.php?target=openFile&fileId='. $obj->_id;
 		        
@@ -535,14 +544,17 @@ class Lucene
 	{
 		$file = 'file_'. str_pad ($obj->_id, 7, '0', STR_PAD_LEFT);
 		
-		$original = Archive::singleton ()->getDataPath () . $file;
+		$original = File::getFilePath ($obj->_id);
+		
+		if (!file_exists ($original))
+			$original = File::getLegacyFilePath ($obj->_id);
 		
 		if (!file_exists ($original))
 			throw new Exception (__ ('File dont exists [[1]].', $original));
 		
 		$doc = Zend_Search_Lucene_Document_Xlsx::loadXlsxFile ($original, FALSE);
 		
-		$content = $obj->_name ." \n\n". $obj->_description ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". $doc->body;
+		$content = $obj->_name ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". $doc->body;
 		
 		$url = 'titan.php?target=openFile&fileId='. $obj->_id;
 		        
@@ -561,12 +573,15 @@ class Lucene
 	{
 		$file = 'file_'. str_pad ($obj->_id, 7, '0', STR_PAD_LEFT);
 		
-		$original = Archive::singleton ()->getDataPath () . $file;
+		$original = File::getFilePath ($obj->_id);
+		
+		if (!file_exists ($original))
+			$original = File::getLegacyFilePath ($obj->_id);
 		
 		if (!file_exists ($original))
 			throw new Exception (__ ('File dont exists [[1]].', $original));
 		
-		$content = $obj->_name ." \n\n". $obj->_description ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". file_get_contents ($original);
+		$content = $obj->_name ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". file_get_contents ($original);
 		
 		$url = 'titan.php?target=openFile&fileId='. $obj->_id;
 		
@@ -587,7 +602,10 @@ class Lucene
 	{
 		$file = 'file_'. str_pad ($obj->_id, 7, '0', STR_PAD_LEFT);
 		
-		$original = Archive::singleton ()->getDataPath () . $file;
+		$original = File::getFilePath ($obj->_id);
+		
+		if (!file_exists ($original))
+			$original = File::getLegacyFilePath ($obj->_id);
 		
 		if (!file_exists ($original))
 			throw new Exception (__ ('File dont exists [[1]].', $original));
@@ -603,7 +621,7 @@ class Lucene
 		if (!file_exists ($path . $file) || !(int) filesize ($path . $file))
 			throw new Exception  (__ ('Impossible to create [[1]].', $path . $file));
 		
-		$content = $obj->_name ." \n\n". $obj->_description ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". file_get_contents ($path . $file);
+		$content = $obj->_name ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". file_get_contents ($path . $file);
 		
 		$url = 'titan.php?target=openFile&fileId='. $obj->_id;
 		
@@ -624,14 +642,17 @@ class Lucene
 	{
 		$file = 'file_'. str_pad ($obj->_id, 7, '0', STR_PAD_LEFT);
 		
-		$original = Archive::singleton ()->getDataPath () . $file;
+		$original = File::getFilePath ($obj->_id);
+		
+		if (!file_exists ($original))
+			$original = File::getLegacyFilePath ($obj->_id);
 		
 		if (!file_exists ($original))
 			throw new Exception (__ ('File dont exists [[1]].', $original));
 		
 		$doc = Zend_Search_Lucene_Document_Html::loadHTMLFile ($original, FALSE);
 		
-		$content = $obj->_name ." \n\n". $obj->_description ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". $doc->body;
+		$content = $obj->_name ." \n\n". $obj->_date ." \n\n". $obj->_user_name ." \n\n". $doc->body;
 		
 		$url = 'titan.php?target=openFile&fileId='. $obj->_id;
 		        
