@@ -33,15 +33,35 @@ try
 	
 	$id = Database::nextId ('_file', '_id');
 	
-	$sql = "INSERT INTO _file (_id, _name, _mimetype, _size, _user) VALUES (:id, :name, :mime, :size, :user)";
+	$array = array (
+		array ('_id', $id, PDO::PARAM_INT),
+		array ('_name', $fileName, PDO::PARAM_STR),
+		array ('_mimetype', $fileType, PDO::PARAM_STR),
+		array ('_size', $fileSize, PDO::PARAM_INT),
+		array ('_user', $user, PDO::PARAM_INT)
+	);
 	
-	$sth = $db->prepare ($sql);
+	if (!$field->isPublic ())
+	{
+		$hash = File::getRandomHash ();
+		
+		$array [] = array ('_public', 0, PDO::PARAM_INT);
+		$array [] = array ('_hash', $hash, PDO::PARAM_STR);
+	}
 	
-	$sth->bindParam (':id', $id, PDO::PARAM_INT);
-	$sth->bindParam (':name', $fileName, PDO::PARAM_STR, 256);
-	$sth->bindParam (':mime', $fileType, PDO::PARAM_STR, 256);
-	$sth->bindParam (':size', $fileSize, PDO::PARAM_INT);
-	$sth->bindParam (':user', $user, PDO::PARAM_INT);
+	$columns = array ();
+	$values  = array ();
+	
+	foreach ($array as $trash => $item)
+	{
+		$columns [] = $item [0];
+		$values []  = ':'. $item [0];
+	}
+	
+	$sth = $db->prepare ("INSERT INTO _file (". implode (", ", $columns) .") VALUES (". implode (", ", $values) .")");
+	
+	foreach ($array as $trash => $item)
+		$sth->bindParam (':'. $item [0], $item [1], $item [2]);
 	
 	$sth->execute ();
 	

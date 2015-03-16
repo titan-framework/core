@@ -1,8 +1,5 @@
 ﻿<?php
 
-if (!User::singleton ()->isLogged ())
-	exit ();
-
 if (!isset ($_GET ['fileId']) || !$_GET['fileId'] || !is_numeric ($_GET['fileId']))
 	exit ();
 

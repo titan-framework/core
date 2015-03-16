@@ -15,7 +15,7 @@
 {
 	float: left;
 	overflow: hidden;
-	width: 500px;
+	width: 460px;
 	height: 47px;
 	border-width: 0px;
 	margin: 0px;

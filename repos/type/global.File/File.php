@@ -233,7 +233,7 @@ class File extends Integer
 			
 			case Archive::VIDEO:
 				
-				if (self::isReadyToPlay ($id, $obj->_mime))
+				if (self::isReadyToPlay ($id, $obj->_mimetype))
 				{
 					?>
 					<video width="320" height="240" controls="controls" preload="metadata">
@@ -262,7 +262,7 @@ class File extends Integer
 			
 			case Archive::AUDIO:
 				
-				if (self::isReadyToPlay ($id, $obj->_mime))
+				if (self::isReadyToPlay ($id, $obj->_mimetype))
 				{
 					?>
 					<audio controls="controls" preload="metadata">
