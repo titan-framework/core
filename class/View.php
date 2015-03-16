@@ -217,6 +217,9 @@ class View
 
 	public function getDefaultIcon ()
 	{
+		if (!sizeof ($this->icons))
+			return NULL;
+		
 		if ($this->default === FALSE || !array_key_exists ($this->default, $this->icons))
 			$key = key ($this->icons);
 		else
