@@ -20,7 +20,21 @@ global.File.addFilter ('<?= $fieldId ?>', '<?= $field->getFilter () ?>');
 
 $('_TITAN_GLOBAL_FILE_HIDDEN_<?= $fieldId ?>').up ('form').addEventListener ('reset', function () {
 	global.File.clear ('<?= $fieldId ?>');
-	global.File.upload ('<?= $fieldId ?>');
+	
+	<?
+	if ((int) $field->getValue ())
+	{
+		?>
+		global.File.load (<?= $field->getValue () ?>, '<?= $fieldId ?>');
+		<?
+	}
+	else
+	{
+		?>
+		global.File.upload ('<?= $fieldId ?>');
+		<?
+	}
+	?>
 }, false);
 </script>
 <? return ob_get_clean () ?>
