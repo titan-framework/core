@@ -14,7 +14,7 @@ try
 	
 	$id = Database::nextId ('_file', '_id');
 	
-	$file = File::getFilePath ($id);
+	$file = Archive::singleton ()->getDataPath () . 'file_' . str_pad ($id, 19, '0', STR_PAD_LEFT);
 	
 	if (!file_put_contents ($file, $image))
 		return NULL;
