@@ -113,9 +113,9 @@ global.File.last = function (field, ownerOnly)
 {
 	global.File.searchClear ();
 	
-	var filter = global.File.getFilter (field, ownerOnly);
+	var filter = global.File.getFilter (field);
 	
-	global.File.showResult (global.File.ajax.last (filter), field);
+	global.File.showResult (global.File.ajax.last (filter, ownerOnly), field);
 }
 
 global.File.showResult = function (json, field)
