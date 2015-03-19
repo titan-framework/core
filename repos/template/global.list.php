@@ -29,9 +29,9 @@ if (isset ($search) && is_object ($search))
 				?>
 				<tr height="18px" style="background-color: #<?= $backColor ?>;">
 					<td width="20%" nowrap style="text-align: right;"><b><?= $field->getLabel () ?>:</b></td>
-					<td <?= $search->isBlocked ($field) ? 'style="color: #990000;"' : '' ?>><?= Form::toHtml ($field) ?></td>
+					<td width="80%" <?= $search->isBlocked ($field) ? 'style="color: #900;"' : '' ?>><?= Form::toHtml ($field) ?></td>
 				</tr>
-				<tr height="2px"><td></td></tr>
+				<tr height="2px"><td colspan="2"></td></tr>
 				<?
 			}
 			?>
@@ -47,19 +47,19 @@ if (isset ($search) && is_object ($search))
 				</tr>
 			</table>
 			<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
-				<tr height="5px"><td></td></tr>
+				<tr height="5px"><td colspan="3"></td></tr>
 				<?
 				$backColor = 'FFFFFF';
 				while ($field = $search->getField ())
 				{
 					$backColor = $backColor == 'FFFFFF' ? 'F4F4F4' : 'FFFFFF';
 					?>
-					<tr height="18px" style="background-color: #<?= $backColor ?>;">
-						<td width="20%" nowrap style="text-align: right;"><b><?= $field->getLabel () ?>:</b></td>
-						<td><?= $search->isBlocked ($field) || $field->isReadOnly () ? Form::toHtml ($field) : Search::toForm ($field) ?></td>
-						<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($field); ?></td>
+					<tr style="background-color: #<?= $backColor ?>; min-height: 18px;">
+						<td width="20%" nowrap="nowrap" style="text-align: right;"><b><?= $field->getLabel () ?>:</b></td>
+						<td width="75%"><?= $search->isBlocked ($field) || $field->isReadOnly () ? Form::toHtml ($field) : Search::toForm ($field) ?></td>
+						<td width="5%" style="vertical-align: top;"><?= Form::toHelp ($field); ?></td>
 					</tr>
-					<tr height="2px"><td></td></tr>
+					<tr height="2px"><td colspan="3"></td></tr>
 					<?
 				}
 				?>

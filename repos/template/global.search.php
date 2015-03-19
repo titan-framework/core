@@ -38,11 +38,11 @@
 			$backColor = $backColor == 'FFF' ? 'F4F4F4' : 'FFF';
 			?>
 			<tr height="18px" style="background-color: #<?= $backColor ?>;">
-				<td width="20%" nowrap style="text-align: right;"><b><?= $field->getLabel () ?>:</b></td>
-				<td><?= $search->isBlocked ($field) ? Form::toHtml ($field) : Search::toForm ($field) ?></td>
-				<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($field); ?></td>
+				<td width="20%" nowrap="nowrap" style="text-align: right;"><b><?= $field->getLabel () ?>:</b></td>
+				<td width="75%"><?= $search->isBlocked ($field) ? Form::toHtml ($field) : Search::toForm ($field) ?></td>
+				<td width="5%" style="vertical-align: top;"><?= Form::toHelp ($field); ?></td>
 			</tr>
-			<tr height="2px"><td></td></tr>
+			<tr height="2px"><td colspan="3"></td></tr>
 			<?
 		}
 		?>

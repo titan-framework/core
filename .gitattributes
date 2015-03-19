@@ -3750,7 +3750,12 @@ repos/type/global.Rga/toForm.php -text
 repos/type/global.Rga/toHtml.php -text
 repos/type/global.Select/LICENSE -text
 repos/type/global.Select/Select.php -text
+repos/type/global.Select/_css.php -text
 repos/type/global.Select/_js.php -text
+repos/type/global.Select/_resource/chosen-sprite.png -text
+repos/type/global.Select/_resource/chosen-sprite@2x.png -text
+repos/type/global.Select/_resource/chosen.css -text
+repos/type/global.Select/_resource/chosen.proto.min.js -text
 repos/type/global.Select/_script/search.php -text
 repos/type/global.Select/fromApi.php -text
 repos/type/global.Select/toApi.php -text

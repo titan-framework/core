@@ -32,7 +32,7 @@ else
 	
 	ob_start ();
 	?>
-	<select class="field" style="<?= $field->getStyle () ?>" name="<?= $fieldName ?>" id="<?= $fieldId ?>">
+	<select class="<?= $field->useFastSearch () ? 'chosen ' : '' ?>field" style="<?= $field->getStyle () ?>" name="<?= $fieldName ?>" id="<?= $fieldId ?>">
 		<?
 		echo $field->isRequired () ? '' : '<option value="0">Selecione</option>';
 		

@@ -17,6 +17,8 @@ class Select extends Type
 	
 	protected $search = FALSE;
 	
+	protected $fastSearch = FALSE;
+	
 	protected $value = NULL;
 	
 	protected $linkColor = '';
@@ -48,6 +50,9 @@ class Select extends Type
 		
 		if (array_key_exists ('search', $field))
 			$this->setSearch ($field ['search']);
+		
+		if (array_key_exists ('fast-search', $field))
+			$this->fastSearch = strtoupper (trim ($field ['fast-search'])) == 'TRUE' ? TRUE : FALSE;
 	}
 	
 	public function getLink ()
@@ -149,6 +154,17 @@ class Select extends Type
 	public function useSearch ()
 	{
 		return $this->search !== FALSE;
+	}
+	
+	public function setFastSearch ($fs)
+	{
+		if (is_bool ($fs))
+			$this->fastSearch = $fs;
+	}
+	
+	public function useFastSearch ()
+	{
+		return $this->fastSearch;
 	}
 	
 	public function getSearch ()

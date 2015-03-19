@@ -1,3 +1,4 @@
+<script type="text/javascript" src="titan.php?target=tResource&type=Select&file=chosen.proto.min.js"></script>
 <script language="javascript" type="text/javascript">
 'global.Select'.namespace ();
 
@@ -37,4 +38,22 @@ global.Select.clear = function (fieldId)
 	del.onclick = function () { return false; };
 	del.className = '';
 }
+
+document.observe ('dom:loaded', function (evt)
+{
+	var config = {
+		'.chosen': {}
+	}
+	
+	var results = [];
+	
+	for (var selector in config) {
+		var elements = $$(selector);
+		for (var i = 0; i < elements.length; i++) {
+			results.push(new Chosen(elements[i],config[selector]));
+		}
+	}
+	
+	return results;
+});
 </script>
