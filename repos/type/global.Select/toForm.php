@@ -33,9 +33,8 @@ else
 	ob_start ();
 	?>
 	<select class="<?= $field->useFastSearch () ? 'chosen ' : '' ?>field" style="<?= $field->getStyle () ?>" name="<?= $fieldName ?>" id="<?= $fieldId ?>">
+		<option value=""><?= $field->useFastSearch () ? '' : __ ('Select...') ?></option>
 		<?
-		echo $field->isRequired () ? '' : '<option value="0">Selecione</option>';
-		
 		while ($item = $sth->fetch (PDO::FETCH_OBJ))
 			echo '<option value="'. $item->$linkColumn .'"'. ($item->$linkColumn == $field->getValue () ? ' selected="selected"' : '') .'>'. $field->makeView ($item) .'</option>';
 		?>

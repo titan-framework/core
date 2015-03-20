@@ -42,7 +42,13 @@ global.Select.clear = function (fieldId)
 document.observe ('dom:loaded', function (evt)
 {
 	var config = {
-		'.chosen': {}
+		'.chosen': {
+			disable_search_threshold: 10,
+			no_results_text: "<?= __ ('Nothing found!') ?>",
+			placeholder_text_single: "<?= __ ('Select...') ?>",
+			allow_single_deselect: true,
+			search_contains: true
+		}
 	}
 	
 	var results = [];
