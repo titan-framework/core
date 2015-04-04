@@ -42,14 +42,14 @@ class xFile
 						EXTRACT (EPOCH FROM f._create_date) AS taken
 						FROM _file f
 						JOIN _user u ON u._id = f._user 
-						WHERE f._name ILIKE (:term) AND f._mimetype IN ('". implode ("', '", $mimetypes) ."')". ((bool) $owner ? " AND f._user = '". User::singleton ()->getId () ."'" : "") ."
+						WHERE (f._name ILIKE (:term) OR u._name ILIKE (:term)) AND f._mimetype IN ('". implode ("', '", $mimetypes) ."')". ((bool) $owner ? " AND f._user = '". User::singleton ()->getId () ."'" : "") ."
 						ORDER BY f._create_date DESC";
 			else
 				$sql = "SELECT f.*, u._name AS user, u._email AS email,
 						EXTRACT (EPOCH FROM f._create_date) AS taken
 						FROM _file f
 						JOIN _user u ON u._id = f._user 
-						WHERE f._name ILIKE (:term)". ((bool) $owner ? " AND f._user = '". User::singleton ()->getId () ."'" : "") ."
+						WHERE (f._name ILIKE (:term) OR u._name ILIKE (:term))". ((bool) $owner ? " AND f._user = '". User::singleton ()->getId () ."'" : "") ."
 						ORDER BY f._create_date DESC";
 			
 			$sth = Database::singleton ()->prepare ($sql);

@@ -20,7 +20,11 @@ global.CKEditor.toolbar = [
 
 global.CKEditor.plugins = 'iframedialog,mediaembed';
 
-CKEDITOR.on ('dialogDefinition', function (ev) {
+CKEDITOR.on ('dialogDefinition', function (ev)
+{
+	if (CKEDITOR.currentInstance.config.titanType != 'CKEditor')
+		return;
+	
 	var dialogName = ev.data.name;
 	var dialogDefinition = ev.data.definition;
 	

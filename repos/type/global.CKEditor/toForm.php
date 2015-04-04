@@ -7,7 +7,8 @@ CKEDITOR.replace ('<?= $fieldId ?>', {
 	language: '<?= CKEditor::getLanguage () ?>',
 	toolbar: global.CKEditor.toolbar,
 	extraPlugins: global.CKEditor.plugins,
-	extraAllowedContent: 'video[*]{*};audio[*]{*};source[*]{*};'
+	extraAllowedContent: 'video[*]{*};audio[*]{*};source[*]{*};',
+	titanType: 'CKEditor'
 });
 </script>
 <?

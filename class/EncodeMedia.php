@@ -156,7 +156,7 @@ class EncodeMedia
 		return $source;
 	}
 	
-	public static function resizeImage ($source, $type, $resized, $width = 0, $height = 0, $force = FALSE, $bw = FALSE)
+	public static function resizeImage ($source, $type, $resized, $width = 0, $height = 0, $force = FALSE, $bw = FALSE, $crop = FALSE)
 	{
 		if (!(int) $width && !(int) $height && !(bool) $bw)
 			return $source;
@@ -195,46 +195,61 @@ class EncodeMedia
 		$atualWidth  = $vetor [0];
 		$atualHeight = $vetor [1];
 		
-		if(!$force)
+		if (!$width || !$height)
 		{
-			if (!$width || !$height)
-			{
-				if (!$width && !$height)
-				{
-					$width = $atualWidth;
-					$height = $atualHeight;
-				}
-				elseif ($width && !$height)
-					$height = ($atualHeight * $width) / $atualWidth;
-				else
-					$width = ($atualWidth * $height) / $atualHeight;
-			}
-	
-			if ($atualWidth < $atualHeight && $width > $height)
-			{
-				$aux = $width;
-				$width = $height;
-				$height = $aux;
-			}
-	
-			if ((int) $atualWidth < (int) $width)
+			if (!$width && !$height)
 			{
 				$width = $atualWidth;
-	
-				$height = ($atualHeight * $width) / $atualWidth;
+				$height = $atualHeight;
 			}
+			elseif ($width && !$height)
+				$height = ($atualHeight * $width) / $atualWidth;
+			else
+				$width = ($atualWidth * $height) / $atualHeight;
 		}
-	
+		
+		$w = $width;
+		$h = $height;
+		
+		if (!$force && (int) $atualWidth < (int) $width)
+		{
+			$width = $atualWidth;
+
+			$height = ($atualHeight * $width) / $atualWidth;
+		}
+		
+		if (!$force && (int) $atualHeight < (int) $height)
+		{
+			$height = $atualHeight;
+
+			$width = ($atualWidth * $height) / $atualHeight;
+		}
+		
+		if ($crop)
+		{
+			$wAux = round (($atualWidth * $height) / $atualHeight);
+			
+			$hAux = round (($atualHeight * $width) / $atualWidth);
+			
+			if ($hAux > $height)
+				$height = $hAux;
+			elseif ($wAux > $width)
+				$width = $wAux;
+		}
+		
 		if ($type != 'image/gif')
 		{
-			$thumb = imagecreatetruecolor ($width, $height);
+			$thumb = imagecreatetruecolor ($w, $h);
 			$color = imagecolorallocatealpha ($thumb, 255, 255, 255, 75);
 			imagefill ($thumb, 0, 0, $color);
 		}
 		else
-			$thumb = imagecreate ($width, $height);
-	
-		$ok = imagecopyresized ($thumb, $buffer, 0, 0, 0, 0, $width, $height, $atualWidth, $atualHeight);
+			$thumb = imagecreate ($w, $h);
+		
+		if ($crop)
+			$ok = imagecopyresampled ($thumb, $buffer, -floor (($width - $w) / 2), -floor (($height - $h) / 2), 0, 0, $width, $height, $atualWidth, $atualHeight);
+		else
+			$ok = imagecopyresampled ($thumb, $buffer, 0, 0, 0, 0, $w, $h, $atualWidth, $atualHeight);
 	
 		if (!$ok)
 			throw new Exception ('Impossible to resize image!');

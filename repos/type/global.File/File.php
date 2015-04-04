@@ -87,7 +87,7 @@ class File extends Integer
 		if (!$this->getValue ())
 			return NULL;
 		
-		$sth = Database::singleton ()->prepare ("SELECT _name, _size, _mimetype FROM _file WHERE _id = :id");
+		$sth = Database::singleton ()->prepare ("SELECT * FROM _file WHERE _id = :id");
 		
 		$sth->bindParam (':id', $this->getValue (), PDO::PARAM_INT);
 		
@@ -100,7 +100,8 @@ class File extends Integer
 		
 		return array ('_NAME_' => $obj->_name,
 					  '_SIZE_' => $obj->_size,
-					  '_MIME_' => $obj->_mimetype);
+					  '_MIME_' => $obj->_mimetype,
+					  '_HASH_' => (string) @$obj->_hash);
 	}
 	
 	public function isEmpty ()
@@ -132,7 +133,7 @@ class File extends Integer
 		return sprintf ("%.{$decimals}f", $bytes / pow (1024, $factor)) .' '. @$size [$factor];
 	}
 	
-	public static function resize ($id, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE)
+	public static function resize ($id, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE, $crop = FALSE)
 	{
 		$source = self::getFilePath ($id);
 		
@@ -147,9 +148,9 @@ class File extends Integer
 		if (!file_exists ($cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
 			throw new Exception ('Impossible to enhance security for folder ['. $cache . self::ENCODE_FOLDER .'].');
 		
-		$destination = $cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'resized_' . str_pad ($id, 19, '0', STR_PAD_LEFT) .'_'. $width .'x'. $height .'_'. ($force ? '1' : '0') .'_'. ($bw ? '1' : '0');
+		$destination = $cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'resized_' . str_pad ($id, 19, '0', STR_PAD_LEFT) .'_'. $width .'x'. $height .'_'. ($force ? '1' : '0') .'_'. ($bw ? '1' : '0') .'_'. ($crop ? '1' : '0');
 		
-		return EncodeMedia::resizeImage ($source, $type, $destination, $width, $height, $force, $bw);
+		return EncodeMedia::resizeImage ($source, $type, $destination, $width, $height, $force, $bw, $crop);
 	}
 	
 	public static function synopsis ($id, $filter = array (), $dimension = 200)
@@ -220,14 +221,15 @@ class File extends Integer
 			$hashQueryString = '&hash='. $obj->_hash;
 		}
 		
+		$alt = $obj->_name ." (". File::formatFileSizeForHuman ($obj->_size) ." &bull; ". $obj->_mimetype .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
+		
 		ob_start ();
 		
 		switch ($archive->getAssume ($obj->_mimetype))
 		{
 			case Archive::IMAGE:
-				$alt = $obj->_name ." (". File::formatFileSizeForHuman ($obj->_size) ." &bull; ". $obj->_mimetype .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
 				?>
-				<a href="titan.php?target=tScript&type=File&file=open&fileId=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&type=File&file=thumbnail&fileId=<?= $id ?>&height=<?= $dimension ?><?= $hashQueryString ?>" alt="<?= $alt ?>" border="0" /></a>
+				<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&type=File&file=thumbnail&fileId=<?= $id ?>&height=<?= $dimension ?><?= $hashQueryString ?>" alt="<?= $alt ?>" border="0" /></a>
 				<?
 				break;
 			
@@ -237,8 +239,8 @@ class File extends Integer
 				{
 					?>
 					<video width="320" height="240" controls="controls" preload="metadata">
-						<source src="titan.php?target=tScript&type=File&file=play&fileId=<?= $id ?><?= $hashQueryString ?>" />
-						<a href="titan.php?target=tScript&type=File&file=play&fileId=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
+						<source src="titan.php?target=tScript&type=File&file=play&id=<?= $id ?><?= $hashQueryString ?>" />
+						<a href="titan.php?target=tScript&type=File&file=play&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
 							<img src="titan.php?target=tResource&type=Note&file=play.png" border="0" alt="<?= __ ('Play') ?>" />
 						</a>
 					</video>
@@ -246,11 +248,10 @@ class File extends Integer
 				}
 				else
 				{
-					$alt = $obj->_name ." (". File::formatFileSizeForHuman ($obj->_size) ." &bull; ". $obj->_mimetype .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
 					?>
 					<div style="width: 343px; height: 106px;">
 						<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
-							<a href="titan.php?target=tScript&type=File&file=open&fileId=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&type=File&file=thumbnail&fileId=<?= $id ?>&width=100&height=100<?= $hashQueryString ?>" border="0" alt="<?= $alt ?>" /></a>
+							<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&type=File&file=thumbnail&fileId=<?= $id ?>&width=100&height=100<?= $hashQueryString ?>" border="0" alt="<?= $alt ?>" /></a>
 						</div>
 						<div style="position: relative; width: 220px; top: 10px; left: 110px; overflow: hidden; background-color: #FFF; text-align: justify;">
 							<b style="color: #900;"><?= __ ('This video is not supported by native player of your browser or still is being encoded to be displayed! Until then, you can download it directly to your computer to watch in player of your choice.') ?></b>
@@ -266,8 +267,8 @@ class File extends Integer
 				{
 					?>
 					<audio controls="controls" preload="metadata">
-						<source src="titan.php?target=tScript&type=File&file=play&fileId=<?= $id ?><?= $hashQueryString ?>" />
-						<a href="titan.php?target=tScript&type=File&file=open&fileId=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
+						<source src="titan.php?target=tScript&type=File&file=play&id=<?= $id ?><?= $hashQueryString ?>" />
+						<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
 							<img src="titan.php?target=tResource&type=Note&file=play.png" border="0" alt="<?= __ ('Play') ?>" />
 						</a>
 					</audio>
@@ -275,11 +276,10 @@ class File extends Integer
 				}
 				else
 				{
-					$alt = $obj->_name ." (". File::formatFileSizeForHuman ($obj->_size) ." &bull; ". $obj->_mimetype .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
 					?>
 					<div style="width: 343px; height: 106px;">
 						<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
-							<a href="titan.php?target=tScript&type=File&file=open&fileId=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&type=File&file=thumbnail&fileId=<?= $id ?>&width=100&height=100<?= $hashQueryString ?>" border="0" alt="<?= $alt ?>" /></a>
+							<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&type=File&file=thumbnail&fileId=<?= $id ?>&width=100&height=100<?= $hashQueryString ?>" border="0" alt="<?= $alt ?>" /></a>
 						</div>
 						<div style="position: relative; width: 220px; top: 10px; left: 110px; overflow: hidden; background-color: #FFF; text-align: justify;">
 							<b style="color: #900;"><?= __ ('This audio is not supported by native player of your browser or still is being encoded to be displayed! Until then, you can download it directly to your computer to listen in player of your choice.') ?></b>
@@ -295,7 +295,7 @@ class File extends Integer
 				?>
 				<div style="width: 343px; height: 106px;">
 					<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
-						<a href="titan.php?target=tScript&type=File&file=open&fileId=<?= $id ?><?= $hashQueryString ?>" target="_blank"><img src="titan.php?target=tScript&type=File&file=thumbnail&fileId=<?= $id ?>&width=100&height=100<?= $hashQueryString ?>" border="0" /></a>
+						<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank"><img src="titan.php?target=tScript&type=File&file=thumbnail&fileId=<?= $id ?>&width=100&height=100<?= $hashQueryString ?>" border="0" /></a>
 					</div>
 					<div style="position: relative; width: 220px; top: 10px; left: 110px; overflow: hidden; background-color: #FFF; text-align: left;">
 						<b><?= $obj->_name ?></b> <br />

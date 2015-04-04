@@ -68,7 +68,7 @@ global.File.archive = function (field, ownerOnly)
 	oBody = document.body;
 		
 	h = oBody.scrollHeight + (oBody.offsetHeight - oBody.clientHeight) - 70;
-	w  = oBody.scrollWidth  + (oBody.offsetWidth  - oBody.clientWidth) - 100;
+	w  = oBody.scrollWidth  + (oBody.offsetWidth  - oBody.clientWidth) - 80;
 	
 	var source = '	<div style="margin: 0 auto; width: 420px; height: 36px; line-height: 36px; vertical-align: middle;">\
 						<input type="text" class="globalFileSearchBox" id="_TITAN_GLOBAL_FILE_SEARCH_BOX_" onkeypress="JavaScript: global.File.search (this, event, \'' + field + '\', ' + (ownerOnly ? 'true' : 'false') + ');" />\
@@ -132,17 +132,27 @@ global.File.showResult = function (json, field)
 		div.title = result [i].author;
 		div.id = '_TITAN_GLOBAL_FILE_SEARCH_THUMBNAIL_' + result [i].id;
 		
-		var span = document.createElement ('span');
+		var name = document.createElement ('div');
 		
-		span.innerHTML = result [i].name + '<br />' + result [i].size;
+		name.className = 'name';
+		
+		name.innerHTML = result [i].name;
+		
+		var size = document.createElement ('div');
+		
+		size.className = 'size';
+		
+		size.innerHTML = result [i].size;
 		
 		var li = document.createElement ('li');
 		
-		li.onclick = function (id, fi) { return function () { global.File.load (id, fi); Modalbox.hide (); } } (result [i].id, field);
+		li.onclick = function (id, fi) { return function () { global.File.clear (field); global.File.load (id, fi); Modalbox.hide (); } } (result [i].id, field);
 		
 		li.appendChild (div);
 		
-		li.appendChild (span);
+		li.appendChild (size);
+		
+		li.appendChild (name);
 		
 		$('_TITAN_GLOBAL_FILE_SEARCH_RESULT_').appendChild (li);
 	}

@@ -11,26 +11,9 @@ class CKEditor extends Fck
 		parent::__construct ($table, $field);
 	}
 	
-	public static function getCKEditorPath ()
-	{
-		return Instance::singleton ()->getCorePath () .'repos/type/global.'. __CLASS__ .'/CKEditor/';
-	}
-	
 	public static function getFilePath ($id)
 	{
 		return Archive::singleton ()->getDataPath () . 'ckeditor_' . str_pad ($id, 19, '0', STR_PAD_LEFT);
-	}
-	
-	public static function getLanguage ()
-	{
-		$conversion = array ('pt_BR' => 'pt-br', 'en_US' => 'en', 'es_ES' => 'es');
-		
-		$language = Localization::singleton ()->getLanguage ();
-		
-		if (array_key_exists ($language, $conversion))
-			return $conversion [$language];
-		
-		return 'en';
 	}
 	
 	public static function resize ($id, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE)

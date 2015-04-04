@@ -1,9 +1,9 @@
 <?php
 
-if (!isset ($_GET ['fileId']) || !$_GET['fileId'] || !is_numeric ($_GET['fileId']))
+if (!isset ($_GET ['id']) || !$_GET['id'] || !is_numeric ($_GET['id']))
 	exit ();
 
-$fileId = (int) $_GET ['fileId'];
+$fileId = (int) $_GET ['id'];
 
 try
 {

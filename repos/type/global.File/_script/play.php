@@ -1,6 +1,6 @@
 ﻿<?php
 
-if (!isset ($_GET ['fileId']) || !$_GET['fileId'] || !is_numeric ($_GET['fileId']))
+if (!isset ($_GET ['id']) || !$_GET['id'] || !is_numeric ($_GET['id']))
 	exit ();
 
 ob_clean ();
@@ -15,7 +15,7 @@ set_time_limit (0);
 
 require __DIR__ . DIRECTORY_SEPARATOR .'streaming.php';
 
-$fileId = (int) $_GET ['fileId'];
+$fileId = (int) $_GET ['id'];
 
 try
 {

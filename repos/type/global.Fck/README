@@ -1,0 +1,10 @@
+
+To Update CKEditor
+==================
+
+1. Download de last version at http://ckeditor.com/download (select "Full Package")
+2. Replace the content of folder 'CKEditor' with the new version
+3. Add the 'iframedialog' plugin at http://ckeditor.com/addon/iframedialog to folder 'plugins'
+4. Add the 'mediaembed' plugin at http://ckeditor.com/addon/mediaembed to folder 'plugins'
+
+All done!

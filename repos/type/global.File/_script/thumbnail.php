@@ -61,11 +61,7 @@ switch ($assume)
 {
 	case Archive::IMAGE:
 		
-		if ($width && $height)
-			$file = File::resize ($fileId, $obj->_mimetype, $width, $height, TRUE);
-		
-		if ($width || $height)
-			$file = File::resize ($fileId, $obj->_mimetype, $width, $height);
+		$file = File::resize ($fileId, $obj->_mimetype, $width, $height, TRUE, FALSE, TRUE);
 		
 		$type = $obj->_mimetype;
 		

@@ -4,7 +4,7 @@
 <div class="globalFileUploaded" id="_TITAN_GLOBAL_FILE_UPLOADED_<?= $fieldId ?>" style="display: none;"></div>
 <div class="globalFileUpload" id="_TITAN_GLOBAL_FILE_UPLOAD_<?= $fieldId ?>" style="display: block;">
 	<iframe class="globalFileIframe" src="titan.php?target=tScript&type=File&file=upload&field=<?= $fieldId ?>&public=<?= $field->isPublic () ? '1' : '0' ?>&auth=1" border="0"></iframe>
-	<div class="globalFileArchive" style="display: block;" onclick="JavaScript: global.File.archive ('<?= $fieldId ?>', <?= $field->ownerOnly () ? 'true' : 'false' ?>);"  title="<?= __ ('Recovery from archive...') ?>"></div>
+	<div class="globalFileArchive" style="display: block;" onclick="JavaScript: global.File.archive ('<?= $fieldId ?>', <?= $field->ownerOnly () ? 'true' : 'false' ?>);" title="<?= __ ('Recovery from archive...') ?>"></div>
 </div>
 <?= $field->getTip () != '' ? '<div class="fieldTip" style="float: left; padding: 6px 8px;">'. $field->getTip () .'</div>' : '' ?>
 <script language="javascript" type="text/javascript">

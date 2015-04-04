@@ -135,10 +135,27 @@
 	background: none #CCEBCC;
 }
 
-.globalFileSearchResult li span
+.globalFileSearchResult li div
 {
-	font-family: "Courier New", Courier, monospace;
+	font-family: Verdana, Geneva, sans-serif;
 	font-size: 10px;
+	text-align: center;
+}
+
+.globalFileSearchResult li div.name
+{
 	word-wrap: break-word;
+	margin-top: 5px;
+}
+
+.globalFileSearchResult li div.size
+{
+	margin-top: -16px;
+	height: 16px;
+	line-height: 16px;
+	font-weight: bold;
+	overflow: hidden;
+	color: #FFF;
+	background-color: rgba(0, 0, 0, 0.4);
 }
 </style>
