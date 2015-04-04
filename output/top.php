@@ -165,7 +165,7 @@ header ('Content-Encoding: gzip');
 	<body onload="JavaScript: setClientTimeZone ();">
 		<div id="idMain" style="z-index: 3;">
 			<div class="cLogoApp">
-				<?= trim ($skin->getLogo ()) == '' || !file_exists ($skin->getLogo ()) ? '<h1 style="color: #FFFFFF">'. $instance->getName () .'</h1>' : '<img src="'. $skin->getLogo () .'" border="0" alt="'. $instance->getName () .'" title="'. $instance->getName () .'" />' ?>
+				<?= trim ($skin->getLogo ()) == '' || !file_exists ($skin->getLogo ()) ? '<h1 style="color: #FFF; cursor: pointer;" onclick="JavaScript: parent.document.location=\'titan.php\';">'. $instance->getName () .'</h1>' : '<img src="'. $skin->getLogo () .'" border="0" alt="'. $instance->getName () .'" title="'. $instance->getName () .'" style="cursor: pointer;" onclick="JavaScript: parent.document.location=\'titan.php\';" />' ?>
 			</div>
 			<div class="cIcons">
 				<label id="idChatNotify"></label>
