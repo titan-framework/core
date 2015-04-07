@@ -32,7 +32,7 @@ $skin = Skin::singleton ();
 	</head>
 	<frameset id="main" rows="86px,*" frameborder="no" framespacing="0" onload="JavaScript: loadFrame ();">
 		<frame src="titan.php?target=top" name="banner" noresize="noresize" scrolling="no" />
-		<frame src="titan.php?target=blank" name="body" noresize="noresize" scrolling="no" />
+		<frame src="titan.php?target=blank" name="body" noresize="noresize" scrolling="auto" />
 	</frameset>
 	<noframes><body onload="JavaScript: document.location='titan.php?target=noFirefox';">You browser does not support frames!</body></noframes>
 </html>

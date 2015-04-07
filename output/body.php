@@ -538,7 +538,6 @@ header ('Content-Encoding: gzip');
 				?>
 			</div>
 		</div>
-		<div id="idBaseSpace"></div>
 		<?= $_OUTPUT ['MENU'] ?>
 		<script language="javascript" type="text/javascript">
 			<?= $_OUTPUT ['MENU-POSITION'] ?>
