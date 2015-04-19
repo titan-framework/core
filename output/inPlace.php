@@ -13,9 +13,15 @@ $skin = Skin::singleton ();
 		<style type="text/css">
 		body
 		{
-			background: #FFFFFF none;
-			margin: 5px 0px 0px 0px;
+			background: #FFF none;
+			margin: 0px;
 			padding: 0px;
+		}
+		#idBody
+		{
+			position: relative;
+			top: auto;
+			left: auto;
 		}
 		.field
 		{

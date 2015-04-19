@@ -5,7 +5,7 @@ $_CHAT ['HEADER'] = '';
 
 $_CHAT ['BODY'] = '';
 
-if (Instance::singleton ()->useChat () && isFirefox (TRUE))
+if (Instance::singleton ()->useChat ())
 {
 	include Instance::singleton ()->getCorePath () .'system/chat.php';
 
@@ -172,7 +172,7 @@ header ('Content-Encoding: gzip');
 				<img src="titan.php?target=loadFile&amp;file=interface/icon/home.gif" border="0" onclick="JavaScript: parent.document.location='titan.php';" alt="<?= __ ('Start Page') ?>" title="<?= __ ('Start Page') ?>" />
 				&nbsp;
 				<?
-				if (Instance::singleton ()->useChat () && isFirefox (TRUE))
+				if (Instance::singleton ()->useChat ())
 				{
 					?>
 					<img src="titan.php?target=loadFile&amp;file=interface/icon/chat.gif" border="0" onclick="JavaScript: showChat ();" alt="Chat" title="Chat" />

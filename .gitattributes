@@ -69,7 +69,6 @@ class/View.php -text
 class/Xml.php -text
 class/XmlMaker.php -text
 class/Xoad.php -text
-extra/Browscap.php -text
 extra/DatePicker/css/datepicker.css -text
 extra/DatePicker/css/demo.css -text
 extra/DatePicker/disableDays.html -text
@@ -2373,7 +2372,6 @@ output/alert.php -text
 output/body.php -text
 output/csv.php -text
 output/error.php -text
-output/firefox.php -text
 output/inPlace.php -text
 output/login.php -text
 output/lucene.php -text

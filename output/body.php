@@ -190,6 +190,8 @@ header ('Content-Encoding: gzip');
 			if (!error)
 				error = '';
 			
+			var browser = getBrowserInfo ();
+			
 			var source = '<table border="0" class="bugReport" style="margin: 10px 20px;">\
 				<tr>\
 					<td colspan="2" class="warning"><?= __ ('Use bellow fields to report application erros for developer team. You can send report as anonimous user, but this is not recomended if you want feedback.') ?></td>\
@@ -199,7 +201,7 @@ header ('Content-Encoding: gzip');
 						<form id="bugReport" action="#">\
 						<p><label for="name"><?= __ ('Your Name') ?></label> <input type="text" id="name" name="name" value="<?= User::singleton ()->getName () ?>" /></p>\
 						<p><label for="mail"><?= __ ('Your E-mail') ?></label> <input type="text" id="mail" name="mail" value="<?= User::singleton ()->getEmail () ?>" /></p>\
-						<p><label for="browser"><?= __ ('Browser') ?></label> <input type="text" id="browser" name="browser" value="<?= getBrowser () ?>" /></p>\
+						<p><label for="browser"><?= __ ('Browser') ?></label> <input type="text" id="browser" name="browser" value="' + browser.name + ' (version ' + browser.version + ')" /></p>\
 						<p><label for="bread"><?= __ ('Breadcrumb') ?></label> <input type="text" id="bread" name="bread" value="<?= getBreadPath ($section, FALSE, FALSE) . $action->getLabel () ?>" /></p>\
 						<p><label for="description"><?= __ ('Description') ?></label> <textarea id="description" name="description">' + error + '</textarea></p>\
 						</form>\

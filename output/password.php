@@ -31,13 +31,6 @@ XOAD_Server::allowClasses ('AjaxPasswd');
 if (XOAD_Server::runServer ())
 	exit ();
 
-if (!isFirefox ())
-{
-	header ('Location: titan.php?target=noFirefox');
-
-	exit ();
-}
-
 try
 {
 	if (!isset ($_GET['login']) || !isset ($_GET['hash']))

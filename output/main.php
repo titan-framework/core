@@ -1,11 +1,4 @@
 <?
-if (!isFirefox ())
-{
-	header ('Location: titan.php?target=noFirefox');
-
-	exit ();
-}
-
 include Instance::singleton ()->getCorePath () .'system/chat.php';
 
 $skin = Skin::singleton ();

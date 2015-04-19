@@ -531,77 +531,11 @@ function xmlCache ($file, $array, $path = FALSE)
 
 function isFirefox ($force = FALSE)
 {
-	if (!$force && isset ($_SESSION['_BROWSCAP_']))
-		return $_SESSION['_BROWSCAP_'];
-
-	$instance = Instance::singleton ();
-
-	if (!$force && !$instance->onlyFirefox ())
-	{
-		$_SESSION['_BROWSCAP_'] = TRUE;
-
-		return TRUE;
-	}
-
-	$cache = $instance->getCachePath ();
-
-	if (!file_exists ($cache .'browscap') && !mkdir ($cache .'browscap', 0775))
-		throw new Exception (__ ('Impossible to create cache directory. Verify on [<b>titan.xml</b>] file if propertie [<b>&lt;titan-configuration cache-path=""&gt;&lt;/titan-configuration&gt;</b>] has a valid path and <b>write permission</b>.'));
-
-	try
-	{
-		$browscap = new Browscap ($cache .'browscap');
-
-		$browser = $browscap->getBrowser ();
-	}
-	catch (Exception $e)
-	{
-		toLog ($e->getMessage ());
-
-		$_SESSION['_BROWSCAP_'] = TRUE;
-
-		return TRUE;
-	}
-
-	$compatible = array ('Firefox', 'Flock', 'IceWeasel', 'Madfox', 'SeaMonkey');
-
-	$flag = (is_object ($browser) && in_array (trim ($browser->Browser), $compatible));
-
-	if (!$flag)
-		toLog ('Incompatible Browser: ['. $browser->Browser .']');
-	
-	if (!$force)
-		$_SESSION['_BROWSCAP_'] = $flag;
-
-	return $flag;
+	return TRUE;
 }
 
 function getBrowser ()
 {
-	$cache = Instance::singleton ()->getCachePath ();
-	
-	if (!file_exists ($cache .'browscap') && !mkdir ($cache .'browscap', 0775))
-		return '';
-	
-	try
-	{
-		$browscap = new Browscap ($cache .'browscap');
-		
-		if (!is_object ($browscap))
-			throw new Exception ('Error to get Browscap object!');
-		
-		$browser = $browscap->getBrowser ();
-		
-		if (!is_object ($browser) || !isset ($browser->Parent))
-			throw new Exception ('Error to get Browscap BROWSER object!');
-		
-		return $browser->Parent;
-	}
-	catch (Exception $e)
-	{
-		toLog ($e->getMessage ());
-	}
-	
 	return '';
 }
 

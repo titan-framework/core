@@ -16,13 +16,6 @@ XOAD_Server::allowClasses ('AjaxLogon');
 if (XOAD_Server::runServer ())
 	exit ();
 
-if (!isFirefox ())
-{
-	header ('Location: titan.php?target=noFirefox');
-
-	exit ();
-}
-
 if (isset ($_POST['login']) && isset ($_POST['password']))
 {
 	$logon = new AjaxLogon;
@@ -94,7 +87,7 @@ if (Social::isActive ())
 				if ($driver->login ())
 				{
 					?>
-					<html><body onload="document.location='titan.php';"></body></html>
+					<html><body onLoad="document.location='titan.php';"></body></html>
 					<?
 					exit ();
 				}
