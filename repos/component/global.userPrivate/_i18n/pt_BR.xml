@@ -37,4 +37,6 @@
 	<message from="The current password you entered is incorrect!" to="A senha atual digitada esta incorreta!" />
 	<message from="It was not possible to change the password." to="Não foi possível modificar a senha." />
 	<message from="Password successfully changed." to="Senha modificada com sucesso." />
+	<message from="The new password can not be displayed! Contact your system administrator for more information." to="A nova senha não pode ser exibida! Contacte o administrador do sistema para mais informações." />
+
 </i18n>

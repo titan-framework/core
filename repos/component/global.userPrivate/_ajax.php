@@ -179,11 +179,13 @@ class Ajax
 			else
 			{
 				if (!Security::singleton ()->encryptOnClient ())
-					$password = sha1 ($password);
+					$encrypted = sha1 ($password);
+				else
+					$encrypted = $password;
 				
 				$sth = $db->prepare ("UPDATE _user SET _password = :passwd WHERE _id = :id");
 				
-				$sth->bindValue (':passwd', $password, PDO::PARAM_STR);
+				$sth->bindValue (':passwd', $encrypted, PDO::PARAM_STR);
 				$sth->bindValue (':id', $userId, PDO::PARAM_INT);
 				
 				if (!$sth->execute ())
@@ -194,7 +196,10 @@ class Ajax
 			
 			Log::singleton ()->add ('PASSWORD');
 			
-			Alert::add ('_PASSWORD_CHANGED_', $userId, array ($userId), array ('[LOGIN]' => $user->_login, '[PASSWD]' => $password));
+			if (!Security::singleton ()->encryptOnClient ())
+				Alert::add ('_PASSWORD_CHANGED_', $userId, array ($userId), array ('[LOGIN]' => $user->_login, '[PASSWD]' => $password));
+			else
+				Alert::add ('_PASSWORD_CHANGED_', $userId, array ($userId), array ('[LOGIN]' => $user->_login, '[PASSWD]' => 'The new password can not be displayed! Contact your system administrator for more information.'));
 		}
 		catch (Exception $e)
 		{

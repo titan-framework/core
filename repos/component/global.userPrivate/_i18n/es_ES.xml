@@ -31,5 +31,8 @@
 	<message from="A link to register the password was sent to the e-mail of the new user." to="Un link para registro de contraseña se envió al e-mail del nuevo usuario"/>
 	<message from="Unable to send the e-mail with the link to register a password. This link can be obtained through the option &quot;Forgogot my password&quot;, at logon page." to=" 	Imposible vincular grupos iniciales al usuario. Deberá configurar manualmente los grupos del nuevo usuario. [[1]]"/>
 	<message from="Unable to bind initial groups to the user. You should manually set the groups of the new user. [ [1] ]" to="No fue posible enviar el e-mail con el link para registro de contraseña. Este link podrá obtenerse a través de opción &quot;Olvidé mi contraseña&quot;, en la página de inicio de sesión."/>
-
+	
+	<!-- _ajax -->
+	<message from="The new password can not be displayed! Contact your system administrator for more information." to="La nueva contraseña no se puede mostrar! Póngase en contacto con el administrador del sistema para obtener más información." />
+	
 </i18n>
