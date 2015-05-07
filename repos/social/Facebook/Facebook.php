@@ -76,6 +76,9 @@ class FacebookDriver extends SocialDriver
 		try
 		{
 			$profile = $this->driver->api ('/me');
+			
+			if (!array_key_exists ('username', $profile) || is_null ($profile ['username']) || trim ($profile ['username']) == '')
+				$profile ['username'] = $profile ['id'];
 		}
 		catch (FacebookApiException $e)
 		{
