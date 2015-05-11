@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /*
  * Required fields: 'file' and 'change'.
