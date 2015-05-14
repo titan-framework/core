@@ -124,6 +124,8 @@ try
 	
 	$sth->execute ();
 	
+	require_once Instance::singleton ()->getReposPath () .'type'. DIRECTORY_SEPARATOR .'global.CloudFile'. DIRECTORY_SEPARATOR .'CloudFile.php';
+	
 	$file = realpath (CloudFile::getFilePath ($id));
 	
 	if (!move_uploaded_file ($temp, $file))
