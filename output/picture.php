@@ -81,6 +81,8 @@ catch (Exception $e)
 	throw new ApiException ('System error!', ApiException::ERROR_SYSTEM);
 }
 
+require_once Instance::singleton ()->getReposPath () .'type'. DIRECTORY_SEPARATOR .'global.Integer'. DIRECTORY_SEPARATOR .'Integer.php';
+
 require_once Instance::singleton ()->getReposPath () .'type'. DIRECTORY_SEPARATOR .'global.File'. DIRECTORY_SEPARATOR .'File.php';
 
 $path = File::getFilePath ($photo);

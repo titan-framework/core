@@ -26,6 +26,8 @@ $archive = Archive::singleton ();
 if (!$archive->isAcceptable ($obj->_mimetype))
 	throw new ApiException (__ ('This file type ([1]) is not supported!', $obj->_mimetype), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 
+require_once Instance::singleton ()->getReposPath () .'type'. DIRECTORY_SEPARATOR .'global.Integer'. DIRECTORY_SEPARATOR .'Integer.php';
+
 require_once Instance::singleton ()->getReposPath () .'type'. DIRECTORY_SEPARATOR .'global.File'. DIRECTORY_SEPARATOR .'File.php';
 
 require_once Instance::singleton ()->getReposPath () .'type'. DIRECTORY_SEPARATOR .'global.CloudFile'. DIRECTORY_SEPARATOR .'CloudFile.php';
