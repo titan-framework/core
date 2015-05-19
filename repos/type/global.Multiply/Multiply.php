@@ -33,7 +33,7 @@ class Multiply extends Select
 		if (array_key_exists ('relation-link', $field) && trim ($field ['relation-link']) != '')
 			$this->relationLink = trim ($field ['relation-link']);
 		else
-			$this->relationLink = array_pop (explode ('.', $this->getTable ()));
+			$this->relationLink = array_pop ((explode ('.', $this->getTable ())));
 	}
 	
 	public function setValue ($value)
