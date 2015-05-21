@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="pt_BR">
+	<message from="Title" to="Título" />
+	<message from="Note" to="Nota" />
+	<message from="Last Change" to="Última Modificação" />
+	<message from="Author" to="Autor" />
+	<message
+		from="The note of code &lt;b&gt;[1]&lt;/b&gt; was sent, but not yet ready to be displayed."
+		to="A anotação de código &lt;b&gt;[1]&lt;/b&gt; foi enviada, mas ainda não está pronta para ser mostrada."
+	/>
+</i18n>

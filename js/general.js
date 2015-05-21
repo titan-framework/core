@@ -623,3 +623,16 @@ function getBrowserInfo ()
 	
 	return { name: M [0], version: M[1] };
 }
+
+function getWindowSize ()
+{
+	oBody = document.body;
+	
+	h = oBody.scrollHeight + (oBody.offsetHeight - oBody.clientHeight);
+	w  = oBody.scrollWidth  + (oBody.offsetWidth  - oBody.clientWidth);
+	
+	h = h > 0 ? h : window.innerHeight;
+	w = w > 0 ? w : window.innerWidth;
+	
+	return { width: w, height: h };
+}

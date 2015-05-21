@@ -15,10 +15,10 @@ global.Note.view = function (id, icon)
 
 global.Note.earth = function (id, field, latitude, longitude, title, date, author, description)
 {
-	oBody = document.body;
-		
-	h = oBody.scrollHeight + (oBody.offsetHeight - oBody.clientHeight) - 70;
-	w  = oBody.scrollWidth  + (oBody.offsetWidth  - oBody.clientWidth) - 20;
+	var size = getWindowSize ();
+	
+	var h = size.height - 70;
+	var w = size.width - 60;
 	
 	var source = '<div id="_TITAN_NOTE_MAP_" style="margin: 0px; border: #CCC 2px solid; width: ' + (w - 20) + 'px; height: ' + (h - 50) + 'px;"></div>';
 	

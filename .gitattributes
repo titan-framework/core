@@ -3702,6 +3702,7 @@ repos/type/global.Note/_ajax.php -text
 repos/type/global.Note/_api/delete.php -text
 repos/type/global.Note/_api/get.php -text
 repos/type/global.Note/_api/put.php -text
+repos/type/global.Note/_i18n/pt_BR.xml -text
 repos/type/global.Note/_js.php -text
 repos/type/global.Note/_resource/audio.png -text
 repos/type/global.Note/_resource/earth.png -text

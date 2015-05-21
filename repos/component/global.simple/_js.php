@@ -1,10 +1,10 @@
 <script language="javascript" type="text/javascript">
 function viewTags ()
 {
-	oBody = document.body;
+	var size = getWindowSize ();
 	
-	h = oBody.scrollHeight + (oBody.offsetHeight - oBody.clientHeight) - 70;
-	w  = oBody.scrollWidth  + (oBody.offsetWidth  - oBody.clientWidth) - 20;
+	var h = size.height - 70;
+	var w = size.width - 20;
 	
 	if (w > 800)
 		w = 800;

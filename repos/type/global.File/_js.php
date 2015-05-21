@@ -65,10 +65,10 @@ global.File.addFilter = function (field, mimes)
 
 global.File.archive = function (field, ownerOnly)
 {
-	oBody = document.body;
-		
-	h = oBody.scrollHeight + (oBody.offsetHeight - oBody.clientHeight) - 70;
-	w  = oBody.scrollWidth  + (oBody.offsetWidth  - oBody.clientWidth) - 80;
+	var size = getWindowSize ();
+	
+	var h = size.height - 70;
+	var w = size.width - 100;
 	
 	var source = '	<div style="margin: 0 auto; width: 420px; height: 36px; line-height: 36px; vertical-align: middle;">\
 						<input type="text" class="globalFileSearchBox" id="_TITAN_GLOBAL_FILE_SEARCH_BOX_" onkeypress="JavaScript: global.File.search (this, event, \'' + field + '\', ' + (ownerOnly ? 'true' : 'false') + ');" />\

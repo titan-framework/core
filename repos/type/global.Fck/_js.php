@@ -140,10 +140,10 @@ global.Fck.imageUploadError = function (field, media, error)
 
 global.Fck.archive = function (field, ownerOnly, media)
 {
-	var oBody = document.body;
-		
-	var h = oBody.scrollHeight + (oBody.offsetHeight - oBody.clientHeight) - 70;
-	var w  = oBody.scrollWidth  + (oBody.offsetWidth  - oBody.clientWidth) - 100;
+	var size = getWindowSize ();
+	
+	var h = size.height - 70;
+	var w = size.width - 100;
 	
 	var source = '	<div style="margin: 0 auto; width: 420px; height: 36px; line-height: 36px; vertical-align: middle;">\
 						<input type="text" class="globalFileSearchBox" id="_TITAN_GLOBAL_FCK_SEARCH_BOX_" onkeypress="JavaScript: global.Fck.search (this, event, \'' + field + '\', ' + (ownerOnly ? 'true' : 'false') + ', \'' + media + '\');" />\

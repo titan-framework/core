@@ -144,7 +144,7 @@ try
 		$sthInsertMedia->execute ();
 	}
 	
-	$db->rollBack ();
+	$db->commit ();
 	
 	Log::singleton ()->add ('API-NOTE-CREATE', implode ('/', $_uri) ."\n\n". print_r ($_POST, TRUE), Log::INFO, FALSE);
 }

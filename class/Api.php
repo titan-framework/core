@@ -151,4 +151,9 @@ class Api
 		
 		return base64_encode (mcrypt_ecb (MCRYPT_BLOWFISH, $key, $input, MCRYPT_ENCRYPT));
 	}
+	
+	public static function code ($code)
+	{
+		return preg_replace ('/[^0-9\.]/i', '', $code);
+	}
 }
