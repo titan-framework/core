@@ -16,7 +16,7 @@ $sth = $db->prepare ("SELECT
 						_longitude AS longitude,
 						_latitude AS latitude,
 						_altitude AS altitude,
-						_devise AS devise,
+						EXTRACT (EPOCH FROM _devise)::integer AS devise,
 						EXTRACT (EPOCH FROM _change)::integer AS change,
 						_deleted AS deleted
 					  FROM _note WHERE _code = :code");
