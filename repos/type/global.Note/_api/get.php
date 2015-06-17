@@ -17,7 +17,7 @@ $sth = $db->prepare ("SELECT
 						_latitude AS latitude,
 						_altitude AS altitude,
 						_devise AS devise,
-						_change AS change,
+						EXTRACT (EPOCH FROM _change)::integer AS change,
 						_deleted AS deleted
 					  FROM _note WHERE _code = :code");
 
@@ -37,7 +37,7 @@ $sth = $db->prepare ("SELECT
 						m._longitude AS longitude,
 						m._latitude AS latitude,
 						m._altitude AS altitude,
-						m._date AS date,
+						EXTRACT (EPOCH FROM m._date)::integer AS date,
 						CASE WHEN m._deleted = B'1' OR c._deleted = B'1' THEN B'1' ELSE B'0' END AS deleted
 					  FROM _note_media m
 					  JOIN _note n ON n._id = m._note
