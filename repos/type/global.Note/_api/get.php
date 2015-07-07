@@ -11,6 +11,7 @@ $code = trim ($_uri [2]);
 $db = Database::singleton ();
 
 $sth = $db->prepare ("SELECT
+						_code AS code,
 						_title AS title,
 						_note AS note,
 						_longitude AS longitude,
