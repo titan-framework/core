@@ -10,7 +10,8 @@ set_time_limit (0);
 
 @ini_set ('memory_limit', '-1');
 
-@apache_setenv ('no-gzip', 1);
+if (function_exists ('apache_setenv'))
+	@apache_setenv ('no-gzip', 1);
 
 @ini_set ('zlib.output_compression', 'Off');
 

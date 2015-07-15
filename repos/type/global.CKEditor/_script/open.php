@@ -59,7 +59,8 @@ if (!file_exists ($file) || !is_readable ($file) || !(int) filesize ($file))
 
 ob_clean ();
 
-@apache_setenv ('no-gzip', 1);
+if (function_exists ('apache_setenv'))
+	@apache_setenv ('no-gzip', 1);
 
 @ini_set ('zlib.output_compression', 'Off');
 
