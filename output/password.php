@@ -241,12 +241,8 @@ catch (Exception $e)
 				<a href="http://www.titanframework.com/" target="_blank"><img src="titan.php?target=loadFile&amp;file=interface/image/logo.titan.png" border="0" alt="Titan Framework" title="Titan Framework" /></a>
 			</div>
 		</div>
-		<div id="idSection">
-			<div class="cPath">
-				<label class="cTitle"><?= __ ('Insert/Register Password') ?></label>
-			</div>
-			<div id="idWait"></div>
-		</div>
+		<div style="margin: 0 auto; width: 500px; text-align: center; margin-top: 50px;"><h1><?= __ ('Insert/Register Password') ?></h1></div>
+		<div style="margin: 0 auto; width: 600px; text-align: center; vertical-align: top;" id="idWait"></div>
 		<div id="idBodyReg" style="display:;">
 			<label id="labelMessage"></label>
 			<table width="500px" border="0" cellpadding="0" cellspacing="3" align="center">
