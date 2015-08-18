@@ -23,10 +23,6 @@ $skin = Skin::singleton ();
 			top: auto;
 			left: auto;
 		}
-		.field
-		{
-			height: 16px;
-		}
 		</style>
 		<?
 		$types = Instance::singleton ()->getTypes ();

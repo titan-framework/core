@@ -170,6 +170,9 @@ try
 			
 			echo "INFO > The file 'titan.xml' is loaded! [". $_path . DIRECTORY_SEPARATOR . $file ."] \n";
 			
+			if (isset ($_xml ['url']) && trim ($_xml ['url']) != '')
+				echo "INFO > This instance is located at [". $_xml ['url'] ."] \n";
+			
 			/*
 			 * Verifying prerequisites
 			 */
