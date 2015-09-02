@@ -112,6 +112,9 @@ try
 				echo "SUCCESS > Titan Framework [". $_corePath ."] is updated! \n";
 			
 			setPermission ($_corePath, octdec ('0775'), octdec ('0664'), 'root', 'staff');
+			
+			if ($coreActualRevision < $coreLastStableRevision)
+				$titanUpdateLog = svn_log ($_corePath, $coreActualRevision + 1, $coreLastStableRevision);
 		}
 		else
 			echo "INFO > Titan Framework is already updated! \n";
@@ -331,7 +334,7 @@ try
 			 */
 			$sendErrorReport = TRUE;
 			
-			$_revertRevision = $_actualRevision;
+			$_revertRevision = $_initialRevision = $_actualRevision;
 			
 			$_sthUpdateVersion = $_db->prepare ("INSERT INTO ". $_versionTable ." (_version, _author) VALUES (:version, :author)");
 			
@@ -560,7 +563,33 @@ try
 					echo "ERROR > Impossible update VERSION file [". $_folder ."update". DIRECTORY_SEPARATOR ."VERSION]! Verify SVN login and password at [configure/titan.xml].";
 			}
 			
-			echo "FINISH > All done after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n";
+			echo "FINISH > All done after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n\n";
+			
+			echo "INSTANCE CHANGELOG \n";
+			echo "======== ========= \n\n";
+			
+			$instanceUpdateLog = svn_log ($_path, $_initialRevision + 1, $_revertRevision);
+			
+			foreach ($instanceUpdateLog as $trash => $rev)
+			{
+				if (trim ($rev ['msg']) == '')
+					continue;
+			
+				echo "Revision #". $rev ['rev'] ." of ". date ('d-m-Y H:i:s', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
+				echo $rev ['msg'] ." \n\n";
+			}
+			
+			echo "TITAN CHANGELOG \n";
+			echo "===== ========= \n\n";
+			
+			foreach ($titanUpdateLog as $trash => $rev)
+			{
+				if (trim ($rev ['msg']) == '')
+					continue;
+			
+				echo "Revision #". $rev ['rev'] ." of ". date ('d-m-Y H:i:s', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
+				echo $rev ['msg'] ." \n\n";
+			}
 			
 			$subject = "[". $_xml ['name'] ." at server ". php_uname ('n') ."] Successful updated to revision #". $_revertRevision ." at ". date ('Y-m-d H:i:s');
 			
