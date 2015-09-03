@@ -132,7 +132,8 @@ try
 							'file-mode' => '664',
 							'dir-mode' => '775',
 							'owner' => 'root',
-							'group' => 'staff');
+							'group' => 'staff',
+							'changelog' => 'DEFAULT');
 	
 	for ($i = 1; $i < $argc; $i++)
 	{
@@ -207,7 +208,9 @@ try
 			
 			if ($_conf ['backup'] && (!isset ($_xml ['backup'][0]['path']) || trim ($_xml ['backup'][0]['path']) == '' || !isset ($_xml ['backup'][0]['validity']) || !is_numeric ($_xml ['backup'][0]['validity'])))
 				throw new Exception ("ERROR > You need fix backup parameters on tag 'backup' of 'titan.xml'! \n");
-		
+			
+			$_conf ['changelog'] = strtoupper ($_conf ['changelog']);
+			
 			/*
 			 * Connecting to DB
 			 */
@@ -565,31 +568,7 @@ try
 			
 			echo "FINISH > All done after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n\n";
 			
-			echo "INSTANCE CHANGELOG \n";
-			echo "======== ========= \n\n";
-			
-			$instanceUpdateLog = svn_log ($_path, $_initialRevision + 1, $_revertRevision);
-			
-			foreach ($instanceUpdateLog as $trash => $rev)
-			{
-				if (trim ($rev ['msg']) == '')
-					continue;
-			
-				echo "Revision #". $rev ['rev'] ." of ". date ('d-m-Y H:i:s', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
-				echo $rev ['msg'] ." \n\n";
-			}
-			
-			echo "TITAN CHANGELOG \n";
-			echo "===== ========= \n\n";
-			
-			foreach ($titanUpdateLog as $trash => $rev)
-			{
-				if (trim ($rev ['msg']) == '')
-					continue;
-			
-				echo "Revision #". $rev ['rev'] ." of ". date ('d-m-Y H:i:s', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
-				echo $rev ['msg'] ." \n\n";
-			}
+			printChangelog ($_conf ['changelog'], $_path, $_initialRevision, $_revertRevision, $titanUpdateLog);
 			
 			$subject = "[". $_xml ['name'] ." at server ". php_uname ('n') ."] Successful updated to revision #". $_revertRevision ." at ". date ('Y-m-d H:i:s');
 			
@@ -607,7 +586,11 @@ try
 		}
 		catch (Exception $e)
 		{
-			echo $e->getMessage ();
+			echo $e->getMessage () ."\n";
+			
+			echo "FINISH > Stoped with ERROR after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n\n";
+			
+			printChangelog ($_conf ['changelog'], $_path, $_initialRevision, $_revertRevision, $titanUpdateLog);
 			
 			$subject = "[". $_xml ['name'] ." at server ". php_uname ('n') ."] CRITICAL ERROR to update system at ". date ('Y-m-d H:i');
 			

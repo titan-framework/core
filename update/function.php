@@ -185,3 +185,68 @@ function handleError ($errno, $errstr, $errfile, $errline, $errcontext)
 	
 	throw new Exception ($errstr .' ['. $errno .' | '. $errfile .' | '. $errline .']');
 }
+
+function printChangelog ($conf, $path, $initial, $actual, $titanLog)
+{
+	if ($conf == 'NONE')
+		return;
+	
+	if ($actual > $initial)
+	{
+		$log = svn_log ($path, $initial + 1, $actual);
+		
+		$changelog = array ();
+		
+		foreach ($log as $trash => $rev)
+		{
+			if (trim ($rev ['msg']) == '')
+				continue;
+		
+			$output  = "Revision #". $rev ['rev'] ." of ". date ('d-m-Y H:i:s (P \G\M\T)', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
+			$output .= $rev ['msg'] ." \n";
+			
+			if ($_conf ['changelog'] == 'FULL')
+				foreach ($rev ['paths'] as $trash => $file)
+					$output .= $file ['action'] ." ". $file ['path'] ." \n";
+			
+			$output .= "\n";
+			
+			$changelog [] = $output;
+		}
+		
+		if (sizeof ($changelog))
+		{
+			echo "INSTANCE CHANGELOG \n";
+			echo "======== ========= \n\n";
+		
+			echo implode ("", $changelog);
+		}
+	}
+	
+	$changelog = array ();
+	
+	foreach ($titanLog as $trash => $rev)
+	{
+		if (trim ($rev ['msg']) == '')
+			continue;
+	
+		$output  = "Revision #". $rev ['rev'] ." of ". date ('d-m-Y H:i:s (P \G\M\T)', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
+		$output .= $rev ['msg'] ." \n";
+		
+		if ($_conf ['changelog'] == 'FULL')
+			foreach ($rev ['paths'] as $trash => $file)
+				$output .= $file ['action'] ." ". $file ['path'] ." \n";
+		
+		$output .= "\n";
+		
+		$changelog [] = $output;
+	}
+	
+	if (sizeof ($changelog))
+	{
+		echo "TITAN CHANGELOG \n";
+		echo "===== ========= \n\n";
+	
+		echo implode ("", $changelog);
+	}
+}
