@@ -2,12 +2,11 @@
 /**
  * Functions for script of auto update web applications.
  *
- * Copyright 2013 - PLEASE Lab / Embrapa Gado de Corte
+ * Copyright 2013-2015 @ PLEASE Lab / Embrapa Gado de Corte
  *
  * @author Camilo Carromeu <camilo.carromeu@embrapa.br>
  * @author Jairo Ricardes Rodrigues Filho <jairocgr@gmail.com>
  * @author Bruno Righes <brunorighes@gmail.com>
- * @version 1.0
  * 
  * File with collection of functions necessary to auto update script.
  */
@@ -202,7 +201,7 @@ function printChangelog ($conf, $path, $initial, $actual, $titanLog)
 			if (trim ($rev ['msg']) == '')
 				continue;
 		
-			$output  = "Revision ". $rev ['rev'] ." of ". date ('d-m-Y H:i:s (P \G\M\T)', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
+			$output  = "Revision #". $rev ['rev'] ." of ". date ('d-m-Y H:i:s (P \G\M\T)', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
 			$output .= $rev ['msg'] ." \n";
 			
 			if ($conf == 'FULL')
@@ -230,7 +229,7 @@ function printChangelog ($conf, $path, $initial, $actual, $titanLog)
 		if (trim ($rev ['msg']) == '')
 			continue;
 	
-		$output  = "Revision ". $rev ['rev'] ." of ". date ('d-m-Y H:i:s (P \G\M\T)', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
+		$output  = "Revision #". $rev ['rev'] ." of ". date ('d-m-Y H:i:s (P \G\M\T)', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
 		$output .= $rev ['msg'] ." \n";
 		
 		if ($conf == 'FULL')
