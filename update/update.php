@@ -177,6 +177,9 @@ try
 			if (isset ($_xml ['url']) && trim ($_xml ['url']) != '')
 				echo "INFO > This instance is located at [". $_xml ['url'] ."] \n";
 			
+			if (isset ($_xml ['timezone']) && trim ($_xml ['timezone']) != '')
+				date_default_timezone_set (trim ($_xml ['timezone']));
+			
 			/*
 			 * Verifying prerequisites
 			 */
