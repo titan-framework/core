@@ -205,7 +205,7 @@ function printChangelog ($conf, $path, $initial, $actual, $titanLog)
 			$output  = "Revision #". $rev ['rev'] ." of ". date ('d-m-Y H:i:s (P \G\M\T)', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
 			$output .= $rev ['msg'] ." \n";
 			
-			if ($_conf ['changelog'] == 'FULL')
+			if ($conf == 'FULL')
 				foreach ($rev ['paths'] as $trash => $file)
 					$output .= $file ['action'] ." ". $file ['path'] ." \n";
 			
@@ -233,7 +233,7 @@ function printChangelog ($conf, $path, $initial, $actual, $titanLog)
 		$output  = "Revision #". $rev ['rev'] ." of ". date ('d-m-Y H:i:s (P \G\M\T)', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
 		$output .= $rev ['msg'] ." \n";
 		
-		if ($_conf ['changelog'] == 'FULL')
+		if ($conf == 'FULL')
 			foreach ($rev ['paths'] as $trash => $file)
 				$output .= $file ['action'] ." ". $file ['path'] ." \n";
 		
