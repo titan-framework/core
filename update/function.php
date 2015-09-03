@@ -202,7 +202,7 @@ function printChangelog ($conf, $path, $initial, $actual, $titanLog)
 			if (trim ($rev ['msg']) == '')
 				continue;
 		
-			$output  = "Revision #". $rev ['rev'] ." of ". date ('d-m-Y H:i:s (P \G\M\T)', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
+			$output  = "Revision ". $rev ['rev'] ." of ". date ('d-m-Y H:i:s (P \G\M\T)', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
 			$output .= $rev ['msg'] ." \n";
 			
 			if ($conf == 'FULL')
@@ -230,7 +230,7 @@ function printChangelog ($conf, $path, $initial, $actual, $titanLog)
 		if (trim ($rev ['msg']) == '')
 			continue;
 	
-		$output  = "Revision #". $rev ['rev'] ." of ". date ('d-m-Y H:i:s (P \G\M\T)', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
+		$output  = "Revision ". $rev ['rev'] ." of ". date ('d-m-Y H:i:s (P \G\M\T)', strtotime ($rev ['date'])) ." by ". $rev ['author'] ." \n";
 		$output .= $rev ['msg'] ." \n";
 		
 		if ($conf == 'FULL')
