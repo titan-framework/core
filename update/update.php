@@ -156,6 +156,8 @@ try
 			
 			chdir ($_path);
 			
+			$_conf = array ();
+			
 			/*
 			 * First, the script open configuration file
 			 */
@@ -193,8 +195,6 @@ try
 			
 			if (!isset ($_xml ['update'][0]['environment']) || trim ($_xml ['update'][0]['environment']) == '')
 				throw new Exception ("ERROR > You need set a environment name on tag 'update' of 'titan.xml'! \n");
-			
-			$_conf = array ();
 			
 			foreach ($_defaultConf as $key => $value)
 				if (array_key_exists ($key, $_xml ['update'][0]) && trim ($_xml ['update'][0][$key]) != '')
@@ -595,7 +595,8 @@ try
 			
 			echo "FINISH > Stoped with ERROR after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n\n";
 			
-			printChangelog ($_conf ['changelog'], $_path, $_initialRevision, $_revertRevision, $titanUpdateLog);
+			if (isset ($_path) && isset ($_conf ['changelog']) && isset ($_initialRevision) && isset ($_revertRevision))
+				printChangelog ($_conf ['changelog'], $_path, $_initialRevision, $_revertRevision, $titanUpdateLog);
 			
 			$subject = "[". $_xml ['name'] ." at server ". php_uname ('n') ."] CRITICAL ERROR to update system at ". date ('Y-m-d H:i');
 			
