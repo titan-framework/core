@@ -59,6 +59,8 @@ try
 	
 	echo "INFO > Starting auto-update proccess at ". date ('d-m-Y H:i:s') ."... \n";
 	
+	$titanUpdateLog = array ();
+	
 	try
 	{
 		echo "INFO > Updating Titan Framework... \n";
@@ -115,8 +117,6 @@ try
 			
 			if ($coreActualRevision < $coreLastStableRevision)
 				$titanUpdateLog = svn_log ($_corePath, $coreActualRevision + 1, $coreLastStableRevision);
-			else
-				$titanUpdateLog = array ();
 		}
 		else
 			echo "INFO > Titan Framework is already updated! \n";
