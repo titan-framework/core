@@ -115,6 +115,8 @@ try
 			
 			if ($coreActualRevision < $coreLastStableRevision)
 				$titanUpdateLog = svn_log ($_corePath, $coreActualRevision + 1, $coreLastStableRevision);
+			else
+				$titanUpdateLog = array ();
 		}
 		else
 			echo "INFO > Titan Framework is already updated! \n";
