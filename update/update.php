@@ -593,7 +593,7 @@ try
 		{
 			echo $e->getMessage () ."\n";
 			
-			echo "FINISH > Stoped with ERROR after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n\n";
+			echo "FINISH > Stopped after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n\n";
 			
 			if (isset ($_path) && isset ($_conf ['changelog']) && isset ($_initialRevision) && isset ($_revertRevision))
 				printChangelog ($_conf ['changelog'], $_path, $_initialRevision, $_revertRevision, $titanUpdateLog);
