@@ -4,7 +4,10 @@
 pandora.Map.ajax = <?= class_exists ('xMap', FALSE) ? XOAD_Client::register (new xMap) : 'null' ?>;
 
 <?
-$coordinates = GoogleMaps::geolocate ();
+if (Map::usingMap ())
+	$coordinates = GoogleMaps::geolocate ();
+else
+	$coordinates = array (0, 0);
 ?>
 pandora.Map.defaultLatitude = parseFloat ('<?= $coordinates [0] ?>');
 pandora.Map.defaultLongitude = parseFloat ('<?= $coordinates [1] ?>');
