@@ -23,6 +23,8 @@ class Note extends Type
 		
 		parent::__construct ($table, $field);
 		
+		self::$useMap = TRUE;
+		
 		$this->setLoadable (FALSE);
 		
 		$this->setSavable (FALSE);
@@ -39,8 +41,7 @@ class Note extends Type
 				$this->setRelation ($entities [0] .'.'. $entities [1] .'_note');
 			else
 				$this->setRelation ($entities [0] .'_note');
-		}
-			
+		}	
 		
 		if (array_key_exists ('relation-entity', $field) && trim ($field ['relation-entity']) != '')
 			$this->setColumnEntity ($field ['relation-entity']);

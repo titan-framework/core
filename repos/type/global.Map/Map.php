@@ -9,6 +9,8 @@ class Map extends Type
 	{
 		parent::__construct ($table, $field);
 		
+		self::$useMap = TRUE;
+		
 		$this->setBind (TRUE);
 		
 		$this->setBindType (PDO::PARAM_STR);

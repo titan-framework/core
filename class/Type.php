@@ -58,6 +58,8 @@ abstract class Type
 	
 	protected $apiPlainText = TRUE;
 	
+	protected static $useMap = FALSE;
+	
 	protected function __construct ($table, $field)
 	{
 		if (array_key_exists ('name', $field))
@@ -551,6 +553,11 @@ abstract class Type
 			$array ['restrict'] = __ ('Is necessary a special permission to edit this field.');
 		
 		return $array;
+	}
+		
+	public static function usingMap ()
+	{
+		return self::$useMap;
 	}
 }
 ?>

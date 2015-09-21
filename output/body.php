@@ -62,7 +62,16 @@ header ('Content-Encoding: gzip');
 		}
 		</script>
 		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=general,menu,type,boxover,common,actb,ajax,ajax-dynamic-content,modal-message,modalbox"></script>
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+		<?
+		foreach ($types as $type => $trash)
+			if (call_user_func (array ($type, 'usingMap')))
+			{
+				?>
+				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+				<?
+				break;
+			}
+		?>
 		<?= XOAD_Utilities::header('titan.php?target=loadFile&amp;file=xoad') ."\n" ?>
 		<script language="javascript" type="text/javascript">
 		var tAjax = <?= XOAD_Client::register(new Xoad) ?>;
