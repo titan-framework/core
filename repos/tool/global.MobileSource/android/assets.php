@@ -40,7 +40,7 @@ while ($view->getItem ())
 				break;
 			
 			default:
-				$assetsValues [] = '"'. addcslashes (ApiEntity::toApi ($field), '"') .'"';
+				$assetsValues [] = "'". SQLite3::escapeString (ApiEntity::toApi ($field)) ."'";
 		}
 	}
 	
