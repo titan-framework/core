@@ -40,7 +40,7 @@ while ($view->getItem ())
 				break;
 			
 			default:
-				$assetsValues [] = '"'. ApiEntity::toApi ($field) .'"';
+				$assetsValues [] = '"'. addcslashes (ApiEntity::toApi ($field), '"') .'"';
 		}
 	}
 	
