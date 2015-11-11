@@ -7,6 +7,7 @@ api/auth.php -text
 api/disambiguation.php -text
 api/gcm.php -text
 api/register.php -text
+api/status.php -text
 assembly/breadcrumb.php -text
 assembly/menu.php -text
 assembly/section.php -text
