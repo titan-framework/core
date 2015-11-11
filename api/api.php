@@ -63,6 +63,12 @@ try
 			
 			break;
 		
+		case 'status':
+			
+			require $corePath .'api/status.php';
+			
+			break;
+		
 		case 'type':
 			
 			$_type = ucfirst (preg_replace ("/\-(.)/e", "strtoupper('\\1')", trim (@$_uri [1])));
