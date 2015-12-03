@@ -31,7 +31,7 @@ $_doc->load ($_relation, $_id, $_item, $_version);
 $aux = array ();
 while ($field = $_doc->getField ())
 	if (is_object ($field) && get_class ($field) == 'File')
-		$aux [] = $field->getValue ();
+		$aux [] = intval ($field->getValue ());
 
 $files = array ();
 
