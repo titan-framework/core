@@ -1943,6 +1943,7 @@ extra/lightbox/prevlabel.gif -text
 extra/lightbox/thumb-1.jpg -text
 extra/pear.php -text
 extra/sAjax.php -text
+extra/yuicompressor-2.4.8.jar -text
 extra/zip.php -text
 function/general.php -text
 function/legacy.php -text
