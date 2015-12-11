@@ -37,11 +37,11 @@ class Coordinate extends Type
 		if (sizeof ($array) < 3)
 			return number_format ($array [0], 12, '.', '');
 		
-		$degrees = Float::validate ($array [0]);
+		$degrees = Double::validate ($array [0]);
 		
-		$minutes = Float::validate ($array [1]);
+		$minutes = Double::validate ($array [1]);
 		
-		$seconds = Float::validate ($array [2]);
+		$seconds = Double::validate ($array [2]);
 		
 		$result = $degrees + ($minutes / 60) + ($seconds / 3600);
 		

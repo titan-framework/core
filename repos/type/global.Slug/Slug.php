@@ -1,5 +1,5 @@
 <?
-class Slug extends String
+class Slug extends Phrase
 {
 	protected $base = '';
 	

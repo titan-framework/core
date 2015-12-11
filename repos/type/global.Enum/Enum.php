@@ -1,5 +1,5 @@
 <?
-class Enum extends String
+class Enum extends Phrase
 {
 	protected $enum = array ();
 	

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <type-mapping>
-	<type name="String" component="global.String" />
+	<type name="Phrase" component="global.Phrase" />
+	<type name="String" component="global.String" legacy="2" />
 	<type name="Integer" component="global.Integer" />
 	<type name="Select" component="global.Select" />
 	<type name="Boolean" component="global.Boolean" />
 	<type name="Date" component="global.Date" />
 	<type name="Time" component="global.Time" />
-	<type name="Float" component="global.Float" />
+	<type name="Double" component="global.Double" />
+	<type name="Float" component="global.Float" legacy="2" />
 	<type name="File" component="global.File" />
 	<type name="Amount" component="global.Amount" />
 	<type name="Slider" component="global.Slider" />
@@ -25,7 +27,7 @@
 	<type name="Password" component="global.Password" />
 	<type name="Rga" component="global.Rga" />
 	<type name="PlainText" component="global.PlainText" />
-	<type name="Text" component="global.Text" legacy="true" />
+	<type name="Text" component="global.Text" legacy="1" />
 	<type name="Collection" component="global.Collection" />
 	<type name="Multiply" component="global.Multiply" />
 	<type name="Coordinate" component="global.Coordinate" />

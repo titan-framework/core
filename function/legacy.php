@@ -26,17 +26,17 @@ function integerValidate ($str)
 
 function floatValidate ($str)
 {
-	return Float::validate ($str);
+	return Double::validate ($str);
 }
 
 function textValidate ($str)
 {
-	return String::validate ($str);
+	return Phrase::validate ($str);
 }
 
 function limitText ($str, $size)
 {
-    return String::limit ($str, $size);
+    return Phrase::limit ($str, $size);
 }
 
 function editValidate ($str)

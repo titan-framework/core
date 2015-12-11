@@ -1,5 +1,5 @@
 <?
-class Passport extends String
+class Passport extends Phrase
 {
 	public function __construct ($table, $field)
 	{

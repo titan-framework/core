@@ -1,5 +1,5 @@
 <?
-class Cnpj extends String
+class Cnpj extends Phrase
 {
 	public function __construct ($table, $field)
 	{

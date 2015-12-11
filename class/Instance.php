@@ -198,15 +198,21 @@ class Instance
 			xmlCache ($cacheFile, $aux, $this->getCachePath () .'parsed/');
 		}
 		
-		if (is_array ($this->type) && array_key_exists ('use-legacy', $this->type) && strtoupper (trim ($this->type ['use-legacy'])) == 'FALSE')
-			$useTypeLegacy = FALSE;
-		else
-			$useTypeLegacy = TRUE;
+		$noTypeLegacyLevel = 0;
+		
+		if (is_array ($this->type))
+		{
+			if (array_key_exists ('use-legacy', $this->type) && strtoupper (trim ($this->type ['use-legacy'])) == 'FALSE')
+				$noTypeLegacyLevel = 1;
+			
+			if (array_key_exists ('no-legacy-level', $this->type) && is_numeric (trim ($this->type ['no-legacy-level'])) && ((int) trim ($this->type ['no-legacy-level'])) > 0)
+				$noTypeLegacyLevel = (int) trim ($this->type ['no-legacy-level']);
+		}
 		
 		$aux = $aux ['type-mapping'][0]['type'];
 		
 		foreach ($aux as $trash => $type)
-			if (array_key_exists ('component', $type) && file_exists ($this->getReposPath () .'type/'. $type ['component'] .'/'. $type ['name'] .'.php') && ($useTypeLegacy || !array_key_exists ('legacy', $type) || strtoupper (trim ($type ['legacy'])) != 'TRUE'))
+			if (array_key_exists ('component', $type) && file_exists ($this->getReposPath () .'type/'. $type ['component'] .'/'. $type ['name'] .'.php') && (!array_key_exists ('legacy', $type) || !is_numeric (trim ($type ['legacy'])) || ((int) trim ($type ['legacy'])) > $noTypeLegacyLevel))
 				$this->types [$type ['name']] = $this->getReposPath () .'type/'. $type ['component'] .'/';
 		
 		if (is_array ($this->type) && array_key_exists ('xml-path', $this->type) && trim ($this->type ['xml-path']) != '')

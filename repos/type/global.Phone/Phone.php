@@ -1,5 +1,5 @@
 <?
-class Phone extends String
+class Phone extends Phrase
 {
 	public function __construct ($table, $field)
 	{

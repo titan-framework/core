@@ -1,5 +1,5 @@
 <?
-class Cpf extends String
+class Cpf extends Phrase
 {
 	public function __construct ($table, $field)
 	{

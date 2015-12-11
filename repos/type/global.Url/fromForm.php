@@ -1,3 +1,3 @@
 <?
-return $field->getPrefix () . String::purify (trim ($value));
+return $field->getPrefix () . Phrase::purify (trim ($value));
 ?>

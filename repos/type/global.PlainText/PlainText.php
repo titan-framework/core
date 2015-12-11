@@ -1,5 +1,5 @@
 <?
-class PlainText extends String
+class PlainText extends Phrase
 {
 	public function __construct ($table, $field)
 	{

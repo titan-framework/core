@@ -1,5 +1,5 @@
 <?
-class Cep extends String
+class Cep extends Phrase
 {
 	public function __construct ($table, $field)
 	{

@@ -4,5 +4,5 @@ if (strpos ($field->getValue (), $field->getPrefix ()) !== 0)
 else
 	$value = $field->getValue ();
 
-return '<a href="'. $value .'" style="'. $field->getStyle () .'" target="_blank">'. ($field->getMaxLength () ? String::limit ($value, $field->getMaxLength ()) : $value) .'</a>';
+return '<a href="'. $value .'" style="'. $field->getStyle () .'" target="_blank">'. ($field->getMaxLength () ? Phrase::limit ($value, $field->getMaxLength ()) : $value) .'</a>';
 ?>

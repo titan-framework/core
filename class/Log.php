@@ -358,7 +358,7 @@ class Log
 		
 		$parsed = $this->parser ($this->activities [$activity]['_LABEL_'], $obj);
 		
-		return String::limit ($parsed, 120);
+		return Phrase::limit ($parsed, 120);
 	}
 	
 	private function parser ($text, $obj)

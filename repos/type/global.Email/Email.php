@@ -1,5 +1,5 @@
 <?
-class Email extends String
+class Email extends Phrase
 {
 	public function __construct ($table, $field)
 	{

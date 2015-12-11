@@ -1,5 +1,5 @@
 <?
-class Url extends String
+class Url extends Phrase
 {
 	protected $prefix = '';
 	

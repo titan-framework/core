@@ -1,5 +1,5 @@
 <?
-class Rga extends String
+class Rga extends Phrase
 {
 	public function __construct ($table, $field)
 	{

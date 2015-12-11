@@ -1,5 +1,5 @@
 <?
-class ShoppingGateway extends String
+class ShoppingGateway extends Phrase
 {
 	public function __construct ($table, $field)
 	{

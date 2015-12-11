@@ -1,5 +1,5 @@
 <?
-class Color extends String
+class Color extends Phrase
 {
 	public function __construct ($table, $field)
 	{

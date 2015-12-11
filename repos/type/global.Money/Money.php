@@ -1,5 +1,5 @@
 <?
-class Money extends Float
+class Money extends Double
 {
 	protected $currency = 'R$';
 	

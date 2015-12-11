@@ -1,6 +1,6 @@
 <?php
 
-class Fck extends String
+class Fck extends Phrase
 {
 	protected $public = TRUE;
 	

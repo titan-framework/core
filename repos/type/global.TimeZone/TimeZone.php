@@ -1,5 +1,5 @@
 <?
-class TimeZone extends String
+class TimeZone extends Phrase
 {
 	public function __construct ($table, $field)
 	{

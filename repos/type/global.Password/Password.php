@@ -1,5 +1,5 @@
 <?
-class Password extends String
+class Password extends Phrase
 {
 	public function __construct ($table, $field)
 	{

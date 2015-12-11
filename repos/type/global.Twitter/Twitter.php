@@ -1,5 +1,5 @@
 <?
-class Twitter extends String
+class Twitter extends Phrase
 {
 	private $login = '';
 	
