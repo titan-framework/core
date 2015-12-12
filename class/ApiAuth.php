@@ -22,6 +22,7 @@ abstract class ApiAuth
 	const C_USER_LOGIN = 'USER';
 	const C_USER_ID = 'USER-BY-ID';
 	const C_USER_MAIL = 'USER-BY-MAIL';
+	const C_USER_BROWSER = 'USER-BROWSER';
 	const C_CLIENT = 'CLIENT';
 	const C_CLIENT_USER = 'CLIENT-AS-USER';
 	const C_APP = 'APP';
@@ -213,7 +214,7 @@ class EmbrapaAuth extends ApiAuth
 				$this->setUser ($client->user);
 		}
 		
-		if (sizeof (array_intersect (array (self::C_USER_ID, self::C_USER_LOGIN, self::C_USER_MAIL), $this->context)))
+		if (sizeof (array_intersect (array (self::C_USER_ID, self::C_USER_LOGIN, self::C_USER_MAIL, self::C_USER_BROWSER), $this->context)))
 		{
 			$db = Database::singleton ();
 			
@@ -241,7 +242,7 @@ class EmbrapaAuth extends ApiAuth
 				
 				$user = $sth->fetch (PDO::FETCH_OBJ);
 			}
-			elseif (in_array (self::C_USER_MAIL, $this->context))
+			elseif (in_array (self::C_USER_MAIL, $this->context) || in_array (self::C_USER_BROWSER, $this->context))
 			{
 				if (!Database::isUnique ('_user', '_email'))
 					throw new ApiException (__ ('e-Mail must be unique to authenticate user! Please, report to system administrator.'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
@@ -258,7 +259,14 @@ class EmbrapaAuth extends ApiAuth
 			if (!is_object ($user))
 				throw new ApiException (__ ('User not found!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 			
-			if ($this->userSignature != self::signature ($this->timestamp, $user->id, $user->passwd))
+			if (in_array (self::C_USER_BROWSER, $this->context))
+			{
+				$pk = BrowserDevice::getKeyForRegisteredUser ($user->_id);
+				
+				if ($this->userSignature != self::signature ($this->timestamp, $user->id, $pk))
+					throw new ApiException (__ ('Invalid user credentials!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
+			}
+			elseif ($this->userSignature != self::signature ($this->timestamp, $user->id, $user->passwd))
 				throw new ApiException (__ ('Invalid user credentials!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 			
 			$this->setUser ($user->_id);

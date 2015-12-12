@@ -17,7 +17,9 @@ try
 	
 	$_uri = explode ('/', $_GET['uri']);
 	
-	if ($_uri [0] != 'register')
+	$forRegister = array ('register', 'social', 'browser');
+	
+	if (!in_array ($_uri [0], $forRegister))
 		$_auth->authenticate ();
 	else
 		$_auth->authenticateForRegister ();
@@ -36,6 +38,12 @@ try
 		case 'register':
 			
 			require $corePath .'api/register.php';
+			
+			break;
+		
+		case 'social':
+			
+			require $corePath .'api/social.php';
 			
 			break;
 		

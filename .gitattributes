@@ -7,6 +7,7 @@ api/auth.php -text
 api/disambiguation.php -text
 api/gcm.php -text
 api/register.php -text
+api/social.php -text
 api/status.php -text
 assembly/breadcrumb.php -text
 assembly/menu.php -text
@@ -23,6 +24,7 @@ class/ApiException.php -text
 class/ApiList.php -text
 class/Archive.php -text
 class/Backup.php -text
+class/BrowserDevice.php -text
 class/Business.php -text
 class/Cache.php -text
 class/Database.php -text

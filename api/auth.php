@@ -1,6 +1,6 @@
 <?php
 
-if (Api::getHttpRequestMethod () != Api::GET || !$_auth->hasContext ('USER', 'USER-BY-ID', 'USER-BY-MAIL', 'CLIENT-AS-USER'))
+if (Api::getHttpRequestMethod () != Api::GET || !$_auth->hasContext ('USER', 'USER-BY-ID', 'USER-BY-MAIL', 'CLIENT-AS-USER', 'USER-BROWSER'))
 	exit ();
 
 $user = $_auth->getUser ();
