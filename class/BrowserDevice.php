@@ -96,16 +96,11 @@ class BrowserDevice
 		if ($user === FALSE)
 			$user = User::singleton ()->getId ();
 		
-		$id = (int) preg_replace ('/[^0-9]/i', '', $id);
-		
-		if (!is_integer ($id) || !$id)
-			throw new Exception ('Invalid value to parameter Client ID!');
-		
 		$db = Database::singleton ();
 		
-		$sth = $db->prepare ("UPDATE _browser SET _access = now(), _counter = _counter + 1 WHERE _id = :id");
+		$sth = $db->prepare ("UPDATE _browser SET _access = now(), _counter = _counter + 1 WHERE _user = :user");
 		
-		$sth->bindParam (':id', $id, PDO::PARAM_INT);
+		$sth->bindParam (':user', $user, PDO::PARAM_INT);
 		
 		return $sth->execute ();
 	}

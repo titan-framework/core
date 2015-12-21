@@ -265,6 +265,8 @@ class EmbrapaAuth extends ApiAuth
 				
 				if ($this->userSignature != self::signature ($this->timestamp, $user->id, $pk))
 					throw new ApiException (__ ('Invalid user credentials!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
+				
+				BrowserDevice::registerAccess ($user->_id);
 			}
 			elseif ($this->userSignature != self::signature ($this->timestamp, $user->id, $user->passwd))
 				throw new ApiException (__ ('Invalid user credentials!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
