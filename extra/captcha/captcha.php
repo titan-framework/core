@@ -734,7 +734,7 @@ class Securimage {
     $start = strpos($data, "\n", rand(0, 100)) + 1; // random start position
     $end   = strpos($data, "\n", $start);           // find end of word
 
-    return strtolower(substr($data, $start, $end - $start)); // return substring in 128 bytes
+    return strtoupper(substr($data, $start, $end - $start)); // return substring in 128 bytes
   }
 
   /**
