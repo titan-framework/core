@@ -85,6 +85,8 @@ class Multiply extends Select
 		
 		$db = Database::singleton ();
 		
+		$array = array_unique ($this->getValue ());
+		
 		try
 		{
 			$db->beginTransaction ();
@@ -93,7 +95,7 @@ class Multiply extends Select
 			
 			$sth = $db->prepare ("INSERT INTO ". $this->getRelation () ." (". $this->getRelationLink () .", ". $this->getColumn () .") VALUES ('". $id ."', :link)");
 			
-			foreach ($this->getValue () as $trash => $linkId)
+			foreach ($array as $trash => $linkId)
 				$sth->execute (array (':link' => $linkId));
 			
 			$db->commit ();
@@ -120,7 +122,7 @@ class Multiply extends Select
 		
 		try
 		{
-			$sql = "SELECT ". $this->getColumn () ." FROM ". $this->getRelation () ." WHERE ". $this->getRelationLink () ." = '". $id ."'";
+			$sql = "SELECT DISTINCT ". $this->getColumn () ." FROM ". $this->getRelation () ." WHERE ". $this->getRelationLink () ." = '". $id ."'";
 			
 			$sth = $db->query ($sql);
 			
@@ -138,12 +140,12 @@ class Multiply extends Select
 			throw new Exception (__ ('Impossible to copy field [[1]]! Data losted.', $this->getLabel () .' ('. $this->getColumn () .')'));
 		
 		$cLocl = $this->getRelationLink ();
-		$cLink = array_pop (explode ('.', $this->getLink ()));
+		$cLink = $this->getColumn ();
 		
 		$sql = "INSERT INTO ". $this->getRelation () ." (". $cLocl .", ". $cLink .")
 				SELECT '". $newId ."' AS ". $cLocl .", ". $cLink ."
 				FROM ". $this->getRelation () ."
-				WHERE ". $cLocl ." = '". $itemId ."'";
+				WHERE ". $cLocl ." = '". $itemId ."' AND ". $cLink ." IS NOT NULL";
 		
 		Database::singleton ()->exec ($sql);
 		
