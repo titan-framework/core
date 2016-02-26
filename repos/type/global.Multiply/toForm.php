@@ -6,6 +6,8 @@ $columns = implode (", ", $field->getColumnsView ());
 
 $values = $field->getValue ();
 
+array_unshift ($values, 0);
+
 $sth = $db->prepare ("SELECT ". $columns .", ". $field->getLinkColumn () ." FROM ". $field->getLink () . ($field->getWhere () != '' ? ' WHERE '. $field->getWhere () : '') ." ORDER BY ". $columns);
 
 $sth->execute ();
