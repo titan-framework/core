@@ -188,6 +188,8 @@ class Alert
 		if (!is_array ($users))
 			$users = array ($users);
 		
+		$users = array_filter ($users);
+		
 		if (!sizeof ($users))
 			return FALSE;
 		
