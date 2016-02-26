@@ -71,7 +71,7 @@ class Multiply extends Select
 	
 	public function isEmpty ()
 	{
-		$value = $this->getValue ();
+		$value = array_filter ($this->getValue ());
 		
 		if (!sizeof ($value))
 			return TRUE;
