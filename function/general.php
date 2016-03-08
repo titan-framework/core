@@ -1,6 +1,6 @@
 <?php
 
-function __autoload ($class)
+function autoload ($class)
 {
 	$file = Instance::singleton ()->getCorePath () .'class'. DIRECTORY_SEPARATOR . $class . '.php';
 	
@@ -9,6 +9,8 @@ function __autoload ($class)
 	
 	require_once $file;
 }
+
+spl_autoload_register ('autoload');
 
 function __ ()
 {
