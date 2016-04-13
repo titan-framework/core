@@ -215,7 +215,7 @@ $skin = Skin::singleton ();
 				}
 				?>
 			</label>
-			<div class="cBody" style="width: 100%;">
+			<div class="cBody" style="width: 100%; padding-top: 10px;">
 				<?= $_OUTPUT ['SECTION'] ?>
 			</div>
 			<div class="cMenuInPlace">
