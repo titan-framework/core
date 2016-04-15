@@ -100,7 +100,7 @@ try
 				foreach ($commands as $trash => $cmd)
 				{
 					// $line = exec ($cmd .' -jar '. $instance->getCorePath () .'extra/custom_rhino.jar -c '. $path . $assign .'.js > '. $path . $assign .'.pck', $output, $return);
-					$line = exec ($cmd .' -jar '. $instance->getCorePath () .'extra/yuicompressor-2.4.8.jar --type js '. $path . $assign .'.js > '. $path . $assign .'.pck', $output, $return);
+					$line = exec ($cmd .' -jar '. $instance->getCorePath () .'extra/yuicompressor-2.4.8.jar --type js --nomunge '. $path . $assign .'.js > '. $path . $assign .'.pck', $output, $return);
 				
 					if (file_exists ($path . $assign .'.pck') && (int) filesize ($path . $assign .'.pck'))
 						break;
