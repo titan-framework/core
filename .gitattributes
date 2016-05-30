@@ -1966,6 +1966,7 @@ interface/button/ClearShopCar-es_ES.png -text
 interface/button/ClearShopCar-pt_BR.png -text
 interface/css/bug-report.css -text
 interface/css/dragable-boxes.css -text
+interface/css/empty.css -text
 interface/css/firefox.css -text
 interface/css/general-ie.css -text
 interface/css/general.css -text

@@ -30,13 +30,13 @@ if ($user->getType ()->useLdap () && $user->getType ()->getLdap ()->updateOnLogo
 {
 	$cSection = Business::singleton ()->getSection (Section::TCURRENT);
 	$cAction  = Business::singleton ()->getAction (Action::TCURRENT);
-	
+
 	try
 	{
 		Business::singleton ()->setCurrent ($user->getType ()->getName (), '_modify');
-		
+
 		$files = array ($user->getType ()->getLdapForm (), $user->getType ()->getModify (), 'edit.xml', 'all.xml');
-		
+
 		$form = new Form ($files);
 
 		if (!$form->load ($user->getId ()))
@@ -47,9 +47,9 @@ if ($user->getType ()->useLdap () && $user->getType ()->getLdap ()->updateOnLogo
 
 		if (!$form->save ($user->getId (), FALSE))
 			throw new Exception ('Unable to save in Database');
-		
+
 		User::singleton ()->update ();
-		
+
 		$_SESSION ['_TITAN_LDAP_USER_CONTROL_'][$user->getId ()] = TRUE;
 	}
 	catch (Exception $e)
@@ -58,7 +58,7 @@ if ($user->getType ()->useLdap () && $user->getType ()->getLdap ()->updateOnLogo
 
 		Message::singleton ()->save ();
 	}
-	
+
 	Business::singleton ()->setCurrent ($cSection->getName (), $cAction->getName ());
 }
 
@@ -75,10 +75,11 @@ header ('Content-Encoding: gzip');
 		<title> <?= $instance->getName () ?> </title>
 
 		<link rel="stylesheet" type="text/css" href="<?= $skin->getCss (array ('top', 'menu'), Skin::URL) ?>" />
+		<link rel="stylesheet" type="text/css" href="<?= $skin->getCss ('instance-top', Skin::PATH) ?>" />
 
 		<link rel="icon" href="<?= $skin->getIcon () ?>" type="image/ico" />
 		<link rel="shortcut icon" href="<?= $skin->getIcon () ?>" type="image/ico" />
-		
+
 		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=top"></script>
 		<script language="javascript" type="text/javascript">
 		function verifyAlerts ()
@@ -86,16 +87,16 @@ header ('Content-Encoding: gzip');
 			xmlHttp = new XMLHttpRequest ();
 			xmlHttp.open ('GET', 'titan.php?target=unreadAlerts&id=<?= User::singleton ()->getId () ?>', false);
 			xmlHttp.send (null);
-			
+
 			var alerts = parseInt (xmlHttp.responseText);
-			
+
 			var icon = document.getElementById ('alerts');
-			
+
 			if (alerts)
 			{
 				if (icon.className == 'alertsShiny')
 					return false;
-				
+
 				icon.src = 'titan.php?target=loadFile&file=interface/icon/alerts.gif';
 				icon.className = 'alertsShiny';
 				icon.alt = alerts + ' <?= __ ('alert(s)!') ?>';
@@ -105,31 +106,31 @@ header ('Content-Encoding: gzip');
 			{
 				if (icon.className == '')
 					return false;
-				
+
 				icon.src = 'titan.php?target=loadFile&file=interface/icon/grey/alerts.gif';
 				icon.className = '';
 				icon.alt = '<?= __ ('No alerts!') ?>';
 				icon.title = '<?= __ ('No alerts!') ?>';
 			}
-			
+
 			return false;
 		}
-		
+
 		function verifyShoppingCart ()
 		{
 			xmlHttp = new XMLHttpRequest ();
 			xmlHttp.open ('GET', 'titan.php?target=itemsInShoppingCart&id=<?= User::singleton ()->getId () ?>', false);
 			xmlHttp.send (null);
-			
+
 			var hasItens = parseInt (xmlHttp.responseText);
-			
+
 			var icon = document.getElementById ('shopping');
-			
+
 			if (hasItens)
 			{
 				if (icon.className == 'shoppingShiny')
 					return false;
-				
+
 				icon.src = 'titan.php?target=loadFile&file=interface/icon/shop.gif';
 				icon.className = 'shoppingShiny';
 				icon.alt = hasItens + ' <?= __ ('item(s)!') ?>';
@@ -139,27 +140,27 @@ header ('Content-Encoding: gzip');
 			{
 				if (icon.className == '')
 					return false;
-				
+
 				icon.src = 'titan.php?target=loadFile&file=interface/icon/grey/shop.gif';
 				icon.className = '';
 				icon.alt = '<?= __ ('Your shopping cart is empty!') ?>';
 				icon.title = '<?= __ ('Your shopping cart is empty!') ?>';
 			}
-			
+
 			return false;
 		}
-		
+
 		function setClientTimeZone ()
 		{
 			if ('<?= @$_COOKIE['_TITAN_TIMEZONE_'] ?>'.length)
 				return false;
-			
+
 			xmlHttp = new XMLHttpRequest ();
 			xmlHttp.open ('GET', 'titan.php?target=setClientTimeZone&z=' + getTimeZone (), true);
 			xmlHttp.send (null);
 		}
 		</script>
-		
+
 		<?= $_CHAT ['HEADER'] ?>
 	</head>
 	<body onload="JavaScript: setClientTimeZone ();">
@@ -179,9 +180,9 @@ header ('Content-Encoding: gzip');
 					&nbsp;
 					<?
 				}
-				
+
 				$profile = User::singleton ()->getType ()->getProfile ();
-				
+
 				if ($profile)
 				{
 					?>
@@ -189,7 +190,7 @@ header ('Content-Encoding: gzip');
 					&nbsp;
 					<?
 				}
-				
+
 				if (Shopping::isActive ())
 				{
 					?>
@@ -198,14 +199,14 @@ header ('Content-Encoding: gzip');
 							window.addEventListener ('load', function () { verifyShoppingCart (); }, false);
 						else if (window.attachEvent)
 							window.attachEvent ('onload', function () { verifyShoppingCart (); });
-						
+
 						window.setInterval ('verifyShoppingCart ()', 15000);
 					</script>
 					<img id="shopping" src="titan.php?target=loadFile&amp;file=interface/icon/grey/shop.gif" border="0" onclick="JavaScript: parent.body.showShoppingCart ();" alt="<?= __ ('Your shopping cart is empty!') ?>" title="<?= __ ('Your shopping cart is empty!') ?>" />
 					&nbsp;
 					<?
 				}
-				
+
 				if (Database::tableExists ('_alert'))
 				{
 					?>
@@ -214,7 +215,7 @@ header ('Content-Encoding: gzip');
 							window.addEventListener ('load', function () { verifyAlerts (); }, false);
 						else if (window.attachEvent)
 							window.attachEvent ('onload', function () { verifyAlerts (); });
-						
+
 						window.setInterval ('verifyAlerts ()', 15000);
 					</script>
 					<img id="alerts" src="titan.php?target=loadFile&amp;file=interface/icon/grey/alerts.gif" border="0" onclick="JavaScript: parent.body.showAlerts ();" alt="<?= __ ('No alerts!') ?>" title="<?= __ ('No alerts!') ?>" />
@@ -231,13 +232,13 @@ header ('Content-Encoding: gzip');
 				{
 					if (!isset ($_SESSION['_TITAN_BACKUP_FREE_']))
 						$_SESSION['_TITAN_BACKUP_FREE_'] = floor (disk_free_space (Backup::singleton ()->getRealPath ()) / (1024 * 1024));
-					
+
 					if (!isset ($_SESSION['_TITAN_BACKUP_DB_']))
 						$_SESSION['_TITAN_BACKUP_DB_'] = ceil (Database::size () / (1024 * 1024));
-					
+
 					if (!isset ($_SESSION['_TITAN_BACKUP_FILE_']))
 						$_SESSION['_TITAN_BACKUP_FILE_'] = ceil (dirSize (realpath (Archive::singleton ()->getDataPath ())) / (1024 * 1024));
-					
+
 					if (!isset ($_SESSION['_TITAN_BACKUP_CACHE_']))
 						$_SESSION['_TITAN_BACKUP_CACHE_'] = ceil (dirSize (realpath (Instance::singleton ()->getCachePath ())) / (1024 * 1024));
 					?>
@@ -245,7 +246,7 @@ header ('Content-Encoding: gzip');
 					&nbsp;
 					<?
 				}
-				
+
 				if (Manual::isActive ())
 				{
 					?>

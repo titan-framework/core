@@ -12,13 +12,14 @@ header ('Content-Encoding: gzip');
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title> <?= $instance->getName () ?> </title>
 		<meta name="description" content="<?= $instance->getDescription () ?>" />
-		
+
 		<link rel="stylesheet" type="text/css" href="<?= $skin->getCss (array ('main', 'message', 'gallery', 'boxes', 'menu', 'bug', 'backup'), Skin::URL) ?>" />
 		<!--[if IE]><link rel="stylesheet" type="text/css" href="<?= $skin->getCss ('ie', Skin::URL) ?>" /><![endif]-->
-		
+        <link rel="stylesheet" type="text/css" href="<?= $skin->getCss ('instance-body', Skin::PATH) ?>" />
+
 		<link rel="icon" href="<?= $skin->getIcon () ?>" type="image/ico" />
 		<link rel="shortcut icon" href="<?= $skin->getIcon () ?>" type="image/ico" />
-		
+
 		<style type="text/css">
 		#menuBox
 		{
@@ -44,11 +45,11 @@ header ('Content-Encoding: gzip');
 		</style>
 		<?
 		$types = Instance::singleton ()->getTypes ();
-		
+
 		foreach ($types as $type => $path)
 			if (file_exists ($path .'_css.php'))
 				include $path .'_css.php';
-		
+
 		if (file_exists ($section->getCompPath () .'_css.php'))
 			include $section->getCompPath () .'_css.php';
 		?>
@@ -76,131 +77,131 @@ header ('Content-Encoding: gzip');
 		<script language="javascript" type="text/javascript">
 		var tAjax = <?= XOAD_Client::register(new Xoad) ?>;
 		var menuHeight = <?= $menuHeight < 7 ? 154 : $menuHeight * 22  ?>;
-		
+
 		var _formErrorFields = new Array ();
 		var _formErrorColors = new Array ();
-		
+
 		function saveForm (file, formId, itemId, goTo)
 		{
 			showWait ();
-			
+
 			var formData = xoad.html.exportForm (formId);
-			
+
 			var fields = new Array ();
-			
+
 			eval ("fields = new Array (" + tAjax.validate (file, formData, itemId) + ");");
-			
+
 			if (fields.length)
 			{
 				tAjax.showMessages ();
-				
+
 				$('idBody').scrollTop = 0;
-				
+
 				for (var i = 0; i < _formErrorFields.length; i++)
 				{
 					$('row_' + _formErrorFields [i]).style.backgroundColor = _formErrorColors [i];
 					$$('#row_' + _formErrorFields [i] + ' td').first ().style.background = 'none';
 				}
-				
+
 				_formErrorFields = new Array ();
 				_formErrorColors = new Array ();
-				
+
 				for (var i = 0; i < fields.length; i++)
 				{
 					_formErrorFields [i] = fields [i];
 					_formErrorColors [i] = $('row_' + fields [i]).style.backgroundColor;
-					
+
 					$('row_' + fields [i]).style.backgroundColor = '#FADFDD';
 					$$('#row_' + fields [i] + ' td').first ().style.background = 'url(titan.php?target=loadFile&file=interface/image/exclamation.png) 5px no-repeat';
 				}
-				
+
 				hideWait ();
-				
+
 				return false;
 			}
-			
+
 			var form = document.getElementById (formId);
-			
+
 			if (goTo)
 				form.action = 'titan.php?target=commit&toSection=<?= $section->getName () ?>&toAction=<?= $action->getName () ?>&goTo=' + goTo;
 			else
 				form.action = 'titan.php?target=commit&toSection=<?= $section->getName () ?>&toAction=<?= $action->getName () ?>';
-			
+
 			form.submit ();
 		}
-		
+
 		function deleteForm (file, form, itemId)
 		{
 			document.getElementById (form).action = 'titan.php?target=commit&toSection=<?= $section->getName () ?>&toAction=<?= $action->getName () ?>';
-			
+
 			document.getElementById (form).submit ();
 		}
-		
+
 		function saveFormAjax (file, form, itemId, goToAction)
 		{
 			showWait ();
-			
+
 			var formData = xoad.html.exportForm (form);
-			
+
 			var fields = new Array ();
-			
+
 			eval ("fields = new Array (" + tAjax.validate (file, formData, itemId) + ");");
-			
+
 			if (fields.length)
 			{
 				tAjax.showMessages ();
-				
+
 				$('idBody').scrollTop = 0;
-				
+
 				for (var i = 0; i < _formErrorFields.length; i++)
 				{
 					$('row_' + _formErrorFields [i]).style.backgroundColor = _formErrorColors [i];
 					$$('#row_' + _formErrorFields [i] + ' td').first ().style.background = 'none';
 				}
-				
+
 				_formErrorFields = new Array ();
 				_formErrorColors = new Array ();
-				
+
 				for (var i = 0; i < fields.length; i++)
 				{
 					_formErrorFields [i] = fields [i];
 					_formErrorColors [i] = $('row_' + fields [i]).style.backgroundColor;
-					
+
 					$('row_' + fields [i]).style.backgroundColor = '#FADFDD';
 					$$('#row_' + fields [i] + ' td').first ().style.background = 'url(titan.php?target=loadFile&file=interface/image/exclamation.png) 5px no-repeat';
 				}
-				
+
 				hideWait ();
-				
+
 				return false;
 			}
-			
+
 			if (!tAjax.save (file, formData, itemId, '<?= $section->getName () ?>'))
 			{
 				tAjax.delay (function () { hideWait (); });
-				
+
 				return false;
 			}
-			
+
 			if (goToAction != '<?= $action->getName () ?>')
 			{
 				document.location = 'titan.php?target=body&toSection=<?= $section->getName () ?>&amp;toAction=' + goToAction;
-				
+
 				return true;
 			}
-			
+
 			tAjax.delay (function () { hideWait (); });
-			
+
 			return true;
 		}
-		
+
 		function bugReport (error, type)
 		{
 			if (!error)
 				error = '';
-			
+
 			var browser = getBrowserInfo ();
-			
+
 			var source = '<table border="0" class="bugReport" style="margin: 10px 20px;">\
 				<tr>\
 					<td colspan="2" class="warning"><?= __ ('Use bellow fields to report application erros for developer team. You can send report as anonimous user, but this is not recomended if you want feedback.') ?></td>\
@@ -223,10 +224,10 @@ header ('Content-Encoding: gzip');
 					</td>\
 				</tr>\
 			</table>';
-			
+
 			Modalbox.show (source, {width: 430, height: 480, title: '<?= __ ('Bug Report') ?>'});
 		}
-		
+
 		<?
 		if (PHP_OS == 'Linux' && User::singleton ()->isAdmin () && Backup::singleton ()->isActive ())
 		{
@@ -253,127 +254,127 @@ header ('Content-Encoding: gzip');
 						<td style="width: 300px;" id="_INSTANCE_BACKUP_BUTTON_"></td>\
 					</tr>\
 				</table>';
-				
+
 				Modalbox.show (source, {width: 500, height: 370, title: 'Backup'});
 			}
-			
+
 			function updateInstanceBackupSize ()
 			{
 				var elements = new Array ('_INSTANCE_BACKUP_DB_', '_INSTANCE_BACKUP_FILE_', '_INSTANCE_BACKUP_CACHE_');
-				
+
 				var values = new Array (<?= $bkpDB ?>, <?= $bkpFile ?>, <?= $bkpCache ?>);
-				
+
 				var free = <?= $bkpFree ?>;
-				
+
 				var total = 0;
-				
+
 				for (var i = 0 ; i < elements.length ; i++)
 					if ($(elements [i]).checked)
 						total = total + values [i];
-				
+
 				if (!total || total > free)
 				{
 					$('_INSTANCE_BACKUP_TOTAL_').style.color = '#900';
-					
+
 					var button = $('_INSTANCE_BACKUP_BUTTON_').childElements ();
-					
+
 					for (var i = 0 ; i < button.length ; i++)
 						$('_INSTANCE_BACKUP_BUTTON_').removeChild (button [i]);
 				}
 				else
 				{
 					$('_INSTANCE_BACKUP_TOTAL_').style.color = '#090';
-					
+
 					if (!$('_INSTANCE_BACKUP_BUTTON_').childElements ().length)
 					{
 						var button = document.createElement ('img');
-						
+
 						button.src = 'titan.php?target=loadFile&file=interface/image/backup.png';
 						button.onclick = function () { generateInstanceBackup () };
 						button.style.cursor = 'pointer';
-						
+
 						$('_INSTANCE_BACKUP_BUTTON_').appendChild (button);
 					}
 				}
-				
+
 				$('_INSTANCE_BACKUP_TOTAL_').innerHTML = total + ' MB';
 			}
-			
+
 			function generateInstanceBackup ()
 			{
 				var elements = new Array ('DB', 'FILE', 'CACHE');
-				
+
 				var aux = '';
-				
+
 				for (var i = 0 ; i < elements.length ; i++)
 					if ($('_INSTANCE_BACKUP_' + elements [i] + '_').checked)
 						aux += elements [i] + ',';
-				
+
 				xmlHttp = new XMLHttpRequest ();
 				xmlHttp.open ('GET', 'titan.php?target=backup&artifacts=' + aux, true);
 				xmlHttp.send (null);
-				
+
 				message ('<?= __ ('The backup process has started in background! The system can still be used normally. Depending on the size, the process may take from few seconds to several hours. When finished you will receive a e-mail with download links.') ?>', 500, 120, true, '<?= __ ('Success') ?>', 'SUCCESS');
 			}
 			<?
 		}
 		?>
-		
+
 		function chooseLanguage ()
 		{
 			<?
 			$languages = Localization::singleton ()->getAvaliableLanguages ();
-			
+
 			$size = sizeof ($languages) * 60;
 			?>
 			var source = '<div style="margin: 0 auto; width: <?= $size ?>px;"><?
 					foreach ($languages as $language => $label)
 						echo '<div class="flag" style="background-image: url(titan.php?target=loadFile&amp;file=interface/locale/'. $language .'.png);'. ($language == Localization::singleton ()->getLanguage () ? ' background-position: top;" onclick="JavaScript: Modalbox.hide ();"' : '" onclick="JavaScript: changeLanguage (\\\''. $language .'\\\');"') .' title="'. $label .'"></div>';
 					?></div>';
-			
+
 			Modalbox.show (source, { title: '<?= __ ('Choose Your Language') ?>', width: <?= $size < 240 ? 260 : $size + 20 ?>, height: 90 });
 		}
-		
+
 		function getHelp ()
 		{
 			var size = getWindowSize ();
-			
+
 			var h = size.height - 70;
 			var w = size.width - 20;
-			
+
 			if (w > 1060)
 				w = 1060;
-			
+
 			var source = '<iframe src="titan.php?target=manual&toSection=<?= Business::singleton ()->getSection (Section::TCURRENT)->getName () ?>" scrolling="auto" style="margin: 0px; border: #CCC 1px solid; width: ' + (w - 20) + 'px; height: ' + (h - 50) + 'px; background: url(titan.php?target=loadFile&file=interface/image/manual_generation.png) center no-repeat;"></iframe>';
-			
+
 			Modalbox.show (source, { title: '<?= __ ('User Manual') ?>', width: w, height: h });
 		}
-		
+
 		function showAlerts ()
 		{
 			showWait ();
-			
+
 			eval (tAjax.getAlerts ());
-			
+
 			if (!alerts || !alerts.length)
 			{
 				Modalbox.show ('<ul class="alert"><li class="read last" style="background: url(titan.php?target=loadFile&file=interface/alert/confirm.gif) no-repeat left;"><div><?= __ ('No alerts!') ?></div></li></ul>', { title: '<?= __ ('Alerts') ?>', width: 600 });
-				
+
 				hideWait ();
-				
+
 				return false;
 			}
-			
+
 			var buffer = '';
-			
+
 			for (var i = 0 ; i < alerts.length ; i++)
 				buffer += '<li id="_TITAN_ALERT_' + alerts [i].id + '" class="' + (alerts [i].read ? 'read' : 'unread') + '" style="background: #' + (alerts [i].read ? 'EFEFEF' : 'FFF') + ' url(' + alerts [i].icon + ') no-repeat left;"><div title="' + alerts [i].message + '"' + (alerts [i].read ? '' : ' onmouseover="JavaScript: readAlert (' + alerts [i].id + ');"') + ' onclick="JavaScript: document.location=\'' + alerts [i].link + '\';">' + alerts [i].message + '</div><img src="titan.php?target=loadFile&file=interface/image/trash.gif" title="<?= __ ('Delete') ?>" alt="<?= __ ('Delete') ?>" onclick="JavaScript: deleteAlert (' + alerts [i].id + ');" /></li>';
-			
+
 			Modalbox.show ('<ul class="alert">' + buffer + '</ul>', { title: '<?= __ ('Alerts') ?>', width: 600 });
-			
+
 			hideWait ();
 		}
-		
+
 		<?
 		if (Shopping::isActive ())
 		{
@@ -381,60 +382,60 @@ header ('Content-Encoding: gzip');
 			function showShoppingCart ()
 			{
 				showWait ();
-				
+
 				eval (tAjax.getItemsInShoppingCart ());
-				
+
 				if (!items || !items.length)
 				{
 					Modalbox.show ('<ul class="shopCar"><li class="read last" style="background: url(titan.php?target=loadFile&file=interface/alert/info.gif) no-repeat left;"><div style="margin-left: 40px;"><?= __ ('Your shopping cart is empty!') ?></div></li></ul>', { title: '<?= __ ('Shopping Cart') ?>', width: 950 });
-					
+
 					hideWait ();
-					
+
 					return false;
 				}
-				
+
 				var buffer = '<li id="_TITAN_SHOP_HEADER_" class="header"><div class="description"><?= __ ('Description') ?></div><div class="quantity"><?= __ ('Quantity') ?></div><div class="value"><?= __ ('Value') ?> (<?= Shopping::singleton ()->getCurrency () ?>)</div><div class="total"><?= __ ('Total') ?></div></li>';
-				
+
 				var total = 0;
-				
+
 				for (var i = 0 ; i < items.length ; i++)
 				{
 					buffer += '<li id="_TITAN_SHOP_' + items [i].id + '"><div class="description" title="' + items [i].description + '">' + items [i].description + '</div><div class="quantity" title="' + items [i].quantity + '">' + items [i].quantity + '</div><div class="value" title="<?= Shopping::singleton ()->getCurrencySymbol () ?> ' + formatMoney (items [i].value) + '"><?= Shopping::singleton ()->getCurrencySymbol () ?> ' + formatMoney (items [i].value) + '</div><div class="total" title="<?= Shopping::singleton ()->getCurrencySymbol () ?> ' + formatMoney (items [i].quantity * items [i].value) + '"><?= Shopping::singleton ()->getCurrencySymbol () ?> ' + formatMoney (items [i].quantity * items [i].value) + '</div><img src="titan.php?target=loadFile&file=interface/image/trash.gif" title="<?= __ ('Remove') ?>" alt="<?= __ ('Remove') ?>" onclick="JavaScript: deleteItemFromShoppingCart (' + items [i].id + ');" /></li>';
-					
+
 					total += items [i].quantity * items [i].value;
 				}
-				
+
 				buffer += '<li class="lineOfButtons"><div class="clearShopCar" style="background: url(titan.php?target=loadFile&file=interface/button/ClearShopCar-<?= Localization::singleton ()->getLanguage () ?>.png) center top no-repeat;" onmouseover="JavaScript: this.style.backgroundPosition = \'bottom\';" onmouseout="JavaScript: this.style.backgroundPosition = \'top\';"></div><div class="checkout" style="background: url(titan.php?target=loadFile&file=interface/button/Checkout-<?= Localization::singleton ()->getLanguage () ?>.png) center top no-repeat;" onmouseover="JavaScript: this.style.backgroundPosition = \'bottom\';" onmouseout="JavaScript: this.style.backgroundPosition = \'top\';"></div><div class="final"><div id="_TITAN_SHOP_FINAL_VALUE_">' + '<?= ('You have <b># item(s)</b> with total value<br /><b>$0,00</b>') ?>'.replace ('#', items.length).replace ('$0,00', '<?= Shopping::singleton ()->getCurrencySymbol () ?> ' + formatMoney (total)) + '</div></div></li>';
-				
+
 				Modalbox.show ('<ul class="shopCar">' + buffer + '</ul>', { title: '<?= __ ('Shopping Cart') ?>', width: 950 });
-				
+
 				hideWait ();
 			}
-			
+
 			function updateShoppingCart ()
 			{
 				eval (tAjax.getItemsInShoppingCart ());
-				
+
 				var total = 0;
-				
+
 				for (var i = 0 ; i < items.length ; i++)
 					total += items [i].quantity * items [i].value;
-				
+
 				$('_TITAN_SHOP_FINAL_VALUE_').innerHTML = '<?= ('You have <b># item(s)</b> with total value<br /><b>$0,00</b>') ?>'.replace ('#', items.length).replace ('$0,00', '<?= Shopping::singleton ()->getCurrencySymbol () ?> ' + formatMoney (total));
 			}
 			<?
 		}
 		?>
-		
+
 		var ajax = <?= XOAD_Client::register(new Ajax) ?>;
 		</script>
 		<?
 		$types = Instance::singleton ()->getTypes ();
-		
+
 		foreach ($types as $type => $path)
 			if (file_exists ($path .'_js.php'))
 				include $path .'_js.php';
-		
+
 		if (file_exists ($section->getCompPath () .'_js.php'))
 			include $section->getCompPath () .'_js.php';
 		?>
@@ -459,7 +460,7 @@ header ('Content-Encoding: gzip');
 						<? while ($msg = $message->get ()) echo $msg; ?>
 					</div>
 					<?
-					
+
 					$message->clear ();
 				}
 				?>
@@ -472,30 +473,30 @@ header ('Content-Encoding: gzip');
 			<div class="cResources" id="_TITAN_INFO_">
 				<?
 				$path = Instance::singleton ()->getCorePath () .'update'. DIRECTORY_SEPARATOR;
-				
+
 				$version = trim (file_get_contents ($path .'VERSION'));
 				$release = trim (file_get_contents ($path .'STABLE'));
-				
+
 				$appReleasePath = Instance::singleton ()->getCachePath () .'RELEASE';
-				
+
 				$autoDeploy = FALSE;
-				
+
 				if (file_exists ($appReleasePath) && is_readable ($appReleasePath))
 				{
 					$file = parse_ini_file ($appReleasePath);
-					
-					if (is_array ($file)) 
+
+					if (is_array ($file))
 					{
 						$autoDeploy = TRUE;
-						
+
 						$requiredKeys = array ('version', 'environment', 'date', 'author');
-						
+
 						foreach ($requiredKeys as $trash => $key)
 							if (!array_key_exists ($key, $file) || trim ((string) $file [$key]) == '')
 								$autoDeploy = FALSE;
 					}
 				}
-				
+
 				if (!$autoDeploy)
 				{
 					?>
@@ -507,13 +508,13 @@ header ('Content-Encoding: gzip');
 					$appRelease = $file ['version'];
 					$appEnvironment = $file ['environment'];
 					$appDate = strftime ('%x %X', $file ['date']);
-					
+
 					$fileOfVersion = 'update'. DIRECTORY_SEPARATOR .'VERSION';
-					
+
 					if (file_exists ($fileOfVersion) && is_readable ($fileOfVersion))
 					{
 						$appVersion = trim (file_get_contents ($fileOfVersion, 0, NULL, 0, 16));
-						
+
 						if (!empty ($appVersion))
 							$appRelease = $appVersion .'-'. $appRelease;
 					}
