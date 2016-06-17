@@ -210,7 +210,7 @@ class Form
 					$display = $group ['display'];
 				else
 					$display = 'visible';
-				
+
 				if (array_key_exists ('info', $group))
 					$info = $group ['info'];
 				else
@@ -230,7 +230,7 @@ class Form
 							$this->groups [$groupId][] = $obj->getAssign ();
 						}
 			}
-		
+
 		reset ($this->fields);
 		reset ($this->groupsInfo);
 		reset ($this->groups);
@@ -259,7 +259,7 @@ class Form
 
 		if ($action->getXmlPath () !== FALSE && trim ($action->getXmlPath ()) != '')
 			array_unshift ($files, $action->getXmlPath ());
-		
+
 		array_push ($files, $action->getName (), $action->getEngine ());
 
 		$form = new $class ($files);
@@ -327,10 +327,14 @@ class Form
 		$this->itemId = $itemId;
 	}
 
-	public function addField ($field)
+	public function addField ($field, $group = 0)
 	{
 		if (is_object ($field))
+		{
 			$this->fields [$field->getAssign ()] = $field;
+
+			$this->groups [$group][] = $field->getAssign ();
+		}
 		elseif ($obj = Type::factory ($this->getTable (), $field))
 		{
 			while ($perm = $obj->getRestrict ())
@@ -338,6 +342,8 @@ class Form
 					return FALSE;
 
 			$this->fields [$obj->getAssign ()] = $obj;
+
+			$this->groups [$group][] = $obj->getAssign ();
 
 			return TRUE;
 		}
@@ -416,7 +422,7 @@ class Form
 	{
 		if ($this->isLoaded ())
 			return TRUE;
-		
+
 		if (is_array ($formData))
 			foreach ($formData as $key => $value)
 			{
@@ -430,7 +436,7 @@ class Form
 		{
 			if (!array_key_exists ($assign, $this->fields))
 				continue;
-			
+
 			if ($this->fields [$assign]->isReadOnly ())
 				$this->fields [$assign]->setValue (unserialize (base64_decode ($value)));
 			else
@@ -450,7 +456,7 @@ class Form
 		if (is_numeric ($sql))
 		{
 			$itemId = $sql;
-			
+
 			$this->setId ($itemId);
 
 			$fields = array ();
@@ -509,15 +515,15 @@ class Form
 			if (!$field->isReadOnly () && $field->isSavable ())
 			{
 				$assign = $field->getAssign ();
-				
+
 				$fields [$assign] = $field->getColumn ();
-				
+
 				if ($field->getBind ())
 				{
 					$values [$assign] = ":". $field->getColumn ();
 					$binds  [$assign] = Database::toBind ($field);
 					$types  [$assign] = $field->getBindType ();
-					
+
 					if (method_exists ($field, 'getMaxLength'))
 						$sizes [$assign] = (int) $field->getMaxLength ();
 					else
@@ -526,44 +532,44 @@ class Form
 				else
 					$values [$assign] = Database::toValue ($field);
 			}
-		
+
 		// Legacy code. Old pattern to save last date of update still used by mandatory '_user' table.
 		if ($useLog && array_pop (explode ('.', $this->getTable ())) == '_user')
 		{
 			$fields [] = '_update_date';
 			$values [] = 'NOW()';
 		}
-		
+
 		$mandatory = Database::getMandatoryColumns ($this->getTable ());
-		
+
 		foreach ($mandatory as $trash => $column)
 		{
 			$aux = $this->getFieldByColumn ($column);
-			
+
 			if (is_null ($aux) || !is_object ($aux) || !$aux->isSavable ())
 				continue;
-			
+
 			$$column = $aux;
 		}
-		
+
 		if (in_array ('_user', $mandatory) && !isset ($_user))
 		{
 			$fields [] = '_user';
 			$values [] = User::singleton ()->getId ();
 		}
-		
+
 		if (in_array ('_update', $mandatory) && !isset ($_update))
 		{
 			$fields [] = '_update';
 			$values [] = 'NOW()';
 		}
-		
+
 		if (in_array ('_change', $mandatory) && !isset ($_change))
 		{
 			$fields [] = '_change';
 			$values [] = 'NOW()';
 		}
-		
+
 		if (!is_numeric ($itemId) || (int) $itemId)
 		{
 			$aux = array ();
@@ -579,7 +585,7 @@ class Form
 				$fields [] = '_author';
 				$values [] = User::singleton ()->getId ();
 			}
-			
+
 			$itemId = Database::nextId ($this->getTable (), $this->getPrimary ());
 
 			$sql = "INSERT INTO ". $this->getTable () ." (". $this->getPrimary () .", ". implode (", ", $fields) .") VALUES (". $itemId .", ". implode (", ", $values) .")";
@@ -590,16 +596,16 @@ class Form
 		$db = Database::singleton ();
 
 		$sth = $db->prepare ($sql);
-		
+
 		foreach ($binds as $assign => $trash)
 			if ($sizes [$assign] && $types [$assign] == PDO::PARAM_STR)
 				$sth->bindParam ($values [$assign], $binds [$assign], $types [$assign], $sizes [$assign]);
 			else
 				$sth->bindParam ($values [$assign], $binds [$assign], $types [$assign]);
-		
+
 		if (!$sth->execute ())
 			return FALSE;
-		
+
 		$this->setId ($itemId);
 
 		Lucene::singleton ()->save ($itemId, $this->getResume ($itemId, TRUE));
@@ -607,9 +613,9 @@ class Form
 		foreach ($this->fields as $key => $field)
 			if (!$field->isSavable ())
 				$field->save ($itemId);
-		
+
 		reset ($this->fields);
-		
+
 		return $itemId;
 	}
 
@@ -738,17 +744,17 @@ class Form
 		{
 			if (!$uid && $field->getLdap () == 'uid')
 				$uid = Ldap::toLdap ($field);
-			
+
 			if ($field->isLdapField () && !$field->isReadOnly ())
 				$fields [$field->getLdap ()] = Ldap::toLdap ($field);
 		}
-		
+
 		if (!sizeof ($fields))
 			return TRUE;
-		
+
 		if (!$ldap->isConnected ())
 			$ldap->connect (FALSE, FALSE, TRUE);
-		
+
 		if (!$ldap->userExists ($uid))
 		{
 			$ldap->close ();
@@ -774,14 +780,14 @@ class Form
 		foreach ($this->fields as $assign => $field)
 			if ($field->isLdapField ())
 				$fields [$field->getLdap ()] = Ldap::toLdap ($field);
-		
+
 		if ($ldap->userExists ($uid))
 		{
 			$ldap->close ();
 
 			throw new Exception ('O usuário já existe no servidor LDAP!');
 		}
-		
+
 		$ldap->create ($fields, $uid);
 
 		$ldap->close ();
@@ -834,7 +840,7 @@ class Form
 		foreach ($this->fields as $assign => $field)
 			if ($field->isLdapField () && array_key_exists (strtolower ($field->getLdap ()), $ldapUser))
 				$this->fields [$assign] = Ldap::fromLdap ($field, $ldapUser [$field->getLdap ()]);
-		
+
 		$ldap->close ();
 
 		return TRUE;
@@ -871,16 +877,16 @@ class Form
 
 		if (!$friendly)
 			$resume .= "[ID# ". $itemId ."] \n\n";
-		
+
 		while ($group = $this->getGroup ())
 		{
 			if ($group->getId ())
 				$resume .= "> ". $group->getLabel () ."\n\n";
-			
+
 			while ($field = $this->getField (FALSE, $group->getId ()))
 				$resume .= (trim ($field->getLabel ()) != '' ? $field->getLabel () .": \n" : '') . self::toText ($field) ." \n\n";
 		}
-		
+
 		reset ($this->fields);
 
 		return $resume;
@@ -915,13 +921,13 @@ class Form
 
 		return NULL;
 	}
-	
+
 	public function getFieldByColumn ($column)
 	{
 		foreach ($this->fields as $assign => $field)
 			if ($field->getColumn () == $column)
 				return $field;
-		
+
 		return NULL;
 	}
 
@@ -934,7 +940,7 @@ class Form
 
 			return new Group ($this->groupsInfo [$id]);
 		}
-		
+
 		$group = each ($this->groupsInfo);
 
 		if ($group !== FALSE)
@@ -1077,7 +1083,7 @@ class Form
 
 		return strip_tags ($field->getValue ());
 	}
-	
+
 	public static function toHelp ($field)
 	{
 		if (trim ($field->getHelp ()) == '')
