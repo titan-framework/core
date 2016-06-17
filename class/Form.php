@@ -329,6 +329,9 @@ class Form
 
 	public function addField ($field, $group = 0)
 	{
+		if (!array_key_exists ($group, $this->groups))
+			$group = 0;
+
 		if (is_object ($field))
 		{
 			$this->fields [$field->getAssign ()] = $field;
