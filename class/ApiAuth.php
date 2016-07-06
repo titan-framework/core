@@ -64,7 +64,7 @@ abstract class ApiAuth
 				if (!array_key_exists ($endpoint ['method'], $this->endpoints))
 					$this->endpoints [$endpoint ['method']] = array ();
 
-				$this->endpoints [$endpoint ['method']][] = trim (trim ($endpoint ['uri']), '/');
+				$this->endpoints [$endpoint ['method']][] = trim (trim ($endpoint ['uri']), '\/');
 			}
 	}
 
@@ -123,10 +123,19 @@ abstract class ApiAuth
 	{
 		if (!sizeof ($this->endpoints))
 			return TRUE;
-		
+
 		foreach ($this->endpoints [Api::getHttpRequestMethod ()] as $trash => $value)
-			if (strpos ($uri, $value) === 0)
-				return TRUE;
+		{
+			preg_match ('/'. $value .'/', $uri, $matches);
+
+			// For debug:
+			// throw new Exception (print_r ($matches, TRUE));
+
+			if (sizeof ($matches) != 1 || strlen ($matches [0]) != strlen ($uri))
+				continue;
+
+			return TRUE;
+		}
 
 		return FALSE;
 	}
