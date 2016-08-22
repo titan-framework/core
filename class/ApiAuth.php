@@ -343,7 +343,12 @@ class EmbrapaAuth extends ApiAuth
 	public static function getHeaders ()
 	{
 		if (is_null (self::$headers))
+        {
 			self::$headers = apache_request_headers ();
+
+			foreach (self::$headers as $key => $value)
+			    self::$headers [strtolower ($key)] = $value;
+        }
 
 		return self::$headers;
 	}
