@@ -16,7 +16,7 @@ $sth->execute ();
 
 ob_start ();
 
-if (!$field->useCheckBoxes ())
+if (!$field->useCheckBoxes () && !$field->useFastSearch ())
 {
 	?>
 	<table id="<?= $fieldId ?>_table"></table>
@@ -30,11 +30,11 @@ if (!$field->useCheckBoxes ())
 	<script language="javascript" type="text/javascript">
 	<?
 	$sth = $db->prepare ("SELECT l.". implode (", l.", $field->getColumnsView ()) .", l.". $field->getLinkColumn () ." FROM ". $field->getRelation () ." r INNER JOIN ". $field->getLink () ." l ON r.". $field->getColumn () ." = l.". $field->getLinkColumn () ." WHERE r.". $field->getColumn () ." IN ('". implode ("', '", $values) ."')");
-	
+
 	$sth->execute ();
-	
+
 	while ($obj = $sth->fetch (PDO::FETCH_OBJ))
-	{ 
+	{
 		?>
 		global.Multiply.choose ('<?= $fieldName ?>', '<?= $fieldId ?>', <?= $obj->$linkColumn ?>, '<?= $field->makeView ($obj) ?>');
 		<?
@@ -43,7 +43,7 @@ if (!$field->useCheckBoxes ())
 	</script>
 	<?
 }
-else
+elseif ($field->useCheckBoxes ())
 {
 	?>
 	<table>
@@ -52,6 +52,17 @@ else
 			echo '<tr><td><input type="checkbox" name="'. $fieldName .'[]" value="'. $item->$linkColumn .'" id="check_'. $fieldId .'_'. $item->$linkColumn .'" '. (in_array ($item->$linkColumn, $values) ? 'checked="checked"' : '') .' /></td><td>'. $field->makeView ($item) .'</td></tr>';
 		?>
 	</table>
+	<?
+}
+else
+{
+	?>
+	<select class="chosen field" style="<?= $field->getStyle () ?>" name="<?= $fieldName ?>[]" id="<?= $fieldId ?>" multiple="multiple">
+		<?
+		while ($item = $sth->fetch (PDO::FETCH_OBJ))
+			echo '<option value="'. $item->$linkColumn .'" '. (in_array ($item->$linkColumn, $values) ? 'selected="selected"' : '') .'>'. $field->makeView ($item) .'</option>';
+		?>
+	</select>
 	<?
 }
 
