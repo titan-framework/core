@@ -9,4 +9,9 @@
 		from="Select..."
 		to="Selecione..."
 	/>
+	
+	<message
+		from="Select some options..."
+		to="Selecione as opções..."
+	/>
 </i18n>

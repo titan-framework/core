@@ -46,6 +46,7 @@ document.observe ('dom:loaded', function (evt)
 			disable_search_threshold: 10,
 			no_results_text: "<?= __ ('Nothing found!') ?>",
 			placeholder_text_single: "<?= __ ('Select...') ?>",
+			placeholder_text_multiple: "<?= __ ('Select some options...') ?>",
 			allow_single_deselect: true,
 			search_contains: true,
 			width: "506px"
