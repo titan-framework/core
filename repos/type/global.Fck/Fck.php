@@ -45,7 +45,7 @@ class Fck extends Phrase
 	
 	public static function getCKEditorPath ()
 	{
-		return Instance::singleton ()->getCorePath () .'repos/type/global.'. __CLASS__ .'/CKEditor/';
+		return Instance::singleton ()->getUrl () .'titan.php?target=tResource&type=Fck&file=CKEditor/';
 	}
 	
 	public static function getLanguage ()
