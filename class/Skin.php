@@ -39,8 +39,8 @@ class Skin
 								'css-firefox'		=> Instance::singleton ()->getCorePath () .'interface/css/firefox.css',
 								'css-gallery'		=> Instance::singleton ()->getCorePath () .'interface/css/lightbox.css',
 								'css-mobile'		=> Instance::singleton ()->getCorePath () .'interface/css/mobile.css',
-								'css-instance-top' 	=> Instance::singleton ()->getCorePath () .'interface/css/empty.css',
-								'css-instance-body' => Instance::singleton ()->getCorePath () .'interface/css/empty.css');
+								'css-instance-top' 	=> 'titan.php?target=loadFile&file=interface/css/empty.css',
+								'css-instance-body' => 'titan.php?target=loadFile&file=interface/css/empty.css');
 
 		foreach ($this->array as $key => $trash)
 			if (array_key_exists ($key, $fromXml) && !empty ($fromXml [$key]))
