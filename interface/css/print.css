@@ -18,3 +18,22 @@ body
 	margin-top: 3px;
 	padding: 0px 4px 0px 0px;
 }
+
+#idSection
+{
+	clear: both;
+	position: relative;
+	height: 52px;
+	width: 100%;
+	background: url(titan.php?target=loadFile&file=interface/back/gradient.png) repeat-x top;
+	margin: 0px;
+}
+
+#idBody
+{
+	clear: both;
+	position: relative;
+	margin: 0px;
+	width: 100%;
+	top: -10px;
+}
