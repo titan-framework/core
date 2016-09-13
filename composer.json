@@ -1,0 +1,63 @@
+{
+	"name": "titan-framework/core",
+	"description": "The core (or kernel) of Titan Framework.",
+	"type": "library",
+	"license": "BSD-3-Clause",
+	"authors": [
+		{
+			"name": "Camilo Carromeu",
+			"email": "camilo@carromeu.com",
+			"homepage": "http://pandora.cnpgc.embrapa.br/staff/Camilo-Carromeu",
+			"role": "Developer"
+		},
+		{
+			"name": "Hercules da Costa Sandim",
+			"email": "herculessandim@gmail.com",
+			"homepage": "http://lattes.cnpq.br/1372319166874587",
+			"role": "Developer"
+		},
+		{
+			"name": "Humberto Rafael Henrique Pereira",
+			"email": "begnini@gmail.com",
+			"homepage": "http://lattes.cnpq.br/3678954951658871",
+			"role": "Developer"
+		},
+		{
+			"name": "Marcelo Augusto Santos Turine",
+			"email": "mturine@gmail.com",
+			"homepage": "http://lattes.cnpq.br/4584747419373688",
+			"role": "Developer"
+		},
+		{
+			"name": "Marcio Aparecido Inácio da Silva",
+			"email": "mapsiva@gmail.com",
+			"homepage": "http://lattes.cnpq.br/1444827111436798",
+			"role": "Developer"
+		},
+		{
+			"name": "Maxwell Sampaio dos Santos",
+			"email": "maxs.santos@gmail.com",
+			"homepage": "http://lattes.cnpq.br/1050100928603689",
+			"role": "Developer"
+		},
+		{
+			"name": "Rodrigo Coin Curvo",
+			"email": "rodrigoccurvo@gmail.com",
+			"homepage": "http://lattes.cnpq.br/5272532745726643",
+			"role": "Developer"
+		},
+		{
+			"name": "Vitor Mesaque Alves de Lima",
+			"email": "vitormesaque@gmail.com",
+			"homepage": "http://lattes.cnpq.br/2776542274488455",
+			"role": "Developer"
+		}
+	],
+	"minimum-stability": "stable",
+	"require": {
+		"php": ">=5.2"
+	},
+	"config": {
+		"vendor-dir": "extra"
+	}
+}
