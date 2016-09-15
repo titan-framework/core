@@ -1,4 +1,4 @@
-<?
+<?php
 function ldapUpdate ($itemId = 0)
 {
 	if ((int) $itemId && isset ($_SESSION ['_TITAN_LDAP_USER_CONTROL_'][$itemId]) && (bool) $_SESSION ['_TITAN_LDAP_USER_CONTROL_'][$itemId])

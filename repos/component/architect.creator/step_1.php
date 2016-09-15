@@ -221,7 +221,7 @@ function saveLogo ()
 </script>
 <div id="errorBanner" style="display: none;"></div>
 <div id="idMenuArchitect">
-	<? swf (Business::singleton ()->getSection (Section::TCURRENT)->getComponentPath () .'_image/menu.swf', 557, 65) ?>
+	<?php swf (Business::singleton ()->getSection (Section::TCURRENT)->getComponentPath () .'_image/menu.swf', 557, 65) ?>
 </div>
 <div id="idForm">
 	<fieldset id="group_main" class="formGroup">
@@ -355,7 +355,7 @@ function saveLogo ()
 				<tr id="row_instance_skin" height="24px" style="background-color: #F4F4F4;">
 					<td width="20%" nowrap style="text-align: right;"><b>Logo da Aplicação:</b></td>
 					<td>
-						<?
+						<?php
 						$table = 'instance';
 
 						$aux = array (  'type'   => 'File',

@@ -1,6 +1,6 @@
-<? ob_start () ?>
+<?php ob_start () ?>
 <select class="field chosen" style="<?= $field->getStyle () ?>" name="<?= $fieldName ?>" id="<?= $fieldId ?>">
-	<?
+	<?php
     $tzIds = DateTimeZone::listIdentifiers ();
     
 	$date = new DateTime ();
@@ -14,4 +14,4 @@
 		}
 	?>
 </select>
-<? return ob_get_clean () ?>
+<?php return ob_get_clean () ?>

@@ -1,4 +1,4 @@
-﻿<?
+﻿<?php
 if (!isset ($_GET ['id']) || trim ($_GET ['id']) == '' || !is_numeric ($_GET ['id']) || !isset ($_GET ['pk']) || trim ($_GET ['pk']) == '')
 	die ('Invalid parameters!');
 

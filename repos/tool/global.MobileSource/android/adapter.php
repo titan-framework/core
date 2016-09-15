@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 ?>
 /**
@@ -57,6 +57,6 @@ public class <?= $model ?>ListAdapter extends ArrayAdapter<<?= $model ?>>
 		return view;
 	}
 }
-<?
+<?php
 return ob_get_clean ();
 ?>

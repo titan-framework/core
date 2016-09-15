@@ -1,4 +1,4 @@
-<?
+<?php
 class Menu
 {
 	static private $menu = FALSE;

@@ -1,4 +1,4 @@
-<?
+<?php
 $skin = Skin::singleton ();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -24,7 +24,7 @@ $skin = Skin::singleton ();
 			left: auto;
 		}
 		</style>
-		<?
+		<?php
 		$types = Instance::singleton ()->getTypes ();
 
 		foreach ($types as $type => $path)
@@ -187,7 +187,7 @@ $skin = Skin::singleton ();
 			parent.hideWait ();
 		}
 		</script>
-		<?
+		<?php
 		$types = Instance::singleton ()->getTypes ();
 
 		foreach ($types as $type => $path)
@@ -202,14 +202,14 @@ $skin = Skin::singleton ();
 		<div id="idWait" style="display: none;"></div>
 		<div id="idBody" style="margin: 0px; border-width: 0px;">
 			<label id="labelMessage">
-				<?
+				<?php
 				if ($message->has ())
 				{
 					?>
 					<div id="idMessage" style="display:;">
-						<? while ($msg = $message->get ()) echo $msg; ?>
+						<?php while ($msg = $message->get ()) echo $msg; ?>
 					</div>
-					<?
+					<?php
 
 					$message->clear ();
 				}

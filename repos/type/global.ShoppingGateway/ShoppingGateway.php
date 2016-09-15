@@ -1,4 +1,4 @@
-<?
+<?php
 class ShoppingGateway extends Phrase
 {
 	public function __construct ($table, $field)

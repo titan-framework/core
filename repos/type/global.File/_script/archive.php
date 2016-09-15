@@ -1,4 +1,4 @@
-<?
+<?php
 if (!User::singleton ()->isLogged ())
 	throw new Exception (__ ('Attention! Probably attack detected. Access Denied!'));
 

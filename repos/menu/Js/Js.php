@@ -1,4 +1,4 @@
-<?
+<?php
 class MenuJs extends MenuItem
 {
 	private $js = '';

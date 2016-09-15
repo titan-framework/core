@@ -1,4 +1,4 @@
-<?
+<?php
 class LdapPosixAccount extends LdapClass
 {
 	public function genRequiredFields ($uid, $name, $email, $password, $id)

@@ -1,4 +1,4 @@
-<?
+<?php
 $xml = Business::singleton ()->getAction (Action::TCURRENT)->getXmlPath ();
 
 Business::singleton ()->getAction (Action::TCURRENT)->setXmlPath (FALSE);
@@ -26,7 +26,7 @@ ob_start ();
 	<div id="idForm">
 		<form id="collection_form_<?= $fieldId ?>" action="" method="post">
 			<input type="hidden" name="itemId" id="collection_id_<?= $fieldId ?>" value="" />
-			<?
+			<?php
 			while ($group = $form->getGroup ())
 			{
 				ob_start ();
@@ -35,7 +35,7 @@ ob_start ();
 				{
 					?>
 					<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
-						<?
+						<?php
 						$backColor = 'FFFFFF';
 						while ($auxField = $form->getField (FALSE, $group->getId ()))
 						{
@@ -48,11 +48,11 @@ ob_start ();
 								<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($auxField); ?></td>
 							</tr>
 							<tr height="2px"><td></td></tr>
-							<?
+							<?php
 						}
 						?>
 					</table>
-					<?
+					<?php
 					$output = ob_get_clean ();
 				}
 				catch (Exception $e)
@@ -79,7 +79,7 @@ ob_start ();
 							<?= $output ?>
 						</div>
 					</fieldset>
-					<?
+					<?php
 				}
 				else
 					echo $output;
@@ -100,7 +100,7 @@ ob_start ();
 <div id="idList" style="margin: 0px;">
 	<table id="collection_view_<?= $fieldId ?>" style="background-color: #FFF;">
 		<tr>
-			<?
+			<?php
 			$columns = sizeof ($view->getFields ()) + 1;
 			
 			while ($auxField = $view->getField ())
@@ -109,7 +109,7 @@ ob_start ();
 			<td class="cTableHeader" style="text-align: right; cursor: pointer;"><img src="titan.php?target=loadFile&file=interface/icon/create.gif" border="0" title="Inserir Item" onclick="JavaScript: global.Collection.create ('<?= $fieldId ?>', <?= $itemId ?>);" /></td>
 		</tr>
 		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
-		<?
+		<?php
 		$bkpItemId = $itemId;
 		
 		while ($view->getItem ())
@@ -117,20 +117,20 @@ ob_start ();
 			$itemId = $view->getId ();
 			?>
 			<tr class="cTableItem" id="collection_row_<?= $view->getId () ?>">
-				<? while ($auxField = $view->getLink ()) echo '<td>'. $auxField .'</td>'; ?>
+				<?php while ($auxField = $view->getLink ()) echo '<td>'. $auxField .'</td>'; ?>
 				<td style="text-align: right; display:;" nowrap="nowrap">
 					<!-- <img src="titan.php?target=loadFile&file=interface/icon/edit.gif" border="0" title="Editar" style="cursor: pointer;" />&nbsp; -->
 					<img src="titan.php?target=loadFile&file=interface/icon/delete.gif" border="0" title="Apagar" style="cursor: pointer;" onclick="JavaScript: global.Collection.delRow ('<?= $fieldId ?>', '<?= $field->getXmlPath () ?>', '<?= $view->getId () ?>');" />&nbsp;
 				</td>
 			</tr>
 			<tr class="cSeparator" id="collection_row_<?= $view->getId () ?>_space"><td colspan="<?= $columns ?>"></td></tr>
-			<?
+			<?php
 		}
 		
 		$itemId = $bkpItemId;
 		?>
 	</table>
 </div>
-<?
+<?php
 return ob_get_clean ();
 ?>

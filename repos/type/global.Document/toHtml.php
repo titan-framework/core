@@ -1,4 +1,4 @@
-<?
+<?php
 global $itemId;
 
 if (!$itemId)
@@ -18,7 +18,7 @@ ob_start ();
 			<td class="cTableHeader"></td>
 		</tr>
 		<tr height="5px"><td colspan="5"></td></tr>
-		<?
+		<?php
 		$db = Database::singleton ();
 		
 		$sql = "SELECT u._name AS author, r.*, to_char(r._create, 'DD-MM-YYYY HH24:MI:SS') AS created
@@ -50,11 +50,11 @@ ob_start ();
 				</td>
 			</tr>
 			<tr class="cSeparator"><td colspan="5"></td></tr>
-			<?
+			<?php
 		}
 		?>
 	</table>
 </div>
-<?
+<?php
 return ob_get_clean ();
 ?>

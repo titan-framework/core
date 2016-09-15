@@ -1,4 +1,4 @@
-<?
+<?php
 $form =& Form::singleton ('all.xml', 'view.xml', 'create.xml', 'edit.xml');
 
 $table = $form->getTable () .'_media';

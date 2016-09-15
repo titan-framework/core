@@ -1,4 +1,4 @@
-<?
+<?php
 class IconJs extends IconItem
 {
 	private $function = FALSE;

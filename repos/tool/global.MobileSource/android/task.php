@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 ?>
 /**
@@ -108,6 +108,6 @@ public class <?= $model ?>Task extends AsyncTask<Void, Void, Boolean>
 		activity.refresh ();
 	}
 }
-<?
+<?php
 return ob_get_clean ();
 ?>

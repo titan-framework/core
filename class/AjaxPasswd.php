@@ -1,4 +1,4 @@
-<?
+<?php
 class AjaxPasswd
 {
 	public function changePasswd ($hash, $password, $login)

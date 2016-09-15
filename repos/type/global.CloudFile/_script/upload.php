@@ -1,4 +1,4 @@
-<?
+<?php
 set_time_limit (0);
 
 if (!User::singleton ()->isLogged ())
@@ -11,7 +11,7 @@ $field = $_GET['field'];
 ?>
 <html>
 	<head>
-		<?
+		<?php
 		if (isset ($_FILES['file']) && (int) $_FILES['file']['size'] && isset ($_POST['filter']))
 		{
 			$file = $_FILES['file'];
@@ -89,7 +89,7 @@ $field = $_GET['field'];
 					<script language="javascript" type="text/javascript">
 						parent.global.CloudFile.load (<?= $id ?>, '<?= $field ?>');
 					</script>
-					<?
+					<?php
 				}
 				else
 					throw new Exception (__ ('Unable copy file to directory [[1]]!',  $archive->getDataPath ()));
@@ -104,7 +104,7 @@ $field = $_GET['field'];
 				<script language="javascript" type="text/javascript">
 					parent.global.CloudFile.error ('<?= $e->getMessage () ?>', '<?= $field ?>');
 				</script>
-				<?
+				<?php
 			}
 			catch (Exception $e)
 			{
@@ -114,7 +114,7 @@ $field = $_GET['field'];
 				<script language="javascript" type="text/javascript">
 					parent.global.CloudFile.error ('<?= $e->getMessage () ?>', '<?= $field ?>');
 				</script>
-				<?
+				<?php
 			}
 		}
 		?>

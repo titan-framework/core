@@ -1,4 +1,4 @@
-<?
+<?php
 try
 {
 	$instance = Instance::singleton ();
@@ -163,7 +163,7 @@ catch (Exception $e)
 			
 			var passwd = fieldPasswd.value;
 			
-			<? if (Security::singleton ()->encryptOnClient ()) { echo 'passwd = hex_sha1(passwd);'; } ?>
+			<?php if (Security::singleton ()->encryptOnClient ()) { echo 'passwd = hex_sha1(passwd);'; } ?>
 			
 			if (!ajax.changePasswd ('<?= $hash ?>', passwd, '<?= $login ?>'))
 			{
@@ -310,7 +310,7 @@ catch (Exception $e)
 		</div>
 		<div id="idBase">
 			<div class="cResources" id="_TITAN_INFO_">
-				<?
+				<?php
 				$path = Instance::singleton ()->getCorePath () .'update'. DIRECTORY_SEPARATOR;
 				
 				$version = trim (file_get_contents ($path .'VERSION'));
@@ -340,7 +340,7 @@ catch (Exception $e)
 				{
 					?>
 					<label>Powered by <a href="http://www.titanframework.com" target="_blank" title="<?= $version .'-'. $release ?>">Titan Framework</a> (<?= $version .'-'. $release ?>)</label>
-					<?
+					<?php
 				}
 				else
 				{
@@ -371,18 +371,18 @@ catch (Exception $e)
 					document.getElementById ('_TITAN_INFO_ICON_').onmouseover = function ()	{ document.getElementById ('_TITAN_INFO_TEXT_').style.display = 'block'; };
 					document.getElementById ('_TITAN_INFO_ICON_').onmouseout = function () { document.getElementById ('_TITAN_INFO_TEXT_').style.display = 'none'; };
 					</script>
-					<?
+					<?php
 				}
 				?>
 			</div>
 			<div class="cPowered">
-				<?
+				<?php
 				if (trim (Instance::singleton ()->getAuthor ()) == '')
 				{
 					?>
 					<a href="http://creativecommons.org/licenses/by-nd/4.0/" target="_blank" title="Creative Commons License"><img alt="Creative Commons License" style="border-width:0" src="titan.php?target=loadFile&amp;file=interface/image/cc.png" /></a>
 					<label>&copy; 2005 - <?= date ('Y') ?> &curren; <a href="http://www.carromeu.com/" target="_blank">Camilo Carromeu</a></label>
-					<?
+					<?php
 				}
 				else
 					echo Instance::singleton ()->getAuthor ();

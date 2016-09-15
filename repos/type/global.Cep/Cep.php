@@ -1,4 +1,4 @@
-<?
+<?php
 class Cep extends Phrase
 {
 	public function __construct ($table, $field)

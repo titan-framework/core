@@ -1,4 +1,4 @@
-<?
+<?php
 class AjaxLogon
 {
 	public function logon ($formData)

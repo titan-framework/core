@@ -1,4 +1,4 @@
-<?
+<?php
 $skin = Skin::singleton ();
 
 $_CHAT ['HEADER'] = '';
@@ -172,13 +172,13 @@ header ('Content-Encoding: gzip');
 				<label id="idChatNotify"></label>
 				<img src="titan.php?target=loadFile&amp;file=interface/icon/home.gif" border="0" onclick="JavaScript: parent.document.location='titan.php';" alt="<?= __ ('Start Page') ?>" title="<?= __ ('Start Page') ?>" />
 				&nbsp;
-				<?
+				<?php
 				if (Instance::singleton ()->useChat ())
 				{
 					?>
 					<img src="titan.php?target=loadFile&amp;file=interface/icon/chat.gif" border="0" onclick="JavaScript: showChat ();" alt="Chat" title="Chat" />
 					&nbsp;
-					<?
+					<?php
 				}
 
 				$profile = User::singleton ()->getType ()->getProfile ();
@@ -188,7 +188,7 @@ header ('Content-Encoding: gzip');
 					?>
 					<img src="titan.php?target=loadFile&amp;file=interface/icon/profile.gif" border="0" onclick="JavaScript: parent.body.location='<?= $profile ?>';" alt="<?=__ ('Profile') ?>" title="<?= __ ('Profile') ?>" />
 					&nbsp;
-					<?
+					<?php
 				}
 
 				if (Shopping::isActive ())
@@ -204,7 +204,7 @@ header ('Content-Encoding: gzip');
 					</script>
 					<img id="shopping" src="titan.php?target=loadFile&amp;file=interface/icon/grey/shop.gif" border="0" onclick="JavaScript: parent.body.showShoppingCart ();" alt="<?= __ ('Your shopping cart is empty!') ?>" title="<?= __ ('Your shopping cart is empty!') ?>" />
 					&nbsp;
-					<?
+					<?php
 				}
 
 				if (Database::tableExists ('_alert'))
@@ -220,14 +220,14 @@ header ('Content-Encoding: gzip');
 					</script>
 					<img id="alerts" src="titan.php?target=loadFile&amp;file=interface/icon/grey/alerts.gif" border="0" onclick="JavaScript: parent.body.showAlerts ();" alt="<?= __ ('No alerts!') ?>" title="<?= __ ('No alerts!') ?>" />
 					&nbsp;
-					<?
+					<?php
 				}
 				?>
 				<img src="titan.php?target=loadFile&amp;file=interface/locale/<?= Localization::singleton ()->getLanguage () ?>.gif" border="0" onclick="JavaScript: parent.body.chooseLanguage ();" alt="<?= __ ('Language') ?>" title="<?= __ ('Language') ?>" />
 				&nbsp;
 				<img src="titan.php?target=loadFile&amp;file=interface/icon/bug.gif" border="0" onclick="JavaScript: parent.body.bugReport ();" alt="<?= __ ('Bug Report') ?>" title="<?= __ ('Bug Report') ?>" />
 				&nbsp;
-				<?
+				<?php
 				if (PHP_OS == 'Linux' && User::singleton ()->isAdmin () && Backup::singleton ()->isActive ())
 				{
 					if (!isset ($_SESSION['_TITAN_BACKUP_FREE_']))
@@ -244,7 +244,7 @@ header ('Content-Encoding: gzip');
 					?>
 					<img src="titan.php?target=loadFile&amp;file=interface/icon/backup.gif" border="0" onclick="JavaScript: parent.body.instanceBackup ();" alt="<?= __ ('Backup') ?>" title="<?= __ ('Backup') ?>" />
 					&nbsp;
-					<?
+					<?php
 				}
 
 				if (Manual::isActive ())
@@ -252,7 +252,7 @@ header ('Content-Encoding: gzip');
 					?>
 					<img src="titan.php?target=loadFile&amp;file=interface/icon/manual.gif" border="0" onclick="JavaScript: parent.body.getHelp ();" alt="<?= __ ('Get Help') ?>" title="<?= __ ('Get Help') ?>" />
 					&nbsp;
-					<?
+					<?php
 				}
 				?>
 				<img src="titan.php?target=loadFile&amp;file=interface/icon/logout.gif" border="0" onclick="JavaScript: parent.document.location='titan.php?target=logoff&amp;message=<?= urlencode (__ ('Logoff successfully executed!')) ?>';" alt="<?= __ ('Logoff') ?>" title="<?= __ ('Logoff') ?>" />
@@ -266,7 +266,7 @@ header ('Content-Encoding: gzip');
 				<b><?= $user->getType ()->getLabel () ?></b>
 				<label style="color: #990000; font-weight: bold; margin-left: 5px;">&loz;</label>
 				<label style="color: #555555;"><?= __ ('Group(s):') ?>
-				<?
+				<?php
 				$groups = '<b>'. implode ('</b>, <b>', $user->getGroups ()) .'</b>';
 
 				$position = strrpos ($groups, ',');
@@ -282,12 +282,12 @@ header ('Content-Encoding: gzip');
 				<label style="color: #990000; font-weight: bold;">&loz;</label>
 			</div>
 			<div id="idMenu" class="cMenuLoading"></div>
-			<?
+			<?php
 			if (Lucene::singleton ()->isActive ())
 			{
 				?>
 				<div id="idSearch" class="cSearch"><input type="text" value="<?= __ ('Search...') ?>" onblur="JavaScript: searchDefault (this, '<?= __ ('Search...') ?>');" onfocus="JavaScript: searchDefault (this, '<?= __ ('Search...') ?>');" onkeypress="JavaScript: searchSend (this, event);" onkeyup="JavaScript: searchSend (this, false);" /></div>
-				<?
+				<?php
 			}
 			?>
 			<div id="idWait" class="cWait" style="display: none;">

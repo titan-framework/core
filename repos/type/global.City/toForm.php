@@ -1,10 +1,10 @@
-<?
+<?php
 ob_start ();
 ?>
 
 <select class="field" style="<?= $field->getStyle () ?>" name="<?= $fieldName ?>" id="<?= $fieldId ?>">
 
-<?
+<?php
 if ($field->getValue ())
 {
 	$columns = implode (", ", $field->getColumnsView ());
@@ -47,6 +47,6 @@ else
 
 </select>
 
-<?
+<?php
 return ob_get_clean ();
 ?>

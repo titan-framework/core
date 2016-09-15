@@ -1,3 +1,3 @@
-<?
+<?php
 return '<input type="text" class="field" style="'. $field->getStyle () .'" name="'. $fieldName .'" id="'. $fieldId .'" maxlength="15" value="'. Phone::format ($field->getValue ()) .'" onkeypress="JavaScript: return global.Phone.format (this, event);" onkeyup="JavaScript: global.Phone.format (this,false);" />'. ($field->getTip () != '' ? '<div class="fieldTip">'. $field->getTip () .'</div>' : '');
 ?>

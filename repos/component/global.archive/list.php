@@ -29,7 +29,7 @@
 			<td style="text-align: center;">Downloads</td>
 			<td></td>
 		</tr>
-		<?
+		<?php
 		while ($obj = $sth->fetch (PDO::FETCH_OBJ))
 		{
 			?>
@@ -68,7 +68,7 @@
 				</td>
 			</tr>
 			<tr id="row_<?= $obj->_id ?>_3" class="cSeparatorHalf"><td></td></tr>
-			<?
+			<?php
 		}
 		?>
 	</table>
@@ -76,7 +76,7 @@
 		<tr class="cSeparator"><td></td></tr>
 		<tr>
 			<td style="text-align: right;">
-				<?
+				<?php
 				$size = dirSize (Archive::singleton ()->getDataPath ());
 				
 				if ($size !== FALSE)

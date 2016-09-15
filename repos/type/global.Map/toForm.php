@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 ?>
 <input id="<?= $fieldId ?>_SEARCH_" class="tMapSearchBox" type="text" placeholder="<?= __ ('Search') ?>" />
@@ -8,6 +8,6 @@ ob_start ();
 <script language="javascript" type="text/javascript">
 pandora.Map.edit ('<?= $fieldId ?>', <?= number_format ($field->getLatitude (), 6, '.', '') ?>, <?= number_format ($field->getLongitude (), 6, '.', '') ?>)
 </script>
-<?
+<?php
 return ob_get_clean ();
 ?>

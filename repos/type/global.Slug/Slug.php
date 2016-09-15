@@ -1,4 +1,4 @@
-<?
+<?php
 class Slug extends Phrase
 {
 	protected $base = '';

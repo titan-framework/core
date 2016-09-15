@@ -1,4 +1,4 @@
-<?
+<?php
 ldapUpdate ($itemId);
 
 $form =& Form::singleton ('view.xml', 'all.xml');

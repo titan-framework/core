@@ -1,4 +1,4 @@
-<?
+<?php
 class MenuSearch extends MenuItem
 {
 	public function __construct ($input)

@@ -1,4 +1,4 @@
-<?
+<?php
 class MenuCsv extends MenuItem
 {
 	private $section = NULL;

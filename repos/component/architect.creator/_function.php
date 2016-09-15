@@ -1,4 +1,4 @@
-<?
+<?php
 function replaceUnderScore ($input)
 {
 	foreach ($input as $key => $value)

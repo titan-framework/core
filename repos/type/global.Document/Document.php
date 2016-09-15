@@ -1,4 +1,4 @@
-<?
+<?php
 class Document extends Collection
 {
 	protected $terms = array ();

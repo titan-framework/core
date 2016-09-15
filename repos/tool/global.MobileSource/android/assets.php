@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 
 if (!$view->load ())

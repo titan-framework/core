@@ -1,1 +1,1 @@
-<? include Template::import ('global.version') ?>
+<?php include Template::import ('global.version') ?>

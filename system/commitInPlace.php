@@ -1,4 +1,4 @@
-<?
+<?php
 require_once Instance::singleton ()->getCorePath () .'extra/htmlPurifier/HTMLPurifier.standalone.php';
 
 $itemId = isset ($_POST['itemId']) ? $_POST['itemId'] : $itemId;
@@ -15,7 +15,7 @@ try
 	// header ('Location: '. $_SERVER['PHP_SELF'] .'?target=inPlace&toSection='. $section->getName () .'&toAction='. $action->getName () .'&itemId='. $itemId);
 	?>
 	<html><body onload="JavaScript: parent.location.reload ();"></body></html>
-	<?
+	<?php
 	exit ();
 }
 catch (PDOException $e)

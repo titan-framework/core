@@ -8,7 +8,7 @@
 				<tr>
 					<td width="235px" rowspan="2">
 						<select id="selectFrom" name="selectFrom" class="field" style="width: 100%;  height: 241px;" multiple>
-							<?
+							<?php
 							foreach ($arrayFrom as $keyFrom => $valueFrom)
 								echo '<option value="'. $keyFrom .'">'. $valueFrom .'</option>'
 							?>
@@ -18,7 +18,7 @@
 					<td width="235px">
 						<select id="selectItem" name="selectItem" class="field" style="width: 100%;" onChange="JavaScript: saveRelation ();">
 							<option value="0"><?= __ ('Select an item') ?></option>
-							<?
+							<?php
 							foreach ($arrayItem as $keyItem => $valueItem)
 								echo '<option value="'. $keyItem .'" '. ($itemId == $keyItem ? 'selected' : '') .'>'. $valueItem .'</option>'
 							?>
@@ -32,12 +32,12 @@
 						</a>
 						<br><br>
 						<a href="#" onClick="JavaScript: changeSelect ('selectFor[]', 'selectFrom', 'selectItem');">
-							<img src="titan.php?target=loadFile&file=interface/icon/arrow.left.gif" border="0" title="<? __ ('Remove') ?>" />
+							<img src="titan.php?target=loadFile&file=interface/icon/arrow.left.gif" border="0" title="<?php __ ('Remove') ?>" />
 						</a>
 					</td>
 					<td>
 						<select id="selectFor" name="selectFor[]" class="field" style="width: 100%; height: 215px;" multiple>
-							<?
+							<?php
 							foreach ($arrayFor as $keyFor => $valueFor)
 								echo '<option value="'. $keyFor .'">'. $valueFor .'</option>'
 							?>

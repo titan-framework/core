@@ -1,4 +1,4 @@
-<?
+<?php
 $_OUTPUT ['SECTION_MENU'] = '';
 $_OUTPUT ['SECTION'] = '';
 

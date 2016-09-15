@@ -1,4 +1,4 @@
-<?
+<?php
 $xml = Business::singleton ()->getAction (Action::TCURRENT)->getXmlPath ();
 
 Business::singleton ()->getAction (Action::TCURRENT)->setXmlPath (FALSE);

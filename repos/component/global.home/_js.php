@@ -65,13 +65,13 @@ function createDefaultBoxes()
 {
 	eval (ajax.getBoxes ());
 
-	<? ob_start () ?>
+	<?php ob_start () ?>
 	<b><?= __ ('Name') ?>:</b> <?= $user->getName () ?><br />\
 	<b>Login:</b> <?= $user->getLogin () ?><br />\
 	<b>E-mail:</b> <?= $user->getEmail () ?><br />\
 	<b><?= __ ('User since') ?>:</b> <?= $user->getCreateDate () ?><br />\
 	<b><?= __ ('Last Logon') ?>:</b> <?= $user->getCreateDate () == $user->getLastLogon () ? __ ('Never had logged.') : $user->getLastLogon () ?><br />\
-	<? $str = ob_get_clean () ?>
+	<?php $str = ob_get_clean () ?>
 
 	var htmlContentOfNewBox = '<div style="line-height: 15px;"><?= $str ?></div>';
 
@@ -126,7 +126,7 @@ function changePassword (form)
 	var passwd = objForm.password.value;
 	var newPas = objForm.newPassword.value;
 	
-	<? if (Security::singleton ()->encryptOnClient ()) { echo 'passwd = hex_sha1 (passwd); newPas = hex_sha1 (newPas);'; } ?>
+	<?php if (Security::singleton ()->encryptOnClient ()) { echo 'passwd = hex_sha1 (passwd); newPas = hex_sha1 (newPas);'; } ?>
 	
 	if (ajax.changePasswd (passwd, newPas))
 		showChangePasswd ();
@@ -197,7 +197,7 @@ function showSocialNetworks ()
 {
 	showWait ();
 	
-	<?
+	<?php
 	$drivers = array ();
 	
 	if (Social::isActive ())
@@ -221,7 +221,7 @@ function showSocialNetworks ()
 		hideWait ();
 		
 		return false;
-		<?
+		<?php
 	}
 	?>
 	
@@ -258,7 +258,7 @@ function disconnectFromSocialNetwork (driver, path, url)
 	
 	return false;
 }
-<?
+<?php
 if (isset ($_GET['social']) && (int) $_GET['social'])
 {
 	?>
@@ -266,7 +266,7 @@ if (isset ($_GET['social']) && (int) $_GET['social'])
 	{
 		showSocialNetworks ();
 	}
-	<?
+	<?php
 }
 ?>
 
@@ -274,7 +274,7 @@ function showMobileDevices ()
 {
 	showWait ();
 	
-	<?
+	<?php
 	$list = array ('<li id="_MOBILE_LOADING_" style="background: url(titan.php?target=loadFile&file=interface/alert/info.gif) no-repeat left; display: block;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('Please, wait! Loading...') .'</div></li>',
 				   '<li id="_MOBILE_NONE_" style="background: url(titan.php?target=loadFile&file=interface/alert/warning.gif) no-repeat left; display: none;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('No one mobile device is enable to access your data!') .'</div></li>');
 	$button = '';

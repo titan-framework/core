@@ -1,4 +1,4 @@
-<?
+<?php
 class Login extends Phrase
 {
 	public function __construct ($table, $field)

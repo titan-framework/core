@@ -1,4 +1,4 @@
-<?
+<?php
 $_OUTPUT ['MENU'] = '';
 
 $menuHeight = array ();
@@ -11,7 +11,7 @@ try
 	<div id="menuBox" style="display: none; left: 0px; top: 0px;">
 		<?= implode ('', makeMenu ()) ?>
 	</div>
-	<?
+	<?php
 	$_OUTPUT ['MENU'] = ob_get_clean ();
 	
 	$max = 0;

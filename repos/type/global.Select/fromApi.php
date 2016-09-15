@@ -1,4 +1,4 @@
-<?
+<?php
 if (is_null ($value) || (is_numeric ($value) && (int) $value === 0) || (is_string ($value) && $value === ''))
 	return NULL;
 

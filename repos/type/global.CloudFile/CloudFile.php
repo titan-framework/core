@@ -118,7 +118,7 @@ class CloudFile extends File
 				$alt = $obj->name ." (". File::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
 				?>
 				<a href="titan.php?target=tScript&type=CloudFile&file=open&fileId=<?= $id ?>&auth=1" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&type=CloudFile&file=thumbnail&fileId=<?= $id ?>&height=<?= $dimension ?>&auth=1" alt="<?= $alt ?>" border="0" /></a>
-				<?
+				<?php
 				break;
 			
 			case Archive::VIDEO:
@@ -132,7 +132,7 @@ class CloudFile extends File
 							<img src="titan.php?target=tResource&type=Note&file=play.png" border="0" alt="<?= __ ('Play') ?>" />
 						</a>
 					</video>
-					<?
+					<?php
 				}
 				else
 				{
@@ -146,7 +146,7 @@ class CloudFile extends File
 							<b style="color: #900;"><?= __ ('This video is not supported by native player of your browser or still is being encoded to be displayed! Until then, you can download it directly to your computer to watch in player of your choice.') ?></b>
 						</div>
 					</div>
-					<?
+					<?php
 				}
 				break;
 			
@@ -161,7 +161,7 @@ class CloudFile extends File
 							<img src="titan.php?target=tResource&type=Note&file=play.png" border="0" alt="<?= __ ('Play') ?>" />
 						</a>
 					</audio>
-					<?
+					<?php
 				}
 				else
 				{
@@ -175,7 +175,7 @@ class CloudFile extends File
 							<b style="color: #900;"><?= __ ('This audio is not supported by native player of your browser or still is being encoded to be displayed! Until then, you can download it directly to your computer to listen in player of your choice.') ?></b>
 						</div>
 					</div>
-					<?
+					<?php
 				}
 				break;
 			
@@ -196,7 +196,7 @@ class CloudFile extends File
 						<?= strftime ('%x %X', $obj->taken) ?>
 					</div>
 				</div>
-				<?
+				<?php
 		}
 		
 		return str_replace ("\t", '', ob_get_clean ());

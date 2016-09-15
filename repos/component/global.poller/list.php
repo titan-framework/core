@@ -1,1 +1,1 @@
-<? include Template::import ('global.list') ?>
+<?php include Template::import ('global.list') ?>

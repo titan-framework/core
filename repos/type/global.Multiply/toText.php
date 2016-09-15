@@ -1,4 +1,4 @@
-<?
+<?php
 $values = $field->getValue ();
 
 if (!sizeof ($values))

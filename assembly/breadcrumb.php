@@ -1,4 +1,4 @@
-<?
+<?php
 $_OUTPUT ['BREADCRUMB'] = '';
 $_OUTPUT ['MENU-POSITION'] = '';
 

@@ -1,4 +1,4 @@
-<?
+<?php
 set_time_limit (0);
 
 if (!User::singleton ()->isLogged ())
@@ -13,7 +13,7 @@ $public = (bool) $_GET['public'];
 ?>
 <html>
 	<head>
-		<?
+		<?php
 		if (isset ($_FILES['file']) && (int) $_FILES['file']['size'] && isset ($_POST['filter']))
 		{
 			$file = $_FILES['file'];
@@ -112,7 +112,7 @@ $public = (bool) $_GET['public'];
 					<script language="javascript" type="text/javascript">
 						parent.global.File.load (<?= $id ?>, '<?= $field ?>');
 					</script>
-					<?
+					<?php
 				}
 				else
 					throw new Exception (__ ('Unable copy file to directory [[1]]!',  $archive->getDataPath ()));
@@ -127,7 +127,7 @@ $public = (bool) $_GET['public'];
 				<script language="javascript" type="text/javascript">
 					parent.global.File.error ('<?= $e->getMessage () ?>', '<?= $field ?>');
 				</script>
-				<?
+				<?php
 			}
 			catch (Exception $e)
 			{
@@ -137,7 +137,7 @@ $public = (bool) $_GET['public'];
 				<script language="javascript" type="text/javascript">
 					parent.global.File.error ('<?= $e->getMessage () ?>', '<?= $field ?>');
 				</script>
-				<?
+				<?php
 			}
 		}
 		?>

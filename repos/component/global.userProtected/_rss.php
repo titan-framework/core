@@ -1,1 +1,1 @@
-<? include Template::import ('global.rss') ?>
+<?php include Template::import ('global.rss') ?>

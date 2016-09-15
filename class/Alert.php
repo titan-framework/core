@@ -1,4 +1,4 @@
-<?
+<?php
 class Alert
 {
 	static private $alert = FALSE;

@@ -1,4 +1,4 @@
-<?
+<?php
 set_time_limit (0);
 
 if (!User::singleton ()->isLogged ())
@@ -13,7 +13,7 @@ $media = $_GET['media'];
 ?>
 <html>
 	<head>
-		<?
+		<?php
 		if (isset ($_FILES['file']) && (int) $_FILES['file']['size'])
 		{
 			$file = $_FILES['file'];
@@ -115,7 +115,7 @@ $media = $_GET['media'];
 					<script language="javascript" type="text/javascript">
 						parent.global.CKEditor.imageUploadSuccess ('<?= $field ?>', '<?= $media ?>', <?= $id ?>, '<?= $hash ?>');
 					</script>
-					<?
+					<?php
 				}
 				else
 					throw new Exception (__ ('Unable copy file to directory [[1]]!',  $archive->getDataPath ()));
@@ -130,7 +130,7 @@ $media = $_GET['media'];
 				<script language="javascript" type="text/javascript">
 					parent.global.CKEditor.imageUploadError ('<?= $field ?>', '<?= $media ?>', '<?= $e->getMessage () ?>');
 				</script>
-				<?
+				<?php
 			}
 			catch (Exception $e)
 			{
@@ -140,7 +140,7 @@ $media = $_GET['media'];
 				<script language="javascript" type="text/javascript">
 					parent.global.CKEditor.imageUploadError ('<?= $field ?>', '<?= $media ?>', '<?= $e->getMessage () ?>');
 				</script>
-				<?
+				<?php
 			}
 		}
 		?>

@@ -14,7 +14,7 @@
 	</table>
 	<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 		<tr height="5px"><td></td></tr>
-		<?
+		<?php
 		$backColor = 'FFFFFF';
 		while ($field = $search->getField ())
 		{
@@ -28,7 +28,7 @@
 				<td <?= $search->isBlocked ($field) ? 'style="color: #990000;"' : '' ?>><?= Form::toHtml ($field) ?></td>
 			</tr>
 			<tr height="2px"><td></td></tr>
-			<?
+			<?php
 		}
 		?>
 		<tr height="5px"><td></td></tr>
@@ -44,7 +44,7 @@
 		</table>
 		<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 			<tr height="5px"><td></td></tr>
-			<?
+			<?php
 			$backColor = 'FFFFFF';
 			while ($field = $search->getField ())
 			{
@@ -56,7 +56,7 @@
 					<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($field); ?></td>
 				</tr>
 				<tr height="2px"><td></td></tr>
-				<?
+				<?php
 			}
 			?>
 			<tr>
@@ -74,14 +74,14 @@
 	<table>
 		<tr>
 			<td class="cTableHeader">Atividade</td>
-			<?
+			<?php
 			while ($field = $view->getField ())
 				echo '<td class="cTableHeader">'. View::toLabel ($field) .'</td>';
 			?>
 			<td class="cTableHeader"></td>
 		</tr>
 		<tr height="5px"><td></td></tr>
-		<?
+		<?php
 		$columns = sizeof ($view->getFields ()) + 2;
 
 		while ($view->getItem ())
@@ -91,16 +91,16 @@
 				<td>
 					<?= $log->getMessage ($view->getId ()) ?>
 				</td>
-				<? while ($field = $view->getLink ()) echo '<td>'. $field .'</td>'; ?>
+				<?php while ($field = $view->getLink ()) echo '<td>'. $field .'</td>'; ?>
 				<td style="text-align: right;" nowrap="nowrap">
-					<? while ($icon = $view->getIcon ()) echo $icon .'&nbsp;'; ?>
+					<?php while ($icon = $view->getIcon ()) echo $icon .'&nbsp;'; ?>
 				</td>
 			</tr>
 			<tr id="_ROW_<?= $view->getId () ?>" style="display: none; background-color: #FFFFFF;">
 				<td colspan="<?= $columns ?>" id="_CONTENT_<?= $view->getId () ?>" class="inPlace"></td>
 			</tr>
 			<tr id="_SP2_<?= $view->getId () ?>" class="cSeparator" style="display:;"><td></td></tr>
-			<?
+			<?php
 		}
 		?>
 	</table>

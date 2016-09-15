@@ -1,5 +1,5 @@
 <pre>
-<?
+<?php
 set_time_limit (0);
 
 require Instance::singleton ()->getCorePath () .'extra/GoogleTranslate.php';

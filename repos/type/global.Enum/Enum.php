@@ -1,4 +1,4 @@
-<?
+<?php
 class Enum extends Phrase
 {
 	protected $enum = array ();

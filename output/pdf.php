@@ -1,4 +1,4 @@
-<?
+<?php
 $skin = Skin::singleton ();
 
 $section = Business::singleton ()->getSection (Section::TCURRENT);

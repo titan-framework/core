@@ -1,4 +1,4 @@
-<?
+<?php
 if (!isset ($_GET['name']))
 	die ('Nome da aplicação inválido!');
 
@@ -14,7 +14,7 @@ div
 }
 </style>
 <div>
-	<?
+	<?php
 	$count = copyDir ($src, $dst, TRUE);
 	
 	echo '<br /><b>'. $count .' arquivos copiados.<b>';

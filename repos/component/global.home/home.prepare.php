@@ -1,4 +1,4 @@
-<?
+<?php
 if (Alert::isActive ())
 {
 	$lSection = Business::singleton ()->getSection (Section::TCURRENT);

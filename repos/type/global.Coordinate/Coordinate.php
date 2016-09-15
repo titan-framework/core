@@ -1,4 +1,4 @@
-<?
+<?php
 class Coordinate extends Type
 {
 	protected $value = array ("0 0' 0''N", "0 0' 0''E", 0);

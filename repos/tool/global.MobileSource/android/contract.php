@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 ?>
 /**
@@ -21,7 +21,7 @@ public class <?= $model ?>Contract
 {
 	public static String TABLE = "<?= $table ?>";
 	
-<?
+<?php
 foreach ($fields as $trash => $obj)
 	echo "	public static String ". strtoupper ($obj->json) ." = \"". $obj->json ."\";\n";
 ?>
@@ -29,7 +29,7 @@ foreach ($fields as $trash => $obj)
 	public static String ddl ()
 	{
 		String ddl = "CREATE TABLE " + TABLE + " (" +
-<?
+<?php
 $size = sizeof ($fields);
 $count = 1;
 foreach ($fields as $trash => $obj)
@@ -42,7 +42,7 @@ foreach ($fields as $trash => $obj)
 	
 	public static String [] columns ()
 	{
-<?
+<?php
 $columns = array ();
 
 foreach ($fields as $trash => $obj)
@@ -51,6 +51,6 @@ foreach ($fields as $trash => $obj)
 		return new String [] { <?= implode (', ', $columns) ?> };
 	}
 }
-<?
+<?php
 return ob_get_clean ();
 ?>

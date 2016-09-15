@@ -1,4 +1,4 @@
-<?
+<?php
 class ViewLog extends View
 {
 	public function __construct ($file)

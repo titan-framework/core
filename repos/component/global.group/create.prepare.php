@@ -1,4 +1,4 @@
-<?
+<?php
 $form =& Form::singleton ('create.xml', 'all.xml');
 
 $menu =& Menu::singleton ();

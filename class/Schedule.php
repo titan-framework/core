@@ -1,4 +1,4 @@
-<?
+<?php
 class Schedule
 {
 	static private $schedule = FALSE;

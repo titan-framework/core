@@ -1,4 +1,4 @@
-<?
+<?php
 $instance = Instance::singleton ();
 $skin = Skin::singleton ();
 ?>

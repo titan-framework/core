@@ -1,4 +1,4 @@
-<?
+<?php
 class DocumentPlan extends Pdf
 {
 	protected $foot = array ('', '');

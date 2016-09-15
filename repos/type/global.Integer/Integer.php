@@ -1,4 +1,4 @@
-<?
+<?php
 class Integer extends Type
 {
 	public function __construct ($table, $field)

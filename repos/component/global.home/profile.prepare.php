@@ -1,4 +1,4 @@
-<?
+<?php
 $form =& Form::singleton ('../'. $user->getType ()->getName () .'/'. $user->getType ()->getModify ());
 
 $itemId = $user->getId ();

@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 ?>
 /**
@@ -69,6 +69,6 @@ public class <?= $model ?>WebService
 		return WebServiceHelper.singleton ().getServerTime (response);
 	}
 }
-<?
+<?php
 return ob_get_clean ();
 ?>

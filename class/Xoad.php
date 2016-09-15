@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Xoad.php
  *
@@ -442,7 +442,7 @@ class Xoad
 				ob_start ();
 				?>
 				<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border-width: 0px;">
-					<?
+					<?php
 					$backColor = 'FFFFFF';
 					while ($field = $form->getField (FALSE, $group->getId ()))
 					{
@@ -454,11 +454,11 @@ class Xoad
 							<td><?= Form::toHtml ($field) ?></td>
 						</tr>
 						<tr height="2px"><td></td></tr>
-						<?
+						<?php
 					}
 					?>
 				</table>
-				<?
+				<?php
 				$output = ob_get_clean ();
 				
 				if ($group->getId ())
@@ -473,7 +473,7 @@ class Xoad
 							<?= $output ?>
 						</div>
 					</fieldset>
-					<?
+					<?php
 					$output = ob_get_clean ();
 				}
 				
@@ -649,7 +649,7 @@ Breadcrumb: <?= $formData ['bread'] ?> [<?= $instance->getUrl () . $_SERVER ['RE
 Description: 
 <?= $formData ['description'] ?>
  
-			<?
+			<?php
 			$msg = ob_get_clean ();
 			
 			if (!@mail (implode (',', $to), '=?utf-8?B?'. base64_encode ($subject) .'?=', $msg, $header))

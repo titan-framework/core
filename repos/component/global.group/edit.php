@@ -1,1 +1,1 @@
-<? include Template::import ('global.create') ?>
+<?php include Template::import ('global.create') ?>

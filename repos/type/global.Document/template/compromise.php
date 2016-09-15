@@ -1,4 +1,4 @@
-<?
+<?php
 class DocumentCompromise extends Pdf
 {
 	protected $foot = array ('', '');

@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 ?>
 /**
@@ -255,6 +255,6 @@ public class <?= $model ?>DAO
 		return cursor.getCount () == 0;
 	}
 }
-<?
+<?php
 return ob_get_clean ();
 ?>

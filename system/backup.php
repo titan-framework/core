@@ -1,4 +1,4 @@
-<?
+<?php
 try
 {
 	if (!Backup::singleton ()->isActive ())

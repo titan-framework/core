@@ -1,1 +1,1 @@
-<? return $field->getTable () .'.'. $field->getColumn () ." = '". $field->getValue () ."'" ?>
+<?php return $field->getTable () .'.'. $field->getColumn () ." = '". $field->getValue () ."'" ?>

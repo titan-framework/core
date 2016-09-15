@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Version.php
  *
@@ -176,7 +176,7 @@ class Version
 		END
 		$body$
 		LANGUAGE 'plpgsql' VOLATILE CALLED ON NULL INPUT SECURITY INVOKER;
-		<?
+		<?php
 		$commands [] = ob_get_clean ();
 		
 		$commands [] = 'CREATE TRIGGER "_tvc_'. $schema .'_'. $table .'" BEFORE INSERT OR UPDATE OR DELETE ON "'. $schema .'"."'. $table .'" FOR EACH ROW EXECUTE PROCEDURE "'. $schema .'"."_tvc_'. $schema .'_'. $table .'"();';

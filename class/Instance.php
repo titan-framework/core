@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Instance.php
  *

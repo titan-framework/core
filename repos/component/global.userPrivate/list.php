@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset ($search) && is_object ($search))
 {
 	?>
@@ -18,7 +18,7 @@ if (isset ($search) && is_object ($search))
 		</table>
 		<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 			<tr height="5px"><td></td></tr>
-			<?
+			<?php
 			$backColor = 'FFFFFF';
 			while ($field = $search->getField ())
 			{
@@ -32,7 +32,7 @@ if (isset ($search) && is_object ($search))
 					<td <?= $search->isBlocked ($field) ? 'style="color: #990000;"' : '' ?>><?= Form::toHtml ($field) ?></td>
 				</tr>
 				<tr height="2px"><td></td></tr>
-				<?
+				<?php
 			}
 			?>
 			<tr height="5px"><td></td></tr>
@@ -48,7 +48,7 @@ if (isset ($search) && is_object ($search))
 			</table>
 			<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 				<tr height="5px"><td></td></tr>
-				<?
+				<?php
 				$backColor = 'FFFFFF';
 				while ($field = $search->getField ())
 				{
@@ -60,7 +60,7 @@ if (isset ($search) && is_object ($search))
 						<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($field); ?></td>
 					</tr>
 					<tr height="2px"><td></td></tr>
-					<?
+					<?php
 				}
 				?>
 				<tr>
@@ -74,13 +74,13 @@ if (isset ($search) && is_object ($search))
 			</table>
 		</form>
 	</div>
-	<?
+	<?php
 }
 ?>
 <div id="idList">
 	<table>
 		<tr>
-			<?
+			<?php
 			$columns = sizeof ($view->getFields ()) + 1;
 			
 			while ($field = $view->getField ())
@@ -89,24 +89,24 @@ if (isset ($search) && is_object ($search))
 			<td class="cTableHeader"></td>
 		</tr>
 		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
-		<?
+		<?php
 		while ($view->getItem ())
 		{
 			?>
 			<tr class="cTableItem">
-				<?
+				<?php
 				while ($field = $view->getLink ())
 					echo '<td>'. $field .'</td>';
 				?>
 				<td style="text-align: right;" nowrap="nowrap">
-					<? while ($icon = $view->getIcon ()) echo $icon .'&nbsp;'; ?>
+					<?php while ($icon = $view->getIcon ()) echo $icon .'&nbsp;'; ?>
 					<a href="#" onclick="JavaScript: showActivate (<?= $view->getId () ?>); return false;" title="Ativar/Desativar Usuário"><img src="titan.php?target=loadFile&file=interface/icon/special.gif" border="0" /></a>
-					<?
+					<?php
 					if (User::singleton ()->hasPermission ('_CHANGE_PASSWORD_'))
 					{
 						?>
 						&nbsp;<a href="#" onclick="JavaScript: showChangePasswd (<?= $view->getId () ?>); return false;" title="Alterar a Senha do Usuário"><img src="titan.php?target=loadFile&file=interface/icon/permission.gif" border="0" /></a>
-						<?
+						<?php
 					}
 					?>
 				</td>
@@ -118,7 +118,7 @@ if (isset ($search) && is_object ($search))
 				</td>
 			</tr>
 			<tr class="cSeparatorHalf"><td colspan="<?= $columns ?>"></td></tr>
-			<?
+			<?php
 		}
 		?>
 	</table>

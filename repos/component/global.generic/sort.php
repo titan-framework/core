@@ -1,6 +1,6 @@
 <div id="idForm" style="text-align: center;">
 	<ul id="sortableList">
-		<?
+		<?php
 		$count = 1;
 		while ($view->getItem ())
 		{

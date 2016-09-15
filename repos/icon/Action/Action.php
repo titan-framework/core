@@ -1,4 +1,4 @@
-<?
+<?php
 class IconAction extends IconItem
 {
 	public function __construct ($icon, $view = NULL)

@@ -1,4 +1,4 @@
-<?
+<?php
 try
 {
 	if (!isset ($_GET ['photoId']) || !$_GET['photoId'])

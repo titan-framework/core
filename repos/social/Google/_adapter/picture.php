@@ -1,4 +1,4 @@
-<?
+<?php
 try
 {
 	$db = Database::singleton ();

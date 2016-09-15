@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 ?>
 <textarea name="<?= $fieldName ?>" id="<?= $fieldId ?>" rows="10" cols="80"><?= $field->getValue () ?></textarea>
@@ -14,6 +14,6 @@ CKEDITOR.replace ('<?= $fieldId ?>', {
 	titanOwnerOnly: <?= $field->ownerOnly () ? 'true' : 'false' ?>
 });
 </script>
-<?
+<?php
 return ob_get_clean ();
 ?>

@@ -21,7 +21,7 @@
  *
  * Image Properties dialog window.
 -->
-<?
+<?php
 $instance = Instance::singleton ();
 
 $archive = Archive::singleton ();
@@ -49,61 +49,61 @@ $fieldName = '_fck_image_name_';
 	<?= XOAD_Utilities::header('titan.php?target=loadFile&amp;file=xoad') ."\n" ?>
 	<script language="javascript" type="text/javascript">
 	var tAjax = <?= XOAD_Client::register(new Xoad) ?>;
-	
+
 	function loadFile (fileId, fieldId)
 	{
 		document.getElementById ('txtUrl').value = parent.InstanceUrl () + 'titan.php?target=openFile&fileId=' + fileId;
-		
+
 		UpdatePreview();
-		
+
 		document.getElementById(fieldId + '_upload').style.display = 'none';
 	}
-	
+
 	function uploadFile (fieldId)
 	{
 		var iframe = document.getElementById(fieldId + '_upload');
-		
+
 		if (iframe.style.display == '')
 			iframe.style.display = 'none';
 		else
 			iframe.style.display = '';
 	}
-	
+
 	var uploadFilterKey = new Array ();
 	var uploadFilterValue = new Array ();
 	var uploadFilterCount = 0;
-	
+
 	function getUploadFilter (fieldId)
 	{
 		for (var i = 0 ; i < uploadFilterCount ; i++)
 			if (uploadFilterKey [i] == fieldId)
 				return uploadFilterValue [i];
-		
+
 		return '';
 	}
-	
+
 	function addUploadFilter (fieldId, mimes)
 	{
 		uploadFilterKey [uploadFilterCount] = fieldId;
 		uploadFilterValue [uploadFilterCount] = mimes;
 		uploadFilterCount++;
 	}
-	
+
 	'global.File'.namespace ();
-	
+
 	global.File.load = function (fileId, fieldId)
 	{
 		loadFile (fileId, fieldId);
 	}
-	
+
 	global.File.getFilter = function (fieldId)
 	{
 		return getUploadFilter (fieldId);
 	}
 	</script>
 	<style type="text/css">
-	<? include Instance::singleton ()->getCorePath () .'extra/fckEditor/editor/dialog/common/fck_dialog_common.css' ?>
-	<? include Instance::singleton ()->getCorePath () .'extra/fckEditor/editor/skins/default/fck_dialog.css' ?>
+	<?php include Instance::singleton ()->getCorePath () .'extra/fckEditor/editor/dialog/common/fck_dialog_common.css' ?>
+	<?php include Instance::singleton ()->getCorePath () .'extra/fckEditor/editor/skins/default/fck_dialog.css' ?>
 	.iframeFile
 	{
 		overflow: hidden;

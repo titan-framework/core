@@ -29,12 +29,12 @@
 						<td> 
 							<select class="field" style="width: 300px; height: 150px;" multiple name="resposta[]">
 								<option selected="selected">Insira aqui suas respostas</option>
-								<?
+								<?php
 								while ($obj = $sth->fetch (PDO::FETCH_OBJ))
 								{
 									?>
 									<option value="<?= $obj->_label ?>"><?= $obj->_label ?></option>
-									<?
+									<?php
 								}
 								?>
 							</select>

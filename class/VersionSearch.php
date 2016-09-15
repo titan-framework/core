@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * VersionSearch.php
  *

@@ -1,4 +1,4 @@
-<?
+<?php
 global $itemId;
 
 if (!$itemId)
@@ -21,7 +21,7 @@ while ($term = $field->getDocument ())
 		<div id="idForm">
 			<form id="_TERM_FORM_<?= $fieldId ?>_<?= $term->getId () ?>" action="" method="post">
 				<input type="hidden" name="id" value="<?= $term->getId () ?>" />
-				<?
+				<?php
 				while ($group = $form->getGroup ())
 				{
 					ob_start ();
@@ -30,7 +30,7 @@ while ($term = $field->getDocument ())
 					{
 						?>
 						<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
-							<?
+							<?php
 							$backColor = 'FFF';
 							while ($auxField = $form->getField (FALSE, $group->getId ()))
 							{
@@ -43,11 +43,11 @@ while ($term = $field->getDocument ())
 									<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($auxField); ?></td>
 								</tr>
 								<tr height="2px"><td></td></tr>
-								<?
+								<?php
 							}
 							?>
 						</table>
-						<?
+						<?php
 						$output = ob_get_clean ();
 					}
 					catch (Exception $e)
@@ -74,7 +74,7 @@ while ($term = $field->getDocument ())
 								<?= $output ?>
 							</div>
 						</fieldset>
-						<?
+						<?php
 					}
 					else
 						echo $output;
@@ -92,7 +92,7 @@ while ($term = $field->getDocument ())
 			</form>
 		</div>
 	</fieldset>
-	<?
+	<?php
 }
 ?>
 <div id="idList" style="margin: 0px; background-color: #FFF;">
@@ -105,7 +105,7 @@ while ($term = $field->getDocument ())
 			<td class="cTableHeader">
 				<select id="_TERM_SELECT_<?= $fieldId ?>" class="field" style="margin: 0px; float: right; display: none;" onchange="JavaScript: global.Document.showCreate ('<?= $fieldId ?>', this);">
 					<option value=""><?= __ ('Select') ?></option>
-					<?
+					<?php
 					while ($term = $field->getDocument ())
 						echo '<option value="'. $term->getId () .'">'. $term->getLabel () .'</option>';
 					?>
@@ -114,7 +114,7 @@ while ($term = $field->getDocument ())
 			</td>
 		</tr>
 		<tr height="5px"><td colspan="5"></td></tr>
-		<?
+		<?php
 		$db = Database::singleton ();
 
 		$sql = "SELECT u._name AS author, r.*, to_char(r._create, 'DD-MM-YYYY HH24:MI:SS') AS created
@@ -152,11 +152,11 @@ while ($term = $field->getDocument ())
 				</td>
 			</tr>
 			<tr class="cSeparator"><td colspan="5"></td></tr>
-			<?
+			<?php
 		}
 		?>
 	</table>
 </div>
-<?
+<?php
 return ob_get_clean ();
 ?>

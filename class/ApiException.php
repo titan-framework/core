@@ -1,4 +1,4 @@
-<?
+<?php
 class ApiException extends Exception
 {
 	// 1XX INFORMATIONAL CODES

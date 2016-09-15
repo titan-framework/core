@@ -1,4 +1,4 @@
-<?
+<?php
 $instance = Instance::singleton ();
 
 $file = $instance->getCorePath () . @$_GET ['file'];

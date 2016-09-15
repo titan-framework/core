@@ -1,4 +1,4 @@
-<?
+<?php
 $map = $field->getMapping ();
 
 $buffer = array ();

@@ -1,4 +1,4 @@
-<?
+<?php
 function validName ($str)
 {
         $str = substr ($str, 0, 255);
@@ -190,8 +190,8 @@ $skin = Skin::singleton ();
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
                 <title> <?= $instance->getName () ?> </title>
                 <style type="text/css">
-                <? include $skin->getCss ('message') ?>
-                <? include $skin->getCss ('main') ?>
+                <?php include $skin->getCss ('message') ?>
+                <?php include $skin->getCss ('main') ?>
                 </style>
                 <script language="javascript" type="text/javascript" src="titan.php?target=loadFile&file=js/boxover.js"></script>
                 <?= XOAD_Utilities::header('titan.php?target=loadFile&file=xoad') ."\n" ?>
@@ -309,7 +309,7 @@ $skin = Skin::singleton ();
                 <div id="idRegister">
                         <form id="form_config" name="form_config_name" method="post">
                         <table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
-                                <?
+                                <?php
                                 $count = 0;
                                 foreach ($properties as $package => $props)
                                 {
@@ -329,7 +329,7 @@ $skin = Skin::singleton ();
                                                 </td>
                                         </tr>
                                         <tr height="2px"><td></td></tr>
-                                        <?
+                                        <?php
                                         $color = 'FFFFFF';
                                         foreach ($props as $key => $array)
                                         {
@@ -343,7 +343,7 @@ $skin = Skin::singleton ();
                                                         </td>
                                                 </tr>
                                                 <tr height="2px"><td></td></tr>
-                                                <?
+                                                <?php
                                         }
                                 }
                                 ?>

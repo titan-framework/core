@@ -1,4 +1,4 @@
-<?
+<?php
 class IconStatus extends IconItem
 {
 	private $status = array ();

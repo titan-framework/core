@@ -1,4 +1,4 @@
-<?
+<?php
 class IconItem
 {
 	protected $view = NULL;

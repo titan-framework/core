@@ -1,4 +1,4 @@
-<?
+<?php
 $output ['list'] = '';
 $output ['js'] = array ();
 
@@ -476,14 +476,14 @@ function saveSort ()
 </script>
 <div id="errorBanner" style="display: none; z-index: 3;"></div>
 <div id="idMenuArchitect">
-	<? swf (Business::singleton ()->getSection (Section::TCURRENT)->getComponentPath () .'_image/menu.swf', 557, 65) ?>
+	<?php swf (Business::singleton ()->getSection (Section::TCURRENT)->getComponentPath () .'_image/menu.swf', 557, 65) ?>
 </div>
 <div id="createSection" style="display: none;">
 	<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
 		<tr>
 			<td>
 				<select class="field multiply" style="height: 150px;" name="new_section" id="new_section" multiple="multiple">
-					<?
+					<?php
 					ksort ($packs);
 
 					foreach ($packs as $trash => $package)

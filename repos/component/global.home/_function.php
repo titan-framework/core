@@ -1,4 +1,4 @@
-<?
+<?php
 function update ($make = FALSE)
 {
 	$return = FALSE;

@@ -1,4 +1,4 @@
-<?
+<?php
 class Xml
 {
 	private $array = array ();

@@ -1,4 +1,4 @@
-<?
+<?php
 $search = new SearchLog ('log.xml');
 
 $search->recovery ();

@@ -1,4 +1,4 @@
-<?
+<?php
 $business = Business::singleton ();
 
 $arrayMain = array ();

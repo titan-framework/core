@@ -1,4 +1,4 @@
-<?
+<?php
 if (is_null ($field->getValue ()) || trim ($field->getValue ()) == '')
 	return '&nbsp;';
 

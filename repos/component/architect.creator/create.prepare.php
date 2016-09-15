@@ -1,4 +1,4 @@
-<?
+<?php
 $section = Business::singleton ()->getSection (Section::TCURRENT);
 
 $dbUser = trim ($section->getDirective ('_CREATE_DB_USER_'));

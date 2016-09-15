@@ -1,4 +1,4 @@
-<?
+<?php
 $search = new Search ('filter.xml', 'search.xml', 'graph.xml', 'list.xml');
 
 $search->recovery ();

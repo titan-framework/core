@@ -1,4 +1,4 @@
-<?
+<?php
 require dirname (__FILE__) . DIRECTORY_SEPARATOR .'_library'. DIRECTORY_SEPARATOR .'Google_Client.php';
 require dirname (__FILE__) . DIRECTORY_SEPARATOR .'_library'. DIRECTORY_SEPARATOR .'contrib'. DIRECTORY_SEPARATOR .'Google_Oauth2Service.php';
 

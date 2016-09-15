@@ -1,4 +1,4 @@
-<?
+<?php
 class Template
 {
 	public static function import ($template)

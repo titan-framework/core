@@ -21,7 +21,7 @@
  *
  * Link dialog window.
 -->
-<?
+<?php
 $instance = Instance::singleton ();
 
 $archive = Archive::singleton ();
@@ -105,8 +105,8 @@ $fieldName = '_fck_file_name_';
 		}
 		</script>
 		<style type="text/css">
-		<? include Instance::singleton ()->getCorePath () .'extra/fckEditor/editor/dialog/common/fck_dialog_common.css' ?>
-		<? include Instance::singleton ()->getCorePath () .'extra/fckEditor/editor/skins/default/fck_dialog.css' ?>
+		<?php include Instance::singleton ()->getCorePath () .'extra/fckEditor/editor/dialog/common/fck_dialog_common.css' ?>
+		<?php include Instance::singleton ()->getCorePath () .'extra/fckEditor/editor/skins/default/fck_dialog.css' ?>
 		.iframeFile
 		{
 			overflow: hidden;

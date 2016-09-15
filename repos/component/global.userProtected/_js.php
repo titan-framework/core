@@ -216,7 +216,7 @@ function changePasswd (id)
 	
 	p = passwd.value;
 	
-	<? if (Security::singleton ()->encryptOnClient ()) { echo 'p = hex_sha1 (passwd.value);'; } ?>
+	<?php if (Security::singleton ()->encryptOnClient ()) { echo 'p = hex_sha1 (passwd.value);'; } ?>
 	
 	if (ajax.changePasswd (id, p))
 		showChangePasswd (id);

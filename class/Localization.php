@@ -1,4 +1,4 @@
-<?
+<?php
 class Localization
 {
 	static private $locale = FALSE;

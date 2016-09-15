@@ -1,4 +1,4 @@
-<?
+<?php
 class xSlug
 {
 	public function generateSlug ($string, $table, $column)

@@ -1,4 +1,4 @@
-<?
+<?php
 class TimeZone extends Phrase
 {
 	public function __construct ($table, $field)

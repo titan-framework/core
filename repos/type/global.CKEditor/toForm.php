@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 ?>
 <textarea name="<?= $fieldName ?>" id="<?= $fieldId ?>" rows="10" cols="80"><?= $field->getValue () ?></textarea>
@@ -11,6 +11,6 @@ CKEDITOR.replace ('<?= $fieldId ?>', {
 	titanType: 'CKEditor'
 });
 </script>
-<?
+<?php
 return ob_get_clean ();
 ?>

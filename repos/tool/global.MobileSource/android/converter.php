@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 ?>
 /**
@@ -62,7 +62,7 @@ public class <?= $model ?>Converter
 		{
 			<?= $model ?> item = new <?= $model ?> ();
 			
-<?
+<?php
 foreach ($fields as $trash => $obj)
 	switch ($obj->type)
 	{
@@ -96,7 +96,7 @@ foreach ($fields as $trash => $obj)
 	{
 		<?= $model ?> item = new <?= $model ?> ();
 
-<?
+<?php
 foreach ($fields as $trash => $obj)
 	switch ($obj->type)
 	{
@@ -120,7 +120,7 @@ foreach ($fields as $trash => $obj)
 	{
 		ContentValues value = new ContentValues ();
 
-<?
+<?php
 foreach ($fields as $trash => $obj)
 	switch ($obj->type)
 	{
@@ -143,6 +143,6 @@ foreach ($fields as $trash => $obj)
 		return value;
 	}
 }
-<?
+<?php
 return ob_get_clean ();
 ?>

@@ -8,7 +8,7 @@
     <?php echo _pfc("Chat loading ..."); ?><br style="margin:0"/><?php echo _pfc("Please wait"); ?>
   </p>
 </div>
-  
+
 <script type="text/javascript">
   // <![CDATA[
 <?php
@@ -106,7 +106,7 @@ function trace(text) {
 
   // ]]>
 </script>
-<? /* Changed by Camilo Carromeu
+<?php /* Changed by Camilo Carromeu
 <script type="text/javascript" src="<?php echo $c->data_public_url; ?>/js/xajax.js"></script>
 <script type="text/javascript" src="<?php echo $c->data_public_url; ?>/js/compat.js"></script>
 <script type="text/javascript" src="<?php echo $c->data_public_url; ?>/js/md5.js"></script>

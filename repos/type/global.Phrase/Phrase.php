@@ -1,4 +1,4 @@
-<?
+<?php
 class Phrase extends Type
 {
 	protected $maxLength = 0;

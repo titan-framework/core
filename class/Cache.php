@@ -1,4 +1,4 @@
-<?
+<?php
 class Cache
 {
 	static private $self = FALSE;

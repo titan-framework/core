@@ -1,4 +1,4 @@
-<?
+<?php
 abstract class MenuItem
 {
 	protected $label = '';

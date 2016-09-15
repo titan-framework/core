@@ -1,4 +1,4 @@
-<?
+<?php
 class Twitter extends Phrase
 {
 	private $login = '';

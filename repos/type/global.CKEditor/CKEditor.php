@@ -1,4 +1,4 @@
-<?
+<?php
 class CKEditor extends Fck
 {
 	const ENCODE_FOLDER = 'ckeditor';
@@ -75,7 +75,7 @@ class CKEditor extends Fck
 			case Archive::IMAGE:
 				?>
 				<img src="titan.php?target=tScript&type=CKEditor&file=open&id=<?= $id ?>&hash=<?= $hash ?>" alt="<?= $obj->_name ?>" border="0" />
-				<?
+				<?php
 				break;
 			
 			case Archive::VIDEO:
@@ -89,7 +89,7 @@ class CKEditor extends Fck
 							<?= __ ('This video is not supported by native player of your browser! Click here to download it directly to your computer to watch in player of your choice.') ?>
 						</a>
 					</video>
-					<?
+					<?php
 				}
 				else
 				{
@@ -97,7 +97,7 @@ class CKEditor extends Fck
 					<a href="titan.php?target=tScript&type=CKEditor&file=open&id=<?= $id ?>&hash=<?= $hash ?>" target="_blank" title="<?= __ ('Play') ?>">
 						<?= __ ('This video is not supported by native player of your browser and cannot be converted! Click here to download it directly to your computer to watch in player of your choice.') ?>
 					</a>
-					<?
+					<?php
 				}
 				break;
 			
@@ -112,7 +112,7 @@ class CKEditor extends Fck
 							<?= __ ('This audio is not supported by native player of your browser! Click here to download it directly to your computer to listen in player of your choice.') ?>
 						</a>
 					</audio>
-					<?
+					<?php
 				}
 				else
 				{
@@ -120,7 +120,7 @@ class CKEditor extends Fck
 					<a href="titan.php?target=tScript&type=CKEditor&file=open&id=<?= $id ?>&hash=<?= $hash ?>" target="_blank" title="<?= __ ('Play') ?>">
 						<?= __ ('This audio is not supported by native player of your browser and cannot be converted! Click here to download it directly to your computer to listen in player of your choice.') ?>
 					</a>
-					<?
+					<?php
 				}
 				break;
 			
@@ -129,7 +129,7 @@ class CKEditor extends Fck
 			default:
 				?>
 				<a href="titan.php?target=tScript&type=CKEditor&file=open&id=<?= $id ?>&hash=<?= $hash ?>" target="_blank"><img src="titan.php?target=loadFile&file=interface/file/<?= $archive->getIcon ($obj->_mimetype) ?>.gif" border="0" /></a>
-				<?
+				<?php
 		}
 		
 		return str_replace ("\t", '', ob_get_clean ());

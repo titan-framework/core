@@ -1,4 +1,4 @@
-<?
+<?php
 class DocumentCertificate extends Pdf
 {
 	function Footer ()

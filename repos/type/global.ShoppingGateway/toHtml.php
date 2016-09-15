@@ -1,4 +1,4 @@
-<?
+<?php
 if (!Shopping::isActive ())
 	return __ ('The Shopping Module in Titan Framework must be enable!');
 

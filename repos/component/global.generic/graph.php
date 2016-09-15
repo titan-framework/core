@@ -8,7 +8,7 @@
 	</table>
 	<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 		<tr height="5px"><td></td></tr>
-		<?
+		<?php
 		$backColor = 'FFFFFF';
 		while ($field = $search->getField ())
 		{
@@ -20,7 +20,7 @@
 				<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($field); ?></td>
 			</tr>
 			<tr height="2px"><td></td></tr>
-			<?
+			<?php
 		}
 		?>
 		<tr>
@@ -35,13 +35,13 @@
 	</form>
 </div>
 <div id="idForm">
-	<?
+	<?php
 	while ($group = $graph->getGroup ())
 	{
 		ob_start ();
 		?>
 		<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
-			<?
+			<?php
 			$where = $search->makeWhere ();
 			$flag = FALSE;
 
@@ -53,11 +53,11 @@
 					<td style="text-align: center;"><img border="0" src="<?= $img ?>" /></td>
 				</tr>
 				<tr height="10px"><td></td></tr>
-				<?
+				<?php
 			}
 			?>
 		</table>
-		<?
+		<?php
 		$output = ob_get_clean ();
 
 		if ($group->getId () && $flag)
@@ -71,7 +71,7 @@
 					<?= $output ?>
 				</div>
 			</fieldset>
-			<?
+			<?php
 		}
 		else
 			echo $output;

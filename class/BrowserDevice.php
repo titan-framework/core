@@ -1,4 +1,4 @@
-<?
+<?php
 class BrowserDevice
 {
 	static private $active = NULL;

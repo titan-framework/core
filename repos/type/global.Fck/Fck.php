@@ -120,7 +120,7 @@ class Fck extends Phrase
 			case Archive::IMAGE:
 				?>
 				<img src="titan.php?target=tScript&type=File&file=thumbnail&fileId=<?= $id ?>&height=<?= $dimension ?><?= $hashQueryString ?>" alt="<?= $alt ?>" border="0" />
-				<?
+				<?php
 				break;
 			
 			case Archive::VIDEO:
@@ -134,7 +134,7 @@ class Fck extends Phrase
 							<?= __ ('This video is not supported by native player of your browser! Click here to download it directly to your computer to watch in player of your choice.') ?>
 						</a>
 					</video>
-					<?
+					<?php
 				}
 				else
 				{
@@ -142,7 +142,7 @@ class Fck extends Phrase
 					<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
 						<?= __ ('This video is not supported by native player of your browser and cannot be converted! Click here to download it directly to your computer to watch in player of your choice.') ?>
 					</a>
-					<?
+					<?php
 				}
 				break;
 			
@@ -157,7 +157,7 @@ class Fck extends Phrase
 							<?= __ ('This audio is not supported by native player of your browser! Click here to download it directly to your computer to listen in player of your choice.') ?>
 						</a>
 					</audio>
-					<?
+					<?php
 				}
 				else
 				{
@@ -165,7 +165,7 @@ class Fck extends Phrase
 					<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
 						<?= __ ('This audio is not supported by native player of your browser and cannot be converted! Click here to download it directly to your computer to listen in player of your choice.') ?>
 					</a>
-					<?
+					<?php
 				}
 				break;
 			
@@ -174,7 +174,7 @@ class Fck extends Phrase
 			default:
 				?>
 				<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank"><img src="titan.php?target=loadFile&file=interface/file/<?= $archive->getIcon ($obj->_mimetype) ?>.gif" border="0" /></a>
-				<?
+				<?php
 		}
 		
 		return str_replace ("\t", '', ob_get_clean ());

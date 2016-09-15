@@ -1,4 +1,4 @@
-<?
+<?php
 class IconInPlace extends IconItem
 {	
 	public function __construct ($icon, $view = NULL)

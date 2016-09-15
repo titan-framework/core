@@ -1,7 +1,6 @@
-<?
-error_reporting (0);
+<?php
 
-require_once(Instance::singleton ()->getCorePath () .'extra/dragable-boxes/magpierss/rss_fetch.inc');
+require_once (Instance::singleton ()->getCorePath () .'extra/dragable-boxes/magpierss/rss_fetch.inc');
 
 
 define("MAGPIE_CACHE_AGE",600);	// Cache time in seconds- 10 minutes
@@ -38,7 +37,7 @@ for($no=0;$no<count($rssItems);$no++){
 		"pubdate"=>$rssItems[$no]["pubdate"],
 		"description"=>$rssItems[$no]["description"],
 		"link"=>$rssItems[$no]["link"],
-		"category"=>$rssItems[$no]["category"]);	
+		"category"=>$rssItems[$no]["category"]);
 }
 
 
@@ -48,13 +47,13 @@ $outputItems = array_reverse($outputItems);	// Reverse array so that the newest 
 $countItems = 0;
 
 foreach($outputItems as $key=>$value){	// Output items - looping throught the array $outputItems
-	echo "\n\n";	
+	echo "\n\n";
 	echo preg_replace("/[\r\n]/"," ",$value["title"])."##";	// Title
 	echo date("Y-m-d H:i:s",$value["date_timestamp"])."##";	// Date
 	echo preg_replace("/[\r\n]/"," ",$value["description"])."##";	// Description
 	echo preg_replace("/[\r\n]/"," ",$value["link"])."##";	// Link
 	$countItems++;
-	if($countItems>=$maxRssItems)exit;	
+	if($countItems>=$maxRssItems)exit;
 
 }
 exit;

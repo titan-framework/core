@@ -1,1 +1,1 @@
-<? include Template::import ('global.delete') ?>
+<?php include Template::import ('global.delete') ?>

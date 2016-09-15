@@ -1,4 +1,4 @@
-<?
+<?php
 if (!isset ($_GET['itemId']) || !isset ($_GET['table']))
 	die (__ ('Error! Data losted.'));
 
@@ -10,7 +10,7 @@ $table  = $_GET['table'];
 ?>
 <html>
 	<head>
-		<?
+		<?php
 		$archive = Archive::singleton ();
 
 		$message = Message::singleton ();
@@ -96,7 +96,7 @@ $table  = $_GET['table'];
 
 				parent.hideWait ();
 			</script>
-			<?
+			<?php
 		}
 		?>
 		<link rel="stylesheet" href="titan.php?target=loadFile&amp;file=interface/css/general.css" type="text/css" />

@@ -1,4 +1,4 @@
-<?
+<?php
 if (!isset ($_GET['c']) || !is_numeric ($_GET['c']) || !((int) $_GET['c']) || !isset ($_GET['a']) || strlen (trim ($_GET['a'])) != 16)
 	throw new Exception (__ ('Error! Data losted.'));
 

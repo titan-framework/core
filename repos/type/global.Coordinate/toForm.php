@@ -1,4 +1,4 @@
-<?
+<?php
 $value = $field->getValue ();
 				
 if(!$value || !is_array ($value))
@@ -20,7 +20,7 @@ ob_start ();
 		<td><input type="text" class="field" style="width: 150px;" name="<?= $fieldName ?>[]" id="<?= $fieldId ?>Altitude" value="<?= $value [2] ?>" onkeypress="JavaScript: return glogal.Integer.format (this, event);" onkeyup="JavaScript: glogal.Integer.format (this,false);" /></td>
 	</tr>
 </table>
-<?
+<?php
 $aux = ob_get_contents ();
 
 ob_end_clean();

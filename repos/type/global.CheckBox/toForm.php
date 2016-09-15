@@ -1,4 +1,4 @@
-<?
+<?php
 $buffer = '<span style="padding: 4px;">[<a href="#" onclick="JavaScript: global.CheckBox.selectAll (\''. $fieldName .'\');" />'. __ ('All') .'</a> | <a href="#" onclick="JavaScript: global.CheckBox.selectNone (\''. $fieldName .'\');" />'. __ ('None') .'</a>]</span><br /><br />';
 
 $items = array ();

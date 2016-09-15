@@ -78,14 +78,14 @@
 	</table>
 </div>
 <div id="idGallery" style="text-align: center;">
-	<?
+	<?php
 	while ($obj = $sth->fetch (PDO::FETCH_OBJ))
 	{
 		?>
 		<div id="image_<?= $obj->_media ?>" class="divImage" style="background: url(titan.php?target=script&toSection=<?= Business::singleton ()->getSection (Section::TCURRENT)->getName () ?>&file=thumb&photoId=<?= $obj->_media ?>) no-repeat;" ondblclick="JavaScript: viewGallery (<?= $obj->_media ?>);" title="<?= __ ('Move the photos to sort them or a double-click to view them.') ?>">
 			<ul class="menu"><li title="<?= __ ('Show image in fullsize') ?>" onclick="JavaScript: viewRealPhoto (<?= $obj->_media ?>);" class="iconView">&nbsp;&nbsp;&nbsp;&nbsp;</li><li title="<?= __ ('Edit image data') ?>" onclick="JavaScript: editPhotoData (<?= $obj->_media ?>);" class="iconEditData">&nbsp;&nbsp;&nbsp;&nbsp;</li><li title="<?= __ ('Edit image') ?>" onclick="JavaScript: editPhoto (<?= $obj->_media ?>);" class="iconEdit">&nbsp;&nbsp;&nbsp;&nbsp;</li><li title="<?= __ ('Remove image') ?>" onclick="JavaScript: removePhoto (<?= $obj->_media ?>);" class="iconRemove">&nbsp;&nbsp;&nbsp;&nbsp;</li></ul>
 		</div>
-		<?
+		<?php
 	}
 	?>
 </div>

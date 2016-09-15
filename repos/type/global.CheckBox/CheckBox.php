@@ -1,4 +1,4 @@
-<?
+<?php
 class CheckBox extends Enum
 {
 	protected $forGraph = FALSE;

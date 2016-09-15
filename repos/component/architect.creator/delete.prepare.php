@@ -1,4 +1,4 @@
-<?
+<?php
 $form = new Form ('view.xml');
 
 if (!$form->load ($itemId))

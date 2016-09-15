@@ -1,4 +1,4 @@
-<?
+<?php
 class IconCopy extends IconItem
 {
 	protected $image = 'copy.gif';

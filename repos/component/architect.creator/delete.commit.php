@@ -1,4 +1,4 @@
-<?
+<?php
 $form = new Form ('area/visualizar.xml');
 
 if (!$form->delete ($itemId))

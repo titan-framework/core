@@ -1,4 +1,4 @@
-<?
+<?php
 // if (!User::singleton ()->isLogged ())
 //	throw new Exception (__ ('Attention! Probably attack detected. Access Denied!'));
 
@@ -80,7 +80,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 				<coordinates><?= $noteCoordinate ?></coordinates>
 			</Point>
 		</Placemark>
-		<?
+		<?php
 		while ($obj = $sth->fetch (PDO::FETCH_OBJ))
 		{
 			$coordinate = $obj->_longitude .','. $obj->_latitude .','. $obj->_altitude;
@@ -91,7 +91,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 				<name><?= $types [$obj->_type] .' '. strftime ('%x %X', $obj->_date) ?></name>
 				<description>
 					<![CDATA[
-						<?
+						<?php
 						switch ($obj->_type)
 						{
 							case 'IMAGE':
@@ -99,7 +99,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 								<a href="<?= Instance::singleton ()->getUrl () .'titan.php?target=tScript&type=CloudFile&file=open&fileId='. $obj->_file ?>" target="_blank">
 									<img src="<?= Instance::singleton ()->getUrl () .'titan.php?target=tScript&type=CloudFile&file=thumbnail&fileId='. $obj->_file .'&width=300' ?>" />
 								</a>
-								<?
+								<?php
 								break;
 							
 							case 'VIDEO':
@@ -110,7 +110,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 										<img src="<?= Instance::singleton ()->getUrl () ?>titan.php?target=tResource&type=Note&file=play.png" border="0" alt="<?= __ ('Play') ?>" />
 									</a>
 								</video>
-								<?
+								<?php
 								break;
 							
 							case 'AUDIO':
@@ -121,7 +121,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 										<img src="<?= Instance::singleton ()->getUrl () ?>titan.php?target=tResource&type=Note&file=play.png" border="0" alt="<?= __ ('Play') ?>" />
 									</a>
 								</audio>
-								<?
+								<?php
 								break;
 						}
 						?>
@@ -131,7 +131,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 					<coordinates> <?= $coordinate ?> </coordinates>
 				</Point>
 			</Placemark>
-			<?
+			<?php
 		}
 		
 		foreach ($coordinates as $trash => $coordinate)
@@ -146,7 +146,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 					</coordinates>
 				</LineString>
 			</Placemark>
-			<?
+			<?php
 		}
 		?>
 	</Document>

@@ -1,5 +1,5 @@
 <div id="idForm">
-	<?
+	<?php
 	$description = Business::singleton ()->getAction (Action::TCURRENT)->getDescription ();
 	if (trim ($description) != '')
 		echo '<div class="description">'. $description .'</div>';
@@ -10,7 +10,7 @@
 	?>
 	<form id="form_<?= $form->getAssign () ?>" action="" method="post">
 		<input type="hidden" name="itemId" value="<?= $itemId ?>" />
-		<?
+		<?php
 		$notSavables = array ();
 		
 		while ($group = $form->getGroup ())
@@ -23,7 +23,7 @@
 			{
 				?>
 				<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
-					<?
+					<?php
 					$backColor = 'FFFFFF';
 					while ($field = $form->getField (FALSE, $group->getId ()))
 					{
@@ -51,14 +51,14 @@
 									<td colspan="2" nowrap="nowrap" style="text-align: left;"><b><?= trim ($label) == '&nbsp;' ? '&nbsp;' : $label .':' ?></b></td>
 									<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($field) ?></td>
 								</tr>
-								<?
+								<?php
 							}
 							?>
 							<tr id="row_<?= $field->getAssign () ?>">
 								<td colspan="3"><?= Form::toForm ($field) ?></td>
 							</tr>
 							<tr height="2px"><td></td></tr>
-							<?
+							<?php
 						}
 						else
 						{
@@ -69,12 +69,12 @@
 								<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($field) ?></td>
 							</tr>
 							<tr height="2px"><td></td></tr>
-							<?
+							<?php
 						}
 					}
 					?>
 				</table>
-				<?
+				<?php
 				$output = ob_get_clean ();
 			}
 			catch (Exception $e)
@@ -103,14 +103,14 @@
 							<?= $output ?>
 						</div>
 					</fieldset>
-					<?
+					<?php
 				}
 				else
 					echo $output;
 		}
 		?>
 	</form>
-	<?
+	<?php
 	foreach ($notSavables as $key => $fields)
 	{
 		try
@@ -118,7 +118,7 @@
 			ob_start ();
 			?>
 			<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
-				<?
+				<?php
 				$backColor = 'FFFFFF';
 				foreach ($fields as $trash => $keyField)
 				{
@@ -139,14 +139,14 @@
 								<td colspan="2" nowrap="nowrap" style="text-align: left;"><b><?= trim ($label) == '&nbsp;' ? '&nbsp;' : $label .':' ?></b></td>
 								<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($field) ?></td>
 							</tr>
-							<?
+							<?php
 						}
 						?>
 						<tr id="row_<?= $field->getAssign () ?>">
 							<td colspan="3"><?= Form::toForm ($field) ?></td>
 						</tr>
 						<tr height="2px"><td></td></tr>
-						<?
+						<?php
 					}
 					else
 					{
@@ -157,12 +157,12 @@
 							<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($field) ?></td>
 						</tr>
 						<tr height="2px"><td></td></tr>
-						<?
+						<?php
 					}
 				}
 				?>
 			</table>
-			<?
+			<?php
 			$output = ob_get_clean ();
 		}
 		catch (Exception $e)
@@ -191,7 +191,7 @@
 					<?= $output ?>
 				</div>
 			</fieldset>
-			<?
+			<?php
 		}
 		else
 			echo $output;

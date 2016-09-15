@@ -1,4 +1,4 @@
-<?
+<?php
 $options = $field->getMapping ();
 
 $max = 1;

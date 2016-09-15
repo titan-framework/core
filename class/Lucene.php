@@ -1,4 +1,4 @@
-<?
+<?php
 class Lucene
 {
 	static private $lucene = FALSE;

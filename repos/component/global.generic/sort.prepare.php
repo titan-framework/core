@@ -1,4 +1,4 @@
-<?
+<?php
 $view = new View ('sort.xml', 'list.xml');
 
 if (!$view->load ())

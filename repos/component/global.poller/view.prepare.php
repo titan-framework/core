@@ -1,4 +1,4 @@
-<?
+<?php
 $form =& Form::singleton ('view.xml', 'all.xml');
 
 if (!$form->load ($itemId))

@@ -1,4 +1,4 @@
-<?
+<?php
 if (is_null ($field->getValue ()) || !(int) $field->getValue ())
 	return '';
 

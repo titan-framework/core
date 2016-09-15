@@ -1,4 +1,4 @@
-<?
+<?php
 $selects = array ();
 
 $linkColumn = $field->getLinkColumn ();
@@ -41,7 +41,7 @@ $array = $array + array_reverse ($aux, TRUE);
 ob_start ();
 ?>
 <div id="_DIV_<?= $fieldId ?>" style="float: left; border: #CCC 1px solid; background-color: #FFF; width: 499px; padding: 3px 3px 0px 3px;">
-	<?
+	<?php
 	foreach ($array as $id => $opts)
 	{
 		if (!sizeof ($opts))
@@ -49,12 +49,12 @@ ob_start ();
 		?>
 		<select class="field" style="float: none; margin-bottom: 3px; width: 499px; <?= $field->getStyle () ?>" name="<?= $fieldName ?>_<?= $id ?>" id="<?= $fieldId ?>_<?= $id ?>" onchange="JavaScript: global.Cascade.choose ('<?= $fieldId ?>', '<?= $id ?>', this, '<?= $field->getLink () ?>', '<?= $field->getLinkColumn () ?>', '<?= $field->getFatherColumn () ?>', '<?= $field->getLinkView () ?>')">
 			<option value="<?= $id ?>">Selecione...</option>
-			<?
+			<?php
 			foreach ($opts as $value => $label)
 				echo '<option value="'. $value .'"'. (array_key_exists ($value, $array) ? ' selected="selected"' : '') .'>'. $label [1] .'</option>';
 			?>
 		</select>
-		<?
+		<?php
 	}
 	?>
 </div>
@@ -63,6 +63,6 @@ ob_start ();
 <script language="javascript" type="text/javascript">
 global.Cascade.values_<?= $fieldId ?> = new Array ('<?= implode ("', '", array_keys ($array)) ?>');
 </script>
-<?
+<?php
 return ob_get_clean ();
 ?>

@@ -421,7 +421,7 @@ function closeCreateUser ()
 </script>
 <div id="errorBanner" style="display: none;"></div>
 <div id="idMenuArchitect">
-	<? swf (Business::singleton ()->getSection (Section::TCURRENT)->getComponentPath () .'_image/menu.swf', 557, 65) ?>
+	<?php swf (Business::singleton ()->getSection (Section::TCURRENT)->getComponentPath () .'_image/menu.swf', 557, 65) ?>
 </div>
 <div id="idForm">
 	<fieldset id="createUser" style="display: none; padding: 5px; margin: 20px auto; border: 2px solid #000099;">
@@ -551,7 +551,7 @@ function closeCreateUser ()
 			<div>
 				<form id="form_options" method="post">
 					<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
-						<!-- <tr><td><? //= print_r ($fieldArray) ?></td></tr> -->
+						<!-- <tr><td><?php //= print_r ($fieldArray) ?></td></tr> -->
 						<tr id="row_title" height="24px" style="background-color: #F4F4F4;">
 							<td>
 								<table align="center" border="0" width="97%" cellpadding="2" cellspacing="0">
@@ -561,7 +561,7 @@ function closeCreateUser ()
 										<td style="background-color: #A7A; font-weight: bold; color: #FFF;" colspan="5">Gerência</td>
 										<td style="background-color: #AA7; font-weight: bold; color: #FFF;" colspan="4">Propriedades</td>
 									</tr>
-									<?
+									<?php
 									$color = '#F4F4F4';
 									
 									foreach ($fieldArray as $trash => $field)
@@ -589,7 +589,7 @@ function closeCreateUser ()
 											<td><input type="checkbox" onchange="JavaScript: if (this.checked == false) { $('ldap_<?= $field ['column'] ?>').value = ''; return false; }; var value1 = prompt('Digite o nome do campo correspondente no servidor LDAP:',$('ldap_<?= $field ['column'] ?>').value); if (!value1) { this.checked = false; $('ldap_<?= $field ['column'] ?>').value = ''; } else { $('ldap_<?= $field ['column'] ?>').value = value1; };" <?= array_key_exists ('on-ldap-as', $field) && trim ($field ['on-ldap-as']) != '' ? 'checked="checked"' : '' ?> /><input type="hidden" id="ldap_<?= $field ['column'] ?>" value="<?= array_key_exists ('on-ldap-as', $field) ? $field ['on-ldap-as'] : '' ?>" />LDAP</td>
 											<td><input type="checkbox" onchange="JavaScript: if (this.checked == false) { $('help_<?= $field ['column'] ?>').value = ''; return false; }; var value2 = prompt('Digite o texto de ajuda:',$('help_<?= $field ['column'] ?>').value); if (!value2) { this.checked = false; $('help_<?= $field ['column'] ?>').value = ''; } else { $('help_<?= $field ['column'] ?>').value = value2; };" <?= array_key_exists ('help', $field) && trim ($field ['help']) != '' ? 'checked="checked"' : '' ?> /><input type="hidden" id="help_<?= $field ['column'] ?>" value="<?= array_key_exists ('help', $field) ? $field ['help'] : '' ?>" />Help</td>
 										</tr>
-										<?
+										<?php
 									}
 									?>
 								</table>
@@ -688,7 +688,7 @@ function closeCreateUser ()
 		<tr>
 			<td>
 				<select class="field multiply" style="height: 100px;" name="remove_user" id="remove_user" multiple="multiple">
-					<?
+					<?php
 					ksort ($userArray);
 
 					foreach ($userArray as $trash => $package)

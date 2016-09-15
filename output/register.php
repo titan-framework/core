@@ -1,4 +1,4 @@
-<?
+<?php
 $skin = Skin::singleton ();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -10,7 +10,7 @@ $skin = Skin::singleton ();
 		<link rel="stylesheet" type="text/css" href="<?= $skin->getCss (array ('main', 'message'), Skin::URL) ?>" />
 		<!--[if IE]><link rel="stylesheet" type="text/css" href="<?= $skin->getCss ('ie', Skin::URL) ?>" /><![endif]-->
 		
-		<?
+		<?php
 		$types = Instance::singleton ()->getTypes ();
 
 		foreach ($types as $type => $path)
@@ -46,7 +46,7 @@ $skin = Skin::singleton ();
 			document.getElementById('idWait').innerHTML = '';
 		}
 		</script>
-		<?
+		<?php
 		$types = Instance::singleton ()->getTypes ();
 
 		foreach ($types as $type => $path)

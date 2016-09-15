@@ -1,4 +1,4 @@
-<?
+<?php
 class DocumentHiring extends Pdf
 {
 	protected $foot = array ('', '');

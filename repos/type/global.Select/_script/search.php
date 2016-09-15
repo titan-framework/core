@@ -1,4 +1,4 @@
-<?
+<?php
 if (!isset ($_GET['fieldId']) || !isset ($_GET['search']) || !isset ($_GET['where']))
 	throw new Exception (__ ('There was lost of variables!'));
 
@@ -94,7 +94,7 @@ header ('Content-Encoding: gzip');
 			margin: 5px 2px;
 		}
 		</style>
-		<?
+		<?php
 		$types = Instance::singleton ()->getTypes ();
 
 		foreach ($types as $type => $path)
@@ -138,7 +138,7 @@ header ('Content-Encoding: gzip');
 			}
 		}
 		</script>
-		<?
+		<?php
 		$types = Instance::singleton ()->getTypes ();
 
 		foreach ($types as $type => $path)
@@ -150,6 +150,6 @@ header ('Content-Encoding: gzip');
 		?>
 	</head>
 	<body>
-		<? include Template::import ('global.search') ?>
+		<?php include Template::import ('global.search') ?>
 	</body>
 </html>

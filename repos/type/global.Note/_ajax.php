@@ -1,4 +1,4 @@
-<?
+<?php
 class xNote
 {
 	public function locations ($note)

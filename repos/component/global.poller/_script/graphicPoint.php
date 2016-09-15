@@ -1,4 +1,4 @@
-<?
+<?php
 function dec2hex ($number, $length) 
 {
 	$hexval="";

@@ -1,4 +1,4 @@
-<?
+<?php
 if (!Lucene::singleton ()->isActive ())
 	throw new Exception (__ ('Global search is not active!'));
 
@@ -74,7 +74,7 @@ function loadedLucene (row, div)
 			<td class="cTableHeader"></td>
 		</tr>
 		<tr height="5px"><td></td></tr>
-		<?
+		<?php
 		foreach ($hits as $trash => $hit)
 		{
 			?>
@@ -91,7 +91,7 @@ function loadedLucene (row, div)
 				<td colspan="4"><label id="_CONTENT_<?= $hit->id ?>" class="content"></label></td>
 			</tr>
 			<tr id="_SP2_<?= $hit->id ?>" class="cSeparatorHalf" style="display:;"><td></td></tr>
-			<?
+			<?php
 		}
 		?>
 	</table>

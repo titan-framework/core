@@ -1,4 +1,4 @@
-<?
+<?php
 class MenuRss extends MenuItem
 {
 	private $section = NULL;

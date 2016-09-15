@@ -1,4 +1,4 @@
-<?
+<?php
 global $itemId;
 
 if (!$itemId)

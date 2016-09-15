@@ -1,4 +1,4 @@
-<?
+<?php
 $skin = Skin::singleton ();
 
 if (!(bool) ini_get ('zlib.output_compression'))

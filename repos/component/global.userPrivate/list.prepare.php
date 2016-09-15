@@ -1,4 +1,4 @@
-<?
+<?php
 ldapUpdate ();
 
 $search = new Search ('search.xml', 'list.xml');

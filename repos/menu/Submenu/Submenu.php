@@ -1,4 +1,4 @@
-<?
+<?php
 class MenuSubmenu extends MenuItem
 {
 	private $submenu = array ();
@@ -40,14 +40,14 @@ class MenuSubmenu extends MenuItem
 			<img align="left" src="<?= self::imageUrl ($this->image) ?>" title="<?= $this->label ?>" />
 			<div class="dul">
 				<ul>
-					<?
+					<?php
 					while ($cell = $this->get ())
 						echo $cell;
 					?>
 				</ul>
 			</div>
 		</li>
-		<?
+		<?php
 		return ob_get_clean ();
 	}
 	

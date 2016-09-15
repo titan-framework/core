@@ -1,4 +1,4 @@
-<?
+<?php
 $user = User::singleton ();
 
 $form =& Form::singleton ('../'. $user->getType ()->getName () .'/'. $user->getType ()->getModify ());

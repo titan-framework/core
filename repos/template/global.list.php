@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset ($search) && is_object ($search))
 {
 	?>
@@ -18,7 +18,7 @@ if (isset ($search) && is_object ($search))
 		</table>
 		<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 			<tr height="5px"><td></td></tr>
-			<?
+			<?php
 			$backColor = 'FFFFFF';
 			while ($field = $search->getField ())
 			{
@@ -32,7 +32,7 @@ if (isset ($search) && is_object ($search))
 					<td width="80%" <?= $search->isBlocked ($field) ? 'style="color: #900;"' : '' ?>><?= Form::toHtml ($field) ?></td>
 				</tr>
 				<tr height="2px"><td colspan="2"></td></tr>
-				<?
+				<?php
 			}
 			?>
 			<tr height="5px"><td></td></tr>
@@ -48,7 +48,7 @@ if (isset ($search) && is_object ($search))
 			</table>
 			<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 				<tr height="5px"><td colspan="3"></td></tr>
-				<?
+				<?php
 				$backColor = 'FFFFFF';
 				while ($field = $search->getField ())
 				{
@@ -60,7 +60,7 @@ if (isset ($search) && is_object ($search))
 						<td width="5%" style="vertical-align: top;"><?= Form::toHelp ($field); ?></td>
 					</tr>
 					<tr height="2px"><td colspan="3"></td></tr>
-					<?
+					<?php
 				}
 				?>
 				<tr>
@@ -74,11 +74,11 @@ if (isset ($search) && is_object ($search))
 			</table>
 		</form>
 	</div>
-	<?
+	<?php
 }
 ?>
 <div id="idList">
-	<?
+	<?php
 	$description = Business::singleton ()->getAction (Action::TCURRENT)->getDescription ();
 	if (trim ($description) != '')
 		echo '<div class="description">'. $description .'</div>';
@@ -89,7 +89,7 @@ if (isset ($search) && is_object ($search))
 	?>
 	<table>
 		<tr>
-			<?
+			<?php
 			$columns = sizeof ($view->getFields ()) + 1;
 			
 			while ($field = $view->getField ())
@@ -98,22 +98,22 @@ if (isset ($search) && is_object ($search))
 			<td class="cTableHeader"></td>
 		</tr>
 		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
-		<?
+		<?php
 		while ($view->getItem ())
 		{
 			$itemId = $view->getId ();
 			?>
 			<tr id="_ITEM_<?= $view->getId () ?>" class="cTableItem" style="display:;">
-				<? while ($field = $view->getLink ()) echo '<td class="standard">'. $field .'</td>'; ?>
+				<?php while ($field = $view->getLink ()) echo '<td class="standard">'. $field .'</td>'; ?>
 				<td class="icon" nowrap="nowrap">
-					<? while ($icon = $view->getIcon ()) echo $icon .'&nbsp;'; ?>
+					<?php while ($icon = $view->getIcon ()) echo $icon .'&nbsp;'; ?>
 				</td>
 			</tr>
 			<tr id="_ROW_<?= $view->getId () ?>" style="display: none; background-color: #FFF;">
 				<td colspan="<?= $columns ?>" id="_CONTENT_<?= $view->getId () ?>" class="inPlace"></td>
 			</tr>
 			<tr id="_SP_<?= $view->getId () ?>" class="cSeparator" style="display:;"><td colspan="<?= $columns ?>"></td></tr>
-			<?
+			<?php
 		}
 		?>
 	</table>

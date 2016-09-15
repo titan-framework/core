@@ -1,4 +1,4 @@
-<?
+<?php
 if ($value)
 	$field->setValue ((float) str_replace (array ('$', ','), '', $value));
 else

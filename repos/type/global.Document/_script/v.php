@@ -1,4 +1,4 @@
-<?
+<?php
 if (!isset ($_GET['c']) || !is_numeric ($_GET['c']) || !((int) $_GET['c']) || !isset ($_GET['a']) || strlen (trim ($_GET['a'])) != 16)
 	throw new Exception (__ ('Error! Data losted.'));
 
@@ -22,7 +22,7 @@ $_auth = $_GET['a'];
 		</style>
 	</head>
 	<body>
-		<?
+		<?php
 		$db = Database::singleton ();
 		
 		$sql = "SELECT table_name AS name, table_schema AS schema FROM information_schema.columns WHERE column_name='_file' AND column_default = 'nextval((''". $db->getSchema () ."._document''::text)::regclass)'";

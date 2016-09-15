@@ -1,5 +1,5 @@
 <div id="idForm">
-	<?
+	<?php
 	$description = Business::singleton ()->getAction (Action::TCURRENT)->getDescription ();
 	if (trim ($description) != '')
 		echo '<div class="description">'. $description .'</div>';
@@ -18,7 +18,7 @@
 		</tr>
 		<tr height="2px"><td colspan="5" style="border-bottom: 1px #900 solid;"></td></tr>
 		<tr height="10px"><td></td></tr>
-		<?
+		<?php
 		$backColor = 'FFFFFF';
 		$cont = 0;
 		
@@ -48,7 +48,7 @@
 				<td width="3%"><?= $flag ? '<input type="checkbox" id="check_'. $cont++ .'" name="'. $assign2 .'" />' : '' ?></td>
 				<td width="46%"><?= $flag ? $label2 : '' ?></td>
 			</tr>
-			<?
+			<?php
 			
 			if (!$flag)
 				break;

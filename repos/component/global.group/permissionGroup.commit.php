@@ -1,4 +1,4 @@
-<?
+<?php
 $form =& Form::singleton ('permission.xml');
 
 $action = $form->goToAction ('fail');

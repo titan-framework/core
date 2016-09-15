@@ -1,4 +1,4 @@
-<?
+<?php
 if (strlen ($value) != 10)
 	return NULL;
 

@@ -1,4 +1,4 @@
-<? include Template::import ('global.create') ?>
+<?php include Template::import ('global.create') ?>
 <div id="idForm">
 	<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
 		<tr height="18px">

@@ -1,4 +1,4 @@
-<?
+<?php
 class Message
 {
 	static private $message = FALSE;

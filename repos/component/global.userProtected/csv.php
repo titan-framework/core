@@ -1,1 +1,1 @@
-<? include Template::import ('global.csv') ?>
+<?php include Template::import ('global.csv') ?>

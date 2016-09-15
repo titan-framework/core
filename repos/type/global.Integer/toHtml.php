@@ -1,4 +1,4 @@
-<?
+<?php
 if (!$field->getValue ())
 	return '&#48;';
 

@@ -1,4 +1,4 @@
-<?
+<?php
 class Manual
 {
 	static private $mapping = array ('en_US' => 'en',

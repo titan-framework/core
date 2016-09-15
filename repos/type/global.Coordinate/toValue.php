@@ -1,4 +1,4 @@
-<?
+<?php
 $value = $field->getValue ();
 
 if (sizeof ($value) != 3)

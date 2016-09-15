@@ -1,4 +1,4 @@
-<?
+<?php
 function ifa ($Image, $CenterX, $CenterY, $DiameterX, $DiameterY, $Start, $End, $Color, $color2) 
 {
 	// To draw the arc

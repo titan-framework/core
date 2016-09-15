@@ -43,7 +43,7 @@
 		<div id="leftColumn">
 			<div style="margin-right: 20px;">
 				<div class="product_container">
-					<?
+					<?php
 					$array = array ('type'	=> 'File',
 									'id' 	=> '_ARQUIVO_');
 

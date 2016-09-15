@@ -1,4 +1,4 @@
-<?
+<?php
 class Double extends Type
 {
 	protected $precision = 2;

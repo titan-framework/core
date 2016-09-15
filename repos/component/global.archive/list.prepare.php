@@ -1,4 +1,4 @@
-<?
+<?php
 $sql = "SELECT *,
 		to_char(_create_date, 'DD-MM-YYYY HH24:MI:SS') AS _create_date
 		FROM _file

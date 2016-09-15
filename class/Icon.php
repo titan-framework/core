@@ -1,4 +1,4 @@
-<?
+<?php
 class Icon
 {
 	private $icon = NULL;

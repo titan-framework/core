@@ -1,4 +1,4 @@
-<?
+<?php
 class Ajax
 {
 	public function saveSort ($str, $table, $primary)
@@ -197,7 +197,7 @@ class Ajax
 						<a href="#" onclick="JavaScript: ajaxRemoveProduct ('<?= $obj->_id ?>', '<?= $itemId ?>'); return false;" style="color: #FFFFFF;"><?= __ ('Remove') ?></a>
 					</div>
 				</div>
-				<?
+				<?php
 				$aux = ob_get_clean ();
 			}
 

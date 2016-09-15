@@ -1,4 +1,4 @@
-<?
+<?php
 if ($value)			
 	$field->setValue (explode (':', $value));
 else

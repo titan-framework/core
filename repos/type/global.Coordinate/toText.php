@@ -1,4 +1,4 @@
-<?
+<?php
 $value = $field->getValue ();
 
 if (!is_array ($value) || sizeof ($value) != 3)

@@ -1,4 +1,4 @@
-<?
+<?php
 if (!Shopping::isActive ())
 	return __ ('The Shopping Module in Titan Framework must be enable!');
 
@@ -10,7 +10,7 @@ if (!sizeof ($gw) && $field->isRequired ())
 ob_start ();
 ?>
 <select class="field" style="<?= $field->getStyle () ?>" name="<?= $fieldName ?>" id="<?= $fieldId ?>">
-	<?
+	<?php
 	if (!$field->isRequired ())
 		echo '<option value="">'. __ ('Select a option...') .'</option>';
 	
@@ -18,4 +18,4 @@ ob_start ();
 		echo '<option value="'. $id .'">'. $value ['account'] .' '. __ ('in') .' '. $value ['driver'] .'</option>';
 	?>
 </select>
-<? return ob_get_clean () ?>
+<?php return ob_get_clean () ?>

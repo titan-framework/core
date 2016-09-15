@@ -1,4 +1,4 @@
-<?
+<?php
 $section = Business::singleton ()->getSection (Section::TCURRENT);
 
 $tagFile = $section->getDirective ('_TAG_');

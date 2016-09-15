@@ -1,4 +1,4 @@
-<?
+<?php
 //include '../config.inc.php';
 
 $_DB ['HOST'] = 'localhost';

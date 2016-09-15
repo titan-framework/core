@@ -1,4 +1,4 @@
-<?
+<?php
 function formatCnpj ($cnpj)
 {
 	return Cnpj::format ($cnpj);

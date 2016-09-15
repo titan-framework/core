@@ -1,4 +1,4 @@
-<?
+<?php
 class MenuAction extends MenuItem
 {
 	private $action = NULL;

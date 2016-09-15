@@ -19,7 +19,7 @@ function saveRelation ()
 				<tr>
 					<td width="235px" rowspan="2">
 						<select id="selectUsers" name="selectUsers" class="field" style="width: 100%;  height: 241px;" multiple>
-							<?
+							<?php
 							foreach ($arrayUser as $keyUser => $valueUser)
 								echo '<option value="'. $keyUser .'">'. $valueUser .'</option>'
 							?>
@@ -29,7 +29,7 @@ function saveRelation ()
 					<td width="235px">
 						<select id="selectSystems" name="selectSystems" class="field" style="width: 100%;" onChange="JavaScript: saveRelation ();">
 							<option value="0">Selecione um grupo</option>
-							<?
+							<?php
 							foreach ($arraySystem as $keySystem => $valueSystem)
 								echo '<option value="'. $keySystem .'" '. ($systemSelected == $keySystem ? 'selected' : '') .'>'. $valueSystem .'</option>'
 							?>
@@ -48,7 +48,7 @@ function saveRelation ()
 					</td>
 					<td>
 						<select id="selectUsersFromSystem" name="selectUsersFromSystem[]" class="field" style="width: 100%; height: 215px;" multiple>
-							<?
+							<?php
 							foreach ($arrayRelation as $keyUser => $valueUser)
 								echo '<option value="'. $keyUser .'">'. $valueUser .'</option>'
 							?>

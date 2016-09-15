@@ -1,4 +1,4 @@
-<?
+<?php
 if (!isset ($itemId) || !$itemId || trim ($itemId) == '')
 	if (isset ($_SESSION['UNIX_NAME']))
 		$itemId = $_SESSION['UNIX_NAME'];

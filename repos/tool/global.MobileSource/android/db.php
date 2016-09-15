@@ -1,4 +1,4 @@
-<?
+<?php
 $import = $base .'assets'. DIRECTORY_SEPARATOR . $table .'.sql';
 
 if (!file_exists ($import))

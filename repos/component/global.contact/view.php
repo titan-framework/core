@@ -1,1 +1,1 @@
-<? include Template::import ('global.view') ?>
+<?php include Template::import ('global.view') ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 
 if ($field->getValue ())
@@ -10,7 +10,7 @@ if ($field->getValue ())
 		<div style="position: relative; border: 1px #CCC solid; background-color: #FFF; padding: 2px; float: left;">
 			<?= $out ?>
 		</div>
-		<?
+		<?php
 	}
 	catch (Exception $e)
 	{

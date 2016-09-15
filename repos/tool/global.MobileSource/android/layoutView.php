@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 
 echo '<?xml version="1.0" encoding="utf-8"?>'."\n";
@@ -16,7 +16,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>'."\n";
 		android:gravity="center_horizontal"
 		android:layout_margin="5dp">
 		
-<?
+<?php
 foreach ($fields as $trash => $obj)
 {
 	echo '		<TextView android:id="@+id/'. $modelUnderScore .'_view_'. $obj->json .'_title" android:text="'. strtoupper ($obj->label) .'" android:textStyle="bold" android:background="@drawable/title_background" android:textSize="16sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="5dp" android:paddingTop="5dp" android:paddingBottom="5dp" />'."\n";
@@ -28,6 +28,6 @@ foreach ($fields as $trash => $obj)
 	</LinearLayout>
 
 </ScrollView>
-<?
+<?php
 return ob_get_clean ();
 ?>

@@ -3,7 +3,7 @@
 
 pandora.Map.ajax = <?= class_exists ('xMap', FALSE) ? XOAD_Client::register (new xMap) : 'null' ?>;
 
-<?
+<?php
 if (Map::usingMap ())
 	$coordinates = GoogleMaps::geolocate ();
 else

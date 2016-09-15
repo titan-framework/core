@@ -1,4 +1,4 @@
-<?
+<?php
 $skin = Skin::singleton ();
 
 if (!(bool) ini_get ('zlib.output_compression'))
@@ -43,7 +43,7 @@ header ('Content-Encoding: gzip');
 			overflow: hidden;
 		}
 		</style>
-		<?
+		<?php
 		$types = Instance::singleton ()->getTypes ();
 
 		foreach ($types as $type => $path)
@@ -63,13 +63,13 @@ header ('Content-Encoding: gzip');
 		}
 		</script>
 		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=general,menu,type,boxover,common,actb,ajax,ajax-dynamic-content,modal-message,modalbox"></script>
-		<?
+		<?php
 		foreach ($types as $type => $trash)
 			if (call_user_func (array ($type, 'usingMap')))
 			{
 				?>
 				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
-				<?
+				<?php
 				break;
 			}
 		?>
@@ -228,7 +228,7 @@ header ('Content-Encoding: gzip');
 			Modalbox.show (source, {width: 430, height: 480, title: '<?= __ ('Bug Report') ?>'});
 		}
 
-		<?
+		<?php
 		if (PHP_OS == 'Linux' && User::singleton ()->isAdmin () && Backup::singleton ()->isActive ())
 		{
 			$bkpFree  = (int) @$_SESSION['_TITAN_BACKUP_FREE_'];
@@ -316,18 +316,18 @@ header ('Content-Encoding: gzip');
 
 				message ('<?= __ ('The backup process has started in background! The system can still be used normally. Depending on the size, the process may take from few seconds to several hours. When finished you will receive a e-mail with download links.') ?>', 500, 120, true, '<?= __ ('Success') ?>', 'SUCCESS');
 			}
-			<?
+			<?php
 		}
 		?>
 
 		function chooseLanguage ()
 		{
-			<?
+			<?php
 			$languages = Localization::singleton ()->getAvaliableLanguages ();
 
 			$size = sizeof ($languages) * 60;
 			?>
-			var source = '<div style="margin: 0 auto; width: <?= $size ?>px;"><?
+			var source = '<div style="margin: 0 auto; width: <?= $size ?>px;"><?php
 					foreach ($languages as $language => $label)
 						echo '<div class="flag" style="background-image: url(titan.php?target=loadFile&amp;file=interface/locale/'. $language .'.png);'. ($language == Localization::singleton ()->getLanguage () ? ' background-position: top;" onclick="JavaScript: Modalbox.hide ();"' : '" onclick="JavaScript: changeLanguage (\\\''. $language .'\\\');"') .' title="'. $label .'"></div>';
 					?></div>';
@@ -375,7 +375,7 @@ header ('Content-Encoding: gzip');
 			hideWait ();
 		}
 
-		<?
+		<?php
 		if (Shopping::isActive ())
 		{
 			?>
@@ -423,13 +423,13 @@ header ('Content-Encoding: gzip');
 
 				$('_TITAN_SHOP_FINAL_VALUE_').innerHTML = '<?= ('You have <b># item(s)</b> with total value<br /><b>$0,00</b>') ?>'.replace ('#', items.length).replace ('$0,00', '<?= Shopping::singleton ()->getCurrencySymbol () ?> ' + formatMoney (total));
 			}
-			<?
+			<?php
 		}
 		?>
 
 		var ajax = <?= XOAD_Client::register(new Ajax) ?>;
 		</script>
-		<?
+		<?php
 		$types = Instance::singleton ()->getTypes ();
 
 		foreach ($types as $type => $path)
@@ -452,14 +452,14 @@ header ('Content-Encoding: gzip');
 		</div>
 		<div id="idBody" style="height: 500px;">
 			<label id="labelMessage">
-				<?
+				<?php
 				if ($message->has ())
 				{
 					?>
 					<div id="idMessage" style="display:;">
-						<? while ($msg = $message->get ()) echo $msg; ?>
+						<?php while ($msg = $message->get ()) echo $msg; ?>
 					</div>
-					<?
+					<?php
 
 					$message->clear ();
 				}
@@ -471,7 +471,7 @@ header ('Content-Encoding: gzip');
 		</div>
 		<div id="idBase">
 			<div class="cResources" id="_TITAN_INFO_">
-				<?
+				<?php
 				$path = Instance::singleton ()->getCorePath () .'update'. DIRECTORY_SEPARATOR;
 
 				$version = trim (file_get_contents ($path .'VERSION'));
@@ -501,7 +501,7 @@ header ('Content-Encoding: gzip');
 				{
 					?>
 					<label>Powered by <a href="http://www.titanframework.com" target="_blank" title="<?= $version .'-'. $release ?>">Titan Framework</a> (<?= $version .'-'. $release ?>)</label>
-					<?
+					<?php
 				}
 				else
 				{
@@ -532,18 +532,18 @@ header ('Content-Encoding: gzip');
 					document.getElementById ('_TITAN_INFO_ICON_').onmouseover = function ()	{ document.getElementById ('_TITAN_INFO_TEXT_').style.display = 'block'; };
 					document.getElementById ('_TITAN_INFO_ICON_').onmouseout = function () { document.getElementById ('_TITAN_INFO_TEXT_').style.display = 'none'; };
 					</script>
-					<?
+					<?php
 				}
 				?>
 			</div>
 			<div class="cPowered">
-				<?
+				<?php
 				if (trim (Instance::singleton ()->getAuthor ()) == '')
 				{
 					?>
 					<a href="http://creativecommons.org/licenses/by-nd/4.0/" target="_blank" title="Creative Commons License"><img alt="Creative Commons License" style="border-width:0" src="titan.php?target=loadFile&amp;file=interface/image/cc.png" /></a>
 					<label>&copy; 2005 - <?= date ('Y') ?> &curren; <a href="http://www.carromeu.com/" target="_blank">Camilo Carromeu</a></label>
-					<?
+					<?php
 				}
 				else
 					echo Instance::singleton ()->getAuthor ();

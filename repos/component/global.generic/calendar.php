@@ -14,7 +14,7 @@
 	</table>
 	<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 		<tr height="5px"><td></td></tr>
-		<?
+		<?php
 		$backColor = 'FFFFFF';
 		while ($field = $search->getField ())
 		{
@@ -28,7 +28,7 @@
 				<td <?= $search->isBlocked ($field) ? 'style="color: #990000;"' : '' ?>><?= Form::toHtml ($field) ?></td>
 			</tr>
 			<tr height="2px"><td></td></tr>
-			<?
+			<?php
 		}
 
 		if(!$fieldDate->isEmpty() || !$fieldDateEnd->isEmpty())
@@ -41,7 +41,7 @@
 				<td> <?=  Form::toHtml ($fieldDate)." à ".Form::toHtml($fieldDateEnd) ?></td>
 			</tr>
 			<tr height="2px"><td></td></tr>
-			<?
+			<?php
 		}
 
 	?>
@@ -59,7 +59,7 @@
 		</table>
 		<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 			<tr height="5px"><td></td></tr>
-			<?
+			<?php
 			$backColor = 'FFFFFF';
 			while ($field = $search->getField ())
 			{
@@ -71,10 +71,10 @@
 					<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($field); ?></td>
 				</tr>
 				<tr height="2px"><td></td></tr>
-				<?
+				<?php
 			}
 			?>
-            <?  $backColor = $backColor == 'FFFFFF' ? 'F4F4F4' : 'FFFFFF'; 	?>
+            <?php $backColor = $backColor == 'FFFFFF' ? 'F4F4F4' : 'FFFFFF'; 	?>
 
             <tr height="18px" style="background-color: #<?= $backColor ?>;">
 				<td width="20%" nowrap style="text-align: right;"><b> <?=__ ('Date')?>:</b></td>
@@ -103,9 +103,9 @@
 <div id="header">
 <ul>
 	<li><a href="titan.php?target=body&toSection=<?=$section->getName();?>&toAction=<?= $action->getName () ?>&dateShow=1-12-<?=$yearShow-1?>">&nbsp;&laquo;&nbsp;<?=$yearShow-1;?></a></li>
-	<? foreach($monthArray as $key=>$month) { ?>
+	<?php foreach($monthArray as $key=>$month) { ?>
     <li <?=$monthShow==$key?" id='current' ":""?>><a href="titan.php?target=body&toAction=calendar&toSection=<?=$section->getName();?>&dateShow=1-<?=$key?>-<?=$yearShow?>"><?=$month?></a></li>
-	<? } ?>
+	<?php } ?>
     <li><a href="titan.php?target=body&toSection=<?=$section->getName();?>&toAction=<?= $action->getName () ?>&dateShow=1-1-<?=$yearShow+1?>"><?=$yearShow+1;?>&nbsp;&raquo;&nbsp;</a></li>
 </ul>
 </div>
@@ -128,21 +128,21 @@
 <th  width=14% class="Weekdays"><?=__ ('Saturday')?></th>
 
 <tr class="events">
-<? $days=0; ?>
+<?php $days=0; ?>
 
-<? for($i=0;$i<$dayOfWeekFirstDay;$i++){?>
+<?php for($i=0;$i<$dayOfWeekFirstDay;$i++){?>
 <td valign="top"  class="events" style="background-color:#E7F1DA;" >
 </td>
-<? $days++; } ?>
+<?php $days++; } ?>
 
-<? for($i=0;$i<$maxDays[$monthShow];$i++)
+<?php for($i=0;$i<$maxDays[$monthShow];$i++)
 { if($days==7) { ?>
 </tr><tr>
-<? $days=0; } ?>
+<?php $days=0; } ?>
 
-<td valign="top"  class="<? if (($i+1) == $dayShow) echo "Holidays"; else echo "events"; ?>"  >
+<td valign="top"  class="<?php if (($i+1) == $dayShow) echo "Holidays"; else echo "events"; ?>"  >
 <div class="Date" ><?=$i+1?></div>
-<?
+<?php
  $dateKey = ($i+1)."-".((int)$monthShow)."-".$yearShow;
  $iCount=0;
  if(array_key_exists($dateKey,$itemsCalendar))
@@ -160,11 +160,11 @@
 
 </td>
 
-<? $days++; } ?>
+<?php $days++; } ?>
 
-<? if($days<7) { ?>
+<?php if($days<7) { ?>
 <td valign="top"  colspan=<?=(7-$days)?> class="events" style="background-color:#E7F1DA;" ></td>
-<? } ?>
+<?php } ?>
 
 </tr>
 

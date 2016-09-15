@@ -1,4 +1,4 @@
-<?
+<?php
 require dirname (__FILE__) . DIRECTORY_SEPARATOR .'_library'. DIRECTORY_SEPARATOR .'facebook.php';
 
 class FacebookDriver extends SocialDriver

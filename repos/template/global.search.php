@@ -31,7 +31,7 @@
 	</table>
 	<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 		<tr height="5px"><td></td></tr>
-		<?
+		<?php
 		$backColor = 'FFF';
 		while ($field = $search->getField ())
 		{
@@ -43,7 +43,7 @@
 				<td width="5%" style="vertical-align: top;"><?= Form::toHelp ($field); ?></td>
 			</tr>
 			<tr height="2px"><td colspan="3"></td></tr>
-			<?
+			<?php
 		}
 		?>
 		<tr>
@@ -60,7 +60,7 @@
 <div id="idList">
 	<table>
 		<tr>
-			<?
+			<?php
 			$columns = sizeof ($view->getFields ()) + 1;
 			
 			while ($field = $view->getField ())
@@ -69,18 +69,18 @@
 			<td class="cTableHeader"></td>
 		</tr>
 		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
-		<?
+		<?php
 		while ($view->getItem ())
 		{
 			?>
 			<tr class="cTableItem">
-				<? while ($field = $view->getField ()) echo '<td><a href="" onclick="JavaScript: parent.global.Select.choose (\''. $fieldId .'\', \''. $view->getId () .'\', \''. Form::toText ($view->getField ('_TITLE_')) .'\');">'. View::toList ($field) .'</a></td>'; ?>
+				<?php while ($field = $view->getField ()) echo '<td><a href="" onclick="JavaScript: parent.global.Select.choose (\''. $fieldId .'\', \''. $view->getId () .'\', \''. Form::toText ($view->getField ('_TITLE_')) .'\');">'. View::toList ($field) .'</a></td>'; ?>
 				<td style="text-align: right;" nowrap="nowrap">
 					<a href="" onclick="JavaScript: parent.global.Select.choose ('<?= $fieldId ?>', '<?= $view->getId () ?>', '<?= Form::toText ($view->getField ('_TITLE_')) ?>');"><img src="titan.php?target=loadFile&file=interface/icon/arrow.right.gif" border="0" /></a>
 				</td>
 			</tr>
 			<tr class="cSeparator"><td colspan="<?= $columns ?>"></td></tr>
-			<?
+			<?php
 		}
 		?>
 	</table>

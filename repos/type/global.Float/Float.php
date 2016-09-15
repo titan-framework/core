@@ -1,4 +1,4 @@
-<?
+<?php
 class Float extends Double
 {
 	public function __construct ($table, $field)

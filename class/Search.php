@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Search.php
  *

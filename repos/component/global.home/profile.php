@@ -44,4 +44,4 @@
 	</table>
 	</form>
 </div>
-<? include Template::import ('global.view') ?>
+<?php include Template::import ('global.view') ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 function compress ($dir, $verbose = FALSE)
 {
 	$files = array ();

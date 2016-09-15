@@ -1,4 +1,4 @@
-<?
+<?php
 class Cascade extends Select
 {
 	protected $father = 'father';

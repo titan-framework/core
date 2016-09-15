@@ -1,4 +1,4 @@
-<?
+<?php
 if (!is_array ($value))
 	$value = explode ('-', $value);
 

@@ -1,4 +1,4 @@
-<?
+<?php
 $db = Database::singleton ();
 
 $sql = "SELECT n.*, u._name,
@@ -26,7 +26,7 @@ ob_start ();
 			<td class="cTableHeader" width="5%"></td>
 		</tr>
 		<tr height="5px"><td colspan="5"></td></tr>
-		<?
+		<?php
 		while ($obj = $sth->fetch (PDO::FETCH_OBJ))
 			if (is_null ($obj->_change) || is_null ($obj->_devise) || is_null ($obj->_author))
 			{
@@ -37,7 +37,7 @@ ob_start ();
 					<td></td>
 				</tr>
 				<tr class="cSeparator"><td colspan="5"></td></tr>
-				<?
+				<?php
 			}
 			else
 			{
@@ -53,11 +53,11 @@ ob_start ();
 					</td>
 				</tr>
 				<tr class="cSeparator"><td colspan="5"></td></tr>
-				<?
+				<?php
 			}
 		?>
 	</table>
 </div>
-<?
+<?php
 return ob_get_clean ();
 ?>

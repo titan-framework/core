@@ -1,4 +1,4 @@
-<?
+<?php
 function makeSeed ()
 {
 	return hexdec (substr (md5 (microtime()), -8)) & 0x7fffffff;

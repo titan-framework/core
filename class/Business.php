@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Business.php
  *

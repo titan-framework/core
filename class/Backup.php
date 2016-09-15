@@ -1,4 +1,4 @@
-<?
+<?php
 class Backup
 {
 	static private $backup = FALSE;

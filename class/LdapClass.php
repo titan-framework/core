@@ -1,4 +1,4 @@
-<?
+<?php
 class LdapClass
 {
 	protected $path = '';

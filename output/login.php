@@ -1,4 +1,4 @@
-<?
+<?php
 $instance = Instance::singleton ();
 
 require_once $instance->getCorePath () .'class/AjaxLogon.php';
@@ -88,7 +88,7 @@ if (Social::isActive ())
 				{
 					?>
 					<html><body onLoad="document.location='titan.php';"></body></html>
-					<?
+					<?php
 					exit ();
 				}
 			}
@@ -169,27 +169,27 @@ if (Social::isActive ())
 			</div>
 		</div>
 		<div id="idBody" style="width: 1000px; margin: 0 auto;">
-			<?
+			<?php
 			if (Social::isActive () && sizeof ($socialButtons))
 			{
 				?>
 				<div class="cSocial">
-					<?
+					<?php
 					foreach ($socialButtons as $name => $array)
 						echo '<img src="'. $array [1] .'" onclick="JavaScript: document.location=\''. $array [0] .'\';" border="0" style="float: right;" />'
 					?>
 					<div><?= __ ('Use your favorite social network to access:') ?></div>
 				</div>
-				<?
+				<?php
 			}
 			?>
 			<div class="cLogin" style="<?= sizeof ($publicUserTypes) || $validateTerm ? 'float: right; margin-right: 5px; vertical-align: top;' : 'margin: 50px auto;' ?>">
-				<?
+				<?php
 				if (sizeof ($publicUserTypes) || $validateTerm)
 				{
 					?>
 					<div class="cTitle" style="width: 370px;"><?= __ ('I\'m already registered') ?></div>
-					<?
+					<?php
 				}
 				?>
 				<div id="idOldMessage" style="display: ;">
@@ -258,13 +258,13 @@ if (Social::isActive ())
 					</div>
 				</div>
 			</div>
-			<?
+			<?php
 			if (sizeof ($publicUserTypes))
 			{
 				?>
 				<div class="cRegister">
 					<div class="cTitle"><?= __ ('I want to register...') ?></div>
-					<?
+					<?php
 					foreach ($publicUserTypes as $trash => $type)
 					{
 						?>
@@ -272,11 +272,11 @@ if (Social::isActive ())
 							<div onClick="JavaScript: showFormRegister ('_DIV_<?= $type->getName () ?>');"><?= __ ('Register as "[1]"', $type->getLabel ()) ?></div>
 							<iframe src="?target=register&type=<?= $type->getName () ?>"></iframe>
 						</div>
-						<?
+						<?php
 					}
 					?>
 				</div>
-				<?
+				<?php
 			}
 			
 			if ($validateTerm)
@@ -293,7 +293,7 @@ if (Social::isActive ())
 						<iframe src="?target=tScript&type=Document&file=info" id="_IFRAME_INFO_" style="height: 120px;"></iframe>
 					</div>
 				</div>
-				<?
+				<?php
 			}
 			
 			$mobileButtons = Instance::singleton ()->getMobile ();
@@ -302,19 +302,19 @@ if (Social::isActive ())
 			{
 				?>
 				<div class="cMobile">
-					<?
+					<?php
 					if (isset ($mobileButtons ['android']))
 						echo '<img src="titan.php?target=loadFile&amp;file=interface/image/google-play.png" onclick="JavaScript: document.location=\''. $mobileButtons ['android'] .'\';" border="0" style="float: right;" />'
 					?>
 					<div><?= __ ('Get our mobile app:') ?></div>
 				</div>
-				<?
+				<?php
 			}
 			?>
 		</div>
 		<div id="idBase">
 			<div class="cResources" id="_TITAN_INFO_">
-				<?
+				<?php
 				$path = Instance::singleton ()->getCorePath () .'update'. DIRECTORY_SEPARATOR;
 				
 				$version = trim (file_get_contents ($path .'VERSION'));
@@ -344,7 +344,7 @@ if (Social::isActive ())
 				{
 					?>
 					<label>Powered by <a href="http://www.titanframework.com" target="_blank" title="<?= $version .'-'. $release ?>">Titan Framework</a> (<?= $version .'-'. $release ?>)</label>
-					<?
+					<?php
 				}
 				else
 				{
@@ -375,18 +375,18 @@ if (Social::isActive ())
 					document.getElementById ('_TITAN_INFO_ICON_').onmouseover = function ()	{ document.getElementById ('_TITAN_INFO_TEXT_').style.display = 'block'; };
 					document.getElementById ('_TITAN_INFO_ICON_').onmouseout = function () { document.getElementById ('_TITAN_INFO_TEXT_').style.display = 'none'; };
 					</script>
-					<?
+					<?php
 				}
 				?>
 			</div>
 			<div class="cPowered">
-				<?
+				<?php
 				if (trim (Instance::singleton ()->getAuthor ()) == '')
 				{
 					?>
 					<a href="http://creativecommons.org/licenses/by-nd/4.0/" target="_blank" title="Creative Commons License"><img alt="Creative Commons License" style="border-width:0" src="titan.php?target=loadFile&amp;file=interface/image/cc.png" /></a>
 					<label>&copy; 2005 - <?= date ('Y') ?> &curren; <a href="http://www.carromeu.com/" target="_blank">Camilo Carromeu</a></label>
-					<?
+					<?php
 				}
 				else
 					echo Instance::singleton ()->getAuthor ();

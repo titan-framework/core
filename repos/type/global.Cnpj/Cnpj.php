@@ -1,4 +1,4 @@
-<?
+<?php
 class Cnpj extends Phrase
 {
 	public function __construct ($table, $field)

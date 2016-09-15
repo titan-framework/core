@@ -1,4 +1,4 @@
-<?
+<?php
 $value = $field->getValue ();
 
 $day = $value [0];

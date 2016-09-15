@@ -1,4 +1,4 @@
-<?
+<?php
 $primary = $field->getPrimary ();
 
 if (empty ($primary))

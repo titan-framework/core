@@ -1,4 +1,4 @@
-<?
+<?php
 class MenuDelete extends MenuItem
 {
 	private $itemId = 0;

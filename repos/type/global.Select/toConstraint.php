@@ -1,4 +1,4 @@
-<?
+<?php
 $db = Database::singleton ();
 
 $table = explode ('.', $field->getTable ());

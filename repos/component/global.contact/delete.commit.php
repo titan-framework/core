@@ -1,4 +1,4 @@
-<?
+<?php
 $form =& Form::singleton ('delete.xml', 'view.xml', 'all.xml');
 
 $action = $form->goToAction ('fail');

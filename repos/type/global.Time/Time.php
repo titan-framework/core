@@ -1,4 +1,4 @@
-<?
+<?php
 class Time extends Type
 {
 	protected $value = array (-1, -1, -1);

@@ -1,4 +1,4 @@
-<?
+<?php
 class Multiply extends Select
 {
 	protected $value = array ();

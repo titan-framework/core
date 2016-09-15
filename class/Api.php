@@ -1,4 +1,4 @@
-<?
+<?php
 class Api
 {
 	static private $api = FALSE;

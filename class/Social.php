@@ -1,4 +1,4 @@
-<?
+<?php
 class Social
 {
 	static private $social = FALSE;

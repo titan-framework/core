@@ -1,4 +1,4 @@
-<?
+<?php
 class MenuPdf extends MenuItem
 {
 	private $action = NULL;

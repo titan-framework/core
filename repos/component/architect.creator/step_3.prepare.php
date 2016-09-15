@@ -1,4 +1,4 @@
-<?
+<?php
 if (!isset ($_SESSION['UNIX_NAME']) || !isset ($_SESSION['DBH_'. $_SESSION['UNIX_NAME']]))
 	throw new Exception ('Houve perda de variáveis.');
 

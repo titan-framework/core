@@ -1,4 +1,4 @@
-<?
+<?php
 $form =& Form::singleton (Security::singleton ()->getUserType ($section->getName ())->getRegister ());
 
 if (!$form->recovery ($formData))

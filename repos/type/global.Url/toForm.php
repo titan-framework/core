@@ -1,4 +1,4 @@
-<?
+<?php
 $maxLength = $field->getMaxLength () - strlen ($field->getPrefix ());
 
 $width = 500 - (strlen ($field->getPrefix ()) * 7);

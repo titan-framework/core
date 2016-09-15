@@ -1,4 +1,4 @@
-<?
+<?php
 if ($field->isQuestion ())
 {
 	$aux  = '<input type="radio" name="'. $fieldName .'" id="'. $fieldId .'_YES_" value="1" '. ($field->getValue () ? 'checked="checked"' : '') .' /> '. __ ('Yes') .' &nbsp;&nbsp; ';

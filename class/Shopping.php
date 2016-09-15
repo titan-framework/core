@@ -1,4 +1,4 @@
-<?
+<?php
 class Shopping
 {
 	static private $shopping = FALSE;

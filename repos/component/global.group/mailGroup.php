@@ -20,7 +20,7 @@
 				<tr>
 					<td>
 						<table align="center" border="0" width="100%" cellpadding="5" cellspacing="0">
-							<?
+							<?php
 							$backSecColor = 'FFFFFF';
 							foreach ($arrayMain as $key => $arraySection)
 							{
@@ -36,11 +36,11 @@
 								?>
 								<tr height="20" style="background-color: #<?= $backSecColor ?>;">
 									<td style="text-align: center; width: 30px;">
-										<? if (sizeof ($arraySection)) { ?>
+										<?php if (sizeof ($arraySection)) { ?>
 											<img id="arrow_<?= $key ?>" class="cArrow" src="<?= Skin::singleton ()->getIconsFolder () .'display.down.gif' ?>" border="0" onclick="JavaScript: showPermissionRow ('<?= $key ?>');" title="Clique para configurar." />
-										<? } else { ?>
+										<?php } else { ?>
 											<img id="arrow_<?= $key ?>" class="cArrow" style="cursor: auto;" src="<?= Skin::singleton ()->getIconsFolder () .'grey/display.gif' ?>" border="0" title="Não há avisos disponíveis." />
-										<? } ?>
+										<?php } ?>
 									</td>
 									<td>Alertas da seção <b><?= $nameSection ?></b></td>
 								</tr>
@@ -64,7 +64,7 @@
 																		<td width="20"><input type="checkbox" name="SELECT_ALL_PERM_<?= $jsKey ?>" onclick="JavaScript: selectAllPerm_<?= $jsKey ?> ();" /></td>
 																		<td>Selecionar Todas</td>
 																	</tr>
-																	<?
+																	<?php
 																	$backColor = 'F4F4F4';
 																	$cont = 0;
 																	foreach ($arraySection as $key => $mail)
@@ -75,7 +75,7 @@
 																			<td width="20"><input type="checkbox" id="checkbox<?= $keySection ?>.<?= $cont++ ?>" name="<?= $key ?>" <?= (in_array ($key, $arrayHas)) ? 'checked' : '' ?> /></td>
 																			<td><?= $mail ['label'] ?></td>
 																		</tr>
-																		<?
+																		<?php
 																	}
 																	?>
 																</table>
@@ -102,7 +102,7 @@
 										</table>
 									</td>
 								</tr>
-								<? 
+								<?php 
 							}
 							?>
 						</table>

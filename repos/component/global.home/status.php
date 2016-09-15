@@ -59,7 +59,7 @@ function upClose ()
 	document.location = '<?= $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'] ?>';
 }
 </script>
-<?
+<?php
 try
 {
 	$updateError = FALSE;
@@ -130,7 +130,7 @@ if ($updateError !== FALSE)
 			</tr>
 		</table>
 	</div>
-	<?
+	<?php
 }
 elseif (sizeof ($requireUpdate))
 {
@@ -150,7 +150,7 @@ elseif (sizeof ($requireUpdate))
 			</tr>
 		</table>
 	</div>
-	<?
+	<?php
 }
 else
 {
@@ -167,7 +167,7 @@ else
 			</tr>
 		</table>
 	</div>
-	<?
+	<?php
 }
 
 if (sizeof ($dirErrors))
@@ -186,7 +186,7 @@ if (sizeof ($dirErrors))
 			</tr>
 		</table>
 	</div>
-	<?
+	<?php
 }
 elseif (sizeof ($dirAlerts) || sizeof ($dirSecuritys))
 {
@@ -204,7 +204,7 @@ elseif (sizeof ($dirAlerts) || sizeof ($dirSecuritys))
 			</tr>
 		</table>
 	</div>
-	<?
+	<?php
 }
 else
 {
@@ -222,7 +222,7 @@ else
 			</tr>
 		</table>
 	</div>
-	<?
+	<?php
 }
 
 if (sizeof ($extErrors))
@@ -241,7 +241,7 @@ if (sizeof ($extErrors))
 			</tr>
 		</table>
 	</div>
-	<?
+	<?php
 }
 elseif (sizeof ($extAlerts))
 {
@@ -259,7 +259,7 @@ elseif (sizeof ($extAlerts))
 			</tr>
 		</table>
 	</div>
-	<?
+	<?php
 }
 else
 {
@@ -277,7 +277,7 @@ else
 			</tr>
 		</table>
 	</div>
-	<?
+	<?php
 }
 
 if ($updateError === FALSE)
@@ -296,7 +296,7 @@ if ($updateError === FALSE)
 				<td style="width: 200px;"></td>
 				<td></td>
 			</tr>
-			<?
+			<?php
 			$modules = array (	'INSTANCE' 	=> array ('Instância do <b>Titan Lite</b>', 'Esta atualização traz correções e novas funcionalidades para o <b>Titan Lite</b>.'),
 								'BASE'		=> array ('Repositório de arquivos-base', 'Esta atualização traz novas aplicações-exemplos para serem utilizadas como base na criação de instâncias no Gerador de Instâncias do <b>Titan Lite Architect</b>.'),
 								'CORE'		=> array ('Core do <b>Titan Lite</b>', 'Esta atualização traz importantes correções e novas funcionalidades para o <b>Core do Titan</b>, afetando todas as aplicações já instanciadas e as que ainda serão criadas.'),
@@ -316,7 +316,7 @@ if ($updateError === FALSE)
 						<td style="text-align: right;"><img src="titan.php?target=loadFile&file=interface/icon/help.gif" border="0" title="header=[<?= $module [0] ?>] body=[<?= $module [1] ?>] cssheader=[divHelpHeader] cssbody=[divHelpBody] fade=[on] offsetx=[-310]" /></td>
 					</tr>
 					<tr class="cSeparator"><td></td></tr>
-					<?
+					<?php
 				}
 				else
 				{
@@ -328,12 +328,12 @@ if ($updateError === FALSE)
 						<td style="text-align: right;"><img src="titan.php?target=loadFile&file=interface/icon/help.gif" border="0" title="header=[<?= $module [0] ?>] body=[<?= $module [1] ?>] cssheader=[divHelpHeader] cssbody=[divHelpBody] fade=[on] offsetx=[-310]" /></td>
 					</tr>
 					<tr class="cSeparator"><td></td></tr>
-					<?
+					<?php
 				}
 			?>
 		</table>
 	</div>
-	<?
+	<?php
 }
 ?>
 
@@ -350,7 +350,7 @@ if ($updateError === FALSE)
 			<td style="width: 200px;"></td>
 			<td></td>
 		</tr>
-		<?
+		<?php
 		foreach ($forError as $key => $array)
 			if (in_array ($key, $dirErrors))
 			{
@@ -362,7 +362,7 @@ if ($updateError === FALSE)
 					<td style="text-align: right;"><img src="titan.php?target=loadFile&file=interface/icon/help.gif" border="0" title="header=[<?= $key ?>] body=[<?= $array [1] ?>] cssheader=[divHelpHeader] cssbody=[divHelpBody] fade=[on] offsetx=[-310]" /></td>
 				</tr>
 				<tr class="cSeparator"><td></td></tr>
-				<?
+				<?php
 			}
 			else
 			{
@@ -374,7 +374,7 @@ if ($updateError === FALSE)
 					<td style="text-align: right;"></td>
 				</tr>
 				<tr class="cSeparator"><td></td></tr>
-				<?
+				<?php
 			}
 		
 		foreach ($forAlert as $key => $array)
@@ -388,7 +388,7 @@ if ($updateError === FALSE)
 					<td style="text-align: right;"><img src="titan.php?target=loadFile&file=interface/icon/help.gif" border="0" title="header=[<?= $key ?>] body=[<?= $array [1] ?>] cssheader=[divHelpHeader] cssbody=[divHelpBody] fade=[on] offsetx=[-310]" /></td>
 				</tr>
 				<tr class="cSeparator"><td></td></tr>
-				<?
+				<?php
 			}
 			else
 			{
@@ -400,7 +400,7 @@ if ($updateError === FALSE)
 					<td style="text-align: right;"></td>
 				</tr>
 				<tr class="cSeparator"><td></td></tr>
-				<?
+				<?php
 			}
 		
 		foreach ($forSecurity as $key => $array)
@@ -414,7 +414,7 @@ if ($updateError === FALSE)
 					<td style="text-align: right;"><img src="titan.php?target=loadFile&file=interface/icon/help.gif" border="0" title="header=[<?= $key ?>] body=[<?= $array [1] ?>] cssheader=[divHelpHeader] cssbody=[divHelpBody] fade=[on] offsetx=[-310]" /></td>
 				</tr>
 				<tr class="cSeparator"><td></td></tr>
-				<?
+				<?php
 			}
 			else
 			{
@@ -426,7 +426,7 @@ if ($updateError === FALSE)
 					<td style="text-align: right;"></td>
 				</tr>
 				<tr class="cSeparator"><td></td></tr>
-				<?
+				<?php
 			}
 		?>
 	</table>
@@ -444,7 +444,7 @@ if ($updateError === FALSE)
 			<td style="width: 200px;"></td>
 			<td></td>
 		</tr>
-		<?
+		<?php
 		foreach ($forExtension as $key => $array)
 			if (in_array ($key, $extErrors))
 			{
@@ -456,7 +456,7 @@ if ($updateError === FALSE)
 					<td style="text-align: right;"><img src="titan.php?target=loadFile&file=interface/icon/help.gif" border="0" title="header=[<?= $key ?>] body=[<?= $array [1] ?>] cssheader=[divHelpHeader] cssbody=[divHelpBody] fade=[on] offsetx=[-310]" /></td>
 				</tr>
 				<tr class="cSeparator"><td></td></tr>
-				<?
+				<?php
 			}
 			elseif (in_array ($key, $extAlerts))
 			{
@@ -468,7 +468,7 @@ if ($updateError === FALSE)
 					<td style="text-align: right;"><img src="titan.php?target=loadFile&file=interface/icon/help.gif" border="0" title="header=[<?= $key ?>] body=[<?= $array [1] ?>] cssheader=[divHelpHeader] cssbody=[divHelpBody] fade=[on] offsetx=[-310]" /></td>
 				</tr>
 				<tr class="cSeparator"><td></td></tr>
-				<?
+				<?php
 			}
 			else
 			{
@@ -480,7 +480,7 @@ if ($updateError === FALSE)
 					<td style="text-align: right;"></td>
 				</tr>
 				<tr class="cSeparator"><td></td></tr>
-				<?
+				<?php
 			}
 		?>
 	</table>

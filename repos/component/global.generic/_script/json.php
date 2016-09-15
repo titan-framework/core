@@ -1,4 +1,4 @@
-<?
+<?php
 /* Under development! Do not use in production. */
 error_reporting (0);
 

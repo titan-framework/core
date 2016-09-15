@@ -1,4 +1,4 @@
-<?
+<?php
 if ($field->isUnique () && $field->isEmpty ())
 	return "NULL";
 

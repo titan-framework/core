@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 ?>
 /**
@@ -44,7 +44,7 @@ import <?= $app ?>.util.RoboSherlockActivityAbstract;
 @ContentView (R.layout.<?= $modelUnderScore ?>_view)
 public class <?= $model ?>ViewActivity extends RoboSherlockFragmentActivity implements RoboSherlockActivityAbstract.DoNothing
 {
-<?
+<?php
 foreach ($fields as $key => $obj)
 	if ($key)
 	{
@@ -75,7 +75,7 @@ foreach ($fields as $key => $obj)
 		nf.setMaximumFractionDigits (2);
 		nf.setMinimumFractionDigits (2);
 		
-<?
+<?php
 foreach ($fields as $trash => $obj)
 	switch ($obj->type)
 	{
@@ -109,7 +109,7 @@ foreach ($fields as $trash => $obj)
 		else
 			<?= $obj->class ?>.setText (<?= $object ?>.get<?= ucfirst ($obj->class) ?> ());
 		
-<?
+<?php
 			break;
 	}
 ?>
@@ -130,6 +130,6 @@ foreach ($fields as $trash => $obj)
 		return super.onOptionsItemSelected (item);
 	}
 }
-<?
+<?php
 return ob_get_clean ();
 ?>

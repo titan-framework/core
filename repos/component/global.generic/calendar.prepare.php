@@ -1,4 +1,4 @@
-<?
+<?php
 $search = new Search ('calendar.xml','search.xml', 'list.xml');
 
 $search->recovery ();

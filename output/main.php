@@ -1,4 +1,4 @@
-<?
+<?php
 include Instance::singleton ()->getCorePath () .'system/chat.php';
 
 $skin = Skin::singleton ();

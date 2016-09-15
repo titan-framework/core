@@ -33,7 +33,7 @@
 }
 </style>
 <div id="idMenuArchitect">
-	<? swf (Business::singleton ()->getSection (Section::TCURRENT)->getComponentPath () .'_image/menu.swf', 557, 65) ?>
+	<?php swf (Business::singleton ()->getSection (Section::TCURRENT)->getComponentPath () .'_image/menu.swf', 557, 65) ?>
 </div>
 <div id="idForm">
 	<div class="item">

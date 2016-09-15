@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * VersionView.php
  *

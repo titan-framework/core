@@ -1,4 +1,4 @@
-<?
+<?php
 class Archive
 {
 	static private $archive = FALSE;

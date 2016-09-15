@@ -1,1 +1,1 @@
-<? return "_no_accents (". $field->getTable () .'.'. $field->getColumn () .") ILIKE _no_accents ('%". addslashes ($field->getValue ()) ."%')" ?>
+<?php return "_no_accents (". $field->getTable () .'.'. $field->getColumn () .") ILIKE _no_accents ('%". addslashes ($field->getValue ()) ."%')" ?>

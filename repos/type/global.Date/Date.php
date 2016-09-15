@@ -1,4 +1,4 @@
-<?
+<?php
 class Date extends Type
 {
 	static protected $language = array ('en_US' => 'en', 'pt_BR' => 'pt', 'es_ES' => 'es');

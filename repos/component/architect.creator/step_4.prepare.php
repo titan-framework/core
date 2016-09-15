@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset ($_SESSION['UNIX_NAME']) && isset ($_SESSION['DBH_'. $_SESSION['UNIX_NAME']]))
 	$itemId = $_SESSION['UNIX_NAME'];
 else

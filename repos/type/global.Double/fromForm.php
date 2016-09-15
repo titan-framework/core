@@ -1,4 +1,4 @@
-<?
+<?php
 if (empty ($value))
 	return (float) 0.0;
 	

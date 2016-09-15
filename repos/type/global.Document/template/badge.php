@@ -1,4 +1,4 @@
-<?
+<?php
 class DocumentBadge extends Pdf
 {
 	function Footer ()

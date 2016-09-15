@@ -1,4 +1,4 @@
-<?
+<?php
 if (!$flag)
 {
 	?>
@@ -75,7 +75,7 @@ if (!$flag)
 		</div>
 		<div id="_BUTTON_" class="versionButton" style="display:;" onclick="JavaScript: makeVersionable ();" title="Colocar sob Controle de Versões">Ativar</div>
 	</div>
-	<?
+	<?php
 	return;
 }
 ?>
@@ -138,7 +138,7 @@ function revertRevision (version)
 	</table>
 	<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 		<tr height="5px"><td></td></tr>
-		<?
+		<?php
 		$backColor = 'FFFFFF';
 		while ($field = $search->getField ())
 		{
@@ -152,7 +152,7 @@ function revertRevision (version)
 				<td <?= $search->isBlocked ($field) ? 'style="color: #990000;"' : '' ?>><?= Form::toHtml ($field) ?></td>
 			</tr>
 			<tr height="2px"><td></td></tr>
-			<?
+			<?php
 		}
 		?>
 		<tr height="5px"><td></td></tr>
@@ -168,7 +168,7 @@ function revertRevision (version)
 		</table>
 		<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0" style="border: #36817C 1px solid; border-top-width: 3px;">
 			<tr height="5px"><td></td></tr>
-			<?
+			<?php
 			$backColor = 'FFFFFF';
 			while ($field = $search->getField ())
 			{
@@ -180,7 +180,7 @@ function revertRevision (version)
 					<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($field); ?></td>
 				</tr>
 				<tr height="2px"><td></td></tr>
-				<?
+				<?php
 			}
 			?>
 			<tr>
@@ -195,7 +195,7 @@ function revertRevision (version)
 	</form>
 </div>
 <div id="idList">
-	<?
+	<?php
 	$description = Business::singleton ()->getAction (Action::TCURRENT)->getDescription ();
 	if (trim ($description) != '')
 		echo '<div class="description">'. $description .'</div>';
@@ -206,7 +206,7 @@ function revertRevision (version)
 	?>
 	<table>
 		<tr>
-			<?
+			<?php
 			$columns = sizeof ($view->getFields ()) + 1;
 			
 			while ($field = $view->getField ())
@@ -215,12 +215,12 @@ function revertRevision (version)
 			<td class="cTableHeader"></td>
 		</tr>
 		<tr height="5px"><td></td></tr>
-		<?
+		<?php
 		while ($view->getItem ())
 		{
 			?>
 			<tr class="cTableItem">
-				<?
+				<?php
 				$count = 1;
 				while ($field = $view->getField ())
 				{
@@ -229,7 +229,7 @@ function revertRevision (version)
 				}
 				?>
 				<td style="text-align: right;" nowrap="nowrap">
-					<? while ($icon = $view->getIcon ()) echo $icon .'&nbsp;'; ?>
+					<?php while ($icon = $view->getIcon ()) echo $icon .'&nbsp;'; ?>
 				</td>
 			</tr>
 			<tr class="cSeparatorHalf"><td colspan="<?= $columns ?>"></td></tr>
@@ -237,7 +237,7 @@ function revertRevision (version)
 				<td style="padding: 5px;" colspan="<?= $count ?>"><div id="_REVISION_<?= $view->getId () ?>"></div></td>
 			</tr>
 			<tr class="cSeparatorHalf"><td colspan="<?= $columns ?>"></td></tr>
-			<?
+			<?php
 		}
 		?>
 	</table>

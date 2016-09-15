@@ -1,4 +1,4 @@
-<?
+<?php
 if (!$itemId)
 	throw new Exception ('There was lost of variables!');
 

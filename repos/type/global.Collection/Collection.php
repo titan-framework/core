@@ -1,4 +1,4 @@
-<?
+<?php
 class Collection extends Type
 {
 	protected $xmlPath = '';

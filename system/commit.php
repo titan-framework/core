@@ -1,4 +1,4 @@
-<?
+<?php
 require_once Instance::singleton ()->getCorePath () .'extra/htmlPurifier/HTMLPurifier.standalone.php';
 
 $itemId = isset ($_POST['itemId']) ? $_POST['itemId'] : $itemId;

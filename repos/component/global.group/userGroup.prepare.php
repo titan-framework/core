@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset ($_POST['selectSystems']))
 	$systemSelected = $_POST['selectSystems'];
 else

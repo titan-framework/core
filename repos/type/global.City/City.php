@@ -1,4 +1,4 @@
-<?
+<?php
 class City extends Select
 {
 	protected $stateId = NULL;

@@ -1,4 +1,4 @@
-<?
+<?php
 
 $xml = Business::singleton ()->getAction (Action::TCURRENT)->getXmlPath ();
 
@@ -18,7 +18,7 @@ ob_start ();
 <div id="idList" style="margin: 0px;">
 	<table style="background-color: #FFF;">
 		<tr>
-			<?
+			<?php
 			$columns = sizeof ($view->getFields ());
 			
 			while ($auxField = $view->getField ())
@@ -26,7 +26,7 @@ ob_start ();
 			?>
 		</tr>
 		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
-		<?
+		<?php
 		$bkpItemId = $itemId;
 		
 		while ($view->getItem ())
@@ -34,16 +34,16 @@ ob_start ();
 			$itemId = $view->getId ();
 			?>
 			<tr class="cTableItem" id="collection_row_<?= $view->getId () ?>">
-				<? while ($auxField = $view->getLink ()) echo '<td>'. $auxField .'</td>'; ?>
+				<?php while ($auxField = $view->getLink ()) echo '<td>'. $auxField .'</td>'; ?>
 			</tr>
 			<tr class="cSeparator"><td colspan="<?= $columns ?>"></td></tr>
-			<?
+			<?php
 		}
 		
 		$itemId = $bkpItemId;
 		?>
 	</table>
 </div>
-<?
+<?php
 return ob_get_clean ();
 ?>

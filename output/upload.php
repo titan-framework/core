@@ -1,4 +1,4 @@
-<?
+<?php
 if (!User::singleton ()->isLogged ())
 	throw new Exception (__ ('Attention! Probably attack detected. Access Denied!'));
 
@@ -11,7 +11,7 @@ ob_start ();
 ?>
 <html>
 	<head>
-		<?
+		<?php
 		$archive = Archive::singleton ();
 
 		if (isset ($_FILES['file']) && (int) $_FILES['file']['size'] && isset ($_POST['upload_filter']))
@@ -80,7 +80,7 @@ ob_start ();
 					<script language="javascript" type="text/javascript">
 						parent.global.File.load (<?= $fileId ?>, '<?= $idFieldFile ?>');
 					</script>
-					<?
+					<?php
 				}
 				else
 					throw new Exception (__ ('Unable copy file to directory [ [1] ]!',  $archive->getDataPath ()));
@@ -149,6 +149,6 @@ ob_start ();
 		</div>
 	</body>
 </html>
-<?
+<?php
 echo ob_get_clean ();
 ?>

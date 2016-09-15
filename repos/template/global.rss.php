@@ -1,4 +1,4 @@
-<?
+<?php
 while ($view->getItem ())
 {
 	?>
@@ -8,6 +8,6 @@ while ($view->getItem ())
 		<link><?= $view->getLink (TRUE) ?></link>
 		<guid isPermaLink="false"><?= randomHash (12) ?></guid>
 	</item>
-	<?
+	<?php
 }
 ?>

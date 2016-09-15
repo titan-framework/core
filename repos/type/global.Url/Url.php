@@ -1,4 +1,4 @@
-<?
+<?php
 class Url extends Phrase
 {
 	protected $prefix = '';

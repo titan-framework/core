@@ -1,4 +1,4 @@
-<?
+<?php
 $form =& Form::singleton ('alert.xml');
 
 $action = $form->goToAction ('fail');

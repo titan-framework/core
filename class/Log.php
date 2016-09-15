@@ -1,4 +1,4 @@
-<?
+<?php
 class Log
 {
 	static private $log = FALSE;

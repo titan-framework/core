@@ -1,4 +1,4 @@
-<?
+<?php
 class Mail
 {
 	static private $mail = FALSE;

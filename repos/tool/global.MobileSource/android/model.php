@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start ();
 ?>
 /**
@@ -21,7 +21,7 @@ import java.util.Date;
 
 public class <?= $model ?> 
 {
-<?
+<?php
 foreach ($fields as $trash => $obj)
 	echo "	private ". $obj->type ." ". $obj->class .";\n";
 
@@ -35,14 +35,14 @@ foreach ($fields as $trash => $obj)
 	{
 		<?= $obj->class ?>Map = new HashMap<String, String> ();
 		
-<?	
+<?php	
 		$items = $obj->object->getMapping ();
 		
 		foreach ($items as $value => $label)
 			echo "		". $obj->class ."Map.put (\"". $value ."\", \"". $label ."\");\n";
 		?>
 	}
-<?
+<?php
 	}
 
 foreach ($fields as $trash => $obj)
@@ -53,7 +53,7 @@ foreach ($fields as $trash => $obj)
 	{
 		return <?= $obj->class ?>;
 	}
-<?
+<?php
 	if (get_class ($obj->object) == 'Enum')
 	{
 		?>
@@ -65,7 +65,7 @@ foreach ($fields as $trash => $obj)
 		
 		return <?= $obj->class ?>;
 	}
-<?
+<?php
 	}
 	?>
 	
@@ -73,10 +73,10 @@ foreach ($fields as $trash => $obj)
 	{
 		this.<?= $obj->class ?> = <?= $obj->class ?>;
 	}
-<?
+<?php
 }
 ?>
 }
-<?
+<?php
 return ob_get_clean ();
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 if (strlen ($value) != 8)
 	$field->setValue (array (0, 0, 0));
 else

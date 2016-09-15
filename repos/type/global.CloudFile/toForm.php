@@ -1,4 +1,4 @@
-<? ob_start () ?>
+<?php ob_start () ?>
 <input type="hidden" name="<?= $fieldName ?>" id="_CLOUD_HIDDEN_<?= $fieldId ?>" value="<?= $field->getValue () ?>" />
 <div class="globalCloudFileError" id="_CLOUD_ERROR_<?= $fieldId ?>" style="display: none;"></div>
 <div class="globalCloudFileUploaded" id="_CLOUD_UPLOADED_<?= $fieldId ?>" style="display: none;"></div>
@@ -7,14 +7,14 @@
 </div>
 <?= $field->getTip () != '' ? '<div class="fieldTip" style="float: left; padding: 6px 8px;">'. $field->getTip () .'</div>' : '' ?>
 <script language="javascript" type="text/javascript">
-<?
+<?php
 if ((int) $field->getValue ())
 {
 	?>
 	global.CloudFile.load (<?= $field->getValue () ?>, '<?= $fieldId ?>');
-	<?
+	<?php
 }
 ?>
 global.CloudFile.addFilter ('<?= $fieldId ?>', '<?= $field->getFilter () ?>');
 </script>
-<? return ob_get_clean () ?>
+<?php return ob_get_clean () ?>

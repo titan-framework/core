@@ -1,4 +1,4 @@
-<?
+<?php
 class Money extends Double
 {
 	protected $currency = 'R$';

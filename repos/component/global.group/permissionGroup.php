@@ -20,7 +20,7 @@
 				<tr>
 					<td>
 						<table align="center" border="0" width="100%" cellpadding="5" cellspacing="0">
-							<?
+							<?php
 							$backSecColor = 'FFFFFF';
 							foreach ($arrayMain as $key => $arrayAux)
 							{
@@ -29,12 +29,12 @@
 								<tr height="20" style="background-color: #<?= $backSecColor ?>;">
 									<td width="20">
 										<input type="checkbox" id="main_<?= $key ?>" name="ACCESS_SECTION_<?= $key ?>" <?= (in_array ('ACCESS_SECTION_'. $key, $arrayHas) || $business->getSection (Section::TDEFAULT)->getName () == $key) ? 'checked' : '' ?> onclick="JavaScript: enableSection ('<?= $key ?>');" <?= $business->getSection (Section::TDEFAULT)->getName () == $key ? 'disabled' : '' ?> />
-										<? 
+										<?php 
 										if ($business->getSection (Section::TDEFAULT)->getName () == $key)
 										{
 											?>
 											<input type="hidden" name="ACCESS_SECTION_<?= $key ?>" value="1" />
-											<?
+											<?php
 										}
 										?>
 									</td>
@@ -43,7 +43,7 @@
 										<img id="arrow_<?= $key ?>" class="cArrow" style="display: <?= (in_array ('ACCESS_SECTION_'. $key, $arrayHas) || $business->getSection (Section::TDEFAULT)->getName () == $key) ? '' : 'none' ?>" src="<?= Skin::singleton ()->getIconsFolder () .'display.down.gif' ?>" border="0" onclick="JavaScript: showPermissionRow ('<?= $key ?>');" />
 									</td>
 								</tr>
-								<?
+								<?php
 								$keySection = $key;
 								
 								$jsKey = str_replace ('.', '_', $key);
@@ -76,7 +76,7 @@
 																		<td width="20"><input type="checkbox" name="SELECT_ALL_<?= $jsKey ?>" onclick="JavaScript: selectAll_<?= $jsKey ?> ();" /></td>
 																		<td>Selecionar Todas</td>
 																	</tr>
-																	<?
+																	<?php
 																	$backColor = 'FFFFFF';
 																	$cont = 0;
 																	foreach ($arraySection as $key => $label)
@@ -87,12 +87,12 @@
 																			<td width="20"><input type="checkbox" id="checkboxActions<?= $keySection ?>.<?= $cont++ ?>" name="ACCESS_ACTION_<?= $keySection ?>_<?= $key ?>" <?= (in_array ('ACCESS_ACTION_'. $keySection .'_'. $key, $arrayHas) || $defaultAction == $key) ? 'checked' : '' ?> <?= $defaultAction == $key ? 'disabled' : '' ?> /></td>
 																			<td><?= $label ?></td>
 																		</tr>
-																		<? 
+																		<?php 
 																		if ($defaultAction == $key)
 																		{
 																			?>
 																			<input type="hidden" name="ACCESS_ACTION_<?= $keySection ?>_<?= $key ?>" value="1" />
-																			<?
+																			<?php
 																		}
 																	}
 																	?>
@@ -134,7 +134,7 @@
 																		<td width="20"><input type="checkbox" name="SELECT_ALL_PERM_<?= $jsKey ?>" onclick="JavaScript: selectAllPerm_<?= $jsKey ?> ();" /></td>
 																		<td>Selecionar Todas</td>
 																	</tr>
-																	<?
+																	<?php
 																	$backColor = 'F4F4F4';
 																	$cont = 0;
 																	if (array_key_exists ($keySection, $arrayPermission) && is_array ($arrayPermission [$keySection]))
@@ -146,7 +146,7 @@
 																				<td width="20"><input type="checkbox" id="checkbox<?= $keySection ?>.<?= $cont++ ?>" name="PERMISSION_<?= $keySection ?>_<?= $key ?>" <?= (in_array ('PERMISSION_'. $keySection .'_'. $key, $arrayHas)) ? 'checked' : '' ?> /></td>
 																				<td><?= $label ?></td>
 																			</tr>
-																			<?
+																			<?php
 																		}
 																	?>
 																</table>
@@ -173,7 +173,7 @@
 										</table>
 									</td>
 								</tr>
-								<? 
+								<?php 
 							}
 							?>
 						</table>

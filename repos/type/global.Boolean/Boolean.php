@@ -1,4 +1,4 @@
-<?
+<?php
 class Boolean extends Integer
 {
 	protected $forGraph = TRUE;

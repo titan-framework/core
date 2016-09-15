@@ -1,5 +1,5 @@
 <pre>
-<?
+<?php
 $instance = Instance::singleton ();
 
 session_name ($instance->getSession () .'_PUBLIC_');

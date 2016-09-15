@@ -1,4 +1,4 @@
-<?
+<?php
 $values = $field->getValue ();
 
 array_unshift ($values, 0);

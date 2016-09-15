@@ -1,4 +1,4 @@
-<?
+<?php
 class FormSimple extends Form
 {
 	static private $forms = array ();

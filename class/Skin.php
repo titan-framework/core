@@ -1,4 +1,4 @@
-<?
+<?php
 class Skin
 {
 	static private $skin = FALSE;

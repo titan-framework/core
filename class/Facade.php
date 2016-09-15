@@ -1,4 +1,4 @@
-<?
+<?php
 class Facade
 {
 	static private $facade = FALSE;

@@ -1,4 +1,4 @@
-<?
+<?php
 $instance = Instance::singleton ();
 
 require_once $instance->getCorePath () .'extra/freeChat/src/phpfreechat.class.php';

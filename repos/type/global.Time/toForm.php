@@ -1,4 +1,4 @@
-<?
+<?php
 $value = $field->getValue ();
 				
 if(!$value || !is_array ($value))
@@ -16,28 +16,28 @@ if($value [2] < 0)
 ob_start ();
 ?>
 <select class="field" style="width: 45px; <?= $field->getStyle () ?>" name="<?= $fieldName ?>[]" id="hour_<?= $fieldId ?>" onChange="JavaScript: global.Time.alter ('<?= $fieldId ?>');">
-<?
+<?php
 for($i = 0 ; $i <= 23 ; $i++)
 	echo '<option value="'. $i .'"'. ($i == $value [0] ? ' selected' : '') .'>'. ($i < 10 ? '0' : '') . $i .'</option>';
 ?>
 </select>
 
 <select class="field" style="width: 45px; margin-left: 3px; <?= $field->getStyle () ?>" name="<?= $fieldName ?>[]" id="minute_<?= $fieldId ?>" onChange="JavaScript: global.Time.alter ('<?= $fieldId ?>');">
-<?
+<?php
 for($i = 0 ; $i <= 59 ; $i++)
 	echo '<option value="'. $i .'"'. ($i == $value [1] ? ' selected' : '') .'>'. ($i < 10 ? '0' : '') . $i .'</option>';
 ?>
 </select>
 
 <select class="field" style="width: 45px; margin-left: 3px; <?= $field->getStyle () ?>" name="<?= $fieldName ?>[]" id="second_<?= $fieldId ?>" onChange="JavaScript: global.Time.alter ('<?= $fieldId ?>');">
-<?
+<?php
 for($i = 0 ; $i <= 59 ; $i++)
 	echo '<option value="'. $i .'"'. ($i == $value [2] ? ' selected' : '') .'>'. ($i < 10 ? '0' : '') . $i .'</option>';
 ?>
 </select>
 
 <input type="hidden" name="<?= $fieldName ?>" id="<?= $fieldId ?>" value="<?= implode (':', $value) ?>" />
-<?
+<?php
 $aux = ob_get_contents ();
 
 ob_end_clean();

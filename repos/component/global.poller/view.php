@@ -1,4 +1,4 @@
-<? include Template::import ('global.view') ?>
+<?php include Template::import ('global.view') ?>
 <div>
 	<table align="center" border="0" width="450" cellpadding="0" cellspacing="0">
 		<tr>
@@ -10,7 +10,7 @@
 		<tr>
 			<td>
 				<table align="left" border="0" width="1%" cellpadding="5" cellspacing="0">
-					<?
+					<?php
 					switch ($form->getField ('_GRAPHIC_')->getValue ())
 					{
 						case '_HORIZONTAL_':
@@ -38,7 +38,7 @@
 										<?= $array ['_VOTES_'] ?>
 									</td>
 								</tr>
-								<?
+								<?php
 							}
 							?>
 							<tr>
@@ -46,7 +46,7 @@
 									<b>Total: <?= $total ?></b>
 								</td>
 							</tr>
-							<?
+							<?php
 							break;
 							
 						case '_VERTICAL_':
@@ -70,7 +70,7 @@
 									<td style="font-weight: bold; color: #<?= colors ($key) ?>" align="right">
 										<?= $array ['_VOTES_'] ?>
 									</td>
-									<?
+									<?php
 									if (!$flag)
 									{
 										$flag = TRUE;
@@ -79,7 +79,7 @@
 										<td rowspan="<?= $contAnswer ?>">
 											<table border="0" height="100%" width="100%">
 												<tr valign="bottom" height="100%" width="100%">
-													<?
+													<?php
 													for ($i = 1 ; $i <= $contAnswer ; $i++)
 													{
 														$percentage = $total ? ($answer [$i]['_VOTES_'] / $total) * 100 : 0;
@@ -89,11 +89,11 @@
 												</tr>
 											</table>
 										</td>
-										<?
+										<?php
 									}
 									?>
 								</tr>
-								<?
+								<?php
 							}
 							?>
 							<tr>
@@ -101,7 +101,7 @@
 									<b>Total: <?= $total ?></b>
 								</td>
 							</tr>
-							<?
+							<?php
 							break;
 							
 						case '_PERCENTAGE_':
@@ -122,7 +122,7 @@
 										<?= $array ['_VOTES_'] ?>
 									</td>
 								</tr>
-								<?
+								<?php
 							}
 							?>
 							<tr>
@@ -130,7 +130,7 @@
 									<b>Total: <?= $total ?></b>
 								</td>
 							</tr>
-							<?
+							<?php
 							break;
 						
 						case '_PIZZA_':
@@ -154,25 +154,25 @@
 									<td style="font-weight: bold; color: #<?= colors ($key) ?>" align="right">
 										<?= $array ['_VOTES_'] ?>
 									</td>
-									<?
+									<?php
 									if (!$flag)
 									{
 										$flag = TRUE;
 										$contAnswer = sizeof ($answer);
 										?>
 										<td rowspan="<?= $contAnswer ?>">
-											<?
+											<?php
 											$pedacos = '';
 											for ($i = 1 ; $i <= $contAnswer ; $i++)
 												$pedacos .= '&partes['. $i .']=' . ($total ? ($answer [$i]['_VOTES_'] / $total) * 100 : 0);
 											?>
 											<img src="titan.php?target=script&toSection=<?= $section->getName () ?>&file=graphicPizza&largura=200&altura=200<?= $pedacos ?>" border="0" />
 										</td>
-										<?
+										<?php
 									}
 									?>
 								</tr>
-								<?
+								<?php
 							}
 							?>
 							<tr>
@@ -180,7 +180,7 @@
 									<b>Total: <?= $total ?></b>
 								</td>
 							</tr>
-							<?
+							<?php
 							break;
 					}
 					?>

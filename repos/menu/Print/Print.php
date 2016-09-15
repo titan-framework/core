@@ -1,4 +1,4 @@
-<?
+<?php
 class MenuPrint extends MenuItem
 {
 	private $action = NULL;

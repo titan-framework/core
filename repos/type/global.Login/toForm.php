@@ -1,3 +1,3 @@
-<?
+<?php
 return '<input type="text" class="field" style="'. $field->getStyle () .'" name="'. $fieldName .'" id="'. $fieldId .'" value="'. $field->getValue () .'" '. ($field->getMaxLength () ? ' maxlength="'. $field->getMaxLength () .'"' : '') .' onkeypress="JavaScript: return global.Login.format (this, event);" onkeyup="JavaScript: global.Login.format (this,false);" />'. ($field->getMaxLength () ? '<a class="fieldLimit" rel="protolimit['. $fieldId .'='. $field->getMaxLength () .']">'. $field->getMaxLength () .'</a>' : '') . ($field->getTip () != '' ? '<div class="fieldTip">'. $field->getTip () .'</div>' : '');
 ?>
