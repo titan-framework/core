@@ -148,7 +148,7 @@ try
 			exec (GIT .' describe --tags', $out);
 
 			if (!is_array ($out) || !array_key_exists (0, $out) || preg_replace ('/[^0-9\.\-]/i', '', $out [0]) == '')
-				throw new Exception ("Impossible to get last version of Titan's CORE! Please, verify if Git is installed (Debian package 'git-core') and the health of CORE's workcopy.");
+				throw new Exception ("Impossible to get last version of Titan's CORE! Please, verify if Git is installed and the health of CORE's workcopy.");
 
 			$_tag = $out [0];
 
