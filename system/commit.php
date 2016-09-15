@@ -7,13 +7,13 @@ try
 {
 	if (!sizeof ($_POST) && !sizeof ($_FILES))
 		throw new Exception ();
-	
+
 	include $action->getFullPathTo (Action::COMMIT);
-	
+
 	$message->save ();
-	
+
 	header ('Location: '. $_SERVER['PHP_SELF'] .'?target=body&toSection='. $section->getName () .'&toAction='. $action->getName () .'&itemId='. $itemId);
-	
+
 	exit ();
 }
 catch (PDOException $e)
@@ -40,9 +40,9 @@ foreach (Instance::singleton ()->getTypes () as $type => $path)
 {
 	if (!file_exists ($path .'_ajax.php'))
 		continue;
-	
+
 	require_once $path . '_ajax.php';
-	
+
 	$allow [] = 'x'. $type;
 }
 
@@ -53,13 +53,11 @@ XOAD_Server::allowClasses ($allow);
 if (XOAD_Server::runServer ())
 	exit ();
 
-require_once Instance::singleton ()->getCorePath () .'extra/fckEditor/fckeditor.php';
-
 require_once Instance::singleton ()->getCorePath () .'assembly/menu.php';
 
 require_once Instance::singleton ()->getCorePath () .'assembly/breadcrumb.php';
 
 require_once Instance::singleton ()->getCorePath () .'assembly/section.php';
-	
+
 include $instance->getCorePath () .'output/body.php';
 ?>

@@ -81,7 +81,6 @@ switch (@$_GET['target'])
 		if (XOAD_Server::runServer ())
 			exit ();
 
-		require_once Instance::singleton ()->getCorePath () .'extra/fckEditor/fckeditor.php';
 		require_once Instance::singleton ()->getCorePath () .'extra/htmlPurifier/HTMLPurifier.standalone.php';
 
 		require Instance::singleton ()->getCorePath () .'assembly/menu.php';
@@ -128,7 +127,6 @@ switch (@$_GET['target'])
 		if (XOAD_Server::runServer ())
 			exit ();
 
-		require_once Instance::singleton ()->getCorePath () .'extra/fckEditor/fckeditor.php';
 		require_once Instance::singleton ()->getCorePath () .'extra/htmlPurifier/HTMLPurifier.standalone.php';
 
 		require Instance::singleton ()->getCorePath () .'assembly/section.php';

@@ -7,11 +7,11 @@ try
 {
 	if (!sizeof ($_POST) && !sizeof ($_FILES))
 		throw new Exception ('Não há dados a serem salvos na base de dados!');
-	
+
 	include $action->getFullPathTo (Action::COMMIT);
-	
+
 	$message->save ();
-	
+
 	// header ('Location: '. $_SERVER['PHP_SELF'] .'?target=inPlace&toSection='. $section->getName () .'&toAction='. $action->getName () .'&itemId='. $itemId);
 	?>
 	<html><body onload="JavaScript: parent.location.reload ();"></body></html>
@@ -26,8 +26,6 @@ catch (Exception $e)
 {
 	$message->addWarning ($e->getMessage ());
 }
-
-require_once Instance::singleton ()->getCorePath () .'extra/fckEditor/fckeditor.php';
 
 define ('XOAD_AUTOHANDLE', true);
 
@@ -46,6 +44,6 @@ if (XOAD_Server::runServer ())
 	exit ();
 
 require_once Instance::singleton ()->getCorePath () .'assembly/section.php';
-	
+
 include $instance->getCorePath () .'output/inPlace.php';
 ?>

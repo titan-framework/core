@@ -31,9 +31,9 @@ foreach ($instance->getTypes () as $type => $path)
 {
 	if (!file_exists ($path .'_ajax.php'))
 		continue;
-	
+
 	require_once $path . '_ajax.php';
-	
+
 	$allow [] = 'x'. $type;
 }
 
@@ -44,7 +44,6 @@ XOAD_Server::allowClasses ($allow);
 if (XOAD_Server::runServer ())
 	exit ();
 
-require_once $instance->getCorePath () .'extra/fckEditor/fckeditor.php';
 require_once $instance->getCorePath () .'extra/htmlPurifier/HTMLPurifier.standalone.php';
 
 $search = new Search ($file);

@@ -372,7 +372,6 @@ try
 			if (XOAD_Server::runServer ())
 				exit ();
 
-			require_once $instance->getCorePath () .'extra/fckEditor/fckeditor.php';
 			require_once $instance->getCorePath () .'extra/htmlPurifier/HTMLPurifier.standalone.php';
 
 			include $action->getFullPathTo (Action::PREPARE);
