@@ -145,7 +145,7 @@ try
 		{
 			unset ($out);
 
-			exec (GIT .' describe --tags | tee update/TAG', $out);
+			exec (GIT .' describe --tags', $out);
 
 			if (!is_array ($out) || !array_key_exists (0, $out) || preg_replace ('/[^0-9\.\-]/i', '', $out [0]) == '')
 				throw new Exception ("Impossible to get last version of Titan's CORE! Please, verify if Git is installed (Debian package 'git-core') and the health of CORE's workcopy.");
@@ -162,7 +162,15 @@ try
 			{
 				exec (GIT .' checkout '. $_tag, $trash);
 
-				echo "SUCCESS > Titan Framework [". $_corePath ."] updated to version ". preg_replace ('/[^0-9\.\-]/i', '', $_tag) ."! \n";
+				$aux = explode ('-', preg_replace ('/[^0-9\.\-]/i', '', $_tag));
+
+				$version = $aux [0];
+				$release = $aux [1];
+
+				file_put_contents ($_corePath . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'VERSION', $version);
+				file_put_contents ($_corePath . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'STABLE', $release);
+
+				echo "SUCCESS > Titan Framework [". $_corePath ."] updated to version ". $version ."-". $stable ."! \n";
 			}
 		}
 		catch (Exception $e)
