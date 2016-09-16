@@ -12,6 +12,8 @@ Getting Start
 
 To start using Titan Framework, is strongly recommended create a new instance using [titan-framework/instance](https://github.com/titan-framework/instance).
 
+To deploy a Titan Framework's instance on web server (e.g., to publish in production), you can clone (checkout) last tag of this repository or use [titan-framework/install](https://github.com/titan-framework/install) Composer package.
+
 More Information
 ----------------
 
