@@ -160,6 +160,8 @@ try
 				echo "INFO > Titan Framework is already updated! \n";
 			else
 			{
+				exec (GIT .' fetch', $trash);
+
 				exec (GIT .' checkout '. $_tag, $trash);
 
 				$aux = explode ('-', preg_replace ('/[^0-9\.\-]/i', '', $_tag));
@@ -302,12 +304,6 @@ try
 
 			if (!sizeof ($_mails))
 				$_mails = array (@$_xml ['e-mail']);
-
-			/*
-			 * Titan modifications in instance database
-			 */
-			if ($coreActualRevision <= 87)
-				$_db->exec ("CREATE OR REPLACE FUNCTION ". $schema ."._no_accents (text) RETURNS text AS $$ SELECT translate($1,'ÀÁÂÃÄÅĀĂĄÈÉÊËĒĔĖĘĚÌÍÎÏĨĪĮİÒÓÔÕÖØŌŎŐÙÚÛÜŨŪŬŮŰŲàáâãäåāăąèéêëēĕėęěìíîïĩīĭįòóôõöøōŏőùúûüũūŭůųÇçÑñÝýÿĆćĈĉĊċČčĎďĐđĜĝĞğĠġĢģĤĥĦħ','AAAAAAAAAEEEEEEEEEIIIIIIIIOOOOOOOOOUUUUUUUUUUaaaaaaaaaeeeeeeeeeiiiiiiiiooooooooouuuuuuuuuCcNnYyyCcCcCcCcDdDdGgGgGgGgHhHh'); $$ LANGUAGE sql IMMUTABLE STRICT");
 
 			/*
 			 * Setting additional SVN parameters to PHP SVN library
