@@ -304,7 +304,7 @@ try
 
 			if (!sizeof ($_mails))
 				$_mails = array (@$_xml ['e-mail']);
-
+			
 			/*
 			 * Setting additional SVN parameters to PHP SVN library
 			 */
