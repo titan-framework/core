@@ -68,7 +68,7 @@ try
 
 		$_CVS = SVN;
 
-		echo "WARNING > Your Titan Framework refers the old Subversion repository! Please, get a new workcopy for Titan Framework's Core on https://github.com/titan-framework/core. \n";
+		echo "WARNING > Your Titan Framework refers the old Subversion repository! Please, get a new workcopy for Titan Framework's Core on https://github.com/titan-framework/install. \n";
 	}
 	catch (Exception $e)
 	{
@@ -304,7 +304,7 @@ try
 
 			if (!sizeof ($_mails))
 				$_mails = array (@$_xml ['e-mail']);
-			
+
 			/*
 			 * Setting additional SVN parameters to PHP SVN library
 			 */
