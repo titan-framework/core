@@ -302,13 +302,7 @@ try
 
 			if (!sizeof ($_mails))
 				$_mails = array (@$_xml ['e-mail']);
-
-			/*
-			 * Titan modifications in instance database
-			 */
-			if ($coreActualRevision <= 87)
-				$_db->exec ("CREATE OR REPLACE FUNCTION ". $schema ."._no_accents (text) RETURNS text AS $$ SELECT translate($1,'ÀÁÂÃÄÅĀĂĄÈÉÊËĒĔĖĘĚÌÍÎÏĨĪĮİÒÓÔÕÖØŌŎŐÙÚÛÜŨŪŬŮŰŲàáâãäåāăąèéêëēĕėęěìíîïĩīĭįòóôõöøōŏőùúûüũūŭůųÇçÑñÝýÿĆćĈĉĊċČčĎďĐđĜĝĞğĠġĢģĤĥĦħ','AAAAAAAAAEEEEEEEEEIIIIIIIIOOOOOOOOOUUUUUUUUUUaaaaaaaaaeeeeeeeeeiiiiiiiiooooooooouuuuuuuuuCcNnYyyCcCcCcCcDdDdGgGgGgGgHhHh'); $$ LANGUAGE sql IMMUTABLE STRICT");
-
+			
 			/*
 			 * Setting additional SVN parameters to PHP SVN library
 			 */
