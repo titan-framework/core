@@ -306,9 +306,9 @@ returnValue : xoadResponse.returnValue
 return false;
 };
 try {
-xmlHttp.setRequestHeader('Content-Length', requestBody.length);
-xmlHttp.setRequestHeader('Content-Type', 'text/plain; charset=ISO-8859-1');
-xmlHttp.setRequestHeader('Accept-Charset', 'ISO-8859-1');
+//xmlHttp.setRequestHeader('Content-Length', requestBody.length);
+xmlHttp.setRequestHeader('Content-Type', 'text/plain; charset=UTF-8');
+//xmlHttp.setRequestHeader('Accept-Charset', 'UTF-8');
 } catch (e) {}
 if (methodCallback != null) {
 xmlHttp.onreadystatechange = function() {
@@ -479,9 +479,9 @@ return true;
 return false;
 };
 try {
-xmlHttp.setRequestHeader('Content-Length', requestBody.length);
-xmlHttp.setRequestHeader('Content-Type', 'text/plain; charset=ISO-8859-1');
-xmlHttp.setRequestHeader('Accept-Charset', 'ISO-8859-1');
+//xmlHttp.setRequestHeader('Content-Length', requestBody.length);
+xmlHttp.setRequestHeader('Content-Type', 'text/plain; charset=UTF-8');
+//xmlHttp.setRequestHeader('Accept-Charset', 'UTF-8');
 } catch (e) {}
 xmlHttp.onreadystatechange = function() {
 if (xmlHttp.readyState == 4) {
@@ -576,9 +576,9 @@ return true;
 return false;
 };
 try {
-xmlHttp.setRequestHeader('Content-Length', requestBody.length);
-xmlHttp.setRequestHeader('Content-Type', 'text/plain; charset=ISO-8859-1');
-xmlHttp.setRequestHeader('Accept-Charset', 'ISO-8859-1');
+//xmlHttp.setRequestHeader('Content-Length', requestBody.length);
+xmlHttp.setRequestHeader('Content-Type', 'text/plain; charset=UTF-8');
+//xmlHttp.setRequestHeader('Accept-Charset', 'UTF-8');
 } catch (e) {}
 xmlHttp.onreadystatechange = function() {
 if (xmlHttp.readyState == 4) {

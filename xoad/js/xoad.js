@@ -510,9 +510,9 @@ xoad.call = function(obj, method, callArguments)
 
 		xmlHttp.setRequestHeader('Content-Length', requestBody.length);
 
-		xmlHttp.setRequestHeader('Content-Type', 'text/plain; charset=ISO-8859-1');
+		xmlHttp.setRequestHeader('Content-Type', 'text/plain; charset=UTF-8');
 
-		xmlHttp.setRequestHeader('Accept-Charset', 'ISO-8859-1');
+		xmlHttp.setRequestHeader('Accept-Charset', 'UTF-8');
 
 	} catch (e) {}
 
@@ -797,9 +797,9 @@ xoad.dispatchEvents = function()
 
 		xmlHttp.setRequestHeader('Content-Length', requestBody.length);
 
-		xmlHttp.setRequestHeader('Content-Type', 'text/plain; charset=ISO-8859-1');
+		xmlHttp.setRequestHeader('Content-Type', 'text/plain; charset=UTF-8');
 
-		xmlHttp.setRequestHeader('Accept-Charset', 'ISO-8859-1');
+		xmlHttp.setRequestHeader('Accept-Charset', 'UTF-8');
 
 	} catch (e) {}
 
@@ -962,9 +962,9 @@ xoad.postEvent = function(obj, eventArguments)
 
 		xmlHttp.setRequestHeader('Content-Length', requestBody.length);
 
-		xmlHttp.setRequestHeader('Content-Type', 'text/plain; charset=ISO-8859-1');
+		xmlHttp.setRequestHeader('Content-Type', 'text/plain; charset=UTF-8');
 
-		xmlHttp.setRequestHeader('Accept-Charset', 'ISO-8859-1');
+		xmlHttp.setRequestHeader('Accept-Charset', 'UTF-8');
 
 	} catch (e) {}
 

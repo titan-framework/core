@@ -1,11 +1,11 @@
 /*
    modalbox.css
-   
+
    Modalbox project
-   
+
    Created by Andrew Okonetchnikov.
    Copyright 2006-2010 okonet.ru. All rights reserved.
-   
+
    Licensed under MIT license.
 */
 
@@ -82,21 +82,21 @@
 #MB_loading {
 	padding: 1.5em;
 	text-indent: -10000px;
-	background: transparent url(spinner.gif) 50% 0 no-repeat;
+	background: transparent url(titan.php?target=loadFile&file=interface/image/spinner.gif) 50% 0 no-repeat;
 }
 
 /* Color scheme */
 #MB_window {
 	background-color: #EFEFEF;
 	color: #000;
-	
-	-webkit-box-shadow: 0 0 64px #000; 
-	-moz-box-shadow: #000 0 0 64px; 
+
+	-webkit-box-shadow: 0 0 64px #000;
+	-moz-box-shadow: #000 0 0 64px;
 	box-shadow: 0 0 64px #000;
 }
 	#MB_frame {
 		padding-bottom: 4px;
-		
+
 		-webkit-border-bottom-left-radius: 4px;
 		-webkit-border-bottom-right-radius: 4px;
 
@@ -106,7 +106,7 @@
 		border-bottom-left-radius: 4px;
 		border-bottom-right-radius: 4px;
 	}
-	
+
 	#MB_content { border-top: 1px solid #F9F9F9; }
 
 	#MB_header {
