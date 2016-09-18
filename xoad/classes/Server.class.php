@@ -146,12 +146,16 @@ class XOAD_Server extends XOAD_Observable
 
 			if (strcasecmp($_GET['xoadCall'], 'true') == 0) {
 
+				/* By Camilo Carromeu at september 17, 2016 - Deprecated code for PHP 7
 				if ( ! isset($GLOBALS['HTTP_RAW_POST_DATA'])) {
 
 					return false;
 				}
 
 				$requestBody = @unserialize($GLOBALS['HTTP_RAW_POST_DATA']);
+				*/
+
+				$requestBody = @unserialize (file_get_contents ("php://input"));
 
 				if ($requestBody == null) {
 
@@ -369,9 +373,9 @@ class XOAD_Server extends XOAD_Observable
 		if (isset($requestBody['eventPost'])) {
 
 			$callbackResponse = array();
-			
+
 			$storage =& XOAD_Events_Storage::getStorage();
-			
+
 			$callbackResponse['status'] = $storage->postEvent($requestBody['event'], $requestBody['className'], $requestBody['sender'], $requestBody['data'], $requestBody['filter']);
 
 			if (XOAD_Server::notifyObservers('dispatchLeave', array('request' => &$requestBody, 'response' => &$callbackResponse))) {
@@ -453,7 +457,7 @@ class XOAD_Server extends XOAD_Observable
 				print XOAD_Client::register($callbackResponse);
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -498,7 +502,7 @@ class XOAD_Server extends XOAD_Observable
 		}
 
 		XOAD_Server::notifyObservers('handleErrorLeave', array('type' => &$type, 'message' => &$message));
-		
+
 		return true;
 	}
 
@@ -532,7 +536,7 @@ class XOAD_Server extends XOAD_Observable
 
 			print XOAD_Client::register($callbackException);
 		}
-		
+
 		return true;
 	}
 

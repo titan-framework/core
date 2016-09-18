@@ -20,13 +20,13 @@ foreach ($control as $key => $var)
 {
 	if (!isset ($array [$key]))
 		throw new Exception (__ ('Error! Data losted.'));
-	
+
 	$$var = $array [$key];
 }
 
 $_doc = new DocumentForm ($_template);
 
-$_doc->load ($_relation, $_id, $_item, $_version);
+$_doc->loadDoc ($_relation, $_id, $_item, $_version);
 
 $aux = array ();
 while ($field = $_doc->getField ())
@@ -38,11 +38,11 @@ $files = array ();
 if (sizeof ($aux))
 {
 	$sql = "SELECT _id, _mimetype FROM _file WHERE _id IN (". implode (",", $aux) .")";
-	
+
 	$sth = Database::singleton ()->prepare ($sql);
-	
+
 	$sth->execute ();
-	
+
 	while ($file = $sth->fetch (PDO::FETCH_OBJ))
 		$files [$file->_id] = $file->_mimetype;
 }
@@ -63,18 +63,18 @@ if (!is_null ($obj->_file) && !is_null ($obj->_hash) && file_exists ($_path))
 {
 	if (md5_file ($_path) != trim ($obj->_hash))
 		throw new Exception (__ ('The file [[1]] was unduly altered or corrupted!', $_path, md5_file ($_path), $obj->_hash));
-	
+
 	$binary = fopen ($_path, 'rb');
-	
+
 	$buffer = fread ($binary, filesize ($_path));
-	
+
 	fclose ($binary);
-	
+
 	header ('Content-Type: application/pdf');
 	header ('Content-Disposition: inline; filename='. fileName ($_label));
-	
+
 	echo $buffer;
-	
+
 	exit ();
 }
 
@@ -103,7 +103,7 @@ try
 catch (PDOException $e)
 {
 	toLog ($e->getMessage ());
-	
+
 	@unlink ($_path);
 }
 

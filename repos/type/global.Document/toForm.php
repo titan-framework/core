@@ -133,7 +133,7 @@ while ($term = $field->getDocument ())
 		{
 			if (!$field->docExists ($obj->_id))
 				continue;
-			
+
 			$valid = FALSE;
 
 			if (!in_array ($obj->_id, $control))

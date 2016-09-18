@@ -3,12 +3,12 @@ $instance = Instance::singleton ();
 
 $file = $instance->getCorePath () . @$_GET ['file'];
 
-$controlMime = array (	'css' 	=> 'text/css', 
-						'txt' 	=> 'text/plain', 
-						'jpg' 	=> 'image/jpeg', 
-						'jpeg' 	=> 'image/pjpeg', 
-						'gif' 	=> 'image/gif', 
-						'png' 	=> 'image/png', 
+$controlMime = array (	'css' 	=> 'text/css',
+						'txt' 	=> 'text/plain',
+						'jpg' 	=> 'image/jpeg',
+						'jpeg' 	=> 'image/pjpeg',
+						'gif' 	=> 'image/gif',
+						'png' 	=> 'image/png',
 						'js' 	=> 'text/javascript',
 						'ico'	=> 'image/x-icon');
 
@@ -35,9 +35,12 @@ if (!$instance->onDebugMode ())
 	header ('Pragma: cache');
 }
 
-$binary	= fopen ($file, 'rb');
+if (filesize ($file))
+{
+	$binary	= fopen ($file, 'rb');
 
-$buffer = fread ($binary, filesize ($file));
+	$buffer = fread ($binary, filesize ($file));
 
-echo $buffer;
+	echo $buffer;
+}
 ?>
