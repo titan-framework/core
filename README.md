@@ -12,7 +12,9 @@ Getting Start
 
 To start using Titan Framework, is strongly recommended create a new instance using [titan-framework/instance](https://github.com/titan-framework/instance).
 
+To deploy a Titan Framework's instance on web server (e.g., to publish in production), you can clone (checkout) last tag of this repository or use [titan-framework/install](https://github.com/titan-framework/install) Composer package.
+
 More Information
 ----------------
 
-Read [Titan Cookbook](document/Cookbook.pdf) (*in portuguese*) is the best way for you to start using it. You can also access our [mailing list](https://groups.google.com/forum/#!forum/titan-framework) to learn advanced features and answer questions.
+Read [Titan Cookbook](https://github.com/titan-framework/docs/raw/master/Cookbook.pdf) (*in portuguese*) is the best way for you to start using it. You can also access our [mailing list](https://groups.google.com/forum/#!forum/titan-framework) to learn advanced features and answer questions.
