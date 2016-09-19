@@ -158,23 +158,31 @@ try
 
 			exec (GIT .' symbolic-ref -q --short HEAD || '. GIT .' describe --tags --exact-match', $out);
 
-			if (is_array ($out) && array_key_exists (0, $out) && trim ($out [0]) == trim ($_tag))
-				echo "INFO > Titan Framework is already updated! \n";
-			else
+			if (is_array ($out) && array_key_exists (0, $out))
 			{
-				exec (GIT .' fetch', $trash);
+				if (trim ($out [0]) == trim ($_tag))
+					echo "INFO > Titan Framework is already updated! \n";
+				else
+				{
+					exec (GIT .' fetch', $trash);
 
-				exec (GIT .' checkout '. $_tag, $trash);
+					exec (GIT .' checkout '. $_tag, $trash);
 
-				$aux = explode ('-', preg_replace ('/[^0-9\.\-]/i', '', $_tag));
+					echo "SUCCESS > Titan Framework [". $_corePath ."] updated to version ". $version ."-". $stable ."! \n";
+				}
 
-				$version = $aux [0];
-				$release = $aux [1];
+				$well = preg_replace ('/[^0-9\.\-]/i', '', $_tag);
 
-				file_put_contents ($_corePath . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'VERSION', $version);
-				file_put_contents ($_corePath . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'STABLE', $release);
+				if ($well != '')
+				{
+					$aux = explode ('-', );
 
-				echo "SUCCESS > Titan Framework [". $_corePath ."] updated to version ". $version ."-". $stable ."! \n";
+					$version = $aux [0];
+					$release = $aux [1];
+
+					@file_put_contents ($_corePath . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'VERSION', $version);
+					@file_put_contents ($_corePath . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'STABLE', $release);
+				}
 			}
 		}
 		catch (Exception $e)
