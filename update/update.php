@@ -143,6 +143,8 @@ try
 	else
 		try
 		{
+			chdir ($_corePath);
+
 			unset ($out);
 
 			exec (GIT .' describe --tags', $out);
