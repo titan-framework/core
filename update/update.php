@@ -661,5 +661,8 @@ catch (Exception $e)
 {
 	echo $e->getMessage () ." \n";
 
-	echo "FINISH > Critical error after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n";
+	if (isset ($_benchmark) && $_benchmark)
+		echo "FINISH > Critical error after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n";
+	else
+		echo "FINISH > Critical error! \n";
 }
