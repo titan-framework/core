@@ -519,6 +519,25 @@ try
 
 			break;
 
+		case 'sResource':
+			if (!isset ($_GET['driver']) || !isset ($_GET['file']) || trim ($_GET['driver']) == '' || trim ($_GET['file']) == '')
+				throw new Exception ('Invalid link!');
+
+			$driver = trim ($_GET['driver']);
+
+			$file = trim ($_GET['file']);
+
+			$social = Social::singleton ();
+
+			if (!$social->socialNetworkExists ($driver))
+				throw new Exception ('Invalid link! Unknown driver.');
+
+			$_file = $social->getSocialNetwork ($driver)->getPath () . '_resource/' . str_replace ('..', '', $file);
+
+			include $corePath .'system/loadResource.php';
+
+			break;
+
 		case 'graph':
 			$instance = Instance::singleton ();
 
