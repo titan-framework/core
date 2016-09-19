@@ -173,10 +173,10 @@ try
 
 				$well = preg_replace ('/[^0-9\.\-]/i', '', $_tag);
 
-				if ($well != '')
-				{
-					$aux = explode ('-', );
+				$aux = explode ('-', $well);
 
+				if (sizeof ($aux) == 2)
+				{
 					$version = $aux [0];
 					$release = $aux [1];
 
