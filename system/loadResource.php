@@ -3,14 +3,17 @@
 if (!isset ($_file) || !file_exists ($_file))
 	throw new Exception ('This file is not available!');
 
-$controlMime = array (	'css' 	=> 'text/css', 
-						'txt' 	=> 'text/plain', 
-						'jpg' 	=> 'image/jpeg', 
-						'jpeg' 	=> 'image/pjpeg', 
-						'gif' 	=> 'image/gif', 
-						'png' 	=> 'image/png', 
-						'js' 	=> 'text/javascript',
-						'ico'	=> 'image/x-icon');
+$controlMime = array (
+	'css' 	=> 'text/css',
+	'txt' 	=> 'text/plain',
+	'jpg' 	=> 'image/jpeg',
+	'jpeg' 	=> 'image/pjpeg',
+	'gif' 	=> 'image/gif',
+	'png' 	=> 'image/png',
+	'js' 	=> 'text/javascript',
+	'ico'	=> 'image/x-icon',
+	'swf'	=> 'application/x-shockwave-flash'
+);
 
 $ext = array_pop (explode ('.', $_file));
 
