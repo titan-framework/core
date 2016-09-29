@@ -24,6 +24,8 @@ require 'git.php';
 
 $_corePath = dirname (dirname (__FILE__));
 
+$_userPath = getcwd ();
+
 require $_corePath . DIRECTORY_SEPARATOR .'class'. DIRECTORY_SEPARATOR .'Xml.php';
 
 set_error_handler ('handleError');
@@ -57,9 +59,9 @@ try
 	try
 	{
 		if (isGit ($_corePath))
-			function updateCoreByGit ($_corePath)
+			updateCoreByGit ($_corePath);
 		elseif (isSvn ($_corePath))
-			function updateCoreBySvn ($_corePath);
+			updateCoreBySvn ($_corePath);
 		else
 			throw new Exception ('Impossible to detect the version control system of Titan\'s CORE. Verify if path ['. $_corePath .'] is a GIT or SVN work copy.');
 	}
@@ -68,30 +70,19 @@ try
 		echo "ERROR > ". $e->getMessage () ." at line ". $e->getLine () ."! \n";
 	}
 
-	$_defaultConf = array (
-		'environment' => '',
-		'svn-login' => '',
-		'svn-password' => '',
-		'svn-users' => '',
-		'backup' => TRUE,
-		'file-mode' => '664',
-		'dir-mode' => '775',
-		'owner' => 'root',
-		'group' => 'staff',
-		'changelog' => 'DEFAULT'
-	);
-
 	for ($i = 1; $i < $argc; $i++)
 	{
+		chdir ($_userPath);
+
 		if (!file_exists ($argv [$i]) || !is_dir ($argv [$i]))
 			continue;
 
-		$_path = realpath ($argv [$i]);
-
-		if (isGit ($_path))
-			updateInstanceByGit ($_path);
-		elseif (isSvn ($_path))
-			updateInstanceBySvn ($_path);
+		$path = realpath ($argv [$i]);
+		
+		if (isGit ($path))
+			updateInstanceByGit ($path);
+		elseif (isSvn ($path))
+			updateInstanceBySvn ($path);
 		else
 			throw new Exception ('Impossible to detect the version control system of instance. Verify if path ['. $_path .'] is a GIT or SVN work copy.');
 	}
@@ -99,9 +90,4 @@ try
 catch (Exception $e)
 {
 	echo $e->getMessage () ." \n";
-
-	if (isset ($_benchmark) && $_benchmark)
-		echo "FINISH > Critical error after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n";
-	else
-		echo "FINISH > Critical error! \n";
 }

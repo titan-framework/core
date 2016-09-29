@@ -78,7 +78,7 @@ function updateCoreByGit ($_path)
 
 	unset ($out);
 
-	exec (GIT .' describe --tags', $out);
+	exec (GIT .' describe --abbrev=0 --tags', $out);
 
 	if (!is_array ($out) || !array_key_exists (0, $out) || preg_replace ('/[^0-9\.\-]/i', '', $out [0]) == '')
 		throw new Exception ("Impossible to get last version of Titan's CORE! Please, verify if Git is installed and the health of CORE's workcopy.");
@@ -89,14 +89,14 @@ function updateCoreByGit ($_path)
 
 	exec (GIT .' fetch --all', $trash);
 
-	exec (GIT .' describe --tags origin/master', $out);
+	exec (GIT .' describe --abbrev=0 --tags origin/master', $out);
 
 	if (is_array ($out) && array_key_exists (0, $out))
 	{
 		$last = trim ($out [0]);
 
 		if ($last == $tag)
-			echo "INFO > Titan Framework is already updated! \n";
+			echo "INFO > Titan Framework is already updated (version ". preg_replace ('/[^0-9\.\-]/i', '', $last) .")! \n";
 		else
 		{
 			exec (GIT .' checkout origin/master', $trash);
@@ -119,8 +119,8 @@ function updateCoreByGit ($_path)
 			$version = $aux [0];
 			$release = $aux [1];
 
-			@file_put_contents ($_path . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'VERSION', $version);
-			@file_put_contents ($_path . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'STABLE', $release);
+			file_put_contents ($_path . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'VERSION', $version);
+			file_put_contents ($_path . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'STABLE', $release);
 		}
 	}
 }

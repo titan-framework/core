@@ -373,7 +373,7 @@ function updateInstanceByGit ($_path)
 
 function gitRollBack ($version)
 {
-	exec (GIT .' stash', $trash)
+	exec (GIT .' stash', $trash);
 
 	exec (GIT .' checkout '. $version, $trash);
 
