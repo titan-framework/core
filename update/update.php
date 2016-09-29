@@ -68,6 +68,19 @@ try
 		echo "ERROR > ". $e->getMessage () ." at line ". $e->getLine () ."! \n";
 	}
 
+	$_defaultConf = array (
+		'environment' => '',
+		'svn-login' => '',
+		'svn-password' => '',
+		'svn-users' => '',
+		'backup' => TRUE,
+		'file-mode' => '664',
+		'dir-mode' => '775',
+		'owner' => 'root',
+		'group' => 'staff',
+		'changelog' => 'DEFAULT'
+	);
+
 	for ($i = 1; $i < $argc; $i++)
 	{
 		if (!file_exists ($argv [$i]) || !is_dir ($argv [$i]))
