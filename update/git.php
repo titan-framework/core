@@ -197,12 +197,14 @@ function updateInstanceByGit ($_path)
 
 		echo "SUCCESS > Application folder updated to version [". $_last ."]! \n";
 
+		unset ($out);
+
 		exec (GIT ." log -1 --format='%ai#%an' ". $_last, $out);
 
 		$_authorRevision = '';
 		$_dateRevision   = time ();
 
-		if (!is_array ($out) || !array_key_exists (0, $out))
+		if (is_array ($out) && array_key_exists (0, $out))
 		{
 			$aux = explode ('#', trim ($out [0]));
 
@@ -334,7 +336,7 @@ function updateInstanceByGit ($_path)
 
 		echo "FINISH > All done with SUCCESS after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n\n";
 
-		$subject = "[". $_xml ['name'] ." at server ". php_uname ('n') ."] Successful updated to revision #". $_revertRevision ." at ". date ('Y-m-d H:i:s');
+		$subject = "[". $_xml ['name'] ." at server ". php_uname ('n') ."] Successful updated to version ". preg_replace ('/[^0-9\.\-]/i', '', $_last) ." at ". date ('Y-m-d H:i:s');
 
 		$buffer = ob_get_clean ();
 
