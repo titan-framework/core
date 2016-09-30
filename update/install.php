@@ -165,14 +165,17 @@
 		'changelog' => 'DEFAULT'
 	);
 
-	foreach ($_defaultConf as $key => $value)
-		if (array_key_exists ($key, $_xml ['update'][0]) && trim ($_xml ['update'][0][$key]) != '')
-			if (is_bool ($value))
-				$_conf [$key] = strtoupper (trim ($_xml ['update'][0][$key])) == 'FALSE' ? FALSE : TRUE;
+	if (array_key_exists ('update', $_xml))
+	{
+		foreach ($_defaultConf as $key => $value)
+			if (array_key_exists ($key, $_xml ['update'][0]) && trim ($_xml ['update'][0][$key]) != '')
+				if (is_bool ($value))
+					$_conf [$key] = strtoupper (trim ($_xml ['update'][0][$key])) == 'FALSE' ? FALSE : TRUE;
+				else
+					$_conf [$key] = trim ($_xml ['update'][0][$key]);
 			else
-				$_conf [$key] = trim ($_xml ['update'][0][$key]);
-		else
-			$_conf [$key] = $value;
+				$_conf [$key] = $value;
+	}
 
 	if (!is_numeric ($_conf ['file-mode']) || strlen ($_conf ['file-mode']) != 3 || !is_numeric ($_conf ['dir-mode']) || strlen ($_conf ['dir-mode']) != 3)
 		throw new Exception ("[ERROR] You need fix file and folder permissions that will be setted on 'titan.xml' (e.g. 664 and 775)!");
