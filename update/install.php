@@ -186,7 +186,7 @@
 
 	setPermission ($_path, $_conf ['dir-mode'], $_conf ['file-mode'], $_conf ['owner'], $_conf ['group']);
 
-	echo "[INFO] Permission setted recursively to work copy [". $_path ."]!";
+	echo "[INFO] Permission setted recursively to work copy [". $_path ."]! \n\n";
 
 	/*
 	 * Connecting to DB
@@ -223,6 +223,8 @@
 			$dsn = str_replace ('  ', ' ', $dsn);
 
 		$params = explode (' ', substr ($dsn, 6));
+
+		$dbUser = $dbPass = $dbName = $dbPort = $dbHost = '';
 
 		foreach ($params as $trash => $param)
 		{
