@@ -269,7 +269,7 @@
 
 			if (!`su - postgres -c "psql -tAc \"SELECT 1 FROM pg_roles WHERE rolname = '$dbUser';\""`)
 			{
-				exec ('su - postgres -c "createuser -E '. $dbUser .'"', $trash);
+				exec ('su - postgres -c "psql -c \"CREATE ROLE '. $dbUser .' WITH ENCRYPTED PASSWORD \''. $dbPass .'\';\""', $trash);
 
 				exec ('su - postgres -c "createdb -E utf8 -O '. $dbUser .' -T template0 '. $dbName .'"', $trash);
 
