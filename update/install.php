@@ -52,7 +52,7 @@
 
 	if ($argc < 4)
 		throw new Exception ("[ERROR] The correct formart of command is:\nphp path/to/core/update/install.php git@your.git.host.com:group/repository.git path/where/will/install/instance branch-name");
-	
+
 	$_repos = trim ($argv [1]);
 
 	$_branch = trim ($argv [3]);
@@ -142,7 +142,7 @@
 
 	exec ('mkdir -p '. $_xml ['archive'][0]['data-path'], $trash);
 
-	$_defaultConf = array (
+	$_conf = array (
 		'environment' => '',
 		'svn-login' => '',
 		'svn-password' => '',
@@ -157,14 +157,14 @@
 
 	if (array_key_exists ('update', $_xml))
 	{
-		foreach ($_defaultConf as $key => $value)
+		foreach ($_conf as $key => $value)
 			if (array_key_exists ($key, $_xml ['update'][0]) && trim ($_xml ['update'][0][$key]) != '')
+			{
 				if (is_bool ($value))
 					$_conf [$key] = strtoupper (trim ($_xml ['update'][0][$key])) == 'FALSE' ? FALSE : TRUE;
 				else
 					$_conf [$key] = trim ($_xml ['update'][0][$key]);
-			else
-				$_conf [$key] = $value;
+			}
 	}
 
 	if (!is_numeric ($_conf ['file-mode']) || strlen ($_conf ['file-mode']) != 3 || !is_numeric ($_conf ['dir-mode']) || strlen ($_conf ['dir-mode']) != 3)
