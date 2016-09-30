@@ -224,7 +224,10 @@
 
 		$params = explode (' ', substr ($dsn, 6));
 
-		$dbUser = $dbPass = $dbName = $dbPort = $dbHost = '';
+		$dbUser = $dbPass = $dbName = '';
+
+		$dbHost = 'localhost';
+		$dbPort = '5432';
 
 		foreach ($params as $trash => $param)
 		{
@@ -255,8 +258,6 @@
 		}
 	}
 
-	$_loadDB = FALSE;
-
 	if (in_array ($dbHost, array ('localhost', '127.0.0.1', '::1')) && !`su - postgres -c "psql -tAc \"SELECT 1 FROM pg_database where datname = '$dbName';\""`)
 	{
 		echo "\n";
@@ -271,11 +272,13 @@
 
 			if (!`su - postgres -c "psql -tAc \"SELECT 1 FROM pg_roles WHERE rolname = '$dbUser';\""`)
 			{
-				exec ('su - postgres -c "psql -c \"CREATE ROLE '. $dbUser .' WITH ENCRYPTED PASSWORD \''. $dbPass .'\';\""', $trash);
+				exec ('su - postgres -c "psql -c \"CREATE ROLE '. $dbUser .' WITH LOGIN ENCRYPTED PASSWORD \''. $dbPass .'\';\""', $trash);
 
 				exec ('su - postgres -c "createdb -E utf8 -O '. $dbUser .' -T template0 '. $dbName .'"', $trash);
 
-				$_loadDB = TRUE;
+				exec ('su - postgres -c "psql -d '. $dbName .' -c \"CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;\""', $trash);
+
+				exec ('su - postgres -c "psql -d '. $dbName .' -U '. $dbUser .' < '. $_path . DIRECTORY_SEPARATOR .'db'. DIRECTORY_SEPARATOR .'last.sql"', $trash);
 			}
 		}
 	}
@@ -286,9 +289,6 @@
 
 	if (isset ($_xml ['timezone']) && trim ($_xml ['timezone']) != '')
 		$_db->exec ("SET timezone TO '". trim ($_xml ['timezone']) ."'");
-
-	if ($_loadDB)
-		$_db->exec (file_get_contents ('db'. DIRECTORY_SEPARATOR .'last.sql'));
 
 	$schema = isset ($_xml ['database'][0]['schema']) && trim ($_xml ['database'][0]['schema']) != '' ? trim ($_xml ['database'][0]['schema']) : 'public';
 
@@ -360,6 +360,8 @@
 				else
 					echo "[SUCCESS] Migration file [". $_pathToMigrationFiles . $file .".sql] deleted! \n\n";
 			}
+
+			$_sthUpdateVersion = $_db->prepare ("INSERT INTO ". $_versionTable ." (_version, _author) VALUES (:version, :author)");
 
 			$_sthUpdateVersion->bindParam (':version', $file, PDO::PARAM_STR, 14);
 			$_sthUpdateVersion->bindParam (':author', $_authorRevision, PDO::PARAM_STR, 64);
