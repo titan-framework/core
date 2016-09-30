@@ -446,7 +446,7 @@ function updateInstanceBySvn ($_path)
 
 		echo "FINISH > All done with SUCCESS after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n\n";
 
-		printChangelog ($_conf ['changelog'], $_path, $_initialRevision, $_revertRevision, $titanUpdateLog);
+		// printChangelog ($_conf ['changelog'], $_path, $_initialRevision, $_revertRevision, $titanUpdateLog);
 
 		$subject = "[". $_xml ['name'] ." at server ". php_uname ('n') ."] Successful updated to revision #". $_revertRevision ." at ". date ('Y-m-d H:i:s');
 
