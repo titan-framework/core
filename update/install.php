@@ -52,17 +52,7 @@
 
 	if ($argc < 4)
 		throw new Exception ("[ERROR] The correct formart of command is:\nphp path/to/core/update/install.php git@your.git.host.com:group/repository.git path/where/will/install/instance branch-name");
-
-	echo "Before continue, You need to create and load a PostgreSQL database with a first version of data and structure. \n";
-	echo "The database will be automatically updated to last version. Continue? (yes/no): ";
-
-	$handle = fopen ('php://stdin', 'r');
-
-	$input = fgets ($handle);
-
-	if (trim (strtolower ($input)) != 'yes')
-		throw new Exception ('Installation proccess stoped by user!');
-
+	
 	$_repos = trim ($argv [1]);
 
 	$_branch = trim ($argv [3]);
