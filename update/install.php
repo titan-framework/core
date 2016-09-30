@@ -204,31 +204,84 @@
 
 	$_xml ['database'][0]['port'] = isset ($_xml ['database'][0]['port']) && is_numeric ($_xml ['database'][0]['port']) ? trim ($_xml ['database'][0]['port']) : '5432';
 
-	if (!in_array ($_xml ['database'][0]['host'], array ('localhost', '127.0.0.1', '::1')) || PHP_OS != 'Linux')
+	if (!in_array ($_xml ['database'][0]['host'], array ('localhost', '127.0.0.1', '::1')))
 		$dsn = 'pgsql:host='. $_xml ['database'][0]['host'] .' port='. $_xml ['database'][0]['port'] .' dbname='. $_xml ['database'][0]['name'] .' user='. @$_xml ['database'][0]['user'] .' password='. @$_xml ['database'][0]['password'];
 	else
 		$dsn = 'pgsql:dbname='. $_xml ['database'][0]['name'] .' user='. @$_xml ['database'][0]['user'] .' password='. @$_xml ['database'][0]['password'];
 
-	$dbUser = @$_xml ['database'][0]['user'];
-	$dbPass = @$_xml ['database'][0]['password'];
-
-	echo "To connect on database, the bottom DSN will be used. Please, verify and press ENTER if is correct. If not, enter with correct DSN bellow: \n";
+	echo "To connect on database, the bottom DSN will be used. Please, verify and press ENTER if is correct. If not, enter with correct DSN bellow... \n";
 	echo "Use '". $dsn ."' or type a alternative: \n";
 
 	$input = fgets (fopen ('php://stdin', 'r'));
 
-	if (trim ($input) != '')
+	if (trim ($input) == '')
+	{
+		$dbUser = @$_xml ['database'][0]['user'];
+		$dbPass = @$_xml ['database'][0]['password'];
+		$dbName = @$_xml ['database'][0]['name'];
+		$dbPort = @$_xml ['database'][0]['port'];
+		$dbHost = @$_xml ['database'][0]['host'];
+	}
+	else
 	{
 		$dsn = trim ($input);
 
-		$params = explode (' ', $dsn);
+		while (strpos ($dsn, '  ') !== FALSE)
+			$dsn = str_replace ('  ', ' ', $dsn);
+
+		$params = explode (' ', substr ($dsn, 6));
 
 		foreach ($params as $trash => $param)
 		{
-			if (strpos (trim ($param), 'user=') === 0)
-				$dbUser = substr ($param, 5);
-			elseif (strpos (trim ($param), 'password=') === 0)
-				$dbPass = strlen (trim ($param)) > 9 ? substr ($param, 9) : '';
+			$aux = explode ('=', $param);
+
+			switch ($aux [0])
+			{
+				case 'user':
+					$dbUser = $aux [1];
+					break;
+
+				case 'password':
+					$dbPass = $aux [1];
+					break;
+
+				case 'host':
+					$dbHost = $aux [1];
+					break;
+
+				case 'port':
+					$dbPort = $aux [1];
+					break;
+
+				case 'dbname':
+					$dbName = $aux [1];
+					break;
+			}
+		}
+	}
+
+	$_loadDB = FALSE;
+
+	if (in_array ($dbHost, array ('localhost', '127.0.0.1', '::1')) && !`su - postgres -c "psql -tAc \"SELECT 1 FROM pg_database where datname = '$dbName';\""`)
+	{
+		echo "\n";
+		echo "Do not exists a database named '$dbName' in this server. You want to create it? (yes/no): ";
+
+		$input = fgets (fopen ('php://stdin', 'r'));
+
+		if (trim ($input) == 'yes')
+		{
+			if (!file_exists ('db'. DIRECTORY_SEPARATOR .'last.sql'))
+				throw new Exception ("[CRITICAL] To install instance is necessary a project with standard folder structure. Thus, is needed a DUMP of initial database data and structure in file [". $_path ."/db/last.sql], but this file does not exists!");
+
+			if (!`su - postgres -c "psql -tAc \"SELECT 1 FROM pg_roles WHERE rolname = '$dbUser';\""`)
+			{
+				exec ('su - postgres -c "createuser -E '. $dbUser .'"', $trash);
+
+				exec ('su - postgres -c "createdb -E utf8 -O '. $dbUser .' -T template0 '. $dbName .'"', $trash);
+
+				$_loadDB = TRUE;
+			}
 		}
 	}
 
@@ -238,6 +291,9 @@
 
 	if (isset ($_xml ['timezone']) && trim ($_xml ['timezone']) != '')
 		$_db->exec ("SET timezone TO '". trim ($_xml ['timezone']) ."'");
+
+	if ($_loadDB)
+		$_db->exec (file_get_contents ('db'. DIRECTORY_SEPARATOR .'last.sql'));
 
 	$schema = isset ($_xml ['database'][0]['schema']) && trim ($_xml ['database'][0]['schema']) != '' ? trim ($_xml ['database'][0]['schema']) : 'public';
 
