@@ -295,15 +295,13 @@
 				throw new Exception ("[CRITICAL] To install instance is necessary a project with standard folder structure. Thus, is needed a DUMP of initial database data and structure in file [". $_path ."/db/last.sql], but this file does not exists!");
 
 			if (!`su - postgres -c "psql -tAc \"SELECT 1 FROM pg_roles WHERE rolname = '$dbUser';\""`)
-			{
 				exec ('su - postgres -c "psql -c \"CREATE ROLE '. $dbUser .' WITH LOGIN ENCRYPTED PASSWORD \''. $dbPass .'\';\""', $trash);
 
-				exec ('su - postgres -c "createdb -E utf8 -O '. $dbUser .' -T template0 '. $dbName .'"', $trash);
+			exec ('su - postgres -c "createdb -E utf8 -O '. $dbUser .' -T template0 '. $dbName .'"', $trash);
 
-				exec ('su - postgres -c "psql -d '. $dbName .' -c \"CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;\""', $trash);
+			exec ('su - postgres -c "psql -d '. $dbName .' -c \"CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;\""', $trash);
 
-				exec ('su - postgres -c "psql -d '. $dbName .' -U '. $dbUser .' < '. $_path . DIRECTORY_SEPARATOR .'db'. DIRECTORY_SEPARATOR .'last.sql"', $trash);
-			}
+			exec ('su - postgres -c "psql -d '. $dbName .' -U '. $dbUser .' < '. $_path . DIRECTORY_SEPARATOR .'db'. DIRECTORY_SEPARATOR .'last.sql"', $trash);
 		}
 	}
 
