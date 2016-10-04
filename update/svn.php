@@ -208,7 +208,7 @@ function updateInstanceBySvn ($_path)
 		}
 
 		if ($_actualRevision >= $_headRevision)
-			throw new Exception ("INFO > File of path [". $_pathToFileOfPaths ."] is in head revision. Update is not necessary! \n");
+			throw new Exception ("INFO > File of path [". $_pathToFileOfPaths ."] is in head revision. Update is not necessary!");
 
 		/*
 		 * After this point, all erros are send by mail.
@@ -466,7 +466,7 @@ function updateInstanceBySvn ($_path)
 	{
 		echo $e->getMessage () ."\n";
 
-		echo "FINISH > Stopped with ERROR after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n\n";
+		echo "FINISH > Stopped after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n\n";
 
 		// TODO: Send log if error occurs.
 		// if (isset ($_path) && isset ($_conf ['changelog']) && isset ($_initialRevision) && isset ($_revertRevision))

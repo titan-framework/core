@@ -166,7 +166,7 @@ function updateInstanceByGit ($_path)
 		$_last = trim ($out [0]);
 
 		if ($_last == $_actual)
-			throw new Exception ("INFO > Work copy in same version of remote repository [". $_last ."]. Update is not necessary! \n");
+			throw new Exception ("INFO > Work copy in same version of remote repository [". $_last ."]. Update is not necessary!");
 
 		/*
 		 * After this point, all erros are send by mail.

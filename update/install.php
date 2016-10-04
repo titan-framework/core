@@ -325,80 +325,83 @@
 
 	$_pathToMigrationFiles = 'update'. DIRECTORY_SEPARATOR .'db'. DIRECTORY_SEPARATOR;
 
-	$query = $_db->query ("SELECT MAX(_version) AS v FROM ". $_versionTable);
-
-	$version = (int) $query->fetchColumn (0);
-
-	$dh = opendir ($_pathToMigrationFiles);
-
-	if (!$dh)
-		throw new Exception ("[CRITICAL] Fail to list migration folder [". $_pathToMigrationFiles ."]!");
-
-	$files = array ();
-
-	while (($file = readdir ($dh)) !== false)
+	if (file_exists ($_pathToMigrationFiles) && is_dir ($_pathToMigrationFiles))
 	{
-		preg_match ('/^(?P<v>\d{14})\.sql/', $file, $m);
+		$query = $_db->query ("SELECT MAX(_version) AS v FROM ". $_versionTable);
 
-		if (!is_array ($m) || !isset ($m ['v']))
-			continue;
+		$version = (int) $query->fetchColumn (0);
 
-		if ($version < (int) $m ['v'])
-			$files [] = $m ['v'];
-	}
+		$dh = opendir ($_pathToMigrationFiles);
 
-	closedir ($dh);
+		if (!$dh)
+			throw new Exception ("[CRITICAL] Fail to list migration folder [". $_pathToMigrationFiles ."]!");
 
-	echo "[INFO] Has ". sizeof ($files) ." new versions to be applied in DB... \n";
+		$files = array ();
 
-	if (sizeof ($files))
-	{
-		sort ($files);
-
-		reset ($files);
-
-		try
+		while (($file = readdir ($dh)) !== false)
 		{
-			$_db->beginTransaction ();
+			preg_match ('/^(?P<v>\d{14})\.sql/', $file, $m);
 
-			foreach ($files as $trash => $file)
-			{
-				echo "[INFO] Updating specific migration file to head revision [". $_pathToMigrationFiles . $file .".sql]... \n";
+			if (!is_array ($m) || !isset ($m ['v']))
+				continue;
 
-				system (GIT .' checkout origin/'. $_branch .' -- '. $_pathToMigrationFiles . $file .'.sql', $return);
-
-				if ($return)
-					throw new PDOException ("[CRITICAL] Fail to update specifc migration file [". $_pathToMigrationFiles . $file .".sql] to head revision!");
-
-				if (file_exists ($_pathToMigrationFiles . $file .'.sql'))
-				{
-					echo "[SUCCESS] Migration file [". $_pathToMigrationFiles . $file .".sql] updated to head revision! \n";
-
-					$sql = file_get_contents ($_pathToMigrationFiles . $file .'.sql');
-
-					if (trim ($sql) != '')
-						$_db->exec ($sql);
-				}
-				else
-					echo "[SUCCESS] Migration file [". $_pathToMigrationFiles . $file .".sql] deleted! \n\n";
-			}
-
-			$_sthUpdateVersion = $_db->prepare ("INSERT INTO ". $_versionTable ." (_version, _author) VALUES (:version, :author)");
-
-			$_sthUpdateVersion->bindParam (':version', $file, PDO::PARAM_STR, 14);
-			$_sthUpdateVersion->bindParam (':author', $_authorRevision, PDO::PARAM_STR, 64);
-
-			$_sthUpdateVersion->execute ();
-
-			$_db->commit ();
-
-			echo "[SUCCESS] DB is now in version [". $file ."]! \n\n";
+			if ($version < (int) $m ['v'])
+				$files [] = $m ['v'];
 		}
-		catch (PDOException $e)
-		{
-			$_db->rollBack ();
 
-			throw new Exception ("[CRITICAL] Error for apply SQL in DB [". $_pathToMigrationFiles . $file .".sql]: ". $e->getMessage ());
+		closedir ($dh);
+
+		echo "[INFO] Has ". sizeof ($files) ." new versions to be applied in DB... \n";
+
+		if (sizeof ($files))
+		{
+			sort ($files);
+
+			reset ($files);
+
+			try
+			{
+				$_db->beginTransaction ();
+
+				foreach ($files as $trash => $file)
+				{
+					echo "[INFO] Updating specific migration file to head revision [". $_pathToMigrationFiles . $file .".sql]... \n";
+
+					system (GIT .' checkout origin/'. $_branch .' -- '. $_pathToMigrationFiles . $file .'.sql', $return);
+
+					if ($return)
+						throw new PDOException ("[CRITICAL] Fail to update specifc migration file [". $_pathToMigrationFiles . $file .".sql] to head revision!");
+
+					if (file_exists ($_pathToMigrationFiles . $file .'.sql'))
+					{
+						echo "[SUCCESS] Migration file [". $_pathToMigrationFiles . $file .".sql] updated to head revision! \n";
+
+						$sql = file_get_contents ($_pathToMigrationFiles . $file .'.sql');
+
+						if (trim ($sql) != '')
+							$_db->exec ($sql);
+					}
+					else
+						echo "[SUCCESS] Migration file [". $_pathToMigrationFiles . $file .".sql] deleted! \n\n";
+				}
+
+				$_sthUpdateVersion = $_db->prepare ("INSERT INTO ". $_versionTable ." (_version, _author) VALUES (:version, :author)");
+
+				$_sthUpdateVersion->bindParam (':version', $file, PDO::PARAM_STR, 14);
+				$_sthUpdateVersion->bindParam (':author', $_authorRevision, PDO::PARAM_STR, 64);
+
+				$_sthUpdateVersion->execute ();
+
+				$_db->commit ();
+
+				echo "[SUCCESS] DB is now in version [". $file ."]! \n\n";
+			}
+			catch (PDOException $e)
+			{
+				$_db->rollBack ();
+
+				throw new Exception ("[CRITICAL] Error for apply SQL in DB [". $_pathToMigrationFiles . $file .".sql]: ". $e->getMessage ());
+			}
 		}
 	}
 
