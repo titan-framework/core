@@ -58,7 +58,7 @@
 	$_branch = trim ($argv [3]);
 
 	if (!file_exists ($argv [2]) || !is_dir ($argv [2]))
-		exec ('mkdir -p '. $argv [2], $trash);
+		exec ('mkdir -p '. $argv [2]);
 
 	$_path = realpath ($argv [2]);
 
@@ -66,11 +66,11 @@
 	 * Cloning repos in last tag
 	 */
 
-	exec (GIT .' clone --branch '. $_branch .' '. $_repos .' '. $_path, $trash);
+	exec (GIT .' clone --branch '. $_branch .' '. $_repos .' '. $_path);
 
 	chdir ($_path);
 
-	exec (GIT .' fetch --all', $trash);
+	exec (GIT .' fetch --all');
 
 	exec (GIT .' describe --abbrev=0 --tags origin/'. $_branch, $out);
 
@@ -79,11 +79,11 @@
 
 	$_last = trim ($out [0]);
 
-	exec (GIT .' checkout origin/'. $_branch, $trash);
+	exec (GIT .' checkout origin/'. $_branch);
 
-	exec (GIT .' pull origin '. $_branch, $trash);
+	exec (GIT .' pull origin '. $_branch);
 
-	exec (GIT .' checkout '. $_last, $trash);
+	exec (GIT .' checkout '. $_last);
 
 	echo "[SUCCESS] Work copy created at [". $_path ."] with last version of repository [". $_last ."]! \n\n";
 
@@ -135,14 +135,14 @@
 	if (!isset ($_xml ['cache-path']) || trim ($_xml ['cache-path']) == '')
  		throw new Exception ("[ERROR] You need set a cache folder on tag 'titan-configuration' of 'titan.xml'!");
 
-	exec ('mkdir -p '. $_xml ['cache-path'], $trash);
+	exec ('mkdir -p '. $_xml ['cache-path']);
 
 	$_cache = realpath ($_xml ['cache-path']);
 
 	if (!isset ($_xml ['archive'][0]['data-path']) || trim ($_xml ['archive'][0]['data-path']) == '')
  		throw new Exception ("[ERROR] You need set a folder to file upload on tag 'archive' of 'titan.xml'!");
 
-	exec ('mkdir -p '. $_xml ['archive'][0]['data-path'], $trash);
+	exec ('mkdir -p '. $_xml ['archive'][0]['data-path']);
 
 	$_conf = array (
 		'environment' => '',
@@ -178,7 +178,7 @@
 	if ($_conf ['backup'] && (!isset ($_xml ['backup'][0]['path']) || trim ($_xml ['backup'][0]['path']) == '' || !isset ($_xml ['backup'][0]['validity']) || !is_numeric ($_xml ['backup'][0]['validity'])))
 		throw new Exception ("[ERROR] You need fix backup parameters on tag 'backup' of 'titan.xml'!");
 
-	exec ('mkdir -p '. $_xml ['backup'][0]['path'], $trash);
+	exec ('mkdir -p '. $_xml ['backup'][0]['path']);
 
 	$_conf ['changelog'] = strtoupper ($_conf ['changelog']);
 
@@ -295,13 +295,13 @@
 				throw new Exception ("[CRITICAL] To install instance is necessary a project with standard folder structure. Thus, is needed a DUMP of initial database data and structure in file [". $_path ."/db/last.sql], but this file does not exists!");
 
 			if (!`su - postgres -c "psql -tAc \"SELECT 1 FROM pg_roles WHERE rolname = '$dbUser';\""`)
-				exec ('su - postgres -c "psql -c \"CREATE ROLE '. $dbUser .' WITH LOGIN ENCRYPTED PASSWORD \''. $dbPass .'\';\""', $trash);
+				exec ('su - postgres -c "psql -c \"CREATE ROLE '. $dbUser .' WITH LOGIN ENCRYPTED PASSWORD \''. $dbPass .'\';\""');
 
-			exec ('su - postgres -c "createdb -E utf8 -O '. $dbUser .' -T template0 '. $dbName .'"', $trash);
+			exec ('su - postgres -c "createdb -E utf8 -O '. $dbUser .' -T template0 '. $dbName .'"');
 
-			exec ('su - postgres -c "psql -d '. $dbName .' -c \"CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;\""', $trash);
+			exec ('su - postgres -c "psql -d '. $dbName .' -c \"CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;\""');
 
-			exec ('su - postgres -c "psql -d '. $dbName .' -U '. $dbUser .' < '. $_path . DIRECTORY_SEPARATOR .'db'. DIRECTORY_SEPARATOR .'last.sql"', $trash);
+			exec ('su - postgres -c "psql -d '. $dbName .' -U '. $dbUser .' < '. $_path . DIRECTORY_SEPARATOR .'db'. DIRECTORY_SEPARATOR .'last.sql"');
 		}
 	}
 

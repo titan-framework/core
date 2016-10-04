@@ -87,7 +87,7 @@ function updateCoreByGit ($_path)
 
 	unset ($out);
 
-	exec (GIT .' fetch --all', $trash);
+	exec (GIT .' fetch --all');
 
 	exec (GIT .' describe --abbrev=0 --tags origin/master', $out);
 
@@ -99,11 +99,15 @@ function updateCoreByGit ($_path)
 			echo "INFO > Titan Framework is already updated (version ". preg_replace ('/[^0-9\.\-]/i', '', $last) .")! \n";
 		else
 		{
-			exec (GIT .' checkout origin/master', $trash);
+			exec (GIT .' stash');
 
-			exec (GIT .' pull origin master', $trash);
+			exec (GIT .' checkout origin/master');
 
-			exec (GIT .' checkout '. $last, $trash);
+			exec (GIT .' pull origin master');
+
+			exec (GIT .' checkout '. $last);
+
+			exec (GIT .' checkout stash -- .');
 
 			setPermission ($_path, octdec ('0775'), octdec ('0664'), 'root', 'staff');
 

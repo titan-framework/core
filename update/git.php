@@ -135,11 +135,11 @@ function updateInstanceByGit ($_path)
 		$_folder = getcwd () . DIRECTORY_SEPARATOR;
 
 		if (array_key_exists ('e-mail', $_xml) && trim ($_xml ['e-mail']) != '')
-			exec (GIT .' config user.email "'. $_xml ['e-mail'] .'"', $trash);
+			exec (GIT .' config user.email "'. $_xml ['e-mail'] .'"');
 		else
-			exec (GIT .' config user.email "auto-deploy@titanframework.com"', $trash);
+			exec (GIT .' config user.email "auto-deploy@titanframework.com"');
 
-		exec (GIT .' config user.name "Titan Auto-Deploy Script"', $trash);
+		exec (GIT .' config user.name "Titan Auto-Deploy Script"');
 
 		/*
 		 * Getting local TAG
@@ -156,7 +156,7 @@ function updateInstanceByGit ($_path)
 		/*
 		 * Getting last TAG on remote repository
 		 */
-		exec (GIT .' fetch --all', $trash);
+		exec (GIT .' fetch --all');
 
 		exec (GIT .' describe --abbrev=0 --tags origin/'. $_branch, $out);
 
@@ -181,15 +181,15 @@ function updateInstanceByGit ($_path)
 
 		echo "INFO > Updating application files... \n";
 
-		exec (GIT .' stash', $trash);
+		exec (GIT .' stash');
 
-		exec (GIT .' checkout origin/'. $_branch, $trash);
+		exec (GIT .' checkout origin/'. $_branch);
 
-		exec (GIT .' pull origin '. $_branch, $trash);
+		exec (GIT .' pull origin '. $_branch);
 
-		exec (GIT .' checkout '. $_last, $trash);
+		exec (GIT .' checkout '. $_last);
 
-		exec (GIT .' checkout stash -- .', $trash);
+		exec (GIT .' checkout stash -- .');
 
 		setPermission ($_path, $_conf ['dir-mode'], $_conf ['file-mode'], $_conf ['owner'], $_conf ['group']);
 
@@ -375,9 +375,9 @@ function updateInstanceByGit ($_path)
 
 function gitRollBack ($version)
 {
-	exec (GIT .' stash', $trash);
+	exec (GIT .' stash');
 
-	exec (GIT .' checkout '. $version, $trash);
+	exec (GIT .' checkout '. $version);
 
-	exec (GIT .' checkout stash -- .', $trash);
+	exec (GIT .' checkout stash -- .');
 }
