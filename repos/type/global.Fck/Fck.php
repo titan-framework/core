@@ -6,6 +6,8 @@ class Fck extends Phrase
 
 	protected $ownerOnly = FALSE;
 
+	protected $embeddedImages = FALSE;
+
 	public function __construct ($table, $field)
 	{
 		parent::__construct ($table, $field);
@@ -21,6 +23,9 @@ class Fck extends Phrase
 
 		if (array_key_exists ('public', $field))
 			$this->setPublic (strtoupper (trim ($field ['public'])) == 'TRUE' ? TRUE : FALSE);
+
+		if (array_key_exists ('embedded-images', $field))
+			$this->setEmbeddedImages (strtoupper (trim ($field ['embedded-images'])) == 'TRUE' ? TRUE : FALSE);
 	}
 
 	public function setPublic ($public)
@@ -31,6 +36,16 @@ class Fck extends Phrase
 	public function isPublic ()
 	{
 		return $this->public;
+	}
+
+	public function setEmbeddedImages ($embeddedImages)
+	{
+		$this->embeddedImages = (bool) $embeddedImages;
+	}
+
+	public function useEmbeddedImages ()
+	{
+		return $this->embeddedImages;
 	}
 
 	public function setOwnerOnly ($ownerOnly)
