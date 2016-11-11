@@ -1,5 +1,5 @@
 <?php
-if (strpos ($field->getValue (), $field->getPrefix ()) !== 0)
+if ($field->getPrefix () != '' && strpos ($field->getValue (), $field->getPrefix ()) !== 0)
 	$value = $field->getPrefix () . $field->getValue ();
 else
 	$value = $field->getValue ();
