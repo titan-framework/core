@@ -556,3 +556,6 @@ header ('Content-Encoding: gzip');
 		</script>
 	</body>
 </html>
+<?php
+if (!AnonymousUsageData::alreadySentToday ())
+	(new AnonymousUsageData ())->send ();
