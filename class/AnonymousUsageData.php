@@ -74,7 +74,11 @@ class AnonymousUsageData
 		if (file_exists ($path) && is_readable ($path))
 			$version = trim (file_get_contents ($path, 0, NULL, 0, 16));
 
-		$this->params ['migration'] = (string) Database::singleton ()->query ("SELECT MAX(_version) FROM _version")->fetchColumn ();
+		$migration = '';
+		if (Database::tableExists ('_version'))
+			$migration = (string) Database::singleton ()->query ("SELECT MAX(_version) FROM _version")->fetchColumn ();
+
+		$this->params ['migration'] = $migration;
 		$this->params ['version'] = $version .'-'. $release ['version'];
 		$this->params ['environment'] = $release ['environment'];
 		$this->params ['date'] = (int) $release ['date'];
