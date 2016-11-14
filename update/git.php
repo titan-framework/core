@@ -189,11 +189,21 @@ function updateInstanceByGit ($_path)
 
 		exec (GIT .' checkout '. $_last);
 
-		exec (GIT .' checkout stash -- .');
+		exec (GIT .' stash apply');
 
-		setPermission ($_path, $_conf ['dir-mode'], $_conf ['file-mode'], $_conf ['owner'], $_conf ['group']);
+		unset ($out);
 
-		echo "INFO > Permission setted recursively to folder! \n";
+		exec (GIT .' diff --name-only '. $_last .' '. $_actual, $out);
+
+		if (is_array ($out) && sizeof ($out))
+			foreach ($out as $trash => $file)
+			{
+				echo "INFO > Setting permission to file [". $file ."]... \n";
+
+				setPermission ($file, $_conf ['dir-mode'], $_conf ['file-mode'], $_conf ['owner'], $_conf ['group']);
+			}
+
+		echo "INFO > Permission setted to modified files! \n";
 
 		echo "SUCCESS > Application folder updated to version [". $_last ."]! \n";
 
@@ -259,8 +269,6 @@ function updateInstanceByGit ($_path)
 
 					gitRollBack ($_actual);
 
-					setPermission ($_path, $_conf ['dir-mode'], $_conf ['file-mode'], $_conf ['owner'], $_conf ['group']);
-
 					throw new Exception ("CRITICAL > Has a problem with DB backup! Consequently the work copy revision was reversed to version ". $_actual .". Contact server admin to fix it! \n");
 				}
 
@@ -312,8 +320,6 @@ function updateInstanceByGit ($_path)
 				echo "ERROR > Reverting application files from version ". $_last ." to ". $_actual ."... \n";
 
 				gitRollBack ($_actual);
-
-				setPermission ($_path, $_conf ['dir-mode'], $_conf ['file-mode'], $_conf ['owner'], $_conf ['group']);
 
 				throw new Exception ("CRITICAL > The tag ". $_last ." of branch origin/". $_branch ." has a problem with DB changes and needed to be reversed to version ". $_actual ."! \n");
 			}

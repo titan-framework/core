@@ -107,7 +107,7 @@ function updateCoreByGit ($_path)
 
 			exec (GIT .' checkout '. $last);
 
-			exec (GIT .' checkout stash -- .');
+			exec (GIT .' stash apply');
 
 			setPermission ($_path, octdec ('0775'), octdec ('0664'), 'root', 'staff');
 
