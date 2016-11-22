@@ -99,6 +99,8 @@ function updateCoreByGit ($_path)
 			echo "INFO > Titan Framework is already updated (version ". preg_replace ('/[^0-9\.\-]/i', '', $last) .")! \n";
 		else
 		{
+			exec (GIT .' stash clear');
+
 			exec (GIT .' stash');
 
 			exec (GIT .' checkout origin/master');
@@ -107,7 +109,7 @@ function updateCoreByGit ($_path)
 
 			exec (GIT .' checkout '. $last);
 
-			exec (GIT .' stash apply');
+			exec (GIT .' stash pop');
 
 			setPermission ($_path, octdec ('0775'), octdec ('0664'), 'root', 'staff');
 
