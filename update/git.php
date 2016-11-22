@@ -385,5 +385,5 @@ function gitRollBack ($version)
 
 	exec (GIT .' checkout '. $version);
 
-	exec (GIT .' checkout stash -- .');
+	exec (GIT .' stash apply');
 }
