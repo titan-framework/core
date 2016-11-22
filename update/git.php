@@ -181,6 +181,8 @@ function updateInstanceByGit ($_path)
 
 		echo "INFO > Updating application files... \n";
 
+		exec (GIT .' stash clear');
+		
 		exec (GIT .' stash');
 
 		exec (GIT .' checkout origin/'. $_branch);
@@ -381,6 +383,8 @@ function updateInstanceByGit ($_path)
 
 function gitRollBack ($version)
 {
+	exec (GIT .' stash clear');
+	
 	exec (GIT .' stash');
 
 	exec (GIT .' checkout '. $version);
