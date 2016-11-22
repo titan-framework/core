@@ -189,7 +189,7 @@ function updateInstanceByGit ($_path)
 
 		exec (GIT .' checkout '. $_last);
 
-		exec (GIT .' stash apply');
+		exec (GIT .' stash pop');
 
 		unset ($out);
 
@@ -385,5 +385,5 @@ function gitRollBack ($version)
 
 	exec (GIT .' checkout '. $version);
 
-	exec (GIT .' stash apply');
+	exec (GIT .' stash pop');
 }
