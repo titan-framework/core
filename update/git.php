@@ -166,7 +166,9 @@ function updateInstanceByGit ($_path)
 		$_last = trim ($out [0]);
 
 		if ($_last == $_actual)
-			throw new Exception ("INFO > Work copy in same version of remote repository [". $_last ."]. Update is not necessary!");
+			throw new Exception ("INFO > Work copy in same version of remote repository [". $_last ."] at environment [". $_branch ."]. Update is not necessary!");
+
+		echo "INFO > Updating application at environment [". $_branch ."] from version [". $_actual ."] to [". $_last ."]... \n";
 
 		/*
 		 * After this point, all erros are send by mail.
@@ -182,8 +184,10 @@ function updateInstanceByGit ($_path)
 		echo "INFO > Updating application files... \n";
 
 		exec (GIT .' stash clear');
-		
+
 		exec (GIT .' stash');
+
+		exec (GIT .' reset --hard');
 
 		exec (GIT .' checkout origin/'. $_branch);
 
@@ -191,7 +195,9 @@ function updateInstanceByGit ($_path)
 
 		exec (GIT .' checkout '. $_last);
 
-		exec (GIT .' stash pop');
+		exec (GIT .' merge --squash --strategy-option=theirs stash');
+
+		exec (GIT .' stash drop');
 
 		unset ($out);
 
@@ -384,10 +390,14 @@ function updateInstanceByGit ($_path)
 function gitRollBack ($version)
 {
 	exec (GIT .' stash clear');
-	
+
 	exec (GIT .' stash');
+
+	exec (GIT .' reset --hard');
 
 	exec (GIT .' checkout '. $version);
 
-	exec (GIT .' stash pop');
+	exec (GIT .' merge --squash --strategy-option=theirs stash');
+
+	exec (GIT .' stash drop');
 }

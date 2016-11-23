@@ -103,13 +103,17 @@ function updateCoreByGit ($_path)
 
 			exec (GIT .' stash');
 
+			exec (GIT .' reset --hard');
+
 			exec (GIT .' checkout origin/master');
 
 			exec (GIT .' pull origin master');
 
 			exec (GIT .' checkout '. $last);
 
-			exec (GIT .' stash pop');
+			exec (GIT .' merge --squash --strategy-option=theirs stash');
+
+			exec (GIT .' stash drop');
 
 			setPermission ($_path, octdec ('0775'), octdec ('0664'), 'root', 'staff');
 
