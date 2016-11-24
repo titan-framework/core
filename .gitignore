@@ -1,2 +1,2 @@
-extra/composer
-extra/autoload.php
+vendor
+composer.lock

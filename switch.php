@@ -12,6 +12,8 @@ try
 	require_once $corePath .'class/Xml.php';
 
 	require_once $corePath .'class/Instance.php';
+	
+	require_once $corePath .'vendor/autoload.php';
 
 	if (!@set_include_path (get_include_path () . PATH_SEPARATOR . dirname (__FILE__) .'/extra/'))
 		toLog ('Impossible to set include path. This cause Zend Framework load fail!');
