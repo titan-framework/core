@@ -9,46 +9,46 @@
  * @version 1.0
  */
 
- error_reporting (E_ALL);
- set_time_limit (0);
- ini_set ('memory_limit', '-1');
- ini_set ('register_argc_argv', '1');
+error_reporting (E_ALL);
+set_time_limit (0);
+ini_set ('memory_limit', '-1');
+ini_set ('register_argc_argv', '1');
 
- require 'binary.php';
- require 'function.php';
+require 'binary.php';
+require 'function.php';
 
- $_corePath = dirname (dirname (__FILE__));
+$_corePath = dirname (dirname (__FILE__));
 
- require $_corePath . DIRECTORY_SEPARATOR .'class'. DIRECTORY_SEPARATOR .'Xml.php';
+require $_corePath . DIRECTORY_SEPARATOR .'class'. DIRECTORY_SEPARATOR .'Xml.php';
 
- set_error_handler ('handleError');
+set_error_handler ('handleError');
 
- echo "\n";
+echo "\n";
 
- echo "Starting Titan Framework's installation tool... \n\n";
+echo "Starting Titan Framework's installation tool... \n\n";
 
- try
- {
- 	if (PHP_SAPI != 'cli')
- 		throw new Exception ("[ERROR] This is a command-line script! You cannot call by browser.");
+try
+{
+	if (PHP_SAPI != 'cli')
+		throw new Exception ("[ERROR] This is a command-line script! You cannot call by browser.");
 
- 	if (PHP_OS != 'Linux')
- 		throw new Exception ("[ERROR] This functionality works only in Linux servers (homologated on Debian and Ubuntu).");
+	if (PHP_OS != 'Linux')
+		throw new Exception ("[ERROR] This functionality works only in Linux servers (homologated on Debian and Ubuntu).");
 
- 	if (!(int) ini_get ('register_argc_argv'))
- 		throw new Exception ("[ERROR] This is a command-line script! You must enable 'register_argc_argv' directive.");
+	if (!(int) ini_get ('register_argc_argv'))
+		throw new Exception ("[ERROR] This is a command-line script! You must enable 'register_argc_argv' directive.");
 
- 	if (!function_exists ('system') || !function_exists ('exec'))
- 		throw new Exception ("[ERROR] You need enable OS call functions (verify if PHP is not in safe mode)!");
+	if (!function_exists ('system') || !function_exists ('exec'))
+		throw new Exception ("[ERROR] You need enable OS call functions (verify if PHP is not in safe mode)!");
 
 	if (!`which git`)
 		throw new Exception ("[ERROR] You need install GIT package (try 'apt-get install git')!");
 
- 	$commands = array ('SVN', 'GZIP', 'MV', 'SU', 'GIT');
+	$commands = array ('SVN', 'GZIP', 'MV', 'SU', 'GIT');
 
- 	foreach ($commands as $trash => $command)
- 		if (!defined ($command))
- 			throw new Exception ("[ERROR] Configure path for binaries of OS in [". $_corePath . DIRECTORY_SEPARATOR ."update". DIRECTORY_SEPARATOR ."binary.php]! \n");
+	foreach ($commands as $trash => $command)
+		if (!defined ($command))
+			throw new Exception ("[ERROR] Configure path for binaries of OS in [". $_corePath . DIRECTORY_SEPARATOR ."update". DIRECTORY_SEPARATOR ."binary.php]! \n");
 
 	if ($argc < 4)
 		throw new Exception ("[ERROR] The correct formart of command is:\nphp path/to/core/update/install.php git@your.git.host.com:group/repository.git path/where/will/install/instance branch-name");
@@ -101,6 +101,12 @@
 		$_authorRevision = @$aux [1];
 		$_dateRevision = strtotime (@$aux [0]);
 	}
+
+	/*
+	 * Installing composer dependencies
+	 */
+
+	exec ('composer install --no-dev', $out);
 
 	/*
 	 * Open configuration file
