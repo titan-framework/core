@@ -206,12 +206,21 @@ function updateInstanceByGit ($_path)
 		if (is_array ($out) && sizeof ($out))
 			foreach ($out as $trash => $file)
 			{
-				echo "INFO > Setting permission to file [". $file ."]... \n";
+				echo "INFO > File [". $file ."] updated! \n";
 
 				setPermission ($file, $_conf ['dir-mode'], $_conf ['file-mode'], $_conf ['owner'], $_conf ['group']);
 			}
 
 		echo "INFO > Permission setted to modified files! \n";
+
+		if (file_exists ('composer.json'))
+		{
+			echo "INFO > Updating dependencies (with Composer)... \n";
+
+			exec ('composer install --no-dev');
+
+			setPermission ('vendor', $_conf ['dir-mode'], $_conf ['file-mode'], $_conf ['owner'], $_conf ['group']);
+		}
 
 		echo "SUCCESS > Application folder updated to version [". $_last ."]! \n";
 

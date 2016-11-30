@@ -60,6 +60,8 @@ function updateCoreBySvn ($_path)
 		else
 			echo "SUCCESS > Titan Framework [". $_path ."] is updated! \n";
 
+		exec ('composer install --no-dev');
+
 		setPermission ($_path, octdec ('0775'), octdec ('0664'), 'root', 'staff');
 
 		// TODO: Send log from SVN by e-mail.
@@ -114,6 +116,8 @@ function updateCoreByGit ($_path)
 			exec (GIT .' merge --squash --strategy-option=theirs stash');
 
 			exec (GIT .' stash drop');
+
+			exec ('composer install --no-dev');
 
 			setPermission ($_path, octdec ('0775'), octdec ('0664'), 'root', 'staff');
 
