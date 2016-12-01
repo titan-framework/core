@@ -117,7 +117,11 @@ function updateCoreByGit ($_path)
 
 			exec (GIT .' stash drop');
 
+			echo "INFO > Installing dependencies (by Composer)... \n";
+
 			exec ('composer install --no-dev');
+
+			echo "INFO > Setting permissions... \n";
 
 			setPermission ($_path, octdec ('0775'), octdec ('0664'), 'root', 'staff');
 
