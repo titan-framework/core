@@ -26,11 +26,11 @@ class AnonymousUsageData
 		$this->params ['language'] = implode (',', $instance->getLanguages ());
 		$this->params ['author'] = $instance->getAuthor ();
 
-		$this->params ['ip'] = $_SERVER ['SERVER_ADDR'];
-		$this->params ['port'] = $_SERVER ['SERVER_PORT'];
-		$this->params ['software'] = $_SERVER ['SERVER_SOFTWARE'];
-		$this->params ['server'] = $_SERVER ['SERVER_NAME'];
-		$this->params ['admin'] = $_SERVER ['SERVER_ADMIN'];
+		$this->params ['ip'] = @$_SERVER ['SERVER_ADDR'];
+		$this->params ['port'] = @$_SERVER ['SERVER_PORT'];
+		$this->params ['software'] = @$_SERVER ['SERVER_SOFTWARE'];
+		$this->params ['server'] = @$_SERVER ['SERVER_NAME'];
+		$this->params ['admin'] = @$_SERVER ['SERVER_ADMIN'];
 		$this->params ['uname'] = php_uname ();
 		$this->params ['php'] = phpversion ();
 		$this->params ['sapi'] = php_sapi_name ();
