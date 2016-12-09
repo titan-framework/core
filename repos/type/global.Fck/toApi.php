@@ -1,6 +1,6 @@
 <?php
 
-if (!$field->useEmbeddedImage ())
+if (!$field->useEmbeddedImages ())
 	return $field->getValue ();
 
 $doc = new DOMDocument ();
