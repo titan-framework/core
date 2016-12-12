@@ -134,7 +134,7 @@ class Fck extends Phrase
 		{
 			case Archive::IMAGE:
 				?>
-				<img src="titan.php?target=tScript&type=File&file=thumbnail&fileId=<?= $id ?>&height=<?= $dimension ?><?= $hashQueryString ?>" alt="<?= $alt ?>" border="0" />
+				<img src="<?= Instance::singleton ()->getUrl () ?>titan.php?target=tScript&type=File&file=thumbnail&fileId=<?= $id ?>&height=<?= $dimension ?><?= $hashQueryString ?>" alt="<?= $alt ?>" border="0" />
 				<?php
 				break;
 
@@ -144,8 +144,8 @@ class Fck extends Phrase
 				{
 					?>
 					<video width="320" height="240" controls="controls" preload="metadata">
-						<source src="titan.php?target=tScript&type=File&file=play&id=<?= $id ?><?= $hashQueryString ?>" />
-						<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
+						<source src="<?= Instance::singleton ()->getUrl () ?>titan.php?target=tScript&type=File&file=play&id=<?= $id ?><?= $hashQueryString ?>" />
+						<a href="<?= Instance::singleton ()->getUrl () ?>titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
 							<?= __ ('This video is not supported by native player of your browser! Click here to download it directly to your computer to watch in player of your choice.') ?>
 						</a>
 					</video>
@@ -154,7 +154,7 @@ class Fck extends Phrase
 				else
 				{
 					?>
-					<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
+					<a href="<?= Instance::singleton ()->getUrl () ?>titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
 						<?= __ ('This video is not supported by native player of your browser and cannot be converted! Click here to download it directly to your computer to watch in player of your choice.') ?>
 					</a>
 					<?php
@@ -167,8 +167,8 @@ class Fck extends Phrase
 				{
 					?>
 					<audio controls="controls" preload="metadata">
-						<source src="titan.php?target=tScript&type=File&file=play&id=<?= $id ?><?= $hashQueryString ?>" />
-						<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
+						<source src="<?= Instance::singleton ()->getUrl () ?>titan.php?target=tScript&type=File&file=play&id=<?= $id ?><?= $hashQueryString ?>" />
+						<a href="<?= Instance::singleton ()->getUrl () ?>titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
 							<?= __ ('This audio is not supported by native player of your browser! Click here to download it directly to your computer to listen in player of your choice.') ?>
 						</a>
 					</audio>
@@ -177,7 +177,7 @@ class Fck extends Phrase
 				else
 				{
 					?>
-					<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
+					<a href="<?= Instance::singleton ()->getUrl () ?>titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank" title="<?= __ ('Play') ?>">
 						<?= __ ('This audio is not supported by native player of your browser and cannot be converted! Click here to download it directly to your computer to listen in player of your choice.') ?>
 					</a>
 					<?php
@@ -188,7 +188,7 @@ class Fck extends Phrase
 			case Archive::OPEN:
 			default:
 				?>
-				<a href="titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank"><img src="titan.php?target=loadFile&file=interface/file/<?= $archive->getIcon ($obj->_mimetype) ?>.gif" border="0" /></a>
+				<a href="<?= Instance::singleton ()->getUrl () ?>titan.php?target=tScript&type=File&file=open&id=<?= $id ?><?= $hashQueryString ?>" target="_blank"><img src="titan.php?target=loadFile&file=interface/file/<?= $archive->getIcon ($obj->_mimetype) ?>.gif" border="0" /></a>
 				<?php
 		}
 
