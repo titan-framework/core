@@ -2,22 +2,22 @@
 class Double extends Type
 {
 	protected $precision = 2;
-	
+
 	public function __construct ($table, $field)
 	{
 		parent::__construct ($table, $field);
-		
+
 		$this->setBind (TRUE);
-		
+
 		$this->setBindType (PDO::PARAM_STR);
-		
+
 		if (array_key_exists ('value-default', $field))
 			$this->setValue (self::validate ($field ['value-default']));
 
 		if (array_key_exists ('precision', $field))
 			$this->setPrecision (Integer::validate ($field ['precision']));
 	}
-	
+
 	public function setValue ($value)
 	{
 		$this->value = (float) $value;
@@ -27,8 +27,8 @@ class Double extends Type
 	{
 		$this->precision = (int) $precision;
 	}
-	
-	public function getPrecision()
+
+	public function getPrecision ()
 	{
 		return $this->precision;
 	}

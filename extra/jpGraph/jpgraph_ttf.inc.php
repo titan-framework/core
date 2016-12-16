@@ -491,7 +491,7 @@ class TTF {
 
             // check jpgraph/src/fonts dir
             $jpgraph_font_file = $jpgraph_font_dir . $font_file;
-            if (file_exists($jpgraph_font_file) === true && is_readable($jpgraph_font_file) === true) { 
+            if (file_exists($jpgraph_font_file) === true && is_readable($jpgraph_font_file) === true) {
                 $font_file = $jpgraph_font_file;
                 break;
             }
@@ -502,7 +502,7 @@ class TTF {
             } else {
                 $font_file = TTF_DIR.$font_file;
             }
-            if (file_exists($font_file) === true && is_readable($font_file) === true) { 
+            if (file_exists($font_file) === true && is_readable($font_file) === true) {
                 break;
             }
         }

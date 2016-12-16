@@ -12,7 +12,7 @@ try
 	require_once $corePath .'class/Xml.php';
 
 	require_once $corePath .'class/Instance.php';
-	
+
 	require_once $corePath .'vendor/autoload.php';
 
 	if (!@set_include_path (get_include_path () . PATH_SEPARATOR . dirname (__FILE__) .'/extra/'))
@@ -542,6 +542,21 @@ try
 
 		case 'graph':
 			$instance = Instance::singleton ();
+
+			$jpCachePath = Instance::singleton ()->getCachePath () .'jpgraph';
+
+			if (!file_exists ($jpCachePath) && !@mkdir ($jpCachePath, 0777))
+				throw new Exception ('Impossible to create folder ['. $jpCachePath .'].');
+
+			$jpCachePath = realpath ($jpCachePath);
+
+			define ('CACHE_DIR', $jpCachePath . DIRECTORY_SEPARATOR .'cache'. DIRECTORY_SEPARATOR);
+
+			$jpFontsPath = realpath ($instance->getCorePath () .'extra'. DIRECTORY_SEPARATOR .'fonts');
+
+			define ('TTF_DIR', $jpFontsPath . DIRECTORY_SEPARATOR);
+
+			define ('MBTTF_DIR', $jpFontsPath . DIRECTORY_SEPARATOR);
 
 			if (!isset ($_GET['pieces']) || !is_array ($_GET['pieces']))
 				throw new Exception ('Impossible generate graphic! Missing data.');
