@@ -1,4 +1,5 @@
 <?php
+
 $value = $field->getValue ();
 
 $day = $value [0];
@@ -11,10 +12,9 @@ if (!$year)
 $days = array (0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
 
 if (!$month)
-	return $field->getTable () .'.'. $field->getColumn () .' >= \'1/1/'. $year .'\' AND '.$field->getTable () .'.'. $field->getColumn () .' <= \'31/12/'. $year .'\'';
+	return $field->getTable () .'.'. $field->getColumn () .' >= \''. $year .'-1-1\' AND '.$field->getTable () .'.'. $field->getColumn () .' <= \''. $year .'-12-31\'';
 
 if (!$day)
-	return $field->getTable () .'.'. $field->getColumn () .' >= \'1/'. $month .'/'. $year .'\' AND '.$field->getTable () .'.'. $field->getColumn () .' <= \''. $days [$month] .'/'. $month .'/'. $year .'\'';
+	return $field->getTable () .'.'. $field->getColumn () .' >= \''. $year .'-'. $month .'-1\' AND '.$field->getTable () .'.'. $field->getColumn () .' <= \''. $year .'-'. $month .'-'. $days [$month] .'\'';
 
-return $field->getTable () .'.'. $field->getColumn () .' = \''. $day .'/'. $month .'/'. $year .'\'';
-?>
+return $field->getTable () .'.'. $field->getColumn () .' = \''. $year .'-'. $month .'-'. $day .'\'';
