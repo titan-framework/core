@@ -91,12 +91,19 @@ class Multiply extends Select
 		{
 			$db->beginTransaction ();
 
-			$db->exec ("DELETE FROM ". $this->getRelation () ." WHERE ". $this->getRelationLink () ." = '". $id ."'");
+			$before = $db->query ("SELECT DISTINCT ". $this->getColumn () ." FROM ". $this->getRelation () ." WHERE ". $this->getRelationLink () ." = '". $id ."'")->fetchAll (PDO::FETCH_COLUMN);
+
+			$diff = count ($before) ? array_diff ($before, $array) : [0];
+
+			if (count ($diff))
+				$db->exec ("DELETE FROM ". $this->getRelation () ." WHERE ". $this->getRelationLink () ." = '". $id ."' AND ". $this->getColumn () ." IN (". implode (',', $diff) .")");
+
+			$diff = array_diff ($array, $before);
 
 			$sth = $db->prepare ("INSERT INTO ". $this->getRelation () ." (". $this->getRelationLink () .", ". $this->getColumn () .") VALUES ('". $id ."', :link)");
 
-			foreach ($array as $trash => $linkId)
-				$sth->execute (array (':link' => $linkId));
+			foreach ($diff as $trash => $link)
+				$sth->execute (array (':link' => $link));
 
 			$db->commit ();
 		}
