@@ -36,7 +36,7 @@ class View
 	protected $sth = NULL;
 
 	protected $icons = array ();
-	
+
 	protected $disabledIcons = array ();
 
 	protected $default = FALSE;
@@ -78,7 +78,7 @@ class View
 			throw new Exception ('Arquivo XML não encontrado em [section/'. $section->getName () .'/].');
 
 		$file = 'section/'. $section->getName () .'/'. $fileName;
-		
+
 		$cacheFile = Instance::singleton ()->getCachePath () .'parsed/'. fileName ($file) .'_'. md5_file ($file) .'.php';
 
 		if (file_exists ($cacheFile))
@@ -94,10 +94,10 @@ class View
 
 			xmlCache ($cacheFile, $array);
 		}
-		
+
 		if (!array_key_exists ('view', $array))
 			throw new Exception ('Invalid XML View file [section/'. $section->getName () .'/].');
-		
+
 		$array = $array ['view'][0];
 
 		$this->file = $fileName;
@@ -160,12 +160,12 @@ class View
 	{
 		return $this->paginate;
 	}
-	
+
 	public function setPaginate ($paginate)
 	{
 		$this->paginate = (int) $paginate;
 	}
-	
+
 	public function getFile ()
 	{
 		return $this->file;
@@ -215,21 +215,26 @@ class View
 		return $aux;
 	}
 
+	public function isSortable ()
+	{
+		return $this->sortable;
+	}
+
 	public function getDefaultIcon ()
 	{
 		if (!sizeof ($this->icons))
 			return NULL;
-		
+
 		if ($this->default === FALSE || !array_key_exists ($this->default, $this->icons))
 			$key = key ($this->icons);
 		else
 			$key = $this->default;
-		
+
 		if (is_object ($this->icons [$key]))
 			return $this->icons [$key];
-		
+
 		$this->icons [$key] = Icon::factory ($this->icons [$key], $this);
-		
+
 		return $this->icons [$key];
 	}
 
@@ -304,9 +309,9 @@ class View
 		if ($field !== FALSE)
 		{
 			$field = $field ['value'];
-			
+
 			$icon = $this->getDefaultIcon ();
-			
+
 			if ($this->default === FALSE || !is_object ($icon) ||
 				(array_key_exists ($icon->getId (), $this->disabledIcons) && is_array ($this->disabledIcons [$icon->getId ()]) && in_array ($this->getId (), $this->disabledIcons [$icon->getId ()])))
 				return (string) self::toList ($field, $this->getId ());
@@ -352,12 +357,12 @@ class View
 		{
 			if (!is_object ($icon ['value']))
 				$this->icons [$icon ['key']] = Icon::factory ($icon ['value'], $this);
-			
+
 			$id = $this->icons [$icon ['key']]->getId ();
-			
+
 			if (array_key_exists ($id, $this->disabledIcons) && is_array ($this->disabledIcons [$id]) && in_array ($this->getId (), $this->disabledIcons [$id]))
 				return $this->icons [$icon ['key']]->makeIcon (0, TRUE);
-			
+
 			return $this->icons [$icon ['key']]->makeIcon ($this->getId ());
 		}
 
@@ -365,15 +370,15 @@ class View
 
 		return NULL;
 	}
-	
+
 	public function disableIcons ($id, $items)
 	{
 		if (!is_string ($id) || trim ($id) == '' || !is_array ($items) || !(int) sizeof ($items))
 			return FALSE;
-		
+
 		$this->disabledIcons [$id] = $items;
 	}
-	
+
 	public function removeIcon ($id)
 	{
 		unset ($this->icons [$id]);
@@ -514,7 +519,7 @@ class View
 
 		return '<a class="labelView" href="titan.php?target=body&amp;toSection='. $section->getName () .'&amp;toAction='. $action->getName () .'&itemId='. $itemId .'&page='. $page .'&order='. $field->getAssign () .'&invert=1">'. $field->getLabel () .'</a> <img src="titan.php?target=loadFile&amp;file=interface/image/arrow.down.gif" border="0" style="vertical-align: middle;" />';
 	}
-	
+
 	public static function toList ($field, $itemId = NULL)
 	{
 		if (!is_object ($field))
@@ -538,9 +543,9 @@ class View
 			$type = get_parent_class ($type);
 
 		} while ($type != 'Type' && $type !== FALSE);
-		
+
 		$type = get_class ($field);
-		
+
 		do
 		{
 			$file = $instance->getTypePath ($type) .'toHtml.php';

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="pt_BR">
+	<message
+		from="Save Item"
+		to="Salvar Item"
+	/>
+
+	<message
+		from="Save Order"
+		to="Ordenar"
+	/>
+
+	<message
+		from="New"
+		to="Novo"
+	/>
+
+	<message
+		from="Add New Item"
+		to="Inserir Novo Item"
+	/>
+
+	<message
+		from="Edit Item"
+		to="Editar Item"
+	/>
+
+	<message
+		from="Up"
+		to="Subir"
+	/>
+
+	<message
+		from="Down"
+		to="Descer"
+	/>
+
+	<message
+		from="This field is not sortable!"
+		to="Este campo não é ordenável!"
+	/>
+
+	<message
+		from="Unable to retrieve submitted data!"
+		to="Não foi possível recuperar os dados submetidos!"
+	/>
+
+	<message
+		from="Unable to save submitted data!"
+		to="Não foi possível salvar os dados submetidos!"
+	/>
+
+	<message
+		from="Your data has been successfully saved!"
+		to="Os dados foram salvos com sucesso!"
+	/>
+
+	<message
+		from="Could not load item data!"
+		to="Não foi possível carregar os dados do item!"
+	/>
+
+	<message
+		from="Could not delete item!"
+		to="Não foi possível apagar o item!"
+	/>
+
+	<message
+		from="Item deleted successfully!"
+		to="Item apagado com sucesso!"
+	/>
+
+	<message
+		from="The data has been sorted successfully!"
+		to="Os dados foram ordenados com sucesso!"
+	/>
+
+	<message
+		from=""
+		to=""
+	/>
+
+	<message
+		from=""
+		to=""
+	/>
+
+	<message
+		from=""
+		to=""
+	/>
+
+	<message
+		from=""
+		to=""
+	/>
+
+	<message
+		from=""
+		to=""
+	/>
+</i18n>
