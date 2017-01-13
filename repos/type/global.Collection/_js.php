@@ -32,7 +32,7 @@ global.Collection.create = function (fieldId, fatherId)
 	}
 }
 
-global.Collection.edit = function (fieldId, file, itemId, fatherColumn)
+global.Collection.edit = function (fieldId, file, itemId)
 {
 	$('collectionLabelMessage_' + fieldId).innerHTML = '';
 
@@ -40,7 +40,7 @@ global.Collection.edit = function (fieldId, file, itemId, fatherColumn)
 
 	$('collection_form_create_' + fieldId).reset ();
 
-	var form = global.Collection.ajax.loadEditForm (file, itemId, fatherColumn, fieldId);
+	var form = global.Collection.ajax.loadEditForm (file, itemId, fieldId);
 
 	var edit = $('collection_edit_' + fieldId);
 
@@ -147,7 +147,11 @@ global.Collection.saveEdit = function (itemId, fieldId, file)
 
 		global.Collection.ajax.showMessages (fieldId);
 
-		global.Collection.closeEdit (fieldId);
+		var edit = $('collection_edit_' + fieldId);
+
+		edit.innerHTML = '';
+
+		edit.style.display = 'none';
 
 		hideWait ();
 	});
@@ -159,7 +163,7 @@ global.Collection.addRow = function (itemId, fieldId, file)
 {
 	var columns = [];
 
-	var aux = global.Collection.ajax.addRow (itemId, file, fieldId);
+	var aux = global.Collection.ajax.genRow (itemId, file, fieldId);
 
 	eval (aux);
 
@@ -176,7 +180,7 @@ global.Collection.changeRow = function (itemId, fieldId, file)
 {
 	var columns = [];
 
-	var aux = global.Collection.ajax.addRow (itemId, file, fieldId);
+	var aux = global.Collection.ajax.genRow (itemId, file, fieldId);
 
 	eval (aux);
 

@@ -141,7 +141,7 @@ ob_start ();
 							<?
 						}
 						?>
-						<img src="titan.php?target=loadFile&file=interface/icon/edit.gif" border="0" title="<?= __ ('Edit') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.edit ('<?= $fieldId ?>', '<?= $field->getXmlPath () ?>', '<?= $view->getId () ?>', '<?= $field->getColumn () ?>');" />&nbsp;
+						<img src="titan.php?target=loadFile&file=interface/icon/edit.gif" border="0" title="<?= __ ('Edit') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.edit ('<?= $fieldId ?>', '<?= $field->getXmlPath () ?>', '<?= $view->getId () ?>');" />&nbsp;
 						<img src="titan.php?target=loadFile&file=interface/icon/delete.gif" border="0" title="<?= __ ('Delete') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.delRow ('<?= $fieldId ?>', '<?= $field->getXmlPath () ?>', '<?= $view->getId () ?>');" />&nbsp;
 					</td>
 				</tr>

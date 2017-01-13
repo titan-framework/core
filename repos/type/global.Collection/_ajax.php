@@ -58,7 +58,7 @@ class xCollection
 		return FALSE;
 	}
 
-	public function addRow ($itemId, $file, $fieldId, $fatherColumn)
+	public function genRow ($itemId, $file, $fieldId)
 	{
 		$message = Message::singleton ();
 
@@ -87,7 +87,7 @@ class xCollection
 				$icons [] = '<img src="titan.php?target=loadFile&file=interface/icon/arrow.down.gif" border="0" title="'. __ ('Down') .'" style="cursor: pointer;" onclick="JavaScript: global.Collection.down (this);" />&nbsp;';
 			}
 
-			$icons [] = '<img src="titan.php?target=loadFile&file=interface/icon/edit.gif" border="0" title="'. __ ('Edit') .'" style="cursor: pointer;" onclick="JavaScript: global.Collection.edit (\''. $fieldId .'\', \''. $file .'\', \''. $itemId .'\', \''. $fatherColumn .'\');" />&nbsp;';
+			$icons [] = '<img src="titan.php?target=loadFile&file=interface/icon/edit.gif" border="0" title="'. __ ('Edit') .'" style="cursor: pointer;" onclick="JavaScript: global.Collection.edit (\''. $fieldId .'\', \''. $file .'\', \''. $itemId .'\');" />&nbsp;';
 			$icons [] = '<img src="titan.php?target=loadFile&amp;file=interface/icon/delete.gif" border="0" title="'. __ ('Delete') .'" style="cursor: pointer;" onclick="JavaScript: global.Collection.delRow (\''. $fieldId .'\', \''. $form->getFile () .'\', \''. $itemId .'\');" />&nbsp;';
 
 			$output [] = implode ('\r\n', $icons);
@@ -221,7 +221,7 @@ class xCollection
 		$message->save ();
 	}
 
-	public function loadEditForm ($file, $itemId, $fatherColumn, $fieldId)
+	public function loadEditForm ($file, $itemId, $fieldId)
 	{
 		$message = Message::singleton ();
 
