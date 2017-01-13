@@ -119,8 +119,8 @@ ob_start ();
 				<a href="#" class="globalCollectionButton" onclick="JavaScript: global.Collection.create ('<?= $fieldId ?>', <?= $itemId ?>);"><img src="titan.php?target=loadFile&file=interface/icon/create.gif" border="0" /><?= __ ('New') ?></a>
 			</td>
 		</tr>
-		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
 		<tbody id="collection_view_<?= $fieldId ?>">
+			<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
 			<?php
 			$bkpItemId = $itemId;
 

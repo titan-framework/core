@@ -38,7 +38,7 @@ global.Collection.edit = function (fieldId, file, itemId, fatherColumn)
 
 	$('collection_create_' + fieldId).style.display = 'none';
 
-	$('collection_form_' + fieldId).reset ();
+	$('collection_form_create_' + fieldId).reset ();
 
 	var form = global.Collection.ajax.loadEditForm (file, itemId, fatherColumn, fieldId);
 
@@ -47,6 +47,17 @@ global.Collection.edit = function (fieldId, file, itemId, fatherColumn)
 	edit.innerHTML = form;
 
 	edit.style.display = '';
+}
+
+global.Collection.closeEdit = function (fieldId)
+{
+	$('collectionLabelMessage_' + fieldId).innerHTML = '';
+
+	var edit = $('collection_edit_' + fieldId);
+
+	edit.innerHTML = '';
+
+	edit.style.display = 'none';
 }
 
 global.Collection.saveCreate = function (fatherId, fatherColumn, fieldId, file)
@@ -84,11 +95,59 @@ global.Collection.saveCreate = function (fatherId, fatherColumn, fieldId, file)
 	}
 
 	global.Collection.ajax.delay (function () {
-		global.Collection.addRow (itemId, fieldId, file, fatherColumn);
+		global.Collection.addRow (itemId, fieldId, file);
 
 		global.Collection.ajax.showMessages (fieldId);
 
 		$('collection_form_create_' + fieldId).reset ();
+
+		hideWait ();
+	});
+
+	return false;
+}
+
+global.Collection.saveEdit = function (itemId, fieldId, file)
+{
+	$('collectionLabelMessage_' + fieldId).innerHTML = '';
+
+	showWait ();
+
+	var formData = xoad.html.exportForm ('collection_form_edit_' + fieldId);
+
+	var fields = new Array ();
+
+	eval ("fields = new Array (" + tAjax.validate (file, formData, itemId) + ");");
+
+	if (fields.length)
+	{
+		global.Collection.ajax.showMessages (fieldId);
+
+		hideWait ();
+
+		return false;
+	}
+
+	var itemId = global.Collection.ajax.save (file, formData, 0, '', itemId);
+
+	if (!itemId)
+	{
+		global.Collection.ajax.delay (function () {
+			global.Collection.ajax.showMessages (fieldId);
+
+			hideWait ();
+		});
+
+		return false;
+	}
+
+	global.Collection.ajax.delay (function ()
+	{
+		global.Collection.changeRow (itemId, fieldId, file);
+
+		global.Collection.ajax.showMessages (fieldId);
+
+		global.Collection.closeEdit (fieldId);
 
 		hideWait ();
 	});
@@ -111,6 +170,23 @@ global.Collection.addRow = function (itemId, fieldId, file)
 	$$('#collection_view_' + fieldId + ' tr').last ().insert ({ after: row });
 
 	row.insert ({ after: spacer });
+}
+
+global.Collection.changeRow = function (itemId, fieldId, file)
+{
+	var columns = [];
+
+	var aux = global.Collection.ajax.addRow (itemId, file, fieldId);
+
+	eval (aux);
+
+	var row = global.Collection.makeRow (itemId, columns);
+
+	var previous = $('collection_row_' + itemId).previous ();
+
+	$('collection_row_' + itemId).remove ();
+
+	previous.insert ({ after: row });
 }
 
 global.Collection.makeRow = function (itemId, columns)
