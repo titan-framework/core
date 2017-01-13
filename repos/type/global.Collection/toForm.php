@@ -20,11 +20,12 @@ if (!$view->load ($field->getColumn () ." = '". $itemId ."'"))
 	throw new Exception ('Não foi possível carregar dados!');
 
 ob_start ();
-?><fieldset id="collection_create_<?= $fieldId ?>" style="display: none; margin: 10px 0px; border: #900 2px solid; background-color: #FFF;">
+?>
+<label id="collectionLabelMessage_<?= $fieldId ?>" class="collectionLabelMessage"></label>
+<fieldset id="collection_create_<?= $fieldId ?>" style="display: none; margin: 10px 0px; border: #900 2px solid; background-color: #FFF;">
 	<legend id="collection_label_<?= $fieldId ?>"></legend>
 	<div id="idForm">
-		<form id="collection_form_<?= $fieldId ?>" action="" method="post">
-			<input type="hidden" name="itemId" id="collection_id_<?= $fieldId ?>" value="" />
+		<form id="collection_form_create_<?= $fieldId ?>" action="" method="post">
 			<?php
 			while ($group = $form->getGroup ())
 			{
@@ -88,7 +89,7 @@ ob_start ();
 				<tr height="18px">
 					<td width="20%"></td>
 					<td colspan="2">
-						<input type="button" value="<?= __ ('Save Item') ?>" class="button" onclick="JavaScript: global.Collection.save ('<?= $itemId ?>', '<?= $field->getColumn () ?>', '<?= $fieldId ?>', '<?= $field->getXmlPath () ?>');" />
+						<input type="button" value="<?= __ ('Save Item') ?>" class="button" onclick="JavaScript: global.Collection.saveCreate ('<?= $itemId ?>', '<?= $field->getColumn () ?>', '<?= $fieldId ?>', '<?= $field->getXmlPath () ?>');" />
 						<input type="button" value="<?= __ ('Close') ?>" class="button" onclick="JavaScript: global.Collection.create ('<?= $fieldId ?>', <?= $itemId ?>);" />
 					</td>
 				</tr>
@@ -98,7 +99,7 @@ ob_start ();
 </fieldset>
 <div id="collection_edit_<?= $fieldId ?>" style="display: none;"></div>
 <div id="idList" style="margin: 0px;">
-	<table id="collection_view_<?= $fieldId ?>" style="background-color: #FFF;">
+	<table style="background-color: #FFF;">
 		<tr>
 			<?php
 			$columns = sizeof ($view->getFields ()) + 1;
@@ -111,7 +112,7 @@ ob_start ();
 				if ($view->isSortable ())
 				{
 					?>
-					<a href="#" class="globalCollectionButton" onclick="JavaScript: global.Collection.saveSort (this, '<?= $field->getXmlPath () ?>');"><img src="titan.php?target=loadFile&file=interface/icon/save.gif" border="0" /><?= __ ('Save Order') ?></a>&nbsp;
+					<a href="#" class="globalCollectionButton" onclick="JavaScript: global.Collection.saveSort (this, '<?= $field->getXmlPath () ?>', '<?= $fieldId ?>');"><img src="titan.php?target=loadFile&file=interface/icon/save.gif" border="0" /><?= __ ('Save Order') ?></a>&nbsp;
 					<?
 				}
 				?>
@@ -119,7 +120,7 @@ ob_start ();
 			</td>
 		</tr>
 		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
-		<tbody>
+		<tbody id="collection_view_<?= $fieldId ?>">
 			<?php
 			$bkpItemId = $itemId;
 
@@ -135,12 +136,12 @@ ob_start ();
 						{
 							?>
 							<input type="hidden" name="idForSort" value="<?= $view->getId () ?>" />
-							<img src="titan.php?target=loadFile&file=interface/icon/arrow.up.gif" border="0" title="<?= __ ('Up') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.up (this, '<?= $fieldId ?>');" />&nbsp;
-							<img src="titan.php?target=loadFile&file=interface/icon/arrow.down.gif" border="0" title="<?= __ ('Down') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.down (this, '<?= $fieldId ?>');" />&nbsp;
+							<img src="titan.php?target=loadFile&file=interface/icon/arrow.up.gif" border="0" title="<?= __ ('Up') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.up (this);" />&nbsp;
+							<img src="titan.php?target=loadFile&file=interface/icon/arrow.down.gif" border="0" title="<?= __ ('Down') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.down (this);" />&nbsp;
 							<?
 						}
 						?>
-						<img src="titan.php?target=loadFile&file=interface/icon/edit.gif" border="0" title="<?= __ ('Edit') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.edit ('<?= $fieldId ?>', '<?= $field->getXmlPath () ?>', '<?= $view->getId () ?>', '<?= $field->getColumn () ?>', '<?= $fieldId ?>');" />&nbsp;
+						<img src="titan.php?target=loadFile&file=interface/icon/edit.gif" border="0" title="<?= __ ('Edit') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.edit ('<?= $fieldId ?>', '<?= $field->getXmlPath () ?>', '<?= $view->getId () ?>', '<?= $field->getColumn () ?>');" />&nbsp;
 						<img src="titan.php?target=loadFile&file=interface/icon/delete.gif" border="0" title="<?= __ ('Delete') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.delRow ('<?= $fieldId ?>', '<?= $field->getXmlPath () ?>', '<?= $view->getId () ?>');" />&nbsp;
 					</td>
 				</tr>

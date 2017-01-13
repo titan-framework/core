@@ -49,7 +49,36 @@
 }
 .globalCollectionButton:active
 {
-	position:relative;
-	top:1px;
+	position: relative;
+}
+.collectionLabelMessage div.message
+{
+	clear: both;
+	position: relative;
+	margin-bottom: 6px;
+}
+.collectionLabelMessage div.message .cError
+{
+	position: relative;
+	margin: 0px;
+	border: #900 1px solid;
+	padding: 6px;
+	background-color: #EBCCCC;
+	color: #900;
+	font-weight: bold;
+}
+.collectionLabelMessage div.message .cMessage
+{
+	position: relative;
+	margin: 0px;
+	border: #090 1px solid;
+	padding: 6px;
+	background-color: #CCEBCC;
+	color: #090;
+	font-weight: bold;
+}
+.collectionLabelMessage div.message .cError a.cReport
+{
+	display: none;
 }
 </style>

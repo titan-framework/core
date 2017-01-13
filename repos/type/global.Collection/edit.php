@@ -4,7 +4,7 @@ ob_start ();
 <fieldset style="margin: 10px 0px; border: #900 2px solid; background-color: #FFF;">
 	<legend><?= __ ('Edit Item') ?></legend>
 	<div id="idForm">
-		<form id="collection_form_<?= $fieldId ?>_edit" action="" method="post">
+		<form id="collection_form_edit_<?= $fieldId ?>_edit" action="" method="post">
 			<input type="hidden" name="itemId" id="collection_id_<?= $fieldId ?>" value="<?= $itemId ?>" />
 			<?php
 			while ($group = $form->getGroup ())

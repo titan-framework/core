@@ -58,7 +58,7 @@ class xCollection
 		return FALSE;
 	}
 
-	public function addRow ($itemId, $file, $fieldId)
+	public function addRow ($itemId, $file, $fieldId, $fatherColumn)
 	{
 		$message = Message::singleton ();
 
@@ -68,6 +68,7 @@ class xCollection
 
 			set_error_handler ('logPhpError');
 
+			$view = new View ($file);
 			$form = new Form ($file);
 
 			if (!$form->load ($itemId))
@@ -77,7 +78,19 @@ class xCollection
 			while ($field = $form->getField (FALSE))
 				$output [] = View::toList ($field);
 
-			$output [] = '<img src="titan.php?target=loadFile&amp;file=interface/icon/delete.gif" border="0" title="'. __ ('Delete') .'" style="cursor: pointer;" onclick="JavaScript: global.Collection.delRow (\''. $fieldId .'\', \''. $form->getFile () .'\', \''. $itemId .'\');" />&nbsp;';
+			$icons = array ();
+
+			if ($view->isSortable ())
+			{
+				$icons [] = '<input type="hidden" name="idForSort" value="'. $itemId .'" />';
+				$icons [] = '<img src="titan.php?target=loadFile&file=interface/icon/arrow.up.gif" border="0" title="'. __ ('Up') .'" style="cursor: pointer;" onclick="JavaScript: global.Collection.up (this);" />&nbsp;';
+				$icons [] = '<img src="titan.php?target=loadFile&file=interface/icon/arrow.down.gif" border="0" title="'. __ ('Down') .'" style="cursor: pointer;" onclick="JavaScript: global.Collection.down (this);" />&nbsp;';
+			}
+
+			$icons [] = '<img src="titan.php?target=loadFile&file=interface/icon/edit.gif" border="0" title="'. __ ('Edit') .'" style="cursor: pointer;" onclick="JavaScript: global.Collection.edit (\''. $fieldId .'\', \''. $file .'\', \''. $itemId .'\', \''. $fatherColumn .'\');" />&nbsp;';
+			$icons [] = '<img src="titan.php?target=loadFile&amp;file=interface/icon/delete.gif" border="0" title="'. __ ('Delete') .'" style="cursor: pointer;" onclick="JavaScript: global.Collection.delRow (\''. $fieldId .'\', \''. $form->getFile () .'\', \''. $itemId .'\');" />&nbsp;';
+
+			$output [] = implode ('\r\n', $icons);
 
 			foreach ($output as $key => $value)
 				$output [$key] = str_replace ("'", "\'", $value);
@@ -247,7 +260,7 @@ class xCollection
 		return $output;
 	}
 
-	public function showMessages ()
+	public function showMessages ($fieldId)
 	{
 		$message = Message::singleton ();
 
@@ -258,9 +271,9 @@ class xCollection
 		while ($msg = $message->get ())
 			$str .= $msg;
 
-		$msgs = &XOAD_HTML::getElementById ('labelMessage');
+		$msgs = &XOAD_HTML::getElementById ('collectionLabelMessage_'. $fieldId);
 
-		$msgs->innerHTML = '<div id="idMessage">'. $str .'</div>';
+		$msgs->innerHTML = '<div class="message">'. $str .'</div>';
 
 		$message->clear ();
 
