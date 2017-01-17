@@ -22,7 +22,7 @@ global.Collection.create = function (fieldId, fatherId)
 	{
 		edit.style.display = 'none';
 
-		$('collection_form_' + fieldId).reset ();
+		$('collection_form_create_' + fieldId).reset ();
 	}
 	else
 	{

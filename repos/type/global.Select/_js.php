@@ -53,12 +53,28 @@ document.observe ('dom:loaded', function (evt)
 		}
 	}
 
+	var listener = function (id)
+	{
+		$(id).value = typeof $(id).value === 'string' ? '' : [];
+
+		Event.fire ($(id), 'chosen:updated');
+	};
+
 	var results = [];
 
 	for (var selector in config) {
 		var elements = $$(selector);
 		for (var i = 0; i < elements.length; i++) {
 			results.push(new Chosen(elements[i],config[selector]));
+
+			(function ()
+			{
+				var id = elements[i].id;
+
+				elements[i].up ('form').addEventListener ('reset', function () {
+					listener (id);
+				}, false);
+			}());
 		}
 	}
 

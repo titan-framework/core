@@ -39,6 +39,9 @@ ob_start ();
 						$backColor = 'FFFFFF';
 						while ($auxField = $form->getField (FALSE, $group->getId ()))
 						{
+							if (!$auxField->isSavable ())
+								continue;
+							
 							$backColor = $backColor == 'FFFFFF' ? 'F4F4F4' : 'FFFFFF';
 							$label = Form::toLabel ($auxField, TRUE);
 							?>

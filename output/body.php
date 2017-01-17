@@ -53,7 +53,7 @@ header ('Content-Encoding: gzip');
 		if (file_exists ($section->getCompPath () .'_css.php'))
 			include $section->getCompPath () .'_css.php';
 		?>
-		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=prototype,builder,effects,dragdrop,controls,slider,sound,protolimit,tooltip"></script>
+		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=prototype,builder,effects,dragdrop,controls,slider,sound,protolimit,tooltip,spin.min"></script>
 		<script language="javascript" type="text/javascript">
 		String.prototype.namespace = function (separator)
 		{

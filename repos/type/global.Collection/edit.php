@@ -16,15 +16,29 @@ ob_start ();
 					?>
 					<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
 						<?php
+						$fileFields = array ();
+
 						$backColor = 'FFFFFF';
 						while ($auxField = $form->getField (FALSE, $group->getId ()))
 						{
+							if (!$auxField->isSavable ())
+								continue;
+
+							if (Collection::isFile ($auxField))
+							{
+								$fileFields [] = $auxField;
+
+								continue;
+							}
+
 							$backColor = $backColor == 'FFFFFF' ? 'F4F4F4' : 'FFFFFF';
 							$label = Form::toLabel ($auxField, TRUE);
 							?>
 							<tr id="collection_row_<?= $auxField->getAssign () ?>" height="18px" style="background-color: #<?= $backColor ?>;">
 								<td width="20%" nowrap style="text-align: right;"><b><?= trim ($label) == '&nbsp;' ? '&nbsp;' : $label .':' ?></b></td>
-								<td><?= Form::toForm ($auxField) ?></td>
+								<td>
+									<?= Form::toForm ($auxField) ?>
+								</td>
 								<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($auxField); ?></td>
 							</tr>
 							<tr height="2px"><td></td></tr>
@@ -33,6 +47,13 @@ ob_start ();
 						?>
 					</table>
 					<?php
+					foreach ($fileFields as $trash => $auxField)
+					{
+						?>
+						<input type="hidden" name="<?= $auxField->getAssign () ?>" value="<?= $auxField->getValue () ?>" />
+						<?
+					}
+
 					$output = ob_get_clean ();
 				}
 				catch (Exception $e)

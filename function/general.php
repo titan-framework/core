@@ -285,7 +285,7 @@ function makeMenu ($previous = FALSE, $father = '', $sectionName = '')
 
 	if ($father != '' && !$business->getSection ($father)->isFake () && !$business->getSection ($father)->isHidden ())
 		if ($user->accessSection ($business->getSection ($father)->getName ()))
-			$output [] = '<li style="background-image: none;" onclick="JavaScript: document.location = \'titan.php?target=body&amp;toSection='. $father .'\';" title="'. $business->getSection ($father)->getDescription () .'"><label>'. $business->getSection ($father)->getLabel () .'</label></li>';
+			$output [] = '<li style="background-image: none;" onclick="JavaScript: showWait (); document.location = \'titan.php?target=body&amp;toSection='. $father .'\';" title="'. $business->getSection ($father)->getDescription () .'"><label>'. $business->getSection ($father)->getLabel () .'</label></li>';
 		elseif (Instance::singleton ()->showAllSections ())
 			$output [] = '<li style="background-image: none;"><label style="color: #AAAAAA;" title="'. $business->getSection ($father)->getDescription () .'">'. $business->getSection ($father)->getLabel () .'</label></li>';
 
@@ -307,7 +307,7 @@ function makeMenu ($previous = FALSE, $father = '', $sectionName = '')
 			$output [] = '<li onclick="JavaScript: slideMenu (\''. $father .'\', \''. $section->getName () .'\');"><label>'. $section->getLabel () .'</label></li>';
 		}
 		elseif ($user->accessSection ($section->getName ()))
-			$output [] = '<li style="background-image: none;" onclick="JavaScript: document.location = \'titan.php?target=body&amp;toSection='. $section->getName () .'\';" title="'. $section->getDescription () .'"><label>'. $section->getLabel () .'</label></li>';
+			$output [] = '<li style="background-image: none;" onclick="JavaScript: showWait (); document.location = \'titan.php?target=body&amp;toSection='. $section->getName () .'\';" title="'. $section->getDescription () .'"><label>'. $section->getLabel () .'</label></li>';
 		elseif (Instance::singleton ()->showAllSections ())
 			$output [] = '<li style="background-image: none;"><label style="color: #AAAAAA;" title="'. $section->getDescription () .'">'. $section->getLabel () .'</label></li>';
 	}
