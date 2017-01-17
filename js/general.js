@@ -93,28 +93,29 @@ function sendLetter (counter, character)
 		hidden.value = character;
 }
 
-var titanWaitSpinner = new Spinner ({
-	lines: 13,
-	length: 28,
-	width: 14,
-	radius: 42,
-	scale: 1,
-	corners: 1,
-	color: '#FFF',
-	opacity: 0.6,
-	rotate: 0,
-	direction: 1,
-	speed: 1,
-	trail: 60,
-	fps: 20,
-	zIndex: 2e9,
-	className: '',
-	top: '50%',
-	left: '50%',
-	shadow: true,
-	hwaccel: false,
-	position: 'absolute'
-});
+if (typeof Spinner === 'function')
+	var titanWaitSpinner = new Spinner ({
+		lines: 13,
+		length: 28,
+		width: 14,
+		radius: 42,
+		scale: 1,
+		corners: 1,
+		color: '#FFF',
+		opacity: 0.6,
+		rotate: 0,
+		direction: 1,
+		speed: 1,
+		trail: 60,
+		fps: 20,
+		zIndex: 2e9,
+		className: '',
+		top: '50%',
+		left: '50%',
+		shadow: true,
+		hwaccel: false,
+		position: 'absolute'
+	});
 
 var titanWaitBlockLayer = null;
 
@@ -136,7 +137,8 @@ function showWait ()
 		$(document.body).appendChild (titanWaitBlockLayer);
 	}
 
-	titanWaitSpinner.spin ($(document.body));
+	if (titanWaitSpinner)
+		titanWaitSpinner.spin ($(document.body));
 }
 
 function hideWait ()
@@ -145,7 +147,8 @@ function hideWait ()
 
 	parent.banner.enableMenu ();
 
-	titanWaitSpinner.stop ();
+	if (titanWaitSpinner)
+		titanWaitSpinner.stop ();
 
 	if (titanWaitBlockLayer != null)
 		titanWaitBlockLayer.style.display = 'none';
