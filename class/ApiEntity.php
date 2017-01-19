@@ -1,16 +1,17 @@
 <?php
 /**
- * ApiEntity.php
+ * Load XML definitions files and instanciate a API Entity artefact.
  *
- * This class load XML definitions files and instanciate a API Entity artefact.
- * This class derivate (but not extends) the class Form for appliance on REST Like API.
+ * This class derivate (but not extends) the class Form for appliance on REST-Like API bus.
  *
  * @author Camilo Carromeu <camilo@carromeu.com>
  * @category class
  * @package core
- * @subpackage form
- * @copyright Creative Commons Attribution No Derivatives (CC-BY-ND)
- * @see Form, Search
+ * @subpackage api
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
+ * @see Form, Api, ApiAuth, ApiException, ApiList
+ * @link http://www.titanframework.com/docs/api/
  * @todo Create Item class for array replace.
  */
 class ApiEntity
@@ -18,11 +19,11 @@ class ApiEntity
 	protected $file = '';
 
 	protected $primary = '';
-	
+
 	protected $itemId = 0;
-	
+
 	protected $codeColumn = '';
-	
+
 	protected $code = NULL;
 
 	protected $table = '';
@@ -56,7 +57,7 @@ class ApiEntity
 			throw new Exception ('Arquivo XML não encontrado em [section/'. $section->getName () .'/].');
 
 		$file = 'section/'. $section->getName () .'/'. $fileName;
-		
+
 		$cacheFile = Instance::singleton ()->getCachePath () .'parsed/'. fileName ($file) .'_'. md5_file ($file) .'.php';
 
 		if (file_exists ($cacheFile))
@@ -72,10 +73,10 @@ class ApiEntity
 
 			xmlCache ($cacheFile, $array);
 		}
-		
+
 		if (!array_key_exists ('api', $array))
 			throw new Exception ('Invalid XML View file [section/'. $section->getName () .'/].');
-		
+
 		$array = $array ['api'][0];
 
 		$this->file = $fileName;
@@ -85,20 +86,20 @@ class ApiEntity
 
 		if (array_key_exists ('primary', $array))
 			$this->primary = trim ($array ['primary']);
-		
+
 		if (array_key_exists ('code', $array))
 			$this->codeColumn = trim ($array ['code']);
-		
+
 		$user = User::singleton ();
 
 		if (array_key_exists ('field', $array) && is_array ($array ['field']))
 			foreach ($array ['field'] as $trash => $field)
 				if ($obj = Type::factory ($this->getTable (), $field))
 					$this->fields [$obj->getAssign ()] = $obj;
-		
+
 		reset ($this->fields);
 	}
-	
+
 	public function getFile ()
 	{
 		return $this->file;
@@ -118,12 +119,12 @@ class ApiEntity
 	{
 		return $this->primary;
 	}
-	
+
 	public function getCodeColumn ()
 	{
 		return $this->codeColumn;
 	}
-	
+
 	public function useCode ()
 	{
 		return $this->getCodeColumn () != '';
@@ -138,17 +139,17 @@ class ApiEntity
 	{
 		return $this->itemId;
 	}
-	
+
 	public function setId ($itemId)
 	{
 		$this->itemId = $itemId;
 	}
-	
+
 	public function getCode ()
 	{
 		return $this->code;
 	}
-	
+
 	public function setCode ($code)
 	{
 		$this->code = $code;
@@ -171,28 +172,28 @@ class ApiEntity
 
 		return NULL;
 	}
-	
+
 	public function takeOutField ($assign)
 	{
 		if (!array_key_exists ($assign, $this->fields))
 			return NULL;
-		
+
 		$out = $this->fields [$assign];
-		
+
 		unset ($this->fields [$assign]);
-		
+
 		return $out;
 	}
-	
+
 	public function getFieldByColumn ($column)
 	{
 		foreach ($this->fields as $assign => $field)
 			if ($field->getColumn () == $column)
 				return $field;
-		
+
 		return NULL;
 	}
-	
+
 	public function recovery ($data = FALSE)
 	{
 		if (is_array ($data))
@@ -203,95 +204,95 @@ class ApiEntity
 			}
 		else
 			$data = $_POST;
-		
+
 		foreach ($this->fields as $assign => $field)
 		{
 			if ($field->isReadOnly ())
 				continue;
-			
+
 			if (!array_key_exists ($field->getApiColumn (), $data) && !array_key_exists ($field->getApiColumn (), $_FILES))
 			{
 				if ($field->isRequired ())
 					throw new ApiException (__ ('Required field [[1]] is missing or empty!', $field->getLabel ()), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
-				
+
 				unset ($this->fields [$assign]);
-				
+
 				continue;
 			}
-			
+
 			if (array_key_exists ($field->getApiColumn (), $_FILES))
 				$value = $_FILES [$field->getApiColumn ()];
 			else
 				$value = $data [$field->getApiColumn ()];
-			
+
 			$this->fields [$assign]->setValue (self::fromApi ($this->fields [$assign], $value));
-			
+
 			if (!$this->fields [$assign]->isValid ())
 				throw new ApiException (__ ('The value of field [[1]] is invalid!', $field->getLabel ()), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 		}
 
 		return TRUE;
 	}
-	
+
 	public function load ($id, $ownerOnly = FALSE, $user = NULL)
 	{
 		$fields = array ();
 			foreach ($this->fields as $assign => $field)
 				if ($field->isLoadable ())
 					$fields [] = Database::toSql ($field);
-		
+
 		if ($ownerOnly && (is_null ($user || !is_integer ($user) || !$user)))
 			throw new Exception (__ ('The user must be acknowledged! Please, alert system responsible.'));
-		
+
 		$db = Database::singleton ();
-		
+
 		if ($this->useCode ())
 		{
 			if (is_null ($id) || trim ($id) == '')
 				throw new Exception (__ ('Invalid code!'));
-			
+
 			$this->setCode ($id);
-			
+
 			if ($ownerOnly)
 				$sql = "SELECT ". $this->getPrimary () .", ". implode (', ', $fields) ." FROM ". $this->getTable () ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () ." AND _user = :_user";
 			else
 				$sql = "SELECT ". $this->getPrimary () .", ". implode (', ', $fields) ." FROM ". $this->getTable () ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn ();
-			
+
 			$sth = $db->prepare ($sql);
-			
+
 			$sth->bindParam (':'. $this->getCodeColumn (), $id, PDO::PARAM_STR);
 		}
 		else
 		{
 			if (is_null ($id) || !is_integer ($id) || !(int) $id)
 				throw new Exception (__ ('Invalid identifier!'));
-				
+
 			if ($ownerOnly)
 				$sql = "SELECT ". $this->getPrimary () .", ". implode (', ', $fields) ." FROM ". $this->getTable () ." WHERE ". $this->getPrimary () ." = :". $this->getPrimary () ." AND _user = :_user";
 			else
 				$sql = "SELECT ". $this->getPrimary () .", ". implode (', ', $fields) ." FROM ". $this->getTable () ." WHERE ". $this->getPrimary () ." = :". $this->getPrimary ();
-			
+
 			$sth = $db->prepare ($sql);
-			
+
 			$sth->bindParam (':'. $this->getPrimary (), $id, PDO::PARAM_INT);
 		}
-		
+
 		if ($ownerOnly)
 			$sth->bindParam (':_user', $user, PDO::PARAM_INT);
-		
+
 		$sth->execute ();
-		
+
 		$obj = $sth->fetch (PDO::FETCH_OBJ);
 
 		if (!$obj)
 			return FALSE;
-		
+
 		$pk = $this->getPrimary ();
-		
+
 		$itemId = $obj->$pk;
-		
+
 		$this->setId ($itemId);
-		
+
 		foreach ($this->fields as $assign => $field)
 			if ($field->isLoadable ())
 				$this->fields [$assign] = Database::fromDb ($field, $obj);
@@ -302,42 +303,42 @@ class ApiEntity
 
 		return TRUE;
 	}
-	
+
 	public function save ($user, $id = NULL)
 	{
 		$mandatory = Database::getMandatoryColumns ($this->getTable ());
-		
+
 		$_change = $this->getFieldByColumn ('_change');
-		
+
 		if (!in_array ('_change', $mandatory) || is_null ($_change) || !is_object ($_change) || !$_change->getUnixTime ())
 			throw new ApiException (__ ('Has a problem with column of last change control! Please, alert system responsible.'), ApiException::ERROR_SYSTEM, ApiException::INTERNAL_SERVER_ERROR);
-		
+
 		$fields = array ();
 		$values = array ();
 		$binds  = array ();
 		$types  = array ();
 		$sizes  = array ();
-		
+
 		$mandatoryForServerOnly = array ('_create', '_update', '_user');
-		
+
 		foreach ($this->fields as $key => $field)
 		{
 			if (in_array ($field->getColumn (), $mandatoryForServerOnly))
 				continue;
-			
+
 			if ($field->isReadOnly () || !$field->isSavable ())
 				continue;
-			
+
 			$assign = $field->getAssign ();
-			
+
 			$fields [$assign] = $field->getColumn ();
-			
+
 			if ($field->getBind ())
 			{
 				$values [$assign] = ":". $field->getColumn ();
 				$binds  [$assign] = Database::toBind ($field);
 				$types  [$assign] = $field->getBindType ();
-				
+
 				if (method_exists ($field, 'getMaxLength'))
 					$sizes [$assign] = (int) $field->getMaxLength ();
 				else
@@ -346,70 +347,70 @@ class ApiEntity
 			else
 				$values [$assign] = Database::toValue ($field);
 		}
-		
+
 		if (in_array ('_user', $mandatory))
 		{
 			$fields [] = '_user';
 			$values [] = (int) $user;
 		}
-		
+
 		if (in_array ('_update', $mandatory))
 		{
 			$fields [] = '_update';
 			$values [] = 'NOW()';
 		}
-		
+
 		foreach ($mandatory as $trash => $column)
 			$$column = $this->getFieldByColumn ($column);
-		
+
 		// throw new Exception ($itemId);
-		
+
 		$db = Database::singleton ();
-		
+
 		$aux = array ();
 		foreach ($fields as $key => $field)
 			$aux [] = $field ." = ". $values [$key];
-		
+
 		if ($this->useCode ())
 		{
 			if (is_null ($id) || trim ($id) == '')
 				throw new ApiException (__ ('Invalid code!'), ApiException::ERROR_SYSTEM, ApiException::INTERNAL_SERVER_ERROR);
-			
+
 			$sqlUpdate = "UPDATE ". $this->getTable () ." SET ". implode (", ", $aux) ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () ." AND ". $_change->getUnixTime () ." > extract (epoch from _change)::integer";
-			
+
 			$sthUpdate = $db->prepare ($sqlUpdate);
-			
+
 			$iFields = $fields;
-			
+
 			$iValues = array ();
-			
+
 			foreach ($fields as $key => $field)
 				if (array_key_exists ($key, $binds))
 					$iValues [$key] = ":". $field ." AS ". $field;
 				else
 					$iValues [$key] = $values [$key] ." AS ". $field;
-			
+
 			if (in_array ('_author', $mandatory) && !isset ($_author))
 			{
 				$iFields [] = '_author';
 				$iValues [] = (int) $user ." AS _author";
 			}
-			
+
 			if (in_array ('_devise', $mandatory) && !isset ($_devise))
 			{
 				$iFields [] = '_devise';
 				$iValues [] = Database::toValue ($_change) ." AS _devise";
 			}
-			
-			$sqlInsert = "INSERT INTO ". $this->getTable () ." (". $this->getCodeColumn () .", ". implode (", ", $iFields) .") 
-						  SELECT (:". $this->getCodeColumn () .")::varchar AS ". $this->getCodeColumn () .", ". implode (", ", $iValues) ." 
+
+			$sqlInsert = "INSERT INTO ". $this->getTable () ." (". $this->getCodeColumn () .", ". implode (", ", $iFields) .")
+						  SELECT (:". $this->getCodeColumn () .")::varchar AS ". $this->getCodeColumn () .", ". implode (", ", $iValues) ."
 						  WHERE NOT EXISTS (SELECT 1 FROM ". $this->getTable () ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () .")";
-			
+
 			$sthInsert = $db->prepare ($sqlInsert);
-			
+
 			$sthUpdate->bindParam (':'. $this->getCodeColumn (), $id, PDO::PARAM_STR);
 			$sthInsert->bindParam (':'. $this->getCodeColumn (), $id, PDO::PARAM_STR);
-			
+
 			foreach ($binds as $assign => $trash)
 				if ($sizes [$assign] && $types [$assign] == PDO::PARAM_STR)
 				{
@@ -421,79 +422,79 @@ class ApiEntity
 					$sthUpdate->bindParam ($values [$assign], $binds [$assign], $types [$assign]);
 					$sthInsert->bindParam ($values [$assign], $binds [$assign], $types [$assign]);
 				}
-			
+
 			$sthUpdate->execute ();
 			$sthInsert->execute ();
-			
+
 			$sth = $db->prepare ("SELECT ". $this->getPrimary () ." AS pk FROM ". $this->getTable () ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn ());
-			
+
 			$sth->bindParam (':'. $this->getCodeColumn (), $id, PDO::PARAM_STR);
-			
+
 			$sth->execute ();
-			
+
 			$itemId = (int) $sth->fetchColumn ();
-			
+
 			$this->setCode ($id);
 		}
 		else
 			if (!is_null ($id) && is_numeric ($id) && (int) $id)
 			{
 				$id = (int) $id;
-				
+
 				$sqlUpdate = "UPDATE ". $this->getTable () ." SET ". implode (", ", $aux) ." WHERE ". $this->getPrimary () ." = :". $this->getPrimary () ." AND ". $_change->getUnixTime () ." > extract (epoch from _change)::integer";
-				
+
 				$sth = $db->prepare ($sqlUpdate);
-				
+
 				$sth->bindParam (':'. $this->getPrimary (), $id, PDO::PARAM_INT);
-				
+
 				foreach ($binds as $assign => $trash)
 					if ($sizes [$assign] && $types [$assign] == PDO::PARAM_STR)
 						$sth->bindParam ($values [$assign], $binds [$assign], $types [$assign], $sizes [$assign]);
 					else
 						$sth->bindParam ($values [$assign], $binds [$assign], $types [$assign]);
-				
+
 				$sth->execute ();
-				
+
 				$itemId = $id;
 			}
 			else
 			{
 				$id = (int) Database::nextId ($this->getTable (), $this->getPrimary ());
-				
+
 				$iFields = $fields;
 				$iValues = $values;
-				
+
 				if (in_array ('_author', $mandatory) && !isset ($_author))
 				{
 					$iFields [] = '_author';
 					$iValues [] = (int) $user;
 				}
-				
+
 				if (in_array ('_devise', $mandatory) && !isset ($_devise))
 				{
 					$iFields [] = '_devise';
 					$iValues [] = Database::toValue ($_change);
 				}
-				
-				$sth = $db->prepare ("INSERT INTO ". $this->getTable () ." (". $this->getPrimary () .", ". implode (", ", $iFields) .") 
+
+				$sth = $db->prepare ("INSERT INTO ". $this->getTable () ." (". $this->getPrimary () .", ". implode (", ", $iFields) .")
 									  VALUES (:". $this->getPrimary () .", ". implode (", ", $iValues) .")");
-				
+
 				$sth->bindParam (':'. $this->getPrimary (), $id, PDO::PARAM_INT);
-				
+
 				foreach ($binds as $assign => $trash)
 					if ($sizes [$assign] && $types [$assign] == PDO::PARAM_STR)
 						$sth->bindParam ($values [$assign], $binds [$assign], $types [$assign], $sizes [$assign]);
 					else
 						$sth->bindParam ($values [$assign], $binds [$assign], $types [$assign]);
-				
+
 				$sth->execute ();
-				
+
 				$itemId = $id;
 			}
-		
+
 		if (!isset ($itemId) || is_null ($itemId) || !$itemId)
 			return FALSE;
-		
+
 		$this->setId ($itemId);
 
 		Lucene::singleton ()->save ($itemId, $this->getResume ($itemId, TRUE));
@@ -501,24 +502,24 @@ class ApiEntity
 		foreach ($this->fields as $key => $field)
 			if (!$field->isSavable ())
 				$field->save ($itemId);
-		
+
 		reset ($this->fields);
-		
+
 		return $itemId;
 	}
-	
+
 	public function delete ($id = NULL, $permanent = TRUE, $ownerOnly = FALSE, $user = NULL)
 	{
 		if ($ownerOnly && (is_null ($user || !is_integer ($user) || !$user)))
 			throw new Exception (__ ('The user must be acknowledged! Please, alert system responsible.'));
-		
+
 		$db = Database::singleton ();
-		
+
 		if ($this->useCode ())
 		{
 			if (is_null ($id) || trim ($id) == '')
 				throw new Exception (__ ('Invalid code!'));
-			
+
 			if ($permanent)
 				if ($ownerOnly)
 					$sql = "DELETE FROM ". $this->getTable () ." WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () ." AND _user = :_user";
@@ -529,16 +530,16 @@ class ApiEntity
 					$sql = "UPDATE ". $this->getTable () ." SET _deleted = B'1' WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn () ." AND _user = :_user";
 				else
 					$sql = "UPDATE ". $this->getTable () ." SET _deleted = B'1' WHERE ". $this->getCodeColumn () ." = :". $this->getCodeColumn ();
-			
+
 			$sth = $db->prepare ($sql);
-			
+
 			$sth->bindParam (':'. $this->getCodeColumn (), $id, PDO::PARAM_STR);
 		}
 		else
 		{
 			if (is_null ($id) || !is_integer ($id) || !(int) $id)
 				throw new Exception (__ ('Invalid identifier!'));
-			
+
 			if ($permanent)
 				if ($ownerOnly)
 					$sql = "DELETE FROM ". $this->getTable () ." WHERE ". $this->getPrimary () ." = :". $this->getPrimary () ." AND _user = :_user";
@@ -549,15 +550,15 @@ class ApiEntity
 					$sql = "UPDATE ". $this->getTable () ." SET _deleted = B'1' WHERE ". $this->getPrimary () ." = :". $this->getPrimary () ." AND _user = :_user";
 				else
 					$sql = "UPDATE ". $this->getTable () ." SET _deleted = B'1' WHERE ". $this->getPrimary () ." = :". $this->getPrimary ();
-			
+
 			$sth = $db->prepare ($sql);
-			
+
 			$sth->bindParam (':'. $this->getPrimary (), $id, PDO::PARAM_INT);
 		}
-		
+
 		if ($ownerOnly)
 			$sth->bindParam (':_user', $user, PDO::PARAM_INT);
-		
+
 		if (!$sth->execute ())
 			return FALSE;
 
@@ -565,7 +566,7 @@ class ApiEntity
 
 		return TRUE;
 	}
-	
+
 	public function getResume ($friendly = FALSE)
 	{
 		$resume = "";
@@ -574,42 +575,42 @@ class ApiEntity
 		{
 			$resume .= "[ID# ". $this->getId () ." / CODE: ". $this->getCode () ." ] \n\n";
 		}
-		
+
 		while ($field = $this->getField (FALSE))
 			$resume .= (trim ($field->getLabel ()) != '' ? $field->getLabel () .": \n" : '') . Form::toText ($field) ." \n\n";
-		
+
 		reset ($this->fields);
 
 		return $resume;
 	}
-	
+
 	public function json ()
 	{
 		$itemId = $this->getId ();
-		
+
 		$object = array ();
-		
+
 		if ($this->useCode ())
 			$object [$this->getCodeColumn ()] = $this->getCode ();
 		else
 			$object [$this->getPrimary ()] = $itemId;
-		
+
 		while ($field = $this->getField ())
 			$object [$field->getApiColumn ()] = ApiEntity::toApi ($field, $itemId);
-		
+
 		return json_encode ((object) $object);
 	}
-	
+
 	public static function getNextKey ($array)
 	{
 		$key = 0;
-		
+
 		while (array_key_exists ($key, $array))
 			$key++;
-		
+
 		return $key;
 	}
-	
+
 	public static function toApi ($field, $itemId = NULL)
 	{
 		if (!is_object ($field))
@@ -620,7 +621,7 @@ class ApiEntity
 		$fieldId = 'field_'. $field->getAssign ();
 
 		$db = Database::singleton ();
-		
+
 		$type = get_class ($field);
 
 		do
@@ -633,7 +634,7 @@ class ApiEntity
 			$type = get_parent_class ($type);
 
 		} while ($type != 'Type' && $type !== FALSE);
-		
+
 		$type = get_class ($field);
 
 		do
@@ -662,14 +663,14 @@ class ApiEntity
 
 		return strip_tags ($field->getValue ());
 	}
-	
+
 	public static function fromApi ($field, $value)
 	{
 		if (!is_object ($field))
 			return $value;
 
 		$instance = Instance::singleton ();
-		
+
 		$type = get_class ($field);
 
 		do
@@ -682,7 +683,7 @@ class ApiEntity
 			$type = get_parent_class ($type);
 
 		} while ($type != 'Type' && $type !== FALSE);
-		
+
 		$type = get_class ($field);
 
 		do
@@ -699,4 +700,3 @@ class ApiEntity
 		return $value;
 	}
 }
-?>

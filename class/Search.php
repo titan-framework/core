@@ -1,16 +1,15 @@
 <?php
 /**
- * Search.php
- *
- * This class load XML definitions files for search forms and instanciate
+ * Load XML definitions files for search forms and instanciate
  * a search artefact for list.
  *
  * @author Camilo Carromeu <camilo@carromeu.com>
  * @category class
  * @package core
  * @subpackage form
- * @copyright Creative Commons Attribution No Derivatives (CC-BY-ND)
- * @see View, Search
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
+ * @see View, Form
  */
 class Search
 {
@@ -89,12 +88,12 @@ class Search
 		if (array_key_exists ('father', $array) && isset ($_GET['fatherId']) && (int) $_GET['fatherId'])
 		{
 			$_POST['search'] = self::TSEARCH;
-			
+
 			$_POST ['search_'. $array ['father']] = $_GET['fatherId'];
-			
+
 			$this->father = TRUE;
 		}
-		
+
 		$search = Instance::singleton ()->getSearch ();
 
 		if (array_key_exists ('hash', $search))
@@ -130,7 +129,7 @@ class Search
 
 					$this->fields [$obj->getAssign ()] = $obj;
 				}
-		
+
 		reset ($this->fields);
 	}
 
@@ -294,7 +293,7 @@ class Search
 
 		return '<input type="text" class="field" name="'. $fieldName .'" id="'. $fieldId .'" value="'. $field->getValue () .'" />';
 	}
-	
+
 	public static function fromForm ($field, $value)
 	{
 		if (!is_object ($field))
@@ -314,9 +313,9 @@ class Search
 			$type = get_parent_class ($type);
 
 		} while ($type != 'Type' && $type !== FALSE);
-		
+
 		$type = get_class ($field);
-		
+
 		do
 		{
 			$file = $instance->getTypePath ($type) .'fromForm.php';
@@ -353,7 +352,7 @@ class Search
 
 		return $field->getTable () .'.'. $field->getColumn () ." = ". Database::toValue ($field);
 	}
-	
+
 	public static function toHtml ($field)
 	{
 		if (!is_object ($field))
@@ -377,9 +376,9 @@ class Search
 			$type = get_parent_class ($type);
 
 		} while ($type != 'Type' && $type !== FALSE);
-		
+
 		$type = get_class ($field);
-		
+
 		do
 		{
 			$file = $instance->getTypePath ($type) .'toHtml.php';
@@ -394,4 +393,3 @@ class Search
 		return $field->getValue ();
 	}
 }
-?>

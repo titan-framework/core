@@ -1,4 +1,16 @@
 <?php
+/**
+ * Implements authentication in REST-Like API bus.
+ *
+ * @author Camilo Carromeu <camilo@carromeu.com>
+ * @category class
+ * @package core
+ * @subpackage api
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
+ * @see Api, ApiEntity, ApiException, ApiList
+ * @link http://www.titanframework.com/docs/api/
+ */
 abstract class ApiAuth
 {
 	protected $name;

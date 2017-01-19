@@ -1,10 +1,9 @@
 <?php
 /**
- * View.php
- *
  * This class load XML definitions files and instanciate a view artefact.
  * View artefact is itens list (list of arrays), and a item is fields list
  * (list of Type object).
+ *
  * The choosed methodology assure only one fields list. If do have N objects
  * as result from query, this database objects will be loaded in View class on
  * demand.
@@ -13,7 +12,8 @@
  * @category class
  * @package core
  * @subpackage form
- * @copyright Creative Commons Attribution No Derivatives (CC-BY-ND)
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see Form, Search
  * @todo Create Item class for array replace.
  */

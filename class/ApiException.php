@@ -1,4 +1,16 @@
 <?php
+/**
+ * This class implements specifc exception to REST-Like API bus.
+ *
+ * @author Camilo Carromeu <camilo@carromeu.com>
+ * @category class
+ * @package core
+ * @subpackage api
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
+ * @see Form, Api, ApiAuth, ApiEntity, ApiList
+ * @link http://www.titanframework.com/docs/api/
+ */
 class ApiException extends Exception
 {
 	// 1XX INFORMATIONAL CODES
@@ -67,7 +79,7 @@ class ApiException extends Exception
 	const INSUFFICIENT_STORAGE = 507;
 	const LOOP_DETECTED = 508;
 	const NETWORK_AUTHENTICATION_REQUIRED = 511;
-	
+
 	public static $status = array (
 		// INFORMATIONAL CODES
 		100 => 'Continue',
@@ -136,7 +148,7 @@ class ApiException extends Exception
 		508 => 'Loop Detected',
 		511 => 'Network Authentication Required'
 	);
-	
+
 	const ERROR_REQUEST_TIMESTAMP = 'ERROR_REQUEST_TIMESTAMP';
 	const ERROR_INVALID_PARAMETER = 'ERROR_INVALID_PARAMETER';
 	const ERROR_APP_AUTH = 'ERROR_APP_AUTH';
@@ -147,23 +159,23 @@ class ApiException extends Exception
 	const ERROR_DB = 'ERROR_DB';
 	const ERROR_NOT_FOUND = 'ERROR_NOT_FOUND';
 	const ERROR_GENERIC = 'ERROR_GENERIC';
-	
+
 	private $titanErrorCode = '';
 	private $titanTechnical = '';
-	
+
 	public function __construct ($message, $error, $http = self::INTERNAL_SERVER_ERROR, $technical = '')
 	{
 		parent::__construct ($message, $http);
-		
+
 		$this->titanErrorCode = $error;
 		$this->titanTechnical = $technical;
 	}
-	
+
 	public function getTitanErrorCode ()
 	{
 		return $this->titanErrorCode;
 	}
-	
+
 	public function getTitanTechnical ()
 	{
 		return $this->titanTechnical;

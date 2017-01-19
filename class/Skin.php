@@ -1,4 +1,15 @@
 <?php
+/**
+ * Treatment of visual artifacts, like CSS files and logo.
+ *
+ * @author Camilo Carromeu <camilo@carromeu.com>
+ * @category class
+ * @package core
+ * @subpackage util
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
+ * @see Instance, Section, Action
+ */
 class Skin
 {
 	static private $skin = FALSE;
@@ -16,31 +27,33 @@ class Skin
 
 		$corePath = $instance->getCorePath ();
 
-		$this->array = array (	'logo'				=> '',
-								'icon'				=> 'titan.php?target=loadFile&amp;file=interface/image/titan.ico',
-							  	'mobile-logo'		=> '',
-								'image-fault'		=> 'titan.php?target=loadFile&file=interface/image/fault.jpg',
-								'icons-folder'		=> 'titan.php?target=loadFile&file=interface/icon/',
-								'icons-mime'		=> 'titan.php?target=loadFile&file=interface/file/',
-								'icons-menu'		=> 'titan.php?target=loadFile&file=interface/menu/',
-								'use-xsl'			=> FALSE,
-								'path'				=> '',
-								'css-main'			=> Instance::singleton ()->getCorePath () .'interface/css/general.css',
-								'css-ie'			=> Instance::singleton ()->getCorePath () .'interface/css/general-ie.css',
-								'css-top'			=> Instance::singleton ()->getCorePath () .'interface/css/top.css',
-								'css-login'			=> Instance::singleton ()->getCorePath () .'interface/css/logon.css',
-								'css-menu'			=> Instance::singleton ()->getCorePath () .'interface/css/menu.css',
-								'css-message'		=> Instance::singleton ()->getCorePath () .'interface/css/modalbox.css',
-								'css-password'		=> Instance::singleton ()->getCorePath () .'interface/css/password.css',
-								'css-boxes'			=> Instance::singleton ()->getCorePath () .'interface/css/dragable-boxes.css',
-								'css-bug'			=> Instance::singleton ()->getCorePath () .'interface/css/bug-report.css',
-								'css-backup'		=> Instance::singleton ()->getCorePath () .'interface/css/instance-backup.css',
-								'css-print'			=> Instance::singleton ()->getCorePath () .'interface/css/print.css',
-								'css-firefox'		=> Instance::singleton ()->getCorePath () .'interface/css/firefox.css',
-								'css-gallery'		=> Instance::singleton ()->getCorePath () .'interface/css/lightbox.css',
-								'css-mobile'		=> Instance::singleton ()->getCorePath () .'interface/css/mobile.css',
-								'css-instance-top' 	=> 'titan.php?target=loadFile&file=interface/css/empty.css',
-								'css-instance-body' => 'titan.php?target=loadFile&file=interface/css/empty.css');
+		$this->array = array (
+			'logo'				=> '',
+			'icon'				=> 'titan.php?target=loadFile&amp;file=interface/image/titan.ico',
+		  	'mobile-logo'		=> '',
+			'image-fault'		=> 'titan.php?target=loadFile&file=interface/image/fault.jpg',
+			'icons-folder'		=> 'titan.php?target=loadFile&file=interface/icon/',
+			'icons-mime'		=> 'titan.php?target=loadFile&file=interface/file/',
+			'icons-menu'		=> 'titan.php?target=loadFile&file=interface/menu/',
+			'use-xsl'			=> FALSE,
+			'path'				=> '',
+			'css-main'			=> Instance::singleton ()->getCorePath () .'interface/css/general.css',
+			'css-ie'			=> Instance::singleton ()->getCorePath () .'interface/css/general-ie.css',
+			'css-top'			=> Instance::singleton ()->getCorePath () .'interface/css/top.css',
+			'css-login'			=> Instance::singleton ()->getCorePath () .'interface/css/logon.css',
+			'css-menu'			=> Instance::singleton ()->getCorePath () .'interface/css/menu.css',
+			'css-message'		=> Instance::singleton ()->getCorePath () .'interface/css/modalbox.css',
+			'css-password'		=> Instance::singleton ()->getCorePath () .'interface/css/password.css',
+			'css-boxes'			=> Instance::singleton ()->getCorePath () .'interface/css/dragable-boxes.css',
+			'css-bug'			=> Instance::singleton ()->getCorePath () .'interface/css/bug-report.css',
+			'css-backup'		=> Instance::singleton ()->getCorePath () .'interface/css/instance-backup.css',
+			'css-print'			=> Instance::singleton ()->getCorePath () .'interface/css/print.css',
+			'css-firefox'		=> Instance::singleton ()->getCorePath () .'interface/css/firefox.css',
+			'css-gallery'		=> Instance::singleton ()->getCorePath () .'interface/css/lightbox.css',
+			'css-mobile'		=> Instance::singleton ()->getCorePath () .'interface/css/mobile.css',
+			'css-instance-top' 	=> 'titan.php?target=loadFile&file=interface/css/empty.css',
+			'css-instance-body' => 'titan.php?target=loadFile&file=interface/css/empty.css'
+		);
 
 		foreach ($this->array as $key => $trash)
 			if (array_key_exists ($key, $fromXml) && !empty ($fromXml [$key]))
@@ -123,4 +136,3 @@ class Skin
 		return $this->array ['path'];
 	}
 }
-?>

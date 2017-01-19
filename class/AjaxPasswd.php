@@ -1,4 +1,15 @@
 <?php
+/**
+ * Use ajax to change user password.
+ *
+ * @author Camilo Carromeu <camilo@carromeu.com>
+ * @category class
+ * @package core
+ * @subpackage ajax
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
+ * @see User, Xoad, AjaxLogon
+ */
 class AjaxPasswd
 {
 	public function changePasswd ($hash, $password, $login)
@@ -23,9 +34,9 @@ class AjaxPasswd
 			$db = Database::singleton ();
 
 			$sth = $db->prepare ("SELECT _name, _email, _password, _id, _type FROM _user WHERE _login = :login AND _deleted = '0' AND _active = '1'");
-			
+
 			$sth->bindValue (':login', $login, PDO::PARAM_STR);
-			
+
 			$sth->execute ();
 
 			$obj = $sth->fetch (PDO::FETCH_OBJ);
@@ -42,7 +53,7 @@ class AjaxPasswd
 				$ldap = Security::singleton ()->getUserType ($obj->_type)->getLdap ();
 
 				$fields = array ('userPassword', 'mail', 'cn');
-				
+
 				$ldap->connect (FALSE, FALSE, TRUE);
 
 				$result = $ldap->load ($login, $fields);
@@ -55,18 +66,18 @@ class AjaxPasswd
 			}
 
 			$systemHash = Security::singleton ()->getHash ();
-			
+
 			$vHash = sha1 ($systemHash . $name . $systemHash . $passwd . $systemHash . $email . $systemHash);
-			
+
 			if ((strlen ($hash) != 10 && $hash != $vHash) || (strlen ($hash) != 40 && $hash != shortlyHash ($vHash)))
 				throw new Exception (__ ('Invalid Hash! Use the link "Recovery Password" at the login page for receive a valid hash into your e-mail.'));
-			
+
 			if (Security::singleton ()->getUserType ($obj->_type)->useLdap ())
 			{
 				$ldap->connect (FALSE, FALSE, TRUE);
 
 				$fields = $ldap->getEssentialPassword ($login, $password);
-				
+
 				$ldap->update ($fields, $login);
 
 				$ldap->close ();
@@ -75,7 +86,7 @@ class AjaxPasswd
 			{
 				if (!Security::singleton ()->encryptOnClient ())
 					$password = sha1 ($password);
-				
+
 				$sth = $db->prepare ("UPDATE _user SET _password = :passwd WHERE _id = :id");
 
 				$sth->bindValue (':id', $obj->_id, PDO::PARAM_INT);
@@ -135,4 +146,3 @@ class AjaxPasswd
 		XOAD_Client::privateMethods ($this, array ());
 	}
 }
-?>

@@ -1,4 +1,16 @@
 <?php
+/**
+ * Load file with enabled file types and definition of user experience
+ * with documents and media files.
+ *
+ * @author Camilo Carromeu <camilo@carromeu.com>
+ * @category class
+ * @package core
+ * @subpackage util
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
+ * @see Instance
+ */
 class Archive
 {
 	static private $archive = FALSE;
@@ -80,7 +92,7 @@ class Archive
 	{
 		return $this->dataPath;
 	}
-	
+
 	public function getFilePath ($id)
 	{
 		return file_exists (File::getLegacyFilePath ($id)) ? File::getLegacyFilePath ($id) : File::getFilePath ($id);
@@ -106,7 +118,7 @@ class Archive
 	{
 		return $this->mimeTypes;
 	}
-	
+
 	public function getMimesByType ($type)
 	{
 		switch ($type)
@@ -114,33 +126,33 @@ class Archive
 			case self::IMAGE:
 				$assume = 'image';
 				break;
-			
+
 			case self::VIDEO:
 				$assume = 'video';
 				break;
-			
+
 			case self::AUDIO:
 				$assume = 'audio';
 				break;
-			
+
 			case self::DOWNLOAD:
 				$assume = 'download';
 				break;
-			
+
 			case self::OPEN:
 				$assume = 'open';
 				break;
-			
+
 			default:
 				return array ();
 		}
-		
+
 		$array = array ();
-		
+
 		foreach ($this->mimeTypes as $mime => $data)
 			if ($data ['assume'] == $assume)
 				$array [] = $mime;
-		
+
 		return $array;
 	}
 
@@ -159,10 +171,10 @@ class Archive
 
 			case 'video':
 				return self::VIDEO;
-			
+
 			case 'audio':
 				return self::AUDIO;
-			
+
 			case 'open':
 				return self::OPEN;
 		}
@@ -198,28 +210,28 @@ class Archive
 		{
 			if (array_key_exists ('extension', $array) && $array ['extension'] == $extension)
 				return $mime;
-			
+
 			if (array_key_exists ('icon', $array) && $array ['icon'] == $extension)
 				return $mime;
 		}
 
 		return NULL;
 	}
-	
+
 	public function getExtensionByMime ($mime)
 	{
 		if (!array_key_exists ($mime, $this->mimeTypes))
 			return '';
-		
+
 		if (array_key_exists ('extension', $this->mimeTypes [$mime]) && trim ($this->mimeTypes [$mime]['extension']) != '')
 			return $this->mimeTypes [$mime]['extension'];
-		
+
 		if (array_key_exists ('icon', $this->mimeTypes [$mime]) && trim ($this->mimeTypes [$mime]['icon']) != '')
 			return $this->mimeTypes [$mime]['icon'];
-		
+
 		return '';
 	}
-	
+
 	public function getUploadLimit ()
 	{
 		return self::getServerUploadLimit ();
@@ -243,24 +255,23 @@ class Archive
 
 		return NULL;
 	}
-	
+
 	public static function getServerUploadLimit ()
 	{
 		$upload = (int) (ini_get ('upload_max_filesize'));
-		
+
 		$post = (int) (ini_get ('post_max_size'));
-		
+
 		$memory = (int) (ini_get ('memory_limit'));
-		
+
 		return min ($upload, $post, $memory);
 	}
-	
+
 	public static function is3GPPVideo ($file)
     {
 		if (!file_exists ($file) || !is_readable ($file) || !(int) filesize ($file))
 			return FALSE;
-		
+
         return strpos (file_get_contents ($file), 'vide') !== FALSE;
     }
 }
-?>

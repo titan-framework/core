@@ -1,6 +1,6 @@
 <?php
 /**
- * In development. Will implement facade design pattern to use in frontend.
+ * Help to get version and build numbers of Titan.
  *
  * @author Camilo Carromeu <camilo@carromeu.com>
  * @category class
@@ -10,25 +10,23 @@
  * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see Instance
  */
-class Facade
+class VersionHelper
 {
-	static private $facade = FALSE;
+	static private $version = FALSE;
 
 	private final function __construct ()
 	{
-
 	}
 
-	static public function singleton ($path)
+	static public function singleton ()
 	{
-		if (self::$facade !== FALSE)
-			return self::$facade;
+		if (self::$version !== FALSE)
+			return self::$version;
 
 		$class = __CLASS__;
 
-		self::$facade = new $class ($path);
+		self::$version = new $class ();
 
-		return self::$facade;
+		return self::$version;
 	}
-
 }

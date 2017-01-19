@@ -1,4 +1,15 @@
 <?php
+/**
+ * Implements the menu of actions (not global menu of application).
+ *
+ * @author Camilo Carromeu <camilo@carromeu.com>
+ * @category class
+ * @package core
+ * @subpackage business
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
+ * @see Instance, Business, Action, Section
+ */
 class Menu
 {
 	static private $menu = FALSE;
@@ -27,7 +38,7 @@ class Menu
 					$drive = 'Action';
 				else
 					continue;
-				
+
 				if ($aux = self::factory ($drive, $item))
 					if (array_key_exists ('id', $item) && trim ($item ['id']) != '')
 						$this->array [$item ['id']] = $aux;
@@ -35,22 +46,22 @@ class Menu
 						$this->array [] = $aux;
 			}
 	}
-	
+
 	static public function factory ($drive, $array)
 	{
 		if (!file_exists (Instance::singleton ()->getReposPath () .'menu/'. $drive .'/'. $drive .'.php'))
 			return NULL;
-		
+
 		require_once Instance::singleton ()->getReposPath () .'menu/'. $drive .'/'. $drive .'.php';
-		
+
 		$class = 'Menu'. $drive;
-		
+
 		if (!class_exists ($class, FALSE))
 			return NULL;
-		
+
 		return new $class ($array);
 	}
-	
+
 	static public function singleton ($input = FALSE)
 	{
 		if (self::$menu !== FALSE)
@@ -62,7 +73,7 @@ class Menu
 
 		return self::$menu;
 	}
-	
+
 	public function remove ($match)
 	{
 		foreach ($this->array as $key => $item)
@@ -74,7 +85,7 @@ class Menu
 	{
 		return !sizeof ($this->array);
 	}
-	
+
 	public function add ($action, $label, $itemId, $section, $img = FALSE, $id = NULL)
 	{
 		if (is_null ($id) || empty ($id))
@@ -82,7 +93,7 @@ class Menu
 		else
 			$this->array [$id] = self::factory ('Action', array ('action' => $action, 'label' => $label, 'itemId' => $itemId, 'section' => $section, 'image' => $img));
 	}
-	
+
 	public function del ($id)
 	{
 		if (array_key_exists ($id, $this->array))
@@ -98,7 +109,7 @@ class Menu
 	{
 		$this->array [] = self::factory ('Pdf', array ('label' => $label, 'image' => $img));
 	}
-	
+
 	public function addCsv ($label = '', $img = '')
 	{
 		$this->array [] = self::factory ('Csv', array ('label' => $label, 'image' => $img));
@@ -133,7 +144,7 @@ class Menu
 	{
 		$this->array [] = self::factory ('Submenu', array ('label' => $label, 'image' => $img, 'item' => $item));
 	}
-	
+
 	public function get ()
 	{
 		$item = each ($this->array);
@@ -147,7 +158,7 @@ class Menu
 
 		return $item ['value']->getMenuItem ();
 	}
-	
+
 	public function getItem ()
 	{
 		$item = each ($this->array);
@@ -162,4 +173,3 @@ class Menu
 		return $item ['value'];
 	}
 }
-?>

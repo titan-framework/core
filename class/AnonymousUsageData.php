@@ -1,5 +1,16 @@
 <?php
-
+/**
+ * Collect anonymous usage data to use in scientific research.
+ *
+ * @author Camilo Carromeu <camilo@carromeu.com>
+ * @category class
+ * @package core
+ * @subpackage util
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
+ * @see Instance
+ * @link http://anonymous.titanframework.com
+ */
 class AnonymousUsageData
 {
 	private $params;

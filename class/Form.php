@@ -1,14 +1,13 @@
 <?php
 /**
- * Form.php
- *
  * This class load XML definitions files and instanciate a form artefact.
  *
  * @author Camilo Carromeu <camilo@carromeu.com>
  * @category class
  * @package core
  * @subpackage form
- * @copyright Creative Commons Attribution No Derivatives (CC-BY-ND)
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see View, Search
  */
 class Form
@@ -1095,4 +1094,3 @@ class Form
 		return '<img src="'. Skin::singleton ()->getIconsFolder () .'help.gif" border="0" style="vertical-align: middle;" title="header=['. $field->getLabel () .'] body=['. $field->getHelp () .'] cssheader=[divHelpHeader] cssbody=[divHelpBody] fade=[on] offsetx=[-310]" />';
 	}
 }
-?>

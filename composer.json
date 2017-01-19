@@ -57,9 +57,6 @@
 	"require": {
 		"php": ">=5.2,<7.0"
 	},
-	"require-dev": {
-		"phpdocumentor/phpdocumentor": "2.*"
-    },
 	"config": {
 		"vendor-dir": "vendor"
 	}

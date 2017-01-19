@@ -1,14 +1,13 @@
 <?php
 /**
- * User.php
- *
  * Authenticate and realize logon of sytem user.
  *
  * @author Camilo Carromeu <camilo@carromeu.com>
  * @category class
  * @package core
  * @subpackage security
- * @copyright Creative Commons Attribution No Derivatives (CC-BY-ND)
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see Security, UserType, Group, AjaxLogon, AjaxPasswd, Ldap
  */
 class User
@@ -34,9 +33,9 @@ class User
 	private $active = FALSE;
 
 	private $type = NULL;
-	
+
 	private $registered = array ();
-	
+
 	private $alerts = TRUE;
 
 	private final function __construct ()
@@ -78,7 +77,7 @@ class User
 
 		return NULL;
 	}
-	
+
 	public function loadById ($id)
 	{
 		$sql = "SELECT *,
@@ -89,13 +88,13 @@ class User
 				WHERE _id = :id";
 
 		$sth = Database::singleton ()->prepare ($sql);
-		
+
 		$sth->bindParam (':id', $id, PDO::PARAM_INT);
 
 		$sth->execute ();
 
 		$obj = $sth->fetch (PDO::FETCH_OBJ);
-		
+
 		$this->id 	 	= $obj->_id;
 		$this->name  	= $obj->_name;
 		$this->login 	= $obj->_login;
@@ -103,30 +102,30 @@ class User
 		$this->active 	= (int) $obj->_active  ? TRUE : FALSE;
 		$this->deleted 	= (int) $obj->_deleted ? TRUE : FALSE;
 		$this->type		= Security::singleton ()->getUserType ($obj->_type);
-		
+
 		if (isset ($obj->_language))
 			Localization::singleton ()->setLanguage ($obj->_language);
-		
+
 		if (isset ($obj->_alert))
 			$this->alerts = (int) $obj->_alert ? TRUE : FALSE;
-		
+
 		if (isset ($obj->_timezone) && trim ($obj->_timezone) != '')
 			Instance::singleton ()->setTimeZone ($obj->_timezone);
-		
+
 		$cd = explode ('-', $obj->_create_date);
 		$ud = explode ('-', $obj->_update_date);
 		$ll = explode ('-', $obj->_last_logon);
-		
+
 		$this->createDate  	= strftime ('%c', mktime ((int) $cd [0], (int) $cd [1], (int) $cd [2], (int) $cd [3], (int) $cd [4], (int) $cd [5]));
 		$this->updateDate 	= strftime ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
 		$this->lastLogon 	= strftime ('%c', mktime ((int) $ll [0], (int) $ll [1], (int) $ll [2], (int) $ll [3], (int) $ll [4], (int) $ll [5]));
-		
+
 		$this->lastAccess = time ();
 
 		$this->hash	= sha1 ($this->login . Security::singleton ()->getHash () . $this->lastAccess);
 
 		$this->setGroups ();
-		
+
 		return TRUE;
 	}
 
@@ -140,7 +139,7 @@ class User
 
 		if ($login !== $validLogin || $password !== $validPassword)
 			throw new Exception (__ ('Incorrect User or Password!'));
-		
+
 		if (Security::singleton ()->encryptOnClient () && strlen ($password) != 40)
 			throw new Exception (__ ('Incorrect User or Password!'));
 
@@ -152,7 +151,7 @@ class User
 				WHERE _login = :login";
 
 		$sth = $db->prepare ($sql);
-		
+
 		$sth->bindParam (':login', $login, PDO::PARAM_STR);
 
 		$sth->execute ();
@@ -162,17 +161,17 @@ class User
 		if ($obj)
 		{
 			$type = Security::singleton ()->getUserType ($obj->_type);
-			
+
 			if (!is_object ($type))
 				throw new Exception (__ ('User type not exists! Contact administrator.'));
-	
+
 			if ($type->useLdap ())
 			{
 				$ldap = $type->getLdap ();
-	
+
 				if (!$ldap->connect ($login, $password))
 					throw new Exception (__ ('Incorrect User or Password!'));
-	
+
 				$ldap->close ();
 			}
 			elseif ((Security::singleton ()->encryptOnClient () && $password !== $obj->_password) || (!Security::singleton ()->encryptOnClient () && sha1 ($password) !== $obj->_password))
@@ -184,38 +183,38 @@ class User
 			{
 				if (!$type->useLdap ())
 					continue;
-				
+
 				$ldap = $type->getLdap ();
-	
+
 				if (!$ldap->connect ($login, $password))
 				{
 					$ldap->close ();
-					
+
 					continue;
 				}
-				
+
 				$search = array ('displayname', 'cn', 'givenname', 'mail');
-				
+
 				$array = $ldap->load ($login, $search);
-				
+
 				$ldap->close ();
-				
+
 				$nameValidate = array ('cn', 'displayname', 'givenname');
-				
+
 				$name = $login;
-				
+
 				foreach ($nameValidate as $trash => $value)
 				{
 					if (!array_key_exists ($value, $array) || trim ($array [$value]) == '')
 						continue;
-					
+
 					$name = $array [$value];
-					
+
 					break;
 				}
-				
+
 				$userId = Database::nextId ('_user', '_id');
-				
+
 				$fields = array ('_id' 	 	 => array ($userId, PDO::PARAM_INT),
 								 '_login' 	 => array ($login, PDO::PARAM_STR),
 								 '_name'	 => array ($name, PDO::PARAM_STR),
@@ -224,28 +223,28 @@ class User
 								 '_active'	 => array (1, PDO::PARAM_INT),
 								 '_deleted'	 => array (0, PDO::PARAM_INT),
 								 '_type'	 => array ($type->getName (), PDO::PARAM_STR));
-				
+
 				$sql = "INSERT INTO _user (". implode (", ", array_keys ($fields)) .") VALUES (:". implode (", :", array_keys ($fields)) .")";
-				
+
 				$sth = $db->prepare ($sql);
-				
+
 				foreach ($fields as $key => $aux)
 					$sth->bindParam (':'. $key, $aux [0], $aux [1]);
-				
+
 				$sth->execute ();
-				
+
 				try
 				{
 					$sql = "SELECT _group FROM _type_group WHERE _type = :type";
-					
+
 					$sth = $db->prepare ($sql);
-					
+
 					$sth->bindParam (':type', $type->getName (), PDO::PARAM_STR);
-				
+
 					$sth->execute ();
-				
+
 					$sthUser = $db->prepare ("INSERT INTO _user_group (_user, _group) VALUES (:user, :group)");
-					
+
 					while ($obj = $sth->fetch (PDO::FETCH_OBJ))
 						$sthUser->execute (array (':user' => $userId, ':group' => $obj->_group));
 				}
@@ -253,29 +252,29 @@ class User
 				{
 					$message->addWarning (__('Unable to bind initial groups to the user. You should manually set the groups of the new user. [ [1] ]', $e->getMessage ()));
 				}
-				
+
 				$sql = "SELECT *,
 						to_char(_create_date, 'HH24-MI-SS-MM-DD-YYYY') AS _create_date,
 						to_char(_update_date, 'HH24-MI-SS-MM-DD-YYYY') AS _update_date,
 						to_char(_last_logon, 'HH24-MI-SS-MM-DD-YYYY') AS _last_logon
 						FROM _user
 						WHERE _login = :login";
-		
+
 				$sth = $db->prepare ($sql);
-				
+
 				$sth->bindParam (':login', $login, PDO::PARAM_STR);
-				
+
 				$sth->execute ();
-		
+
 				$obj = $sth->fetch (PDO::FETCH_OBJ);
-				
+
 				break;
 			}
-			
+
 			if (!$obj)
 				throw new Exception (__ ('Incorrect User or Password!'));
 		}
-		
+
 		$this->id 	 	= $obj->_id;
 		$this->name  	= $obj->_name;
 		$this->login 	= $obj->_login;
@@ -283,43 +282,43 @@ class User
 		$this->active 	= (int) $obj->_active  ? TRUE : FALSE;
 		$this->deleted 	= (int) $obj->_deleted ? TRUE : FALSE;
 		$this->type		= $type;
-		
+
 		if (isset ($obj->_language))
 			Localization::singleton ()->setLanguage ($obj->_language);
-		
+
 		if (isset ($obj->_alert))
 			$this->alerts = (int) $obj->_alert ? TRUE : FALSE;
-		
+
 		if (isset ($obj->_timezone) && trim ($obj->_timezone) != '')
 			Instance::singleton ()->setTimeZone ($obj->_timezone);
-		
+
 		$cd = explode ('-', $obj->_create_date);
 		$ud = explode ('-', $obj->_update_date);
 		$ll = explode ('-', $obj->_last_logon);
-		
+
 		$this->createDate  	= strftime ('%c', mktime ((int) $cd [0], (int) $cd [1], (int) $cd [2], (int) $cd [3], (int) $cd [4], (int) $cd [5]));
 		$this->updateDate 	= strftime ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
 		$this->lastLogon 	= strftime ('%c', mktime ((int) $ll [0], (int) $ll [1], (int) $ll [2], (int) $ll [3], (int) $ll [4], (int) $ll [5]));
 
 		if (!$this->isActive ())
 			throw new Exception (__ ('This user is inactive into the system!'));
-		
+
 		try
 		{
 			$db->beginTransaction ();
-			
+
 			$db->exec ("ALTER TABLE _user DISABLE TRIGGER USER");
-			
+
 			$db->exec ("UPDATE _user SET _last_logon = NOW() WHERE _id = '". $obj->_id ."'");
-			
+
 			$db->exec ("ALTER TABLE _user ENABLE TRIGGER USER");
-			
+
 			$db->commit ();
 		}
 		catch (PDOException $e)
 		{
 			$db->rollBack ();
-			
+
 			toLog ('Impossible to change information about logon time in _user table. ['. $e->getMessage () .']');
 		}
 
@@ -333,36 +332,36 @@ class User
 
 		return TRUE;
 	}
-	
+
 	public function authenticateBySocialNetwork ($driver, $id, $idType = PDO::PARAM_STR)
 	{
 		if (!Social::isActive () || !Social::singleton ()->socialNetworkExists ($driver))
 			return FALSE;
-		
+
 		$db = Database::singleton ();
-		
+
 		$driver = Social::singleton ()->getSocialNetwork ($driver);
-		
+
 		$column = $driver->getIdColumn ();
-		
+
 		$sql = "SELECT *,
 				to_char(_create_date, 'HH24-MI-SS-MM-DD-YYYY') AS _create_date,
 				to_char(_update_date, 'HH24-MI-SS-MM-DD-YYYY') AS _update_date,
 				to_char(_last_logon, 'HH24-MI-SS-MM-DD-YYYY') AS _last_logon
 				FROM _user
 				WHERE ". $column ." = :id";
-		
+
 		$sth = $db->prepare ($sql);
-		
+
 		$sth->bindParam (':id', $id, $idType);
-		
+
 		$sth->execute ();
-		
+
 		$obj = $sth->fetch (PDO::FETCH_OBJ);
-		
+
 		if (!$obj)
 			throw new Exception (__ ('There is no user in the system linked to this social network profile!'));
-		
+
 		$this->id 	 	= $obj->_id;
 		$this->name  	= $obj->_name;
 		$this->login 	= $obj->_login;
@@ -370,43 +369,43 @@ class User
 		$this->active 	= (int) $obj->_active  ? TRUE : FALSE;
 		$this->deleted 	= (int) $obj->_deleted ? TRUE : FALSE;
 		$this->type		= Security::singleton ()->getUserType ($obj->_type);
-		
+
 		if (isset ($obj->_language))
 			Localization::singleton ()->setLanguage ($obj->_language);
-		
+
 		if (isset ($obj->_alert))
 			$this->alerts = (int) $obj->_alert ? TRUE : FALSE;
-		
+
 		if (isset ($obj->_timezone) && trim ($obj->_timezone) != '')
 			Instance::singleton ()->setTimeZone ($obj->_timezone);
-		
+
 		$cd = explode ('-', $obj->_create_date);
 		$ud = explode ('-', $obj->_update_date);
 		$ll = explode ('-', $obj->_last_logon);
-		
+
 		$this->createDate  	= strftime ('%c', mktime ((int) $cd [0], (int) $cd [1], (int) $cd [2], (int) $cd [3], (int) $cd [4], (int) $cd [5]));
 		$this->updateDate 	= strftime ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
 		$this->lastLogon 	= strftime ('%c', mktime ((int) $ll [0], (int) $ll [1], (int) $ll [2], (int) $ll [3], (int) $ll [4], (int) $ll [5]));
 
 		if (!$this->isActive ())
 			throw new Exception (__ ('This user is inactive into the system!'));
-		
+
 		try
 		{
 			$db->beginTransaction ();
-			
+
 			$db->exec ("ALTER TABLE _user DISABLE TRIGGER USER");
-			
+
 			$db->exec ("UPDATE _user SET _last_logon = NOW() WHERE _id = '". $obj->_id ."'");
-			
+
 			$db->exec ("ALTER TABLE _user ENABLE TRIGGER USER");
-			
+
 			$db->commit ();
 		}
 		catch (PDOException $e)
 		{
 			$db->rollBack ();
-			
+
 			toLog ('Impossible to change information about logon time in _user table. ['. $e->getMessage () .']');
 		}
 
@@ -442,15 +441,15 @@ class User
 		$this->name  	= $obj->_name;
 		$this->login 	= $obj->_login;
 		$this->email 	= $obj->_email;
-		
+
 		if (isset ($obj->_language))
 			Localization::singleton ()->setLanguage ($obj->_language);
-		
+
 		if (isset ($obj->_timezone) && trim ($obj->_timezone) != '')
 			Instance::singleton ()->setTimeZone ($obj->_timezone);
-		
+
 		$ud = explode ('-', $obj->_update_date);
-		
+
 		$this->updateDate 	= strftime ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
 
 		return TRUE;
@@ -530,18 +529,18 @@ class User
 	{
 		$security = Security::singleton ();
 
-		if (is_null ($this->getId ()) || 
+		if (is_null ($this->getId ()) ||
 			$this->hash != sha1 ($this->login . $security->getHash () . $this->lastAccess) ||
 			($this->lastAccess + $security->getTimeout ()) < time ())
 			return FALSE;
-		
+
 		$this->lastAccess = time ();
 
 		$this->hash	= sha1 ($this->login . $security->getHash () . $this->lastAccess);
 
 		return TRUE;
 	}
-	
+
 	public function changeLanguage ($language)
 	{
 		try
@@ -552,7 +551,7 @@ class User
 		{
 			return FALSE;
 		}
-		
+
 		return TRUE;
 	}
 
@@ -575,7 +574,7 @@ class User
 	{
 		return $this->email;
 	}
-	
+
 	public function alertsEnabled ()
 	{
 		return $this->alerts;
@@ -600,18 +599,18 @@ class User
 	{
 		return (bool) $this->admin;
 	}
-	
+
 	public function addPermission ($permission, $forSection = FALSE)
 	{
 		if ($forSection === FALSE)
 			$forSection = Business::singleton ()->getSection (Section::TCURRENT)->getName ();
-		
+
 		$permission = 'PERMISSION_'. $forSection .'_'. $permission;
-		
+
 		$this->permissions [$permission] = $permission;
-		
+
 		self::$user->permissions [$permission] = $permission;
-		
+
 		$_SESSION ['user']->permissions [$permission] = $permission;
 	}
 
@@ -644,19 +643,19 @@ class User
 
 		return FALSE;
 	}
-	
+
 	public function accessData ($id, $primary, $table, $column = '_user')
 	{
 		$sql = "SELECT COUNT(*) FROM ". $table ." WHERE ". $primary ." = '". $id ."' AND ". $column ." = '". $this->getId () ."'";
-		
+
 		$query = Database::singleton ()->query ($sql);
-		
+
 		if ((int) $query->fetchColumn ())
 			return TRUE;
-		
+
 		return FALSE;
 	}
-	
+
 	public function register ($table, $column, $primary, $value = NULL)
 	{
 		if (is_null ($value))
@@ -664,7 +663,7 @@ class User
 		elseif (!isset ($this->registered [$table][$column][$primary]) || is_array ($this->registered [$table][$column][$primary]))
 			$this->registered [$table][$column][$primary][$value] = TRUE;
 	}
-	
+
 	public function unregister ($table, $column, $primary, $value = NULL)
 	{
 		if (!isset ($this->registered [$table][$column][$primary]))
@@ -674,16 +673,15 @@ class User
 		else
 			unset ($this->registered [$table][$column][$primary][$value]);
 	}
-	
+
 	public function isRegistered ($table, $column, $primary, $value = NULL)
 	{
 		if (isset ($this->registered [$table][$column][$primary]) && !is_array ($this->registered [$table][$column][$primary]))
 			return TRUE;
-		
+
 		if (is_null ($value))
 			return isset ($this->registered [$table][$column][$primary]) && !is_array ($this->registered [$table][$column][$primary]);
-		
+
 		return isset ($this->registered [$table][$column][$primary][$value]);
 	}
 }
-?>

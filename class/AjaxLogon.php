@@ -1,4 +1,15 @@
 <?php
+/**
+ * Authenticate user using ajax.
+ *
+ * @author Camilo Carromeu <camilo@carromeu.com>
+ * @category class
+ * @package core
+ * @subpackage ajax
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
+ * @see User, AjaxPasswd
+ */
 class AjaxLogon
 {
 	public function logon ($formData)
@@ -13,7 +24,7 @@ class AjaxLogon
 			$user = User::singleton ();
 
 			$user->authenticate ($formData ['login'], $formData ['password']);
-			
+
 			Log::singleton ()->add ('LOGON', '', Log::SECURITY, FALSE, TRUE);
 
 			return TRUE;
@@ -48,7 +59,7 @@ class AjaxLogon
 				throw new Exception (__ ('This login does not registered in our database or user was disabled.'));
 
 			$db = Database::singleton ();
-			
+
 			if (Database::isUnique ('_user', '_email'))
 				$sth = $db->prepare ("SELECT _name, _email, _login, _password, _type FROM _user WHERE (_login = '". $login ."' OR _email = '". $login ."') AND _deleted = '0'");
 			else
@@ -92,12 +103,12 @@ class AjaxLogon
 			$instance = Instance::singleton ();
 
 			$security = Security::singleton ();
-			
+
 			if ($instance->getFriendlyUrl ('change-password') == '')
 				$link = $instance->getUrl () ."titan.php?target=remakePasswd&login=". urlencode ($login) ."&hash=". shortlyHash (sha1 ($security->getHash () . $name . $security->getHash () . $passwd . $security->getHash () . $email . $security->getHash ()));
 			else
 				$link = $instance->getUrl () . $instance->getFriendlyUrl ('change-password') ."/". urlencode ($login) ."/". shortlyHash (sha1 ($security->getHash () . $name . $security->getHash () . $passwd . $security->getHash () . $email . $security->getHash ()));
-			
+
 			$search  = array ('[USER]', '[NAME]', '[LINK]', '[LOGIN]');
 			$replace = array ($name, html_entity_decode ($instance->getName (), ENT_QUOTES, 'UTF-8'), $link, $login);
 
@@ -109,7 +120,7 @@ class AjaxLogon
 			$headers .= "Content-Type: text/plain; charset=utf-8";
 
 			set_error_handler ('logPhpError');
-			
+
 			$flag = mail ($email, '=?utf-8?B?'. base64_encode ($subject) .'?=', $msg, $headers);
 
 			restore_error_handler ();
@@ -171,4 +182,3 @@ class AjaxLogon
 		XOAD_Client::privateMethods ($this, array ());
 	}
 }
-?>

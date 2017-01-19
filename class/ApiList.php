@@ -1,16 +1,16 @@
 <?php
 /**
- * ApiList.php
+ * Load XML definitions files and instanciate a API List artefact.
  *
- * This class load XML definitions files and instanciate a API List artefact.
- * This class derivate (but not extends) the class View for appliance on REST Like API.
+ * This class derivate (but not extends) the class View for appliance on REST-Like API bus.
  *
  * @author Camilo Carromeu <camilo@carromeu.com>
  * @category class
  * @package core
- * @subpackage form
- * @copyright Creative Commons Attribution No Derivatives (CC-BY-ND)
- * @see Form, Search
+ * @subpackage api
+ * @copyright 2005-2017 Titan Framework
+ * @license http://www.titanframework.com/license/ BSD License (3 Clause)
+ * @see View, Search, Api, ApiAuth, ApiEntity, ApiException
  * @todo Create Item class for array replace.
  */
 class ApiList
@@ -18,11 +18,11 @@ class ApiList
 	protected $file = '';
 
 	protected $primary = '';
-	
+
 	protected $itemId = 0;
-	
+
 	protected $codeColumn = '';
-	
+
 	protected $code = NULL;
 
 	protected $table = '';
@@ -62,7 +62,7 @@ class ApiList
 			throw new Exception ('Arquivo XML não encontrado em [section/'. $section->getName () .'/].');
 
 		$file = 'section/'. $section->getName () .'/'. $fileName;
-		
+
 		$cacheFile = Instance::singleton ()->getCachePath () .'parsed/'. fileName ($file) .'_'. md5_file ($file) .'.php';
 
 		if (file_exists ($cacheFile))
@@ -78,10 +78,10 @@ class ApiList
 
 			xmlCache ($cacheFile, $array);
 		}
-		
+
 		if (!array_key_exists ('api', $array))
 			throw new Exception ('Invalid XML View file [section/'. $section->getName () .'/].');
-		
+
 		$array = $array ['api'][0];
 
 		$this->file = $fileName;
@@ -91,20 +91,20 @@ class ApiList
 
 		if (array_key_exists ('primary', $array))
 			$this->primary = trim ($array ['primary']);
-		
+
 		if (array_key_exists ('code', $array))
 			$this->codeColumn = trim ($array ['code']);
-		
+
 		$user = User::singleton ();
 
 		if (array_key_exists ('field', $array) && is_array ($array ['field']))
 			foreach ($array ['field'] as $trash => $field)
 				if ($obj = Type::factory ($this->getTable (), $field))
 					$this->fields [$obj->getAssign ()] = $obj;
-		
+
 		reset ($this->fields);
 	}
-	
+
 	public function getFile ()
 	{
 		return $this->file;
@@ -124,12 +124,12 @@ class ApiList
 	{
 		return $this->primary;
 	}
-	
+
 	public function getCodeColumn ()
 	{
 		return $this->codeColumn;
 	}
-	
+
 	public function useCode ()
 	{
 		return $this->getCodeColumn () != '';
@@ -144,7 +144,7 @@ class ApiList
 	{
 		return $this->itemId;
 	}
-	
+
 	public function getCode ()
 	{
 		return $this->code;
@@ -165,11 +165,11 @@ class ApiList
 		if ($sql === FALSE)
 		{
 			$fields = array ();
-			
+
 			foreach ($this->fields as $assign => $field)
 				if ($field->isLoadable ())
 					$fields [] = Database::toSql ($field);
-			
+
 			$sql = "SELECT ". $this->getTable () .".". $this->getPrimary () .", ". ($this->getCodeColumn () == '' ? "" : $this->getTable () .".". $this->getCodeColumn () .", ") . (sizeof ($fields) ? implode (", ", $fields) : "*") ." FROM ". $this->getTable () . (trim ($where) != '' ? " WHERE ". $where : "");
 
 			reset ($this->fields);
@@ -182,7 +182,7 @@ class ApiList
 		$this->sth = $db->prepare ($sql);
 
 		$this->sth->execute ();
-		
+
 		$this->sql = $sql;
 
 		$this->where = $where;
@@ -219,16 +219,16 @@ class ApiList
 			return NULL;
 
 		$primary = $this->getPrimary ();
-		
+
 		$this->itemId = $obj->$primary;
-		
+
 		if ($this->getCodeColumn() != '')
 		{
 			$code = $this->getCodeColumn ();
-			
+
 			$this->code = $obj->$code;
 		}
-		
+
 		foreach ($this->fields as $assign => $field)
 			if ($field->isLoadable ())
 				$this->fields [$assign] = Database::fromDb ($field, $obj);
@@ -240,4 +240,3 @@ class ApiList
 		return $obj;
 	}
 }
-?>
