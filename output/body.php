@@ -53,7 +53,7 @@ header ('Content-Encoding: gzip');
 		if (file_exists ($section->getCompPath () .'_css.php'))
 			include $section->getCompPath () .'_css.php';
 		?>
-		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=prototype,builder,effects,dragdrop,controls,slider,sound,protolimit,tooltip,spin.min"></script>
+		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=prototype,builder,effects,dragdrop,controls,slider,sound,protolimit,tooltip,spin.min&amp;v=<?= VersionHelper::singleton ()->getTitanBuild () ?>"></script>
 		<script language="javascript" type="text/javascript">
 		String.prototype.namespace = function (separator)
 		{
@@ -62,7 +62,7 @@ header ('Content-Encoding: gzip');
 			})
 		}
 		</script>
-		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=general,menu,type,boxover,common,actb,ajax,ajax-dynamic-content,modal-message,modalbox"></script>
+		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=general,menu,type,boxover,common,actb,ajax,ajax-dynamic-content,modal-message,modalbox&amp;v=<?= VersionHelper::singleton ()->getTitanBuild () ?>"></script>
 		<?php
 		foreach ($types as $type => $trash)
 			if (call_user_func (array ($type, 'usingMap')))
@@ -472,60 +472,24 @@ header ('Content-Encoding: gzip');
 		<div id="idBase">
 			<div class="cResources" id="_TITAN_INFO_">
 				<?php
-				$path = Instance::singleton ()->getCorePath () .'update'. DIRECTORY_SEPARATOR;
+				$version = VersionHelper::singleton ();
 
-				$version = trim (file_get_contents ($path .'VERSION'));
-				$release = trim (file_get_contents ($path .'STABLE'));
-
-				$appReleasePath = Instance::singleton ()->getCachePath () .'RELEASE';
-
-				$autoDeploy = FALSE;
-
-				if (file_exists ($appReleasePath) && is_readable ($appReleasePath))
-				{
-					$file = parse_ini_file ($appReleasePath);
-
-					if (is_array ($file))
-					{
-						$autoDeploy = TRUE;
-
-						$requiredKeys = array ('version', 'environment', 'date', 'author');
-
-						foreach ($requiredKeys as $trash => $key)
-							if (!array_key_exists ($key, $file) || trim ((string) $file [$key]) == '')
-								$autoDeploy = FALSE;
-					}
-				}
-
-				if (!$autoDeploy)
+				if (!$version->usingAutoDeploy ())
 				{
 					?>
-					<label>Powered by <a href="http://www.titanframework.com" target="_blank" title="<?= $version .'-'. $release ?>">Titan Framework</a> (<?= $version .'-'. $release ?>)</label>
+					<label>Powered by <a href="http://www.titanframework.com" target="_blank" title="<?= $version->getTitanRelease () ?>">Titan Framework</a> (<?= $version->getTitanRelease () ?>)</label>
 					<?php
 				}
 				else
 				{
-					$appRelease = $file ['version'];
-					$appEnvironment = $file ['environment'];
-					$appDate = strftime ('%x %X', $file ['date']);
-
-					$fileOfVersion = 'update'. DIRECTORY_SEPARATOR .'VERSION';
-
-					if (file_exists ($fileOfVersion) && is_readable ($fileOfVersion))
-					{
-						$appVersion = trim (file_get_contents ($fileOfVersion, 0, NULL, 0, 16));
-
-						if (!empty ($appVersion))
-							$appRelease = $appVersion .'-'. $appRelease;
-					}
 					?>
-					<a href="http://www.titanframework.com" target="_blank" title="Titan Framework (<?= $version .'-'. $release ?>)"><img class="cTitanAssign" src="titan.php?target=loadFile&amp;file=interface/image/assign.titan.png" /></a>
+					<a href="http://www.titanframework.com" target="_blank" title="Titan Framework (<?= $version->getTitanRelease () ?>)"><img class="cTitanAssign" src="titan.php?target=loadFile&amp;file=interface/image/assign.titan.png" /></a>
 					<img class="cIconInfo" id="_TITAN_INFO_ICON_" src="titan.php?target=loadFile&amp;file=interface/image/info.gif" alt="Release Info" />
 					<div id="_TITAN_INFO_TEXT_" class="cReleaseInfo" style="display: none;">
 						<div>
-							<?= __ ('This web application, named "<b>[1]</b>", is in version <b>[2]</b> for <b>[3]</b> environment (released <b>[4]</b>).', Instance::singleton ()->getName (), $appRelease, $appEnvironment, $appDate); ?>
+							<?= __ ('This web application, named "<b>[1]</b>", is in version <b>[2]</b> for <b>[3]</b> environment (released in <b>[4]</b> by <b>[5]</b>).', Instance::singleton ()->getName (), $version->getAppRelease (), $version->getAppEnvironment (), $version->getAppDate (), $version->getAppAuthor ()); ?>
 							<br /><br />
-							<?= __ ('It was developed using the <b>Titan Framework</b>, version <b>[1]</b>.', $version .'-'. $release); ?>
+							<?= __ ('It was developed using the <b>Titan Framework</b>, version <b>[1]</b>.', $version->getTitanRelease ()); ?>
 						</div>
 					</div>
 					<script type="text/javascript">

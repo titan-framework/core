@@ -103,7 +103,7 @@ class Skin
 				if (!is_array ($context))
 					$context = array ($context);
 
-				return 'titan.php?target=packerCss&amp;contexts='. implode (',', $context);
+				return 'titan.php?target=packerCss&amp;contexts='. implode (',', $context) .'&amp;v='. VersionHelper::singleton ()->getTitanBuild ();
 
 			case self::PATH:
 			default:

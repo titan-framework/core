@@ -56,13 +56,13 @@ while ($userType = Security::singleton ()->getUserType ())
 		$publicUserTypes [] = $userType;
 
 $validateTerm = FALSE;
-			
+
 try
 {
 	$db = Database::singleton ();
-	
+
 	$query = $db->query ("SELECT currval ('". $db->getSchema () ."._document')");
-	
+
 	if (!is_null ($query->fetchColumn ()))
 		$validateTerm = TRUE;
 }
@@ -76,9 +76,9 @@ if (Social::isActive ())
 {
 	if (isset ($_GET['error']) && $_GET['error'] == 'access_denied')
 		$_GET['error'] = __ ('Apparently you deny this application to access your profile data. Without granting this permission is not possible to authenticate!');
-	
+
 	$socialButtons = array ();
-	
+
 	while ($driver = Social::singleton ()->getSocialNetwork ())
 	{
 		if ($driver->authenticate ())
@@ -100,7 +100,7 @@ if (Social::isActive ())
 			{
 				$_GET ['error'] .= $e->getMessage ();
 			}
-		
+
 		$socialButtons [$driver->getName ()] = array ($driver->getLoginUrl (), 'titan.php?target=loadFile&amp;file=repos/social/'. $driver->getName () .'/_resource/button.png');
 	}
 }
@@ -117,7 +117,7 @@ if (Social::isActive ())
 		<link rel="icon" href="<?= $skin->getIcon () ?>" type="image/ico" />
 		<link rel="shortcut icon" href="<?= $skin->getIcon () ?>" type="image/ico" />
 
-		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=sha1,logon"></script>
+		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=sha1,logon&amp;v=<?= VersionHelper::singleton ()->getTitanBuild () ?>"></script>
 		<?= XOAD_Utilities::header('titan.php?target=loadFile&amp;file=xoad') ."\n" ?>
 		<script language="javascript" type="text/javascript">
 		var tAjax = <?= XOAD_Client::register (new AjaxLogon) ?>;
@@ -129,7 +129,7 @@ if (Social::isActive ())
 			clearMessage ();
 
 			var formData = xoad.html.exportForm (form);
-			
+
 			<?= Security::singleton ()->encryptOnClient () ? "formData ['password'] = hex_sha1(formData ['password']);" : "" ?>
 
 			if (tAjax.logon (formData))
@@ -152,7 +152,7 @@ if (Social::isActive ())
 		{
 			if ('<?= @$_COOKIE['_TITAN_TIMEZONE_'] ?>'.length)
 				return false;
-			
+
 			xmlHttp = new XMLHttpRequest ();
 			xmlHttp.open ('GET', 'titan.php?target=setClientTimeZone&z=' + getTimeZone (), true);
 			xmlHttp.send (null);
@@ -278,7 +278,7 @@ if (Social::isActive ())
 				</div>
 				<?php
 			}
-			
+
 			if ($validateTerm)
 			{
 				?>
@@ -295,9 +295,9 @@ if (Social::isActive ())
 				</div>
 				<?php
 			}
-			
+
 			$mobileButtons = Instance::singleton ()->getMobile ();
-			
+
 			if (sizeof ($mobileButtons))
 			{
 				?>
@@ -315,60 +315,24 @@ if (Social::isActive ())
 		<div id="idBase">
 			<div class="cResources" id="_TITAN_INFO_">
 				<?php
-				$path = Instance::singleton ()->getCorePath () .'update'. DIRECTORY_SEPARATOR;
-				
-				$version = trim (file_get_contents ($path .'VERSION'));
-				$release = trim (file_get_contents ($path .'STABLE'));
-				
-				$appReleasePath = Instance::singleton ()->getCachePath () .'RELEASE';
-				
-				$autoDeploy = FALSE;
-				
-				if (file_exists ($appReleasePath) && is_readable ($appReleasePath))
-				{
-					$file = parse_ini_file ($appReleasePath);
-					
-					if (is_array ($file)) 
-					{
-						$autoDeploy = TRUE;
-						
-						$requiredKeys = array ('version', 'environment', 'date', 'author');
-						
-						foreach ($requiredKeys as $trash => $key)
-							if (!array_key_exists ($key, $file) || trim ((string) $file [$key]) == '')
-								$autoDeploy = FALSE;
-					}
-				}
-				
-				if (!$autoDeploy)
+				$version = VersionHelper::singleton ();
+
+				if (!$version->usingAutoDeploy ())
 				{
 					?>
-					<label>Powered by <a href="http://www.titanframework.com" target="_blank" title="<?= $version .'-'. $release ?>">Titan Framework</a> (<?= $version .'-'. $release ?>)</label>
+					<label>Powered by <a href="http://www.titanframework.com" target="_blank" title="<?= $version->getTitanRelease () ?>">Titan Framework</a> (<?= $version->getTitanRelease () ?>)</label>
 					<?php
 				}
 				else
 				{
-					$appRelease = $file ['version'];
-					$appEnvironment = $file ['environment'];
-					$appDate = strftime ('%x %X', $file ['date']);
-					
-					$fileOfVersion = 'update'. DIRECTORY_SEPARATOR .'VERSION';
-					
-					if (file_exists ($fileOfVersion) && is_readable ($fileOfVersion))
-					{
-						$appVersion = trim (file_get_contents ($fileOfVersion, 0, NULL, 0, 16));
-						
-						if (!empty ($appVersion))
-							$appRelease = $appVersion .'-'. $appRelease;
-					}
 					?>
-					<a href="http://www.titanframework.com" target="_blank" title="Titan Framework (<?= $version .'-'. $release ?>)"><img class="cTitanAssign" src="titan.php?target=loadFile&amp;file=interface/image/assign.titan.png" /></a>
+					<a href="http://www.titanframework.com" target="_blank" title="Titan Framework (<?= $version->getTitanRelease () ?>)"><img class="cTitanAssign" src="titan.php?target=loadFile&amp;file=interface/image/assign.titan.png" /></a>
 					<img class="cIconInfo" id="_TITAN_INFO_ICON_" src="titan.php?target=loadFile&amp;file=interface/image/info.gif" alt="Release Info" />
 					<div id="_TITAN_INFO_TEXT_" class="cReleaseInfo" style="display: none;">
 						<div>
-							<?= __ ('This web application, named "<b>[1]</b>", is in version <b>[2]</b> for <b>[3]</b> environment (released <b>[4]</b>).', Instance::singleton ()->getName (), $appRelease, $appEnvironment, $appDate); ?>
+							<?= __ ('This web application, named "<b>[1]</b>", is in version <b>[2]</b> for <b>[3]</b> environment (released in <b>[4]</b> by <b>[5]</b>).', Instance::singleton ()->getName (), $version->getAppRelease (), $version->getAppEnvironment (), $version->getAppDate (), $version->getAppAuthor ()); ?>
 							<br /><br />
-							<?= __ ('It was developed using the <b>Titan Framework</b>, version <b>[1]</b>.', $version .'-'. $release); ?>
+							<?= __ ('It was developed using the <b>Titan Framework</b>, version <b>[1]</b>.', $version->getTitanRelease ()); ?>
 						</div>
 					</div>
 					<script type="text/javascript">

@@ -48,9 +48,9 @@ try
 	$db = Database::singleton ();
 
 	$sth = $db->prepare ("SELECT _name, _email, _login, _active, _password, _type FROM _user WHERE _login = :login AND _deleted = '0'");
-	
+
 	$sth->bindValue (':login', $login, PDO::PARAM_STR);
-	
+
 	$sth->execute ();
 
 	$obj = $sth->fetch (PDO::FETCH_OBJ);
@@ -83,12 +83,12 @@ try
 	}
 
 	$systemHash = Security::singleton ()->getHash ();
-	
+
 	$vHash = sha1 ($systemHash . $name . $systemHash . $passwd . $systemHash . $email . $systemHash);
-	
+
 	if ((strlen ($hash) != 10 && $hash != $vHash) || (strlen ($hash) != 40 && $hash != shortlyHash ($vHash)))
 		throw new Exception (__ ('Invalid link! Use the link \'Recovery Password\' at the logon page for receive a valid link.'));
-	
+
 	$skin = Skin::singleton ();
 }
 catch (PDOException $e)
@@ -116,18 +116,18 @@ catch (Exception $e)
 		<link rel="stylesheet" type="text/css" href="<?= $skin->getCss (array ('main', 'top', 'message', 'password'), Skin::URL) ?>" />
 		<!--[if IE]><link rel="stylesheet" type="text/css" href="<?= $skin->getCss ('ie', Skin::URL) ?>" /><![endif]-->
 
-		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=prototype,general,sha1,boxover,modal-message,modalbox"></script>
+		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=prototype,general,sha1,boxover,modal-message,modalbox&amp;v=<?= VersionHelper::singleton ()->getTitanBuild () ?>"></script>
 		<?= XOAD_Utilities::header('titan.php?target=loadFile&amp;file=xoad') ."\n" ?>
 		<script language="javascript" type="text/javascript">
 		var tAjax = <?= XOAD_Client::register(new Xoad) ?>;
 
 		var ajax = <?= XOAD_Client::register(new AjaxPasswd) ?>;
-		
+
 		showWait = function ()
 		{
 			document.getElementById('idWait').innerHTML = '<img src="titan.php?target=loadFile&amp;file=interface/icon/upload.gif" border="0" /> <label>Aguarde! Trabalhando em sua requisi&ccedil;&atilde;o...</label>';
 		}
-		
+
 		hideWait = function ()
 		{
 			document.getElementById('idWait').innerHTML = '';
@@ -160,11 +160,11 @@ catch (Exception $e)
 			}
 
 			showWait ();
-			
+
 			var passwd = fieldPasswd.value;
-			
+
 			<?php if (Security::singleton ()->encryptOnClient ()) { echo 'passwd = hex_sha1(passwd);'; } ?>
-			
+
 			if (!ajax.changePasswd ('<?= $hash ?>', passwd, '<?= $login ?>'))
 			{
 				ajax.showMessages ();
@@ -176,56 +176,56 @@ catch (Exception $e)
 
 			document.location = '<?= $instance->getLoginUrl () ?>&message=<?= urlencode (__ ('Password registered with success! Use the fields below to access the system.')) ?>&login=<?= $obj->_login ?>';
 		}
-		
+
 		function strong (obj, e)
 		{
 			if (e) car = (window.Event) ? e.which : e.keyCode;
-			
+
 			$('rowStrong').style.display = '';
-			
+
 			var passwd = obj.value + String.fromCharCode (car);
-			
+
 			var ok = 0, str = '<label style="color: #900;"><?= __ ('Too Short') ?></label>', src = 'very_weak';
-			
+
 			if (passwd.length > 5)
 			{
 				if (passwd.match(/[A-Z]/)) ok++;
-				
+
 				if (passwd.match(/[a-z]/)) ok++;
-				
+
 				if (passwd.match(/[0-9]/)) ok++;
-				
+
 				if (passwd.match(/[@#$%&!?*\[\])(-+=^.\/\\]/)) ok++;
-				
+
 				switch (ok)
 				{
 					case 0:
 						str = '<label style="color: #900;"><?= __ ('Very Weak') ?></label>';
 						src = 'very_weak';
 						break;
-					
+
 					case 1:
 						str = '<label style="color: #FC3;"><?= __ ('Weak') ?></label>';
 						src = 'very_fair';
 						break;
-					
+
 					case 2:
 						str = '<label style="color: #FC3;"><?= __ ('Regular') ?></label>';
 						src = 'fair';
 						break;
-					
+
 					case 3:
 						str = '<label style="color: #69C;"><?= __ ('Strong') ?></label>';
 						src = 'good';
 						break;
-					
+
 					default:
 						str = '<label style="color: #008000;"><?= __ ('Very Strong') ?></label>';
 						src = 'strong';
 						break;
 				}
 			}
-			
+
 			$('idStrong').innerHTML = 'Força da senha: ' + str;
 			$('imgStrong').src = 'titan.php?target=loadFile&file=interface/image/passwd.' + src + '.gif';
 		}
@@ -311,60 +311,24 @@ catch (Exception $e)
 		<div id="idBase">
 			<div class="cResources" id="_TITAN_INFO_">
 				<?php
-				$path = Instance::singleton ()->getCorePath () .'update'. DIRECTORY_SEPARATOR;
-				
-				$version = trim (file_get_contents ($path .'VERSION'));
-				$release = trim (file_get_contents ($path .'STABLE'));
-				
-				$appReleasePath = Instance::singleton ()->getCachePath () .'RELEASE';
-				
-				$autoDeploy = FALSE;
-				
-				if (file_exists ($appReleasePath) && is_readable ($appReleasePath))
-				{
-					$file = parse_ini_file ($appReleasePath);
-					
-					if (is_array ($file)) 
-					{
-						$autoDeploy = TRUE;
-						
-						$requiredKeys = array ('version', 'environment', 'date', 'author');
-						
-						foreach ($requiredKeys as $trash => $key)
-							if (!array_key_exists ($key, $file) || trim ((string) $file [$key]) == '')
-								$autoDeploy = FALSE;
-					}
-				}
-				
-				if (!$autoDeploy)
+				$version = VersionHelper::singleton ();
+
+				if (!$version->usingAutoDeploy ())
 				{
 					?>
-					<label>Powered by <a href="http://www.titanframework.com" target="_blank" title="<?= $version .'-'. $release ?>">Titan Framework</a> (<?= $version .'-'. $release ?>)</label>
+					<label>Powered by <a href="http://www.titanframework.com" target="_blank" title="<?= $version->getTitanRelease () ?>">Titan Framework</a> (<?= $version->getTitanRelease () ?>)</label>
 					<?php
 				}
 				else
 				{
-					$appRelease = $file ['version'];
-					$appEnvironment = $file ['environment'];
-					$appDate = strftime ('%x %X', $file ['date']);
-					
-					$fileOfVersion = 'update'. DIRECTORY_SEPARATOR .'VERSION';
-					
-					if (file_exists ($fileOfVersion) && is_readable ($fileOfVersion))
-					{
-						$appVersion = trim (file_get_contents ($fileOfVersion, 0, NULL, 0, 16));
-						
-						if (!empty ($appVersion))
-							$appRelease = $appVersion .'-'. $appRelease;
-					}
 					?>
-					<a href="http://www.titanframework.com" target="_blank" title="Titan Framework (<?= $version .'-'. $release ?>)"><img class="cTitanAssign" src="titan.php?target=loadFile&amp;file=interface/image/assign.titan.png" /></a>
+					<a href="http://www.titanframework.com" target="_blank" title="Titan Framework (<?= $version->getTitanRelease () ?>)"><img class="cTitanAssign" src="titan.php?target=loadFile&amp;file=interface/image/assign.titan.png" /></a>
 					<img class="cIconInfo" id="_TITAN_INFO_ICON_" src="titan.php?target=loadFile&amp;file=interface/image/info.gif" alt="Release Info" />
 					<div id="_TITAN_INFO_TEXT_" class="cReleaseInfo" style="display: none;">
 						<div>
-							<?= __ ('This web application, named "<b>[1]</b>", is in version <b>[2]</b> for <b>[3]</b> environment (released <b>[4]</b>).', Instance::singleton ()->getName (), $appRelease, $appEnvironment, $appDate); ?>
+							<?= __ ('This web application, named "<b>[1]</b>", is in version <b>[2]</b> for <b>[3]</b> environment (released in <b>[4]</b> by <b>[5]</b>).', Instance::singleton ()->getName (), $version->getAppRelease (), $version->getAppEnvironment (), $version->getAppDate (), $version->getAppAuthor ()); ?>
 							<br /><br />
-							<?= __ ('It was developed using the <b>Titan Framework</b>, version <b>[1]</b>.', $version .'-'. $release); ?>
+							<?= __ ('It was developed using the <b>Titan Framework</b>, version <b>[1]</b>.', $version->getTitanRelease ()); ?>
 						</div>
 					</div>
 					<script type="text/javascript">

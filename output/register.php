@@ -9,7 +9,7 @@ $skin = Skin::singleton ();
 
 		<link rel="stylesheet" type="text/css" href="<?= $skin->getCss (array ('main', 'message'), Skin::URL) ?>" />
 		<!--[if IE]><link rel="stylesheet" type="text/css" href="<?= $skin->getCss ('ie', Skin::URL) ?>" /><![endif]-->
-		
+
 		<?php
 		$types = Instance::singleton ()->getTypes ();
 
@@ -20,7 +20,7 @@ $skin = Skin::singleton ();
 		if (file_exists ($section->getCompPath () .'_css.php'))
 			include $section->getCompPath () .'_css.php';
 		?>
-		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=prototype,effects,protolimit"></script>
+		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=prototype,effects,protolimit,tooltip,spin.min&amp;v=<?= VersionHelper::singleton ()->getTitanBuild () ?>"></script>
 		<script language="javascript" type="text/javascript">
 		String.prototype.namespace = function (separator)
 		{
@@ -29,7 +29,7 @@ $skin = Skin::singleton ();
 			})
 		}
 		</script>
-		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=general,type,boxover,common,modal-message,modalbox"></script>
+		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=general,type,boxover,common,modal-message,modalbox&amp;v=<?= VersionHelper::singleton ()->getTitanBuild () ?>"></script>
 		<?= XOAD_Utilities::header('titan.php?target=loadFile&amp;file=xoad') ."\n" ?>
 		<script language="javascript" type="text/javascript">
 		var tAjax = <?= XOAD_Client::register(new Xoad) ?>;

@@ -9,7 +9,7 @@ $skin = Skin::singleton ();
 
 		<link rel="stylesheet" type="text/css" href="<?= $skin->getCss (array ('main', 'message'), Skin::URL) ?>" />
 		<!--[if IE]><link rel="stylesheet" type="text/css" href="<?= $skin->getCss ('ie', Skin::URL) ?>" /><![endif]-->
-		
+
 		<style type="text/css">
 		body
 		{
@@ -34,7 +34,7 @@ $skin = Skin::singleton ();
 		if (file_exists ($section->getCompPath () .'_css.php'))
 			include $section->getCompPath () .'_css.php';
 		?>
-		<script language="javascript" type="text/javascript" src="titan.php?target=packer&files=prototype,builder,effects,dragdrop,controls,slider,sound,protolimit,tooltip"></script>
+		<script language="javascript" type="text/javascript" src="titan.php?target=packer&files=prototype,builder,effects,dragdrop,controls,slider,sound,protolimit,tooltip,spin.min&amp;v=<?= VersionHelper::singleton ()->getTitanBuild () ?>"></script>
 		<script language="javascript" type="text/javascript">
 		String.prototype.namespace = function (separator)
 		{
@@ -43,14 +43,14 @@ $skin = Skin::singleton ();
 			})
 		}
 		</script>
-		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=general,type,boxover,common,modal-message,modalbox"></script>
+		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=general,type,boxover,common,modal-message,modalbox&amp;v=<?= VersionHelper::singleton ()->getTitanBuild () ?>"></script>
 		<?= XOAD_Utilities::header('titan.php?target=loadFile&amp;file=xoad') ."\n" ?>
 		<script language="javascript" type="text/javascript">
 		var tAjax = <?= XOAD_Client::register(new Xoad) ?>;
-		
+
 		var _formErrorFields = new Array ();
 		var _formErrorColors = new Array ();
-		
+
 		function saveForm (file, formId, itemId, goTo)
 		{
 			showWait ();
@@ -58,35 +58,35 @@ $skin = Skin::singleton ();
 			var formData = xoad.html.exportForm (formId);
 
 			var fields = new Array ();
-			
+
 			eval ("fields = new Array (" + tAjax.validate (file, formData, itemId) + ");");
-			
+
 			if (fields.length)
 			{
 				tAjax.showMessages ();
-				
+
 				$('idBody').scrollTop = 0;
-				
+
 				for (var i = 0; i < _formErrorFields.length; i++)
 				{
 					$('row_' + _formErrorFields [i]).style.backgroundColor = _formErrorColors [i];
 					$$('#row_' + _formErrorFields [i] + ' td').first ().style.background = 'none';
 				}
-				
+
 				_formErrorFields = new Array ();
 				_formErrorColors = new Array ();
-				
+
 				for (var i = 0; i < fields.length; i++)
 				{
 					_formErrorFields [i] = fields [i];
 					_formErrorColors [i] = $('row_' + fields [i]).style.backgroundColor;
-					
+
 					$('row_' + fields [i]).style.backgroundColor = '#FADFDD';
 					$$('#row_' + fields [i] + ' td').first ().style.background = 'url(titan.php?target=loadFile&file=interface/image/exclamation.png) 5px no-repeat';
 				}
-				
+
 				hideWait ();
-				
+
 				return false;
 			}
 
@@ -114,35 +114,35 @@ $skin = Skin::singleton ();
 			var formData = xoad.html.exportForm (form);
 
 			var fields = new Array ();
-			
+
 			eval ("fields = new Array (" + tAjax.validate (file, formData, itemId) + ");");
-			
+
 			if (fields.length)
 			{
 				tAjax.showMessages ();
-				
+
 				$('idBody').scrollTop = 0;
-				
+
 				for (var i = 0; i < _formErrorFields.length; i++)
 				{
 					$('row_' + _formErrorFields [i]).style.backgroundColor = _formErrorColors [i];
 					$$('#row_' + _formErrorFields [i] + ' td').first ().style.background = 'none';
 				}
-				
+
 				_formErrorFields = new Array ();
 				_formErrorColors = new Array ();
-				
+
 				for (var i = 0; i < fields.length; i++)
 				{
 					_formErrorFields [i] = fields [i];
 					_formErrorColors [i] = $('row_' + fields [i]).style.backgroundColor;
-					
+
 					$('row_' + fields [i]).style.backgroundColor = '#FADFDD';
 					$$('#row_' + fields [i] + ' td').first ().style.background = 'url(titan.php?target=loadFile&file=interface/image/exclamation.png) 5px no-repeat';
 				}
-				
+
 				hideWait ();
-				
+
 				return false;
 			}
 
@@ -176,14 +176,14 @@ $skin = Skin::singleton ();
 		{
 			document.getElementById('idWait').innerHTML = '';
 		}
-		
+
 		function callParent ()
 		{
 			if (self == parent)
 				return false;
-			
+
 			parent.document.getElementById ('<?= @$_GET['assign'] ?>').style.height = (document.body.scrollHeight + 5).toString () + 'px';
-			
+
 			parent.hideWait ();
 		}
 		</script>
