@@ -427,6 +427,7 @@ div
 
 #idSection .cMenu ul
 {
+	width: auto;
 	position: relative;
 	margin: 0px;
 	padding: 0px;
@@ -454,13 +455,29 @@ div
 #idSection .cItem
 {
 	position: relative;
-	padding: 3px 3px 2px 3px;
+	padding: 3px 6px 3px 6px;
 	margin-left: 8px;
-	border: #CCC 1px solid;
-	opacity: .75;
-	filter: alpha(opacity=75);
-	-moz-opacity: 0.75;
-	background: url(titan.php?target=loadFile&file=interface/back/aba.gif);
+	text-align: left;
+	line-height: 34px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-image: none;
+	background-color: #ededed;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #dcdcdc;
+	display: inline-block;
+	color: #777777;
+	text-shadow: 1px 1px 0px #ffffff;
+	text-wrap: none;
 	width: 34px;
 	height: 34px;
 	overflow: hidden;
@@ -469,11 +486,10 @@ div
 #idSection .cItem:hover
 {
 	cursor: pointer;
-	opacity: 1;
-	filter: none;
-	-moz-opacity: 1;
-	background: #B8E0DC;
-	border: #36817C 1px solid;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color: #dfdfdf;
 }
 
 #idSection .cItemDisabled

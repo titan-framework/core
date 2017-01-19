@@ -70,6 +70,8 @@ function end ()
 	runOnUnload ();
 }
 
+var menuLongSize = 0;
+
 function resizeBody ()
 {
 	var height = 0;
@@ -83,6 +85,23 @@ function resizeBody ()
 		height = window.innerHeight;
 
 	document.getElementById ('idBody').style.height = (height - 78) + 'px';
+
+	if (!menuLongSize)
+	{
+		var path = $('idSection').down ('div.cPath');
+		var menu = $('idSection').down ('div.cMenu');
+
+		menuLongSize = (9 * 4) + path.offsetWidth + menu.offsetWidth;
+	}
+
+	if (menuLongSize > $('idSection').offsetWidth)
+		$$('#idSection div.cMenu li.cItemLong').each (function (d) {
+			d.className = 'cItem';
+		});
+	else
+		$$('#idSection div.cMenu li.cItem').each (function (d) {
+			d.className = 'cItemLong';
+		});
 }
 
 function sendLetter (counter, character)
