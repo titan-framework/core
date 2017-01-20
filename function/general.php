@@ -556,28 +556,24 @@ function swf ($path, $width, $height)
 
 function encrypt ($input)
 {
-	$cipher = mcrypt_module_open (MCRYPT_BLOWFISH, '', 'cbc', '');
-
-	mcrypt_generic_init ($cipher, Security::singleton ()->getHash (), '84826372');
-
-	$encrypt = base64_encode (mcrypt_generic ($cipher, $input));
-
-	mcrypt_generic_deinit ($cipher);
-
-	return $encrypt;
+	return Blowfish::encrypt (
+		$input,
+		'84826372',
+		Blowfish::BLOWFISH_MODE_EBC,
+		Blowfish::BLOWFISH_PADDING_NONE,
+		NULL
+	);
 }
 
 function decrypt ($encrypted)
 {
-	$cipher = mcrypt_module_open (MCRYPT_BLOWFISH, '', 'cbc', '');
-
-	mcrypt_generic_init ($cipher, Security::singleton ()->getHash (), '84826372');
-
-	$decrypt = mdecrypt_generic ($cipher, base64_decode ($encrypted));
-
-	mcrypt_generic_deinit ($cipher);
-
-	return $decrypt;
+	return Blowfish::decrypt (
+		base64_decode (trim ($input)),
+		'84826372',
+		Blowfish::BLOWFISH_MODE_EBC,
+		Blowfish::BLOWFISH_PADDING_NONE,
+		NULL
+	);
 }
 
 function tableExists ($name)

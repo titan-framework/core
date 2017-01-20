@@ -6,7 +6,7 @@ if (Api::getHttpRequestMethod () != Api::POST && Api::getHttpRequestMethod () !=
 if (!Social::singleton ()->socialNetworkExists ('Google'))
 	throw new ApiException (__ ('Web application is not capable to register device user! Please, alert support team.'), ApiException::ERROR_SYSTEM, ApiException::SERVICE_UNAVAILABLE, 'Must enable Google Plus at Social Network configuration!');
 
-if (!isset ($_POST ['email']) || trim ($_POST ['email']) == '' || 
+if (!isset ($_POST ['email']) || trim ($_POST ['email']) == '' ||
 	!isset ($_POST ['token']) || trim ($_POST ['token']) == '')
 	throw new ApiException (__ ('Invalid parameters (e-mail or token)!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 

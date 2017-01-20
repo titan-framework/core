@@ -148,20 +148,26 @@ class Api
 	{
 		$key = substr ($key, 0, 16);
 
-		return utf8_encode (mcrypt_decrypt (MCRYPT_BLOWFISH, $key, base64_decode (trim ($input)), 'ecb'));
+		return Blowfish::decrypt (
+			base64_decode (trim ($input)),
+			$key,
+			Blowfish::BLOWFISH_MODE_EBC,
+			Blowfish::BLOWFISH_PADDING_NONE,
+			NULL
+		);
 	}
 
 	public static function encrypt ($input, $key)
 	{
 		$key = substr ($key, 0, 16);
 
-		$blocksize = mcrypt_get_block_size ('blowfish', 'ecb');
-
-		$pkcs = $blocksize - (strlen ($input) % $blocksize);
-
-		$input .= str_repeat(chr ($pkcs), $pkcs);
-
-		return base64_encode (mcrypt_ecb (MCRYPT_BLOWFISH, $key, $input, MCRYPT_ENCRYPT));
+		return Blowfish::encrypt (
+			$input,
+			$key,
+			Blowfish::BLOWFISH_MODE_EBC,
+			Blowfish::BLOWFISH_PADDING_NONE,
+			NULL
+		);
 	}
 
 	public static function code ($code)

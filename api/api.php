@@ -18,6 +18,8 @@ try
 	if (!$_auth->isAccessibleEndpoint ($_GET['uri']))
 		throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED, 'This endpoint is not accessible by application!');
 
+	require_once Instance::singleton ()->getCorePath () .'extra'. DIRECTORY_SEPARATOR .'Blowfish.php';
+
 	$_uri = explode ('/', $_GET['uri']);
 
 	$forRegister = array ('register', 'social', 'browser');
@@ -82,7 +84,7 @@ try
 
 		case 'type':
 
-			$_type = ucfirst (preg_replace ("/\-(.)/e", "strtoupper('\\1')", trim (@$_uri [1])));
+			$_type = ucfirst (preg_replace_callback ("/\-./", create_function ('$matches', 'return strtoupper($matches[0][1]);'), trim (@$_uri [1])));
 
 			if (!Instance::singleton ()->typeExists ($_type))
 				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Type ['. $_type .'] do not exists!');
