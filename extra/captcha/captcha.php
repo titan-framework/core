@@ -417,7 +417,7 @@ class Securimage {
    * </code>
    *
    */
-  function Securimage()
+  function __construct()
   {
 	  $this->ttf_file = Instance::singleton ()->getCorePath () .'extra/fonts/VeraBd.ttf';
 	  $this->gd_font_file = Instance::singleton ()->getCorePath () .'extra/fonts/bubblebath.gdf';

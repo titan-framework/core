@@ -150,45 +150,7 @@ switch (@$_GET['target'])
 		break;
 
 	case 'pdf':
-		require Instance::singleton ()->getCorePath () .'assembly/breadcrumb.php';
-
-		require Instance::singleton ()->getCorePath () .'assembly/section.php';
-
-		require Instance::singleton ()->getCorePath () .'extra/domPdf/dompdf_config.inc.php';
-
-		require Instance::singleton ()->getCorePath () .'extra/htmlPurifier/HTMLPurifier.standalone.php';
-
-		$config = HTMLPurifier_Config::createDefault ();
-
-		$config->set ('Core', 'Encoding', 'UTF-8');
-
-		$config->set ('HTML', 'Doctype', 'HTML 4.01 Strict');
-
-		if (!Instance::singleton ()->onDebugMode ())
-		{
-			$path = Instance::singleton ()->getCachePath () .'purifier';
-
-			if (!file_exists ($path) && !@mkdir ($path, 0777))
-				throw new Exception ('Impossível criar diretório ['. $path .'].');
-
-			$config->set ('Cache', 'SerializerPath', $path);
-		}
-		else
-			$config->set ('Cache', 'DefinitionImpl', NULL);
-
-		$purifier = new HTMLPurifier ($config);
-
-		$dompdf = new DOMPDF ();
-
-		ob_start ();
-
-		include Instance::singleton ()->getCorePath () .'output/pdf.php';
-
-		$dompdf->load_html ($purifier->purify (ob_get_clean ()));
-
-		$dompdf->render ();
-
-		$dompdf->stream ('titan.pdf');
+		include $instance->getCorePath () .'output/dompdf.php';
 
 		break;
 

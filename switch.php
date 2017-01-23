@@ -175,8 +175,6 @@ try
 
 				$css = new csstidy ();
 
-				//$css->set_cfg ('remove_last_;', TRUE);
-
 				$css->load_template ('high_compression');
 
 				$css->parse ($script);
