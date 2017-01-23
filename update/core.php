@@ -60,7 +60,10 @@ function updateCoreBySvn ($_path)
 		else
 			echo "SUCCESS > Titan Framework [". $_path ."] is updated! \n";
 
+		echo "INFO > Installing (or updating) dependencies (from Composer)... \n";
+
 		exec ('composer install --no-dev');
+		exec ('composer update --no-dev');
 
 		setPermission ($_path, octdec ('0775'), octdec ('0664'), 'root', 'staff');
 
@@ -117,9 +120,10 @@ function updateCoreByGit ($_path)
 
 			exec (GIT .' stash drop');
 
-			echo "INFO > Installing dependencies (by Composer)... \n";
+			echo "INFO > Installing (or updating) dependencies (from Composer)... \n";
 
 			exec ('composer install --no-dev');
+			exec ('composer update --no-dev');
 
 			echo "INFO > Setting permissions... \n";
 

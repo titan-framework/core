@@ -147,6 +147,8 @@ function showWait ()
 	if (titanWaitBlockLayer != null && titanWaitBlockLayer.style.display == 'block')
 		return;
 
+	$('menuBox').style.display = 'none';
+
 	if (titanWaitBlockLayer != null)
 		titanWaitBlockLayer.style.display = 'block';
 	else
