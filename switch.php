@@ -14,7 +14,7 @@ try
 	require_once $corePath .'class/Instance.php';
 
 	if (!file_exists ($corePath .'vendor/autoload.php'))
-		throw new Exception ('Please, install dependencies using Composer (http://getcomposer.org/): "composer install --no-dev -d '. $corePath .'"!');
+		throw new Exception ('Please, install dependencies using Composer (http://getcomposer.org/): "composer install --no-dev -d '. realpath ($corePath) .'"!');
 
 	require_once $corePath .'vendor/autoload.php';
 
