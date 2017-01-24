@@ -4,6 +4,8 @@ function updateCoreBySvn ($_path)
 {
 	echo "WARNING > Your Titan Framework refers the old Subversion repository! Please, get a new workcopy for Titan Framework's Core on https://github.com/titan-framework/install. \n";
 
+	chdir ($_path);
+
 	if (!function_exists ('svn_ls') || !function_exists ('svn_status'))
 		throw new Exception ("CRITICAL > You need install SVN PECL package for PHP!");
 
@@ -60,10 +62,10 @@ function updateCoreBySvn ($_path)
 		else
 			echo "SUCCESS > Titan Framework [". $_path ."] is updated! \n";
 
-		echo "INFO > Installing (or updating) dependencies (from Composer)... \n";
+		echo "INFO > Installing (or updating) dependencies (with Composer)... \n";
 
-		exec ('composer install --no-dev');
-		exec ('composer update --no-dev');
+		exec (COMPOSER .' install --no-dev');
+		exec (COMPOSER .' update --no-dev');
 
 		setPermission ($_path, octdec ('0775'), octdec ('0664'), 'root', 'staff');
 
@@ -120,10 +122,10 @@ function updateCoreByGit ($_path)
 
 			exec (GIT .' stash drop');
 
-			echo "INFO > Installing (or updating) dependencies (from Composer)... \n";
+			echo "INFO > Installing (or updating) dependencies (with Composer)... \n";
 
-			exec ('composer install --no-dev');
-			exec ('composer update --no-dev');
+			exec (COMPOSER .' install --no-dev');
+			exec (COMPOSER .' update --no-dev');
 
 			echo "INFO > Setting permissions... \n";
 

@@ -24,6 +24,8 @@ require 'git.php';
 
 $_corePath = dirname (dirname (__FILE__));
 
+define ('COMPOSER', PHP .' '. $_corePath . DIRECTORY_SEPARATOR .'extra'. DIRECTORY_SEPARATOR .'composer.phar');
+
 $_userPath = getcwd ();
 
 require $_corePath . DIRECTORY_SEPARATOR .'class'. DIRECTORY_SEPARATOR .'Xml.php';
@@ -78,7 +80,7 @@ try
 			continue;
 
 		$path = realpath ($argv [$i]);
-		
+
 		if (isGit ($path))
 			updateInstanceByGit ($path);
 		elseif (isSvn ($path))

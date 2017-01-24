@@ -444,6 +444,16 @@ function updateInstanceBySvn ($_path)
 				echo "ERROR > Impossible update VERSION file [". $_folder ."update". DIRECTORY_SEPARATOR ."VERSION]! Verify SVN login and password at [configure/titan.xml].";
 		}
 
+		if (file_exists ('composer.json'))
+		{
+			echo "INFO > Installing (or updating) dependencies (with Composer)... \n";
+
+			exec (COMPOSER .' install --no-dev');
+			exec (COMPOSER .' update --no-dev');
+
+			setPermission ('vendor', $_conf ['dir-mode'], $_conf ['file-mode'], $_conf ['owner'], $_conf ['group']);
+		}
+
 		echo "FINISH > All done with SUCCESS after ". number_format (time () - $_benchmark, 0, ',', '.') ." seconds! \n\n";
 
 		// printChangelog ($_conf ['changelog'], $_path, $_initialRevision, $_revertRevision, $titanUpdateLog);

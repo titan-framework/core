@@ -215,9 +215,10 @@ function updateInstanceByGit ($_path)
 
 		if (file_exists ('composer.json'))
 		{
-			echo "INFO > Updating dependencies (with Composer)... \n";
+			echo "INFO > Installing (or updating) dependencies (with Composer)... \n";
 
-			exec ('composer install --no-dev');
+			exec (COMPOSER .' install --no-dev');
+			exec (COMPOSER .' update --no-dev');
 
 			setPermission ('vendor', $_conf ['dir-mode'], $_conf ['file-mode'], $_conf ['owner'], $_conf ['group']);
 		}

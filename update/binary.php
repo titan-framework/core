@@ -1,5 +1,6 @@
 <?php
 
+define ('PHP', '/usr/bin/php');
 define ('SVN', '/usr/bin/svn');
 define ('GIT', '/usr/bin/git');
 define ('GZIP', '/bin/gzip');
