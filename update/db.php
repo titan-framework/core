@@ -150,7 +150,7 @@ try
 
 			reset ($files);
 
-			$_sthUpdateVersion = $_db->prepare ("INSERT INTO ". $_versionTable ." (_version, _author) VALUES (:version, :author)");
+			$_sthUpdateVersion = $_db->prepare ("INSERT INTO ". $_versionTable ." (_version, _author) VALUES (:version, 'DB Migration Update Script')");
 
 			foreach ($files as $trash => $file)
 				try
@@ -165,7 +165,6 @@ try
 						$_db->exec ($sql);
 
 					$_sthUpdateVersion->bindParam (':version', $file, PDO::PARAM_STR, 14);
-					$_sthUpdateVersion->bindParam (':author', $_authorRevision, PDO::PARAM_STR, 64);
 
 					$_sthUpdateVersion->execute ();
 
