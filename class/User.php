@@ -40,13 +40,15 @@ class User
 
 	private final function __construct ()
 	{
-		$this->array = array (	'id' 		 => NULL,
-								'name' 		 => '',
-								'login' 	 => '',
-								'email'		 => '',
-								'createDate' => '',
-								'updateDate' => '',
-								'lastLogon'	 => '');
+		$this->array = array (
+			'id' 		 => NULL,
+			'name' 		 => '',
+			'login' 	 => '',
+			'email'		 => '',
+			'createDate' => '',
+			'updateDate' => '',
+			'lastLogon'	 => ''
+		);
 	}
 
 	static public function singleton ()
@@ -215,14 +217,16 @@ class User
 
 				$userId = Database::nextId ('_user', '_id');
 
-				$fields = array ('_id' 	 	 => array ($userId, PDO::PARAM_INT),
-								 '_login' 	 => array ($login, PDO::PARAM_STR),
-								 '_name'	 => array ($name, PDO::PARAM_STR),
-								 '_email'	 => array (trim (@$array ['mail']), PDO::PARAM_STR),
-								 '_password' => array (randomHash (13) .'_INVALID_HASH_'. randomHash (13), PDO::PARAM_STR),
-								 '_active'	 => array (1, PDO::PARAM_INT),
-								 '_deleted'	 => array (0, PDO::PARAM_INT),
-								 '_type'	 => array ($type->getName (), PDO::PARAM_STR));
+				$fields = array (
+					'_id' 	 	 => array ($userId, PDO::PARAM_INT),
+					'_login' 	 => array ($login, PDO::PARAM_STR),
+					'_name'	 => array ($name, PDO::PARAM_STR),
+					'_email'	 => array (trim (@$array ['mail']), PDO::PARAM_STR),
+					'_password' => array (randomHash (13) .'_INVALID_HASH_'. randomHash (13), PDO::PARAM_STR),
+					'_active'	 => array (1, PDO::PARAM_INT),
+					'_deleted'	 => array (0, PDO::PARAM_INT),
+					'_type'	 => array ($type->getName (), PDO::PARAM_STR)
+				);
 
 				$sql = "INSERT INTO _user (". implode (", ", array_keys ($fields)) .") VALUES (:". implode (", :", array_keys ($fields)) .")";
 

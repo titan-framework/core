@@ -19,6 +19,8 @@ require 'function.php';
 
 $_corePath = dirname (dirname (__FILE__));
 
+define ('COMPOSER', PHP .' '. $_corePath . DIRECTORY_SEPARATOR .'extra'. DIRECTORY_SEPARATOR .'composer.phar');
+
 require $_corePath . DIRECTORY_SEPARATOR .'class'. DIRECTORY_SEPARATOR .'Xml.php';
 
 set_error_handler ('handleError');
@@ -106,7 +108,8 @@ try
 	 * Installing composer dependencies
 	 */
 
-	exec ('composer install --no-dev', $out);
+	exec (COMPOSER .' install --no-dev', $out);
+	exec (COMPOSER .' update --no-dev', $out);
 
 	/*
 	 * Open configuration file

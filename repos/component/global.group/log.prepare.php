@@ -1,4 +1,5 @@
 <?php
+
 $search = new SearchLog ('log.xml');
 
 $search->recovery ();
@@ -11,4 +12,3 @@ if (!$view->load ($search->makeWhere ()))
 $log = Log::singleton ();
 
 $test = $log->loadActivities ();
-?>

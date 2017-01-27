@@ -75,21 +75,22 @@
 		<tr>
 			<td class="cTableHeader">Atividade</td>
 			<?php
+			$columns = sizeof ($view->getFields ()) + 2;
+
 			while ($field = $view->getField ())
 				echo '<td class="cTableHeader">'. View::toLabel ($field) .'</td>';
 			?>
 			<td class="cTableHeader"></td>
 		</tr>
-		<tr height="5px"><td></td></tr>
+		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
 		<?php
-		$columns = sizeof ($view->getFields ()) + 2;
-
 		while ($view->getItem ())
 		{
+			$link = $view->getLink (TRUE);
 			?>
 			<tr id="_ITEM_<?= $view->getId () ?>" class="cTableItem" style="display:;">
 				<td>
-					<?= $log->getMessage ($view->getId ()) ?>
+					<a <?= $link ?>><?= $log->getMessage ($view->getId ()) ?></a>
 				</td>
 				<?php while ($field = $view->getLink ()) echo '<td>'. $field .'</td>'; ?>
 				<td style="text-align: right;" nowrap="nowrap">
@@ -99,7 +100,7 @@
 			<tr id="_ROW_<?= $view->getId () ?>" style="display: none; background-color: #FFFFFF;">
 				<td colspan="<?= $columns ?>" id="_CONTENT_<?= $view->getId () ?>" class="inPlace"></td>
 			</tr>
-			<tr id="_SP2_<?= $view->getId () ?>" class="cSeparator" style="display:;"><td></td></tr>
+			<tr id="_SP2_<?= $view->getId () ?>" class="cSeparator" style="display:;"><td colspan="<?= $columns ?>"></td></tr>
 			<?php
 		}
 		?>
