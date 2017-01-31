@@ -42,7 +42,7 @@ global.Select.clear = function (fieldId)
 document.observe ('dom:loaded', function (evt)
 {
 	var config = {
-		'.chosen': {
+		'#idBody select.chosen': {
 			disable_search_threshold: 10,
 			no_results_text: "<?= __ ('Nothing found!') ?>",
 			placeholder_text_single: "<?= __ ('Select...') ?>",
@@ -50,6 +50,15 @@ document.observe ('dom:loaded', function (evt)
 			allow_single_deselect: true,
 			search_contains: true,
 			width: "506px"
+		},
+		'#idRegister select.chosen': {
+			disable_search_threshold: 10,
+			no_results_text: "<?= __ ('Nothing found!') ?>",
+			placeholder_text_single: "<?= __ ('Select...') ?>",
+			placeholder_text_multiple: "<?= __ ('Select some options...') ?>",
+			allow_single_deselect: true,
+			search_contains: true,
+			width: "306px"
 		}
 	}
 
