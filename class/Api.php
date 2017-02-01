@@ -161,13 +161,13 @@ class Api
 	{
 		$key = substr ($key, 0, 16);
 
-		return Blowfish::encrypt (
+		return base64_encode (Blowfish::encrypt (
 			$input,
 			$key,
 			Blowfish::BLOWFISH_MODE_EBC,
 			Blowfish::BLOWFISH_PADDING_NONE,
 			NULL
-		);
+		));
 	}
 
 	public static function code ($code)
