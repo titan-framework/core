@@ -51,7 +51,7 @@ ob_start ();
 					{
 						?>
 						<input type="hidden" name="<?= $auxField->getAssign () ?>" value="<?= $auxField->getValue () ?>" />
-						<?
+						<?php
 					}
 
 					$output = ob_get_clean ();

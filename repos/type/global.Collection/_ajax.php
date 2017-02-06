@@ -1,4 +1,5 @@
 <?php
+
 class xCollection
 {
 	public function save ($file, $formData, $fatherId, $fatherColumn, $itemId = 0)
@@ -296,4 +297,3 @@ class xCollection
 		XOAD_Client::privateMethods ($this, array ());
 	}
 }
-?>

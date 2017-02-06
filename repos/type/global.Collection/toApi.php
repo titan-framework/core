@@ -1,4 +1,5 @@
 <?php
+
 $xml = Business::singleton ()->getAction (Action::TCURRENT)->getXmlPath ();
 
 Business::singleton ()->getAction (Action::TCURRENT)->setXmlPath (FALSE);
@@ -17,19 +18,18 @@ $buffer = array ();
 while ($view->getItem ())
 {
 	$line = array ();
-	
+
 	while ($cField = $view->getField ())
 	{
 		$str = Form::toText ($cField);
-		
+
 		if (trim ($str) == '')
 			continue;
-		
+
 		$line [] = str_replace (';', ',', $str);
 	}
-	
+
 	$buffer [] = implode (' - ', $line);
 }
 
 return implode (';', $buffer);
-?>

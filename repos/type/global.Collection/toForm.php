@@ -1,4 +1,5 @@
 <?php
+
 $xml = Business::singleton ()->getAction (Action::TCURRENT)->getXmlPath ();
 
 Business::singleton ()->getAction (Action::TCURRENT)->setXmlPath (FALSE);
@@ -41,7 +42,7 @@ ob_start ();
 						{
 							if (!$auxField->isSavable ())
 								continue;
-							
+
 							$backColor = $backColor == 'FFFFFF' ? 'F4F4F4' : 'FFFFFF';
 							$label = Form::toLabel ($auxField, TRUE);
 							?>
@@ -111,12 +112,12 @@ ob_start ();
 				echo '<td class="cTableHeader">'. View::toLabel ($auxField, FALSE) .'</td>';
 			?>
 			<td class="cTableHeader" style="text-align: right; white-space: nowrap; width: 1px;">
-				<?
+				<?php
 				if ($view->isSortable ())
 				{
 					?>
 					<a href="#" class="globalCollectionButton" onclick="JavaScript: global.Collection.saveSort (this, '<?= $field->getXmlPath () ?>', '<?= $fieldId ?>');"><img src="titan.php?target=loadFile&file=interface/icon/save.gif" border="0" /><?= __ ('Save Order') ?></a>&nbsp;
-					<?
+					<?php
 				}
 				?>
 				<a href="#" class="globalCollectionButton" onclick="JavaScript: global.Collection.create ('<?= $fieldId ?>', <?= $itemId ?>);"><img src="titan.php?target=loadFile&file=interface/icon/create.gif" border="0" /><?= __ ('New') ?></a>
@@ -134,14 +135,14 @@ ob_start ();
 				<tr class="cTableItem" id="collection_row_<?= $view->getId () ?>">
 					<?php while ($auxField = $view->getLink ()) echo '<td>'. $auxField .'</td>'; ?>
 					<td style="text-align: right; display:;" nowrap="nowrap">
-						<?
+						<?php
 						if ($view->isSortable ())
 						{
 							?>
 							<input type="hidden" name="idForSort" value="<?= $view->getId () ?>" />
 							<img src="titan.php?target=loadFile&file=interface/icon/arrow.up.gif" border="0" title="<?= __ ('Up') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.up (this);" />&nbsp;
 							<img src="titan.php?target=loadFile&file=interface/icon/arrow.down.gif" border="0" title="<?= __ ('Down') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.down (this);" />&nbsp;
-							<?
+							<?php
 						}
 						?>
 						<img src="titan.php?target=loadFile&file=interface/icon/edit.gif" border="0" title="<?= __ ('Edit') ?>" style="cursor: pointer;" onclick="JavaScript: global.Collection.edit ('<?= $fieldId ?>', '<?= $field->getXmlPath () ?>', '<?= $view->getId () ?>');" />&nbsp;

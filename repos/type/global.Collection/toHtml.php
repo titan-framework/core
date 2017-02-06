@@ -20,7 +20,7 @@ ob_start ();
 		<tr>
 			<?php
 			$columns = sizeof ($view->getFields ());
-			
+
 			while ($auxField = $view->getField ())
 				echo '<td class="cTableHeader">'. View::toLabel ($auxField, FALSE) .'</td>';
 			?>
@@ -28,7 +28,7 @@ ob_start ();
 		<tr height="5px"><td colspan="<?= $columns ?>"></td></tr>
 		<?php
 		$bkpItemId = $itemId;
-		
+
 		while ($view->getItem ())
 		{
 			$itemId = $view->getId ();
@@ -39,11 +39,10 @@ ob_start ();
 			<tr class="cSeparator"><td colspan="<?= $columns ?>"></td></tr>
 			<?php
 		}
-		
+
 		$itemId = $bkpItemId;
 		?>
 	</table>
 </div>
 <?php
 return ob_get_clean ();
-?>

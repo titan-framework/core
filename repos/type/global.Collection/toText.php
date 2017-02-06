@@ -1,4 +1,5 @@
 <?php
+
 $xml = Business::singleton ()->getAction (Action::TCURRENT)->getXmlPath ();
 
 Business::singleton ()->getAction (Action::TCURRENT)->setXmlPath (FALSE);
@@ -17,11 +18,11 @@ ob_start ();
 while ($view->getItem ())
 {
 	$line = array ();
-	
+
 	while ($cField = $view->getField ())
 		$line [] = (trim ($cField->getLabel ()) != '' ? $cField->getLabel () .': ' : '') .'\''. Form::toText ($cField) .'\'';
-	
+
 	echo implode ('; ', $line) ."\n";
 }
+
 return ob_get_clean ();
-?>
