@@ -87,7 +87,7 @@ try
 
 	exec (GIT .' checkout '. $_last);
 
-	echo "[SUCCESS] Work copy created at [". $_path ."] with last version of repository [". $_last ."]! \n\n";
+	echo "[SUCCESS] Work copy created at [". $_path ."] with last tag inside this branch on repository [". $_last ."]! \n\n";
 
 	unset ($out);
 
@@ -235,7 +235,8 @@ try
 	else
 		$dsn = 'pgsql:dbname='. $_xml ['database'][0]['name'] .' user='. @$_xml ['database'][0]['user'] .' password='. @$_xml ['database'][0]['password'];
 
-	echo "To connect on database, the bottom DSN will be used. Please, verify and press ENTER if is correct. If not, enter with correct DSN bellow... \n";
+	echo "To connect on database, the bottom DSN will be used. Please, verify and press ENTER if is correct. If not, enter with correct DSN bellow. \n";
+	echo "If database or user entered does not exists, its will be created. In case of user, the password inserted will be used. Leave password blank to Titan use Unix sockets (recomended). \n";
 	echo "Use '". $dsn ."' or type a alternative: \n";
 
 	$input = fgets (fopen ('php://stdin', 'r'));
@@ -416,7 +417,11 @@ try
 
 	echo "[SUCCESS] All done! \n\n";
 
-	echo "[WARNING] You still need configure your instance! Please, edit configuration files with correct parameters (like [". $_path ."/configure/titan.xml]). \n";
+	echo "[WARNING] You still need configure your instance! Please, edit configuration files with correct parameters (like [". $_path ."/configure/titan.xml]). \n\n";
+
+	echo "Thanks for using Titan Framework! \n";
+
+	echo "http://titanframework.com \n";
 }
 catch (Exception $e)
 {
