@@ -3,10 +3,10 @@
  * Script to install a standard Titan Framework instance
  * from GIT repository.
  *
- * Copyright 2016: PLEASE Lab / Embrapa Gado de Corte
+ * Copyright 2016-2017: PLEASE Lab / Embrapa Gado de Corte
  *
  * @author Camilo Carromeu <camilo.carromeu@embrapa.br>
- * @version 1.0
+ * @version 1.1
  */
 
 error_reporting (E_ALL);
@@ -46,7 +46,7 @@ try
 	if (!`which git`)
 		throw new Exception ("[ERROR] You need install GIT package (try 'apt-get install git')!");
 
-	$commands = array ('SVN', 'GZIP', 'MV', 'SU', 'GIT');
+	$commands = array ('GZIP', 'MV', 'SU', 'GIT');
 
 	foreach ($commands as $trash => $command)
 		if (!defined ($command))
@@ -155,9 +155,6 @@ try
 
 	$_conf = array (
 		'environment' => '',
-		'svn-login' => '',
-		'svn-password' => '',
-		'svn-users' => '',
 		'backup' => TRUE,
 		'file-mode' => '664',
 		'dir-mode' => '775',
