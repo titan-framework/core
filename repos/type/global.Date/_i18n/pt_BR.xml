@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i18n language="pt_BR">
+	<message from="Calendar" to="Calendário" />
+	<message from="Clear" to="Limpar" />
+	<message from="From" to="De" />
+	<message from="to" to="a" />
+</i18n>
