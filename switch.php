@@ -559,11 +559,6 @@ try
 
 			define ('MBTTF_DIR', $jpFontsPath . DIRECTORY_SEPARATOR);
 
-			if (!isset ($_GET['pieces']) || !is_array ($_GET['pieces']))
-				throw new Exception ('Impossible generate graphic! Missing data.');
-
-			$pieces = $_GET['pieces'];
-
 			$type = isset ($_GET['type']) ? $_GET['type'] : 'PIE';
 
 			include $instance->getCorePath () .'extra/jpGraph/jpgraph.php';
@@ -575,6 +570,50 @@ try
 
 			$width = isset ($_GET['width']) ? (int) $_GET['width'] : 920;
 			$height = isset ($_GET['height']) ? (int) $_GET['height'] : 400;
+
+			if (isset ($_GET['pieces']) && is_array ($_GET['pieces']) && sizeof ($_GET['pieces']) &&
+				isset ($_GET['legends']) && is_array ($_GET['legends']) && sizeof ($_GET['legends']) &&
+				sizeof ($_GET['legends']) == sizeof ($_GET['pieces']) && array_sum ($_GET['pieces']))
+			{
+				$pieces = $_GET['pieces'];
+				$legends = $_GET['legends'];
+			}
+			else
+			{
+				$base = $instance->getCorePath () .'interface/image/graph.no_data.png';
+
+				$fTitle = $instance->getCorePath () .'extra/fonts/Verdana.ttf';
+				$fBody  = $instance->getCorePath () .'extra/fonts/Vera.ttf';
+
+				if (isset ($_GET['title']))
+					$title = urldecode ($_GET['title']);
+				else
+					$title = __ ('No Title');
+
+				$img = imagecreatefrompng ($base);
+
+				$background = imagecolorallocatealpha ($img, 0, 0, 0, 127);
+
+				imagecolortransparent ($img, $background);
+
+				imagealphablending ($img, FALSE);
+
+				imagesavealpha ($img, TRUE);
+
+				$black = imagecolorallocate ($img, 0, 0, 0);
+
+				imagettftext ($img, 12, 0, 100, 37, $black, $fTitle, $title);
+
+				imagettftext ($img, 12, 0, 100, 61, $black, $fBody, __ ('No data to generate graphic!'));
+
+				header ('Content-type: image/png');
+
+				imagepng ($img);
+
+				imagedestroy ($im);
+
+				exit ();
+			}
 
 			switch ($type)
 			{
@@ -610,15 +649,12 @@ try
 
 					$pie->ExplodeAll (10);
 
-					if (isset ($_GET['legends']) && is_array ($_GET['legends']) && sizeof ($_GET['legends']) == sizeof ($pieces))
-					{
-						$aux = array ();
+					$aux = array ();
 
-						foreach ($_GET['legends'] as $key => $value)
-							$aux [] = urldecode ($value ." - ". number_format ($pieces [$key], 0, ',', '.') ." (%.1f%%)");
+					foreach ($legends as $key => $value)
+						$aux [] = urldecode ($value ." - ". number_format ($pieces [$key], 0, ',', '.') ." (%.1f%%)");
 
-						$pie->SetLabels ($aux, 1);
-					}
+					$pie->SetLabels ($aux, 1);
 
 					$graph->Add ($pie);
 
@@ -658,7 +694,7 @@ try
 					{
 						$legs = array ();
 
-						foreach ($_GET['legends'] as $key => $value)
+						foreach ($legends as $key => $value)
 							$legs [] = urldecode ($value ."\n". number_format ($aux [$key], 1, ',', '.') ."%");
 
 						$graph->xaxis->SetTickLabels ($legs);

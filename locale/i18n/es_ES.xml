@@ -55,7 +55,7 @@
 	<message from="Saturday" to="Sábado" />
 
 	<!-- 2. General Errors -->
-	
+
 	<message from="Technical issue?" to="Problema técnico?" />
 	<message from="Error! Data losted." to="¡Error! Datos perdidos." />
 	<message from="User register" to="Registro de Usuario" />
@@ -78,6 +78,8 @@
 	<message from="Archive linked with success!" to="Archivo vinculado con éxito" />
 	<message from="Archive unlinked with success!" to="¡Archivo desvinculado con éxito!" />
 	<message from="Items linked with success!" to="!Elementos vinculados con éxito!" />
+
+	<message from="No data to generate graphic!" to="No hay datos para generar gráficos!" />
 
 	<!-- 3. Core -->
 
@@ -207,15 +209,15 @@
 	<message from="Previous" to="Anterior" />
 	<message from="First" to="Primeira" />
 	<message from="Last" to="Última" />
-	
+
 	<!-- class/UserType.php -->
 	<message from="Dont exists a valid LDAP host for this user type! Verify [configure/security.xml] if user type configuration use a valid LDAP host seted on [configure/ldap.xml]." to="¡No hay un host LDAP válido para este tipo de usuario! Averigue el archivo [configure/security.xml] y observe si la configuración de este tipo de usuario está utilizando un servidor LDAP válido que haya sido configurado en el archivo [configure/Idap.xml]." />
-	
+
 	<!-- class/Xoad.php -->
 	<message from="Report has been send! Comming soon you will receive a feedback." to="¡Informe de errores enviado! Brevemente recibirá una respuesta del equipo de manutención" />
-	
+
 	<!-- 3.3 System -->
-	
+
 	<!-- system/control.php -->
 	<message from="You has desconnected for security reasons! You user is long time inactive." to="¡Su sesión se cerró por medidas de seguridad! El usuario quedó ocioso en el sistema por mucho tiempo." />
 	<message from="Query execution error: [1]" to="Error en la ejecución de query en el BD: [1]" />

@@ -248,9 +248,11 @@ class Graph
 
 		$unique = '_result_'. randomHash (12);
 
-		$sql = "(SELECT ". $field->getTable () .".". $column .", count(". $field->getTable () .".". $column .") AS ". $unique ." FROM ". $this->getTable () . (trim ($where) != '' ? " WHERE ". $where : "") . " GROUP BY ". $field->getTable () .".". $column .")
-				UNION
-				(SELECT NULL AS ". $column .", count(*) AS ". $unique ." FROM ". $this->getTable () ." WHERE ". $field->getTable () .".". $column ." IS NULL". (trim ($where) != '' ? " AND ". $where : "") . ")";
+		$sql = "
+			(SELECT ". $field->getTable () .".". $column .", count(". $field->getTable () .".". $column .") AS ". $unique ." FROM ". $this->getTable () . (trim ($where) != '' ? " WHERE ". $where : "") . " GROUP BY ". $field->getTable () .".". $column .")
+			UNION
+			(SELECT NULL AS ". $column .", count(*) AS ". $unique ." FROM ". $this->getTable () ." WHERE ". $field->getTable () .".". $column ." IS NULL". (trim ($where) != '' ? " AND ". $where : "") . ")
+		";
 
 		$sth = $db->prepare ($sql);
 
@@ -273,6 +275,9 @@ class Graph
 
 			$pieces [] = $obj->$unique;
 		}
+
+		if (!sizeof ($pieces))
+			return 'titan.php?target=graph&type='. $this->getType () .'&title='. $title;
 
 		switch ($type)
 		{

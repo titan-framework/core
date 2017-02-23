@@ -61,7 +61,7 @@
 	<message from="Saturday" to="Sábado" />
 
 	<!-- 2. General Errors/Messages -->
-	
+
 	<message from="Technical issue?" to="Problema técnico?" />
 	<message from="Impossible to send bug report! Please, try again later." to="Impossível submeter relatório de erro! Por favor, tente novamente mais tarde." />
 	<message from="Error! Data losted." to="Houve perda de variáveis!" />
@@ -81,11 +81,13 @@
 	<message from="Fields marked with * must be completed. Enter valid values ​​in the fields: [1]." to="Campos marcados com * precisam ser preenchidos. Insira valores válidos nos campos: [1]" />
 	<message from="Enter valid values ​​in the fields: [1]." to="Insira valores válidos nos campos: [1]." />
 	<message from="The field [1] must be unique. There is already an occurrence for [2] in database." to="O campo [1] precisa ser único. Já existe uma ocorrência para [2] no banco de dados." />
-	
+
 	<message from="Archives Linked" to="Arquivos Vinculados" />
 	<message from="Archive linked with success!" to="Arquivo vinculado com sucesso!" />
 	<message from="Archive unlinked with success!" to="Arquivo desvinculado com sucesso!" />
 	<message from="Items linked with success!" to="Itens vinculados com sucesso!" />
+
+	<message from="No data to generate graphic!" to="Sem dados para gerar o gráfico!" />
 
 	<!-- 3. Core -->
 
@@ -187,15 +189,15 @@
 	<message from="Regular" to="Regular" />
 	<message from="Strong" to="Forte" />
 	<message from="Very Strong" to="Muito Forte" />
-	
+
 	<!-- output/error.php -->
 	<message from="Unknow error in system! Try again more later." to="Erro desconhecido no sistema! Tente novamente mais tarde." />
-	
+
 	<!-- output/alert.php -->
 	<message from="You no longer receive e-mail alert messages from&lt;br /&gt;&lt;a href=&quot;[1]&quot;&gt;[2]&lt;/a&gt;!" to="Você não irá mais receber mensagens de alerta por e-mail do&lt;br /&gt;&lt;a href=&quot;[1]&quot;&gt;[2]&lt;/a&gt;!" />
 	<message from="To change this configuration, &lt;a href=&quot;[1]&quot;&gt;log in&lt;/a&gt; to system and modify your profile." to="Para alterar esta configuração, faça &lt;a href=&quot;[1]&quot;&gt;log in&lt;/a&gt; no sistema e modifique seu perfil." />
 	<message from="Success to disable e-mail alert messages!" to="Mensagens de alerta por e-mail desabilitadas com sucesso!" />
-	
+
 	<!-- 3.2 Class -->
 
 	<!-- class/AjaxLogon.php -->
@@ -211,7 +213,7 @@
 	<message from="Non-existent, Deleted or Inactive User!" to="'Usuário inexistente, apagado ou inativo!'" />
 	<message from="Invalid Hash! Use the link &quotRecovery Password&quot at the login page for receive a valid hash into your e-mail." to="Hash inválida! Utilize o link &quot;Recuperar Senha&quot; na página de logon para receber um hash válida em seu e-mail." />
 	<message from="Unable to change the password." to="Não foi possível modificar a senha." />
-	
+
 	<!-- class/Api -->
 	<message from="Application API is not active!" to="A API de autenticação não está ativa na aplicação!"
 	<message from="Invalid credentials!" to="Credenciais de acesso inválidas!" />
@@ -231,7 +233,7 @@
 	<message from="User credentials are incorrect or empty!" to="As credenciais de acesso do usuário estão vazias ou em formato impróprio!" />
 	<message from="Client credentials are incorrect or empty!" to="As credenciais de acesso do dispositivo estão vazias ou em formato impróprio!" />
 	<message from="Application credentials are incorrect or empty!" to="As credenciais de acesso da aplicação estão vazias ou em formato impróprio!" />
-	
+
 	<!-- class/Archive -->
 	<message from="The property [data-path] was not found or its empty in the tag <archive></archive> from file [configure/titan.xml]!" to="Não foi encontrada a propriedade [data-path] ou ela é vazia na tag <archive></archive> do arquivo [configure/titan.xml]!" />
 	<message from="The property [xml-path] was not found in the tag <archive></archive> of file [configure/titan.xml]!" to="Não foi encontrada a propriedade [xml-path] na tag <archive></archive> do arquivo [configure/titan.xml]!" />
@@ -242,7 +244,7 @@
 	<message from="This user is inactive into the system!" to="Este usuário esta inativo no sistema!" />
 	<message from="Fail in the recover the updated data!" to="Falha na recuperação dos dados atualizados!" />
 	<message from="There is no user in the system linked to this social network profile!" to="Não há nenhum usuário no sistema vinculado a este perfil de rede social!" />
-	
+
 	<!-- class/Manual.php -->
 	<message from="This action contains the fowlling fields" to="Esta ação contêm os seguintes campos" />
 	<message from="Menu Actions" to="Opções do Menu" />
@@ -250,10 +252,10 @@
 	<message from="Action by clicking" to="Ação" />
 	<message from="Unlabed field" to="Campo sem rótulo" />
 	<message from="Tip: [1]" to="Dica: [1]" />
-	
+
 	<!-- class/Menu.php -->
 	<message from="Research" to="Pesquisar" />
-	
+
 	<!-- class/Type.php -->
 	<message from="This field contains, by default, the value &quot;**[1]**&quot;." to="Este campo contém, por padrão, o valor &quot;**[1]**&quot;." />
 	<message from="This field is, by default, **empty**." to="Este campo é, por padrão, **vazio**." />
@@ -262,21 +264,21 @@
 	<message from="This field is **required**. You need fill value to save form." to="Este campo é **obrigatório**. Você precisará preenchê-lo para salvar o formulário." />
 	<message from="The content of this field need be **unique**." to="O valor deste campo precisa ser **único**." />
 	<message from="Is necessary a special permission to edit this field." to="É necessário possuir algumas permissões especiais para alterar o valor deste campo." />
-	
+
 	<!-- class/View.php -->
 	<message from="Next" to="Próximo" />
 	<message from="Previous" to="Anterior" />
 	<message from="First" to="Primeira" />
 	<message from="Last" to="Última" />
-	
+
 	<!-- class/UserType.php -->
 	<message from="Dont exists a valid LDAP host for this user type! Verify [configure/security.xml] if user type configuration use a valid LDAP host seted on [configure/ldap.xml]." to="Nao há um host LDAP válido setado para este tipo de usuário! Verifique o arquivo [configure/security.xml] e veja se a configuracaçao deste tipo de usuário esta utilizando um servidor LDAP válido que tenha sido configurado no arquivo [configure/ldap.xml]." />
-	
+
 	<!-- class/Xoad.php -->
 	<message from="Report has been send! Comming soon you will receive a feedback." to="Relatório de erros enviado! Em breve você receberá uma resposta da equipe de manutenção" />
-	
+
 	<!-- 3.3 System -->
-	
+
 	<!-- system/control.php -->
 	<message from="You has desconnected for security reasons! You user is long time inactive." to="Você foi deslogado por medidas de segurança! Seu usuário ficou ocioso no sistema por muito tempo." />
 	<message from="Query execution error: [1]" to="Erro na execuçao de query no BD: [1]" />
@@ -297,15 +299,15 @@
 
 	<!-- global.deleted -->
 	<message from="The item will be deleted permanently. Are you sure you want to proceed?" to="O item será apagado permanentemente. Tem certeza que deseja prosseguir?" />
-	
+
 	<!-- 4.2 Type -->
-	
+
 	<!-- global.Twitter -->
 	<message from="Original Text: [[1]] / Encrypted: [[2]]" to="Texto Original: [[1]] / Criptografado: [[2]]" />
-	
+
 	<!-- global.Date -->
 	<message from="year(s)" to="ano(s)" />
-	
+
 	<!-- 4.3 Menu -->
 	<message from="You do not have permission to access the action [1]!" to="Você não possui as permissões necessárias para acessar a ação [1]!" />
 	<message from="Permission Denied" to="Permissão Negada" />
