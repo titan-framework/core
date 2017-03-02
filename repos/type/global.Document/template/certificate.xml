@@ -9,20 +9,20 @@
 			<mime-type>image/pjpeg</mime-type>
 			<mime-type>image/png</mime-type>
 		</field>
-		<field type="Text" column="verb" label="Verbo (Linha 1)" id="_VERB_" />
-		<field type="Text" column="name" label="Nome (Linha 2)" id="_NAME_" />
-		<field type="Text" column="event_call" label="Chamada do Evento (Linha 3)" id="_EVENT_CALL_" />
-		<field type="Text" column="event" label="Evento (Linha 4)" id="_EVENT_" />
-		<field type="Text" column="qualifying_call" label="Chamada do Qualificador (Linha 5)" id="_QUALIFYING_CALL_" />
-		<field type="Text" column="qualifying" label="Qualificador (Linha 6)" id="_QUALIFYING_" />
-		<field type="Text" column="period_call" label="Chamada do Período (Linha7)" id="_PERIOD_CALL_" />
-		<field type="Text" column="period" label="Período (Linha 8)" id="_PERIOD_" />
+		<field type="PlainText" column="verb" label="Verbo (Linha 1)" id="_VERB_" />
+		<field type="PlainText" column="name" label="Nome (Linha 2)" id="_NAME_" />
+		<field type="PlainText" column="event_call" label="Chamada do Evento (Linha 3)" id="_EVENT_CALL_" />
+		<field type="PlainText" column="event" label="Evento (Linha 4)" id="_EVENT_" />
+		<field type="PlainText" column="qualifying_call" label="Chamada do Qualificador (Linha 5)" id="_QUALIFYING_CALL_" />
+		<field type="PlainText" column="qualifying" label="Qualificador (Linha 6)" id="_QUALIFYING_" />
+		<field type="PlainText" column="period_call" label="Chamada do Período (Linha7)" id="_PERIOD_CALL_" />
+		<field type="PlainText" column="period" label="Período (Linha 8)" id="_PERIOD_" />
 	</group>
 	<group label="Verso">
-		<field type="String" column="header" label="Cabeçalho" id="_HEADER_" />
-		<field type="Text" column="register" label="Registro" id="_REGISTER_" />
-		<field type="Text" column="assign_1" label="Assinatura 1" id="_ASSIGN_1_" />
-		<field type="Text" column="assign_2" label="Assinatura 2" id="_ASSIGN_2_" />
-		<field type="String" column="activity_header" label="Cabeçalho para as Atividades" id="_ACTIVITY_HEADER_" />
+		<field type="Phrase" column="header" label="Cabeçalho" id="_HEADER_" />
+		<field type="PlainText" column="register" label="Registro" id="_REGISTER_" />
+		<field type="PlainText" column="assign_1" label="Assinatura 1" id="_ASSIGN_1_" />
+		<field type="PlainText" column="assign_2" label="Assinatura 2" id="_ASSIGN_2_" />
+		<field type="Phrase" column="activity_header" label="Cabeçalho para as Atividades" id="_ACTIVITY_HEADER_" />
 	</group>
 </form>

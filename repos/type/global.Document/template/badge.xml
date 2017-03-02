@@ -8,6 +8,6 @@
 		<mime-type>image/pjpeg</mime-type>
 		<mime-type>image/png</mime-type>
 	</field>
-	<field type="String" column="line_1" label="Linha 1" id="_LINE_1_" />
-	<field type="String" column="line_2" label="Linha 2" id="_LINE_2_" />
+	<field type="Phrase" column="line_1" label="Linha 1" id="_LINE_1_" />
+	<field type="Phrase" column="line_2" label="Linha 2" id="_LINE_2_" />
 </form>
