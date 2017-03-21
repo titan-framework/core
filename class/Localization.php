@@ -121,7 +121,8 @@ class Localization
 		if (!self::supports ($language))
 			return FALSE;
 
-		setcookie ('_TITAN_LOCALE_', $language);
+		if (!headers_sent ())
+			setcookie ('_TITAN_LOCALE_', $language);
 
 		$this->language = $language;
 
