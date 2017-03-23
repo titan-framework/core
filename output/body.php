@@ -24,23 +24,22 @@ header ('Content-Encoding: gzip');
 		#menuBox
 		{
 			position: absolute;
-			overflow: hidden;
-			width: 200px;
-			height: <?= $menuHeight < 7 ? 158 : $menuHeight * 25 + 4  ?>px;
-			z-index: 3;
-			border: #D4D4D4 2px solid;
+			overflow-y: auto;
+			overflow-x: hidden;
+			width: 260px;
+			height: 100%;
+			z-index: 4;
 			padding: 0px;
+			margin: 0px;
+			top: 0px;
+			transition: 0.5s;
 		}
 		.menuMain
 		{
 			position: absolute;
 			display: block;
 			top: 0px;
-			width: 200px;
-			height: <?= $menuHeight < 7 ? 155 : $menuHeight * 25 + 1 ?>px;
-			background-color: #575556;
-			border-top: #36817C 3px solid;
-			overflow: hidden;
+			width: 260px;
 		}
 		</style>
 		<?php
@@ -53,6 +52,7 @@ header ('Content-Encoding: gzip');
 		if (file_exists ($section->getCompPath () .'_css.php'))
 			include $section->getCompPath () .'_css.php';
 		?>
+		<script src="https://use.fontawesome.com/a98ba7fcbf.js"></script>
 		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=prototype,builder,effects,dragdrop,controls,slider,sound,protolimit,tooltip,spin.min&amp;v=<?= VersionHelper::singleton ()->getTitanBuild () ?>"></script>
 		<script language="javascript" type="text/javascript">
 		String.prototype.namespace = function (separator)

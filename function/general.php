@@ -251,7 +251,7 @@ function keyboard ($link = NULL, $color = '999999')
 	$counter++;
 }
 
-function makeMenu ($previous = FALSE, $father = '', $sectionName = '')
+function makeMenu ($menuHeight, $previous = FALSE, $father = '', $sectionName = '')
 {
 	$business = Business::singleton ();
 
@@ -259,8 +259,6 @@ function makeMenu ($previous = FALSE, $father = '', $sectionName = '')
 
 	if (!sizeof ($children))
 		return FALSE;
-
-	global $menuHeight;
 
 	$user = User::singleton ();
 
@@ -271,12 +269,12 @@ function makeMenu ($previous = FALSE, $father = '', $sectionName = '')
 	ob_start ();
 
 	if ($previous === FALSE)
-		echo '<li style="background-color: #333333; background-image: none;"></li>';
+		echo '<li style="background-color: #333; background-image: none;"></li>';
 	else
 	{
 		?>
-		<li style="background: #333333 url(titan.php?target=loadFile&amp;file=interface/image/arrow.left.gif) left no-repeat; padding-left: 3px;" onclick="JavaScript: backMenu ('<?= $father ?>', '<?= $previous ?>');">
-			<label><?= __('Back')?></label>
+		<li style="background: #333 url(titan.php?target=loadFile&amp;file=interface/image/arrow.left.gif) left no-repeat; font-weight: bold;" onclick="JavaScript: backMenu ('<?= $father ?>', '<?= $previous ?>');">
+			<label><?= $business->getSection ($father)->getLabel () ?></label>
 		</li>
 		<?php
 	}
@@ -287,7 +285,7 @@ function makeMenu ($previous = FALSE, $father = '', $sectionName = '')
 		if ($user->accessSection ($business->getSection ($father)->getName ()))
 			$output [] = '<li style="background-image: none;" onclick="JavaScript: showWait (); document.location = \'titan.php?target=body&amp;toSection='. $father .'\';" title="'. $business->getSection ($father)->getDescription () .'"><label>'. $business->getSection ($father)->getLabel () .'</label></li>';
 		elseif (Instance::singleton ()->showAllSections ())
-			$output [] = '<li style="background-image: none;"><label style="color: #AAAAAA;" title="'. $business->getSection ($father)->getDescription () .'">'. $business->getSection ($father)->getLabel () .'</label></li>';
+			$output [] = '<li style="background-image: none;"><label style="color: #AAA;" title="'. $business->getSection ($father)->getDescription () .'">'. $business->getSection ($father)->getLabel () .'</label></li>';
 
 	foreach ($children as $trash => $section)
 	{
@@ -299,7 +297,7 @@ function makeMenu ($previous = FALSE, $father = '', $sectionName = '')
 		if ($section->isHidden ())
 			continue;
 
-		$next = makeMenu ($father, $section->getName (), $section->getLabel ());
+		$next = makeMenu ($menuHeight, $father, $section->getName (), $section->getLabel ());
 
 		if (is_array ($next))
 		{
@@ -309,7 +307,7 @@ function makeMenu ($previous = FALSE, $father = '', $sectionName = '')
 		elseif ($user->accessSection ($section->getName ()))
 			$output [] = '<li style="background-image: none;" onclick="JavaScript: showWait (); document.location = \'titan.php?target=body&amp;toSection='. $section->getName () .'\';" title="'. $section->getDescription () .'"><label>'. $section->getLabel () .'</label></li>';
 		elseif (Instance::singleton ()->showAllSections ())
-			$output [] = '<li style="background-image: none;"><label style="color: #AAAAAA;" title="'. $section->getDescription () .'">'. $section->getLabel () .'</label></li>';
+			$output [] = '<li style="background-image: none;"><label style="color: #AAA;" title="'. $section->getDescription () .'">'. $section->getLabel () .'</label></li>';
 	}
 
 	if (!sizeof ($output))
@@ -317,7 +315,7 @@ function makeMenu ($previous = FALSE, $father = '', $sectionName = '')
 
 	ob_start ();
 	?>
-	<div class="menuMain" id="menuMain_<?= $father ?>" style="<?= $father == '' ? 'display: block; left: 0px;' : 'display: none; left: 200px;' ?>">
+	<div class="menuMain" id="menuMain_<?= $father ?>" style="<?= $father == '' ? 'display: block; left: 0px;' : 'display: none; left: 260px;' ?>">
 		<ul>
 			<?php
 			echo $header;

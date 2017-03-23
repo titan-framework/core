@@ -85,6 +85,7 @@ function resizeBody ()
 		height = window.innerHeight;
 
 	document.getElementById ('idBody').style.height = (height - 78) + 'px';
+	document.getElementById ('menuBox').style.height = (height - 23) + 'px';
 
 	if (!menuLongSize)
 	{

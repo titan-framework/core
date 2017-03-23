@@ -1,12 +1,33 @@
-.menuMain ul
+#menuBox div.menuContainer
 {
+	clear: both;
 	padding: 0px;
 	margin: 0px;
+	width: 243px;
+	height: 100%;
+	background-color: #575556;
+}
+#menuBox.hide
+{
+	transform: translateX(-260px);
+}
+#menuBox.show
+{
+	transform: translateX(0);
+}
+.menuMain ul
+{
+	top: 0px;
+	width: 243px;
+	padding: 0px;
+	margin: 0px;
+	background-color: #575556;
 }
 .menuMain li
 {
 	list-style: none;
-	height: 22px;
+	height: 32px;
+	line-height: 32px;
 	vertical-align: middle;
 	background: url(titan.php?target=loadFile&file=interface/image/arrow.right.gif) right no-repeat;
 }
@@ -18,11 +39,12 @@
 .menuMain label
 {
 	float: left;
-	color: #FFFFFF;
-	font-family: Geneva, Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	margin-top: 4px;
-	margin-left: 20px;
+	color: #FFF;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	margin-left: 32px;
+	height: 32px;
+	line-height: 32px;
 }
 .menuMain label:hover
 {

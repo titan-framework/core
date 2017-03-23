@@ -49,7 +49,7 @@ function enableMenu ()
 {
 	var menu = document.getElementById ('idMenu');
 
-	menu.className = 'cMenu';
+	menu.firstElementChild.className = 'fa fa-bars fa-2x';
 
 	menu.onclick = function () { showMenu (menu); };
 }
@@ -58,22 +58,22 @@ function disableMenu ()
 {
 	var menu = document.getElementById ('idMenu');
 
-	menu.className = 'cMenuLoading';
+	menu.firstElementChild.className = 'fa fa-refresh fa-spin fa-2x';
 
 	menu.onclick = function () {};
 }
 
-function urlencode (str) 
-{							 
+function urlencode (str)
+{
 	var histogram = {}, tmp_arr = [];
 	var ret = (str+'').toString();
-	
+
 	var replacer = function(search, replace, str) {
 		var tmp_arr = [];
 		tmp_arr = str.split(search);
 		return tmp_arr.join(replace);
 	};
-	
+
 	// The histogram is identical to the one in urldecode.
 	histogram["'"]   = '%27';
 	histogram['(']   = '%28';
@@ -114,20 +114,20 @@ function urlencode (str)
 	histogram['\u009D'] = '%9D';
 	histogram['\u017E'] = '%9E';
 	histogram['\u0178'] = '%9F';
-	
+
 	// Begin with encodeURIComponent, which most resembles PHP's encoding functions
 	ret = encodeURIComponent(ret);
-	
+
 	for (search in histogram) {
 		replace = histogram[search];
 		ret = replacer(search, replace, ret) // Custom replace. No regexing
 	}
-	
+
 	// Uppercase for full PHP compatibility
 	return ret.replace(/(\%([a-z0-9]{2}))/g, function(full, m1, m2) {
 		return "%"+m2.toUpperCase();
 	});
-	
+
 	return ret;
 }
 
@@ -142,11 +142,11 @@ function searchDefault (field, str)
 function searchSend (field, e)
 {
 	e = e ? e : (window.event ? window.event : null);
-	
+
 	if (e)
 	{
 		var charCode = !isNaN(e.charCode) && e.charCode ? e.charCode : !isNaN(e.keyCode) && e.keyCode ? e.keyCode : e.which;
-		
+
 		if (charCode == 13)
 			parent.body.location = 'titan.php?target=lucene&query=' + urlencode (field.value);
 	}
