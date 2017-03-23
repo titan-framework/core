@@ -92,6 +92,11 @@ abstract class ApiAuth
 		User::singleton ()->loadById ($id);
 	}
 
+	public function getName ()
+	{
+		return $this->name;
+	}
+
 	public function hasContext ()
 	{
 		$args = func_get_args ();
@@ -435,4 +440,3 @@ class EmbrapaAuth extends ApiAuth
 			MobileDevice::sendNotification ($this->gcmApiKey, $ids, $message);
 	}
 }
-?>

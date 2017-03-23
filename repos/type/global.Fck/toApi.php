@@ -13,7 +13,7 @@ foreach ($tags as $tag)
 {
 	$src = $tag->getAttribute ('src');
 
-	preg_match ('/\&id=([0-9]+)/i', $src, $result);
+	preg_match ('/target=tScript\&type=File\&file=open\&id=([0-9]+)/i', $src, $result);
 
 	if (sizeof ($result) != 2 || !(int) $result [1])
 		continue;
@@ -31,6 +31,20 @@ foreach ($tags as $tag)
 	}
 
 	$type = Database::singleton ()->query ("SELECT _mimetype FROM _file WHERE _id = '". $fileId ."'")->fetchColumn ();
+
+	try
+	{
+		$style = $tag->getAttribute ('style');
+
+		preg_match ('/height:[\s]*([0-9]+)px;[\s]*width:[\s]*([0-9]+)px/i', $style, $result);
+
+		if (sizeof ($result) != 3 || !(int) $result [1] || !(int) $result [2])
+			throw new Exception ();
+
+		$path = File::resize ($fileId, $type, $result [2], $result [1], TRUE);
+	}
+	catch (Exception $e)
+	{}
 
 	$data = file_get_contents ($path);
 
