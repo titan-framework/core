@@ -26,6 +26,7 @@
 .menuMain li
 {
 	list-style: none;
+	color: #FFF;
 	height: 32px;
 	line-height: 32px;
 	vertical-align: middle;
@@ -36,15 +37,25 @@
 	background-color: #36817C;
 	cursor: pointer;
 }
-.menuMain label
+.menuMain li i
+{
+	float: left;
+	margin: 6px 7px 6px 6px;
+}
+.menuMain li label
 {
 	float: left;
 	color: #FFF;
 	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 	font-size: 12px;
-	margin-left: 32px;
 	height: 32px;
 	line-height: 32px;
+}
+.menuMain li div.indentation
+{
+	float: left;
+	width: 32px;
+	height: 32px;
 }
 .menuMain label:hover
 {

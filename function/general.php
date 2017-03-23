@@ -255,6 +255,8 @@ function makeMenu ($menuHeight, $previous = FALSE, $father = '', $sectionName = 
 {
 	$business = Business::singleton ();
 
+	$indentation = '<div class="indentation"></div>';
+
 	$children = $business->getChildren ($father);
 
 	if (!sizeof ($children))
@@ -274,6 +276,7 @@ function makeMenu ($menuHeight, $previous = FALSE, $father = '', $sectionName = 
 	{
 		?>
 		<li style="background: #333 url(titan.php?target=loadFile&amp;file=interface/image/arrow.left.gif) left no-repeat; font-weight: bold;" onclick="JavaScript: backMenu ('<?= $father ?>', '<?= $previous ?>');">
+			<div class="indentation"></div>
 			<label><?= $business->getSection ($father)->getLabel () ?></label>
 		</li>
 		<?php
@@ -282,10 +285,17 @@ function makeMenu ($menuHeight, $previous = FALSE, $father = '', $sectionName = 
 	$header = ob_get_clean ();
 
 	if ($father != '' && !$business->getSection ($father)->isFake () && !$business->getSection ($father)->isHidden ())
+	{
+		$icon = $indentation;
+
+		if ($business->getSection ($father)->getIcon () != '')
+			$icon = '<i class="fa fa-'. $business->getSection ($father)->getIcon () .' fa-2x" style="float: left;"></i>';
+		
 		if ($user->accessSection ($business->getSection ($father)->getName ()))
-			$output [] = '<li style="background-image: none;" onclick="JavaScript: showWait (); document.location = \'titan.php?target=body&amp;toSection='. $father .'\';" title="'. $business->getSection ($father)->getDescription () .'"><label>'. $business->getSection ($father)->getLabel () .'</label></li>';
+			$output [] = '<li style="background-image: none;" onclick="JavaScript: showWait (); document.location = \'titan.php?target=body&amp;toSection='. $father .'\';" title="'. $business->getSection ($father)->getDescription () .'">'. $icon .'<label>'. $business->getSection ($father)->getLabel () .'</label></li>';
 		elseif (Instance::singleton ()->showAllSections ())
-			$output [] = '<li style="background-image: none;"><label style="color: #AAA;" title="'. $business->getSection ($father)->getDescription () .'">'. $business->getSection ($father)->getLabel () .'</label></li>';
+			$output [] = '<li style="background-image: none; color: #AAA;">'. $icon .'<label style="color: #AAA;" title="'. $business->getSection ($father)->getDescription () .'">'. $business->getSection ($father)->getLabel () .'</label></li>';
+	}
 
 	foreach ($children as $trash => $section)
 	{
@@ -297,17 +307,22 @@ function makeMenu ($menuHeight, $previous = FALSE, $father = '', $sectionName = 
 		if ($section->isHidden ())
 			continue;
 
+		$icon = $indentation;
+
+		if ($section->getIcon () != '')
+			$icon = '<i class="fa fa-'. $section->getIcon () .' fa-2x"></i>';
+
 		$next = makeMenu ($menuHeight, $father, $section->getName (), $section->getLabel ());
 
 		if (is_array ($next))
 		{
 			$array = array_merge ($array, $next);
-			$output [] = '<li onclick="JavaScript: slideMenu (\''. $father .'\', \''. $section->getName () .'\');"><label>'. $section->getLabel () .'</label></li>';
+			$output [] = '<li onclick="JavaScript: slideMenu (\''. $father .'\', \''. $section->getName () .'\');">'. $icon .'<label>'. $section->getLabel () .'</label></li>';
 		}
 		elseif ($user->accessSection ($section->getName ()))
-			$output [] = '<li style="background-image: none;" onclick="JavaScript: showWait (); document.location = \'titan.php?target=body&amp;toSection='. $section->getName () .'\';" title="'. $section->getDescription () .'"><label>'. $section->getLabel () .'</label></li>';
+			$output [] = '<li style="background-image: none;" onclick="JavaScript: showWait (); document.location = \'titan.php?target=body&amp;toSection='. $section->getName () .'\';" title="'. $section->getDescription () .'">'. $icon .'<label>'. $section->getLabel () .'</label></li>';
 		elseif (Instance::singleton ()->showAllSections ())
-			$output [] = '<li style="background-image: none;"><label style="color: #AAA;" title="'. $section->getDescription () .'">'. $section->getLabel () .'</label></li>';
+			$output [] = '<li style="background-image: none; color: #AAA;">'. $icon .'<label style="color: #AAA;" title="'. $section->getDescription () .'">'. $section->getLabel () .'</label></li>';
 	}
 
 	if (!sizeof ($output))
