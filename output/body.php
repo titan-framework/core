@@ -20,28 +20,6 @@ header ('Content-Encoding: gzip');
 		<link rel="icon" href="<?= $skin->getIcon () ?>" type="image/ico" />
 		<link rel="shortcut icon" href="<?= $skin->getIcon () ?>" type="image/ico" />
 
-		<style type="text/css">
-		#menuBox
-		{
-			position: absolute;
-			overflow-y: auto;
-			overflow-x: hidden;
-			width: 260px;
-			height: 100%;
-			z-index: 4;
-			padding: 0px;
-			margin: 0px;
-			top: 0px;
-			transition: 0.5s;
-		}
-		.menuMain
-		{
-			position: absolute;
-			display: block;
-			top: 0px;
-			width: 260px;
-		}
-		</style>
 		<?php
 		$types = Instance::singleton ()->getTypes ();
 

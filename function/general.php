@@ -290,7 +290,7 @@ function makeMenu ($menuHeight, $previous = FALSE, $father = '', $sectionName = 
 
 		if ($business->getSection ($father)->getIcon () != '')
 			$icon = '<i class="fa fa-'. $business->getSection ($father)->getIcon () .' fa-2x" style="float: left;"></i>';
-		
+
 		if ($user->accessSection ($business->getSection ($father)->getName ()))
 			$output [] = '<li style="background-image: none;" onclick="JavaScript: showWait (); document.location = \'titan.php?target=body&amp;toSection='. $father .'\';" title="'. $business->getSection ($father)->getDescription () .'">'. $icon .'<label>'. $business->getSection ($father)->getLabel () .'</label></li>';
 		elseif (Instance::singleton ()->showAllSections ())
@@ -330,7 +330,7 @@ function makeMenu ($menuHeight, $previous = FALSE, $father = '', $sectionName = 
 
 	ob_start ();
 	?>
-	<div class="menuMain" id="menuMain_<?= $father ?>" style="<?= $father == '' ? 'display: block; left: 0px;' : 'display: none; left: 260px;' ?>">
+	<div class="menuMain" id="menuMain_<?= $father ?>" style="<?= $father == '' ? 'left: 0px;' : 'left: 260px;' ?>">
 		<ul>
 			<?php
 			echo $header;

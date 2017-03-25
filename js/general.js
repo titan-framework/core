@@ -60,7 +60,8 @@ function start ()
 
 function end ()
 {
-	parent.banner.disableMenu ();
+	if (parent.banner != null && parent.banner.disableMenu != null)
+		parent.banner.disableMenu ();
 
 	showWait ();
 
@@ -141,10 +142,13 @@ var titanWaitBlockLayer = null;
 
 function showWait ()
 {
-	parent.banner.document.getElementById('idWait').style.display = 'block';
+	if (parent.banner != null)
+	{
+		parent.banner.document.getElementById('idWait').style.display = 'block';
 
-	parent.banner.disableMenu ();
-
+		parent.banner.disableMenu ();
+	}
+	
 	if (titanWaitBlockLayer != null && titanWaitBlockLayer.style.display == 'block')
 		return;
 
