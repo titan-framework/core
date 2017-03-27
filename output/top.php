@@ -287,12 +287,12 @@ header ('Content-Encoding: gzip');
 			if (Lucene::singleton ()->isActive ())
 			{
 				?>
-				<div id="idSearch" class="cSearch"><input type="text" value="<?= __ ('Search...') ?>" onblur="JavaScript: searchDefault (this, '<?= __ ('Search...') ?>');" onfocus="JavaScript: searchDefault (this, '<?= __ ('Search...') ?>');" onkeypress="JavaScript: searchSend (this, event);" onkeyup="JavaScript: searchSend (this, false);" /></div>
+				<div id="idSearch" class="cSearch"><input type="text" placeholder=" &#xF002; <?= __ ('Search...') ?>" onkeypress="JavaScript: searchSend (this, event);" onkeyup="JavaScript: searchSend (this, false);" /></div>
 				<?php
 			}
 			?>
 			<div id="idWait" class="cWait" style="display: none;">
-				<img src="titan.php?target=loadFile&amp;file=interface/icon/upload.gif" border="0" /> <label><?= __ ('Wait! Working on your request...') ?></label>
+				<label><?= __ ('Wait! Working on your request...') ?></label>
 			</div>
 		</div>
 		<div id="idChat" style="display: none;">
