@@ -48,8 +48,8 @@
 	list-style: none;
 	color: #FFF;
 	width: 243px;
-	height: 32px;
-	line-height: 32px;
+	height: 40px;
+	line-height: 40px;
 	vertical-align: middle;
 	background: url(titan.php?target=loadFile&file=interface/image/arrow.right.gif) right no-repeat;
 }
@@ -58,29 +58,34 @@
 	background-color: #36817C;
 	cursor: pointer;
 }
-#menuBox div.menuMain li i
-{
-	float: left;
-	margin: 6px 7px 6px 6px;
-}
 #menuBox div.menuMain li label
 {
 	float: left;
 	color: #FFF;
 	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 	font-size: 12px;
-	height: 32px;
-	line-height: 32px;
+	height: 40px;
+	line-height: 40px;
 }
 #menuBox div.menuMain li label:hover
 {
 	cursor: pointer;
 }
+#menuBox div.menuMain li i
+{
+	font-weight: normal;
+	margin: 10px auto;
+	color: #FFF;
+}
 #menuBox div.menuMain li div.indentation
 {
 	float: left;
-	width: 32px;
-	height: 32px;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	font-weight: normal;
+	text-align: center;
+	padding: 0px;
 }
 #menuBox div.menuMain img
 {

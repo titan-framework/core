@@ -289,7 +289,7 @@ function makeMenu ($menuHeight, $previous = FALSE, $father = '', $sectionName = 
 		$icon = $indentation;
 
 		if ($business->getSection ($father)->getIcon () != '')
-			$icon = '<i class="fa fa-'. $business->getSection ($father)->getIcon () .' fa-2x" style="float: left;"></i>';
+			$icon = '<div class="indentation"><i class="fa fa-'. $business->getSection ($father)->getIcon () .' fa-2x"></i></div>';
 
 		if ($user->accessSection ($business->getSection ($father)->getName ()))
 			$output [] = '<li style="background-image: none;" onclick="JavaScript: showWait (); document.location = \'titan.php?target=body&amp;toSection='. $father .'\';" title="'. $business->getSection ($father)->getDescription () .'">'. $icon .'<label>'. $business->getSection ($father)->getLabel () .'</label></li>';
@@ -310,7 +310,7 @@ function makeMenu ($menuHeight, $previous = FALSE, $father = '', $sectionName = 
 		$icon = $indentation;
 
 		if ($section->getIcon () != '')
-			$icon = '<i class="fa fa-'. $section->getIcon () .' fa-2x"></i>';
+			$icon = '<div class="indentation"><i class="fa fa-'. $section->getIcon () .' fa-2x"></i></div>';
 
 		$next = makeMenu ($menuHeight, $father, $section->getName (), $section->getLabel ());
 
