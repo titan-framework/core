@@ -80,6 +80,7 @@ header ('Content-Encoding: gzip');
 		<link rel="icon" href="<?= $skin->getIcon () ?>" type="image/ico" />
 		<link rel="shortcut icon" href="<?= $skin->getIcon () ?>" type="image/ico" />
 
+		<script src="https://use.fontawesome.com/a98ba7fcbf.js"></script>
 		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=top"></script>
 		<script language="javascript" type="text/javascript">
 		function verifyAlerts ()
@@ -257,15 +258,15 @@ header ('Content-Encoding: gzip');
 				?>
 				<img src="titan.php?target=loadFile&amp;file=interface/icon/logout.gif" border="0" onclick="JavaScript: parent.document.location='titan.php?target=logoff&amp;message=<?= urlencode (__ ('Logoff successfully executed!')) ?>';" alt="<?= __ ('Logoff') ?>" title="<?= __ ('Logoff') ?>" />
 				<br />
-				<label><?= __ ('Welcome <b>[1]</b>', $user->getName ()) ?></label>
+				<label style="margin-right: 5px;"><?= __ ('Welcome <b>[1]</b>', $user->getName ()) ?></label>
 			</div>
 		</div>
 		<div id="idMainSpace"></div>
 		<div id="idHeader">
 			<div class="cGroups">
 				<b><?= $user->getType ()->getLabel () ?></b>
-				<label style="color: #990000; font-weight: bold; margin-left: 5px;">&loz;</label>
-				<label style="color: #555555;"><?= __ ('Group(s):') ?>
+				<label style="color: #900; font-weight: bold; margin-left: 5px;">&loz;</label>
+				<label style="color: #555;"><?= __ ('Group(s):') ?>
 				<?php
 				$groups = '<b>'. implode ('</b>, <b>', $user->getGroups ()) .'</b>';
 
@@ -279,19 +280,19 @@ header ('Content-Encoding: gzip');
 				else
 					echo $groups;
 				?></label>
-				<label style="color: #990000; font-weight: bold;">&loz;</label>
+				<label style="color: #900; font-weight: bold;"></label>
 			</div>
-			<div id="idMenu" class="cMenuLoading"></div>
+			<div id="idMenu"><i class="fa fa-refresh fa-spin fa-2x"></i></div>
 			<?php
 			if (Lucene::singleton ()->isActive ())
 			{
 				?>
-				<div id="idSearch" class="cSearch"><input type="text" value="<?= __ ('Search...') ?>" onblur="JavaScript: searchDefault (this, '<?= __ ('Search...') ?>');" onfocus="JavaScript: searchDefault (this, '<?= __ ('Search...') ?>');" onkeypress="JavaScript: searchSend (this, event);" onkeyup="JavaScript: searchSend (this, false);" /></div>
+				<div id="idSearch" class="cSearch"><input type="text" placeholder=" &#xF002; <?= __ ('Search...') ?>" onkeypress="JavaScript: searchSend (this, event);" onkeyup="JavaScript: searchSend (this, false);" /></div>
 				<?php
 			}
 			?>
 			<div id="idWait" class="cWait" style="display: none;">
-				<img src="titan.php?target=loadFile&amp;file=interface/icon/upload.gif" border="0" /> <label><?= __ ('Wait! Working on your request...') ?></label>
+				<label><?= __ ('Wait! Working on your request...') ?></label>
 			</div>
 		</div>
 		<div id="idChat" style="display: none;">

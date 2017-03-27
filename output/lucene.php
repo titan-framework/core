@@ -18,52 +18,17 @@ foreach ($oTerms as $trash => $oTerm)
 		$terms [] = $oTerm->text;
 ?>
 <script language="javascript" type="text/javascript">
-var luceneContentIds = new Array ();
-
 function loadLucene (id, button)
 {
-	var row = $('_ROW_' + id);
-	
-	var label = $('_CONTENT_' + id);
-	
-	var assign = '_DIV_' + id + '_';
-	
-	for (var i = 0 ; i < luceneContentIds.length ; i++)
-		$(luceneContentIds [i]).style.display = 'none';
-	
-	luceneContentIds [i] = assign;
-	
-	var div = document.createElement ('div');
-	div.id = assign;
-	div.className = 'inPlace';
-	label.appendChild (div);
-	
-	div.innerHTML = '<iframe src="titan.php?target=luceneContent&id=' + id + '"></iframe>';
-	
-	row.style.display = '';
-	
-	button.onclick = function () { loadedLucene (row, div); };
-	
-	row.style.display = '';
-		
-	tAjax.showMessages ();
-}
+	var iframe = document.createElement ('iframe');
+	iframe.id = '_DIV_' + id + '_';
+	iframe.className = 'inPlaceAction';
+	iframe.style.height = '50px;';
+	iframe.style.display = '';
+	iframe.src = 'titan.php?target=luceneContent&id=' + id;
+	iframe.onload = function () { iframe.style.backgroundColor = '#FFF'; };
 
-function loadedLucene (row, div)
-{
-	if (div.style.display == '')
-	{
-		div.style.display = 'none';
-		row.style.display = 'none';
-	}
-	else
-	{
-		for (var i = 0 ; i < luceneContentIds.length ; i++)
-			$(luceneContentIds [i]).style.display = 'none';
-		
-		row.style.display = '';
-		div.style.display = '';
-	}
+	loadInPlace (id, iframe, button);
 }
 </script>
 <div id="idList">
@@ -73,7 +38,7 @@ function loadedLucene (row, div)
 			<td class="cTableHeader">Local</td>
 			<td class="cTableHeader"></td>
 		</tr>
-		<tr height="5px"><td></td></tr>
+		<tr height="5px"><td colspan="3"></td></tr>
 		<?php
 		foreach ($hits as $trash => $hit)
 		{
@@ -86,11 +51,10 @@ function loadedLucene (row, div)
 					<img src="titan.php?target=loadFile&file=interface/icon/arrow.right.gif" class="icon" border="0" title="<?= __ ('Go') ?>"  onclick="JavaScript: document.location = '<?= $hit->url ?>';" />&nbsp;
 				</td>
 			</tr>
-			<tr id="_SP1_<?= $hit->id ?>" class="cSeparatorHalf" style="display:;"><td></td></tr>
-			<tr id="_ROW_<?= $hit->id ?>" style="display: none; background-color: #FFFFFF;">
-				<td colspan="4"><label id="_CONTENT_<?= $hit->id ?>" class="content"></label></td>
+			<tr id="_ROW_<?= $hit->id ?>" style="display: none; background-color: #FFF;">
+				<td colspan="3" id="_CONTENT_<?= $hit->id ?>" class="inPlace"></td>
 			</tr>
-			<tr id="_SP2_<?= $hit->id ?>" class="cSeparatorHalf" style="display:;"><td></td></tr>
+			<tr id="_SP2_<?= $hit->id ?>" class="cSeparator" style="display:;"><td colspan="3"></td></tr>
 			<?php
 		}
 		?>

@@ -20,29 +20,6 @@ header ('Content-Encoding: gzip');
 		<link rel="icon" href="<?= $skin->getIcon () ?>" type="image/ico" />
 		<link rel="shortcut icon" href="<?= $skin->getIcon () ?>" type="image/ico" />
 
-		<style type="text/css">
-		#menuBox
-		{
-			position: absolute;
-			overflow: hidden;
-			width: 200px;
-			height: <?= $menuHeight < 7 ? 158 : $menuHeight * 25 + 4  ?>px;
-			z-index: 3;
-			border: #D4D4D4 2px solid;
-			padding: 0px;
-		}
-		.menuMain
-		{
-			position: absolute;
-			display: block;
-			top: 0px;
-			width: 200px;
-			height: <?= $menuHeight < 7 ? 155 : $menuHeight * 25 + 1 ?>px;
-			background-color: #575556;
-			border-top: #36817C 3px solid;
-			overflow: hidden;
-		}
-		</style>
 		<?php
 		$types = Instance::singleton ()->getTypes ();
 
@@ -53,6 +30,7 @@ header ('Content-Encoding: gzip');
 		if (file_exists ($section->getCompPath () .'_css.php'))
 			include $section->getCompPath () .'_css.php';
 		?>
+		<script src="https://use.fontawesome.com/a98ba7fcbf.js"></script>
 		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=prototype,builder,effects,dragdrop,controls,slider,sound,protolimit,tooltip,spin.min&amp;v=<?= VersionHelper::singleton ()->getTitanBuild () ?>"></script>
 		<script language="javascript" type="text/javascript">
 		String.prototype.namespace = function (separator)

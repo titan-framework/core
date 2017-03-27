@@ -42,6 +42,8 @@ class Section
 
 	private $hidden = FALSE;
 
+	private $icon = '';
+
 	const TDEFAULT = '__DEFAULT_SECTION__';
 	const TCURRENT = '__CURRENT_SECTION__';
 
@@ -75,6 +77,9 @@ class Section
 
 		if (array_key_exists ('hidden', $input) && strtoupper ($input ['hidden']) == 'TRUE')
 			$this->hidden = TRUE;
+
+		if (array_key_exists ('icon', $input))
+			$this->setIcon ($input ['icon']);
 
 		if (!$this->isFake ())
 		{
@@ -443,6 +448,16 @@ class Section
 	public function getFather ()
 	{
 		return $this->father;
+	}
+
+	public function setIcon ($icon)
+	{
+		$this->icon = trim ($icon);
+	}
+
+	public function getIcon ()
+	{
+		return $this->icon;
 	}
 
 	public function setDescription ($description)

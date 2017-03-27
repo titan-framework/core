@@ -1512,7 +1512,7 @@ ul.shopCar li div.final div
 	background-color: #575556;
 	height: 23px;
 	width: 100%;
-	z-index: 2;
+	z-index: 5;
 }
 #idBase .cPowered
 {

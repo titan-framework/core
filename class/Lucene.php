@@ -37,7 +37,7 @@ class Lucene
 
 		try
 		{
-			Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding ('iso-8859-1');
+			Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding ('utf-8');
 
 			if (file_exists ($this->getPath ()))
 			{
@@ -112,13 +112,13 @@ class Lucene
 
 						$doc = new Zend_Search_Lucene_Document ();
 
-						$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'iso-8859-1'));
+						$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'utf-8'));
 
-						$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::ITEM, 'iso-8859-1'));
+						$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::ITEM, 'utf-8'));
 
-						$doc->addField (Zend_Search_Lucene_Field::Text ('local', getBreadPath ($section, FALSE, FALSE) . $section->getAction ($indexTo)->getLabel (), 'iso-8859-1'));
+						$doc->addField (Zend_Search_Lucene_Field::Text ('local', getBreadPath ($section, FALSE, FALSE) . $section->getAction ($indexTo)->getLabel (), 'utf-8'));
 
-						$doc->addField (Zend_Search_Lucene_Field::Text ('content', $form->getResume ($itemId, TRUE), 'iso-8859-1'));
+						$doc->addField (Zend_Search_Lucene_Field::Text ('content', $form->getResume ($itemId, TRUE), 'utf-8'));
 
 						self::$index->addDocument ($doc);
 
@@ -244,13 +244,13 @@ class Lucene
 
 			$doc = new Zend_Search_Lucene_Document ();
 
-			$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'iso-8859-1'));
+			$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'utf-8'));
 
-			$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::ITEM, 'iso-8859-1'));
+			$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::ITEM, 'utf-8'));
 
-			$doc->addField (Zend_Search_Lucene_Field::Text ('local', $local, 'iso-8859-1'));
+			$doc->addField (Zend_Search_Lucene_Field::Text ('local', $local, 'utf-8'));
 
-			$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'iso-8859-1'));
+			$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'utf-8'));
 
 			$index->addDocument ($doc);
 
@@ -483,13 +483,13 @@ class Lucene
 
 		$doc = new Zend_Search_Lucene_Document ();
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'utf-8'));
 
 		return $doc;
 	}
@@ -512,13 +512,13 @@ class Lucene
 
 		$url = 'titan.php?target=openFile&fileId='. $obj->_id;
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'utf-8'));
 
 		return $doc;
 	}
@@ -541,13 +541,13 @@ class Lucene
 
 		$url = 'titan.php?target=openFile&fileId='. $obj->_id;
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'utf-8'));
 
 		return $doc;
 	}
@@ -570,13 +570,13 @@ class Lucene
 
 		$url = 'titan.php?target=openFile&fileId='. $obj->_id;
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'utf-8'));
 
 		return $doc;
 	}
@@ -599,13 +599,13 @@ class Lucene
 
 		$doc = new Zend_Search_Lucene_Document ();
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'utf-8'));
 
 		return $doc;
 	}
@@ -639,13 +639,13 @@ class Lucene
 
 		$doc = new Zend_Search_Lucene_Document ();
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'utf-8'));
 
 		return $doc;
 	}
@@ -668,13 +668,13 @@ class Lucene
 
 		$url = 'titan.php?target=openFile&fileId='. $obj->_id;
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('url', $url, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Keyword ('type', self::FILE, 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('local', __ ('File'), 'utf-8'));
 
-		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'iso-8859-1'));
+		$doc->addField (Zend_Search_Lucene_Field::Text ('content', $content, 'utf-8'));
 
 		return $doc;
 	}

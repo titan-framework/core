@@ -1,34 +1,88 @@
-.menuMain ul
+#menuBox
 {
+	position: absolute;
+	overflow-y: auto;
+	overflow-x: hidden;
+	width: 260px;
+	height: 100%;
+	z-index: 4;
 	padding: 0px;
 	margin: 0px;
+	top: 0px;
+	transition: 0.5s;
 }
-.menuMain li
+#menuBox div.menuContainer
+{
+	clear: both;
+	padding: 0px;
+	margin: 0px;
+	width: 243px;
+	height: 100%;
+	background-color: #575556;
+	z-index: 10;
+	overflow: hidden;
+	box-shadow: 0px 0px 8px 5px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 0px 0px 8px 5px rgba(0,0,0,0.4);
+}
+#menuBox div.menuMain
+{
+	position: absolute;
+	display: block;
+	top: 0px;
+	width: 243px;
+	z-index: 5;
+	overflow-x: hidden;
+	transition: 0.3s;
+}
+#menuBox div.menuMain ul
+{
+	top: 0px;
+	width: 243px;
+	padding: 0px;
+	margin: 0px;
+	background-color: #575556;
+	overflow-x: hidden;
+}
+#menuBox div.menuMain li
 {
 	list-style: none;
-	height: 22px;
+	color: #FFF;
+	width: 243px;
+	height: 32px;
+	line-height: 32px;
 	vertical-align: middle;
 	background: url(titan.php?target=loadFile&file=interface/image/arrow.right.gif) right no-repeat;
 }
-.menuMain li:hover
+#menuBox div.menuMain li:hover
 {
 	background-color: #36817C;
 	cursor: pointer;
 }
-.menuMain label
+#menuBox div.menuMain li i
 {
 	float: left;
-	color: #FFFFFF;
-	font-family: Geneva, Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	margin-top: 4px;
-	margin-left: 20px;
+	margin: 6px 7px 6px 6px;
 }
-.menuMain label:hover
+#menuBox div.menuMain li label
+{
+	float: left;
+	color: #FFF;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	height: 32px;
+	line-height: 32px;
+}
+#menuBox div.menuMain li label:hover
 {
 	cursor: pointer;
 }
-.menuMain img
+#menuBox div.menuMain li div.indentation
+{
+	float: left;
+	width: 32px;
+	height: 32px;
+}
+#menuBox div.menuMain img
 {
 	float: right;
 	margin-top: 4px;

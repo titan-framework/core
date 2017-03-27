@@ -5,7 +5,7 @@ body
 div
 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	color: #000000;
+	color: #000;
 	font-size: 10px;
 	text-align: justify;
 }
@@ -69,32 +69,24 @@ div
 {
 	padding: 8px;
 	position: relative;
+	float: right;
+}
+#idMenu
+{
 	float: left;
+	height: 30px;
+	width: 40px;
+	background-color: #FFF;
 }
-#idHeader .cMenuLoading
-{
-	float: right;
-	position: relative;
-	padding-top: 0px;
-	height: 20px;
-	width: 120px;
-	margin: 5px 0px;
-	background: url(titan.php?target=loadFile&file=interface/image/menu.jpg) bottom no-repeat;
-}
-#idHeader .cMenu
-{
-	float: right;
-	position: relative;
-	padding-top: 0px;
-	height: 20px;
-	width: 120px;
-	margin: 5px 0px;
-	background: url(titan.php?target=loadFile&file=interface/image/menu.jpg) center no-repeat;
-}
-#idHeader .cMenu:hover
+#idMenu:hover
 {
 	cursor: pointer;
-	background: url(titan.php?target=loadFile&file=interface/image/menu.jpg) top no-repeat;
+	background-color: #36817C;
+	color: #FFF;
+}
+#idMenu i
+{
+	margin: 6px 10px;
 }
 #idHeader select
 {
@@ -106,7 +98,7 @@ div
 }
 #idHeader .cWait
 {
-	float: right;
+	float: left;
 	position: relative;
 	color: #990000;
 	font-weight: bold;
@@ -129,29 +121,39 @@ div
 }
 #idHeader .cSearch
 {
-	float: right;
+	float: left;
 	position: relative;
 	padding-top: 0px;
-	height: 20px;
-	width: 150px;
-	padding: 5px 10px;
-	background-color: #DDD;
+	height: 24px;
+	width: 191px;
+	padding: 3px 6px;
+	background-color: #EEE;
 }
 #idHeader .cSearch input
 {
 	margin: 0px;
 	height: 16px;
 	line-height: 16px;
-	width: 150px;
-	font-family: Tahoma, Geneva, sans-serif;
+	width: 185px;
+	font-family: FontAwesome, Tahoma, Geneva, sans-serif;
 	font-size: 12px;
-	color: #666;
+	color: #111;
 	border: #666 1px solid;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-transition: all 0.30s ease-in-out;
+	-moz-transition: all 0.30s ease-in-out;
+	-ms-transition: all 0.30s ease-in-out;
+	-o-transition: all 0.30s ease-in-out;
+	outline: none;
+	padding: 3px 0px 3px 3px;
+	border: 1px solid #DDD;
 }
 
 .alertsShiny
 {
-	border-radius: 50px;	
+	border-radius: 50px;
 	-moz-box-shadow: 0 0 10px #FFF;
 	-webkit-box-shadow: 0 0 10px #FFF;
 	box-shadow: 0 0 10px #FFF;
@@ -159,7 +161,7 @@ div
 
 .shoppingShiny
 {
-	border-radius: 50px;	
+	border-radius: 50px;
 	-moz-box-shadow: 0 0 10px #FFF;
 	-webkit-box-shadow: 0 0 10px #FFF;
 	box-shadow: 0 0 10px #FFF;

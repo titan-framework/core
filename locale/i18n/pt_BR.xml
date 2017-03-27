@@ -198,6 +198,9 @@
 	<message from="To change this configuration, &lt;a href=&quot;[1]&quot;&gt;log in&lt;/a&gt; to system and modify your profile." to="Para alterar esta configuração, faça &lt;a href=&quot;[1]&quot;&gt;log in&lt;/a&gt; no sistema e modifique seu perfil." />
 	<message from="Success to disable e-mail alert messages!" to="Mensagens de alerta por e-mail desabilitadas com sucesso!" />
 
+	<!-- output/lucene.php -->
+	<message from="Global Search" to="Busca Global" />
+
 	<!-- 3.2 Class -->
 
 	<!-- class/AjaxLogon.php -->
