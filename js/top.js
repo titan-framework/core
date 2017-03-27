@@ -29,7 +29,7 @@ function showChat ()
 	}
 }
 
-function showMenu (menu)
+function showMenu ()
 {
 	var button = document.getElementById ('idChat');
 
@@ -42,7 +42,7 @@ function showMenu (menu)
 		button.style.display = 'none';
 	}
 
-	parent.body.showMenu (menu);
+	parent.body.showMenu ();
 }
 
 function enableMenu ()
@@ -51,7 +51,7 @@ function enableMenu ()
 
 	menu.firstElementChild.className = 'fa fa-bars fa-2x';
 
-	menu.onclick = function () { showMenu (menu); };
+	menu.onclick = function () { showMenu (); };
 }
 
 function disableMenu ()

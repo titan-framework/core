@@ -13,9 +13,9 @@ function slideMenu (current, next)
 	$('menuMain_' + next).style.left = '0px';
 }
 
-function showMenu (obj, bottom)
+function showMenu ()
 {
-	var menu = document.getElementById ('menuBox');
+	var menu = $('menuBox');
 
 	modalMsg.close ();
 

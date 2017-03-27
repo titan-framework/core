@@ -305,10 +305,12 @@ header ('Content-Encoding: gzip');
 
 			$size = sizeof ($languages) * 60;
 			?>
-			var source = '<div style="margin: 0 auto; width: <?= $size ?>px;"><?php
-					foreach ($languages as $language => $label)
-						echo '<div class="flag" style="background-image: url(titan.php?target=loadFile&amp;file=interface/locale/'. $language .'.png);'. ($language == Localization::singleton ()->getLanguage () ? ' background-position: top;" onclick="JavaScript: Modalbox.hide ();"' : '" onclick="JavaScript: changeLanguage (\\\''. $language .'\\\');"') .' title="'. $label .'"></div>';
-					?></div>';
+			var source = '<div style="margin: 0 auto; width: <?= $size ?>px;">\
+				<?php
+				foreach ($languages as $language => $label)
+					echo '<div class="flag" style="background-image: url(titan.php?target=loadFile&amp;file=interface/locale/'. $language .'.png);'. ($language == Localization::singleton ()->getLanguage () ? ' background-position: top;" onclick="JavaScript: Modalbox.hide ();"' : '" onclick="JavaScript: changeLanguage (\\\''. $language .'\\\');"') .' title="'. $label .'"></div>';
+				?>\
+			</div>';
 
 			Modalbox.show (source, { title: '<?= __ ('Choose Your Language') ?>', width: <?= $size < 240 ? 260 : $size + 20 ?>, height: 90 });
 		}
@@ -330,15 +332,11 @@ header ('Content-Encoding: gzip');
 
 		function showAlerts ()
 		{
-			showWait ();
-
 			eval (tAjax.getAlerts ());
 
 			if (!alerts || !alerts.length)
 			{
 				Modalbox.show ('<ul class="alert"><li class="read last" style="background: url(titan.php?target=loadFile&file=interface/alert/confirm.gif) no-repeat left;"><div><?= __ ('No alerts!') ?></div></li></ul>', { title: '<?= __ ('Alerts') ?>', width: 600 });
-
-				hideWait ();
 
 				return false;
 			}
@@ -349,8 +347,6 @@ header ('Content-Encoding: gzip');
 				buffer += '<li id="_TITAN_ALERT_' + alerts [i].id + '" class="' + (alerts [i].read ? 'read' : 'unread') + '" style="background: #' + (alerts [i].read ? 'EFEFEF' : 'FFF') + ' url(' + alerts [i].icon + ') no-repeat left;"><div title="' + alerts [i].message + '"' + (alerts [i].read ? '' : ' onmouseover="JavaScript: readAlert (' + alerts [i].id + ');"') + ' onclick="JavaScript: document.location=\'' + alerts [i].link + '\';">' + alerts [i].message + '</div><img src="titan.php?target=loadFile&file=interface/image/trash.gif" title="<?= __ ('Delete') ?>" alt="<?= __ ('Delete') ?>" onclick="JavaScript: deleteAlert (' + alerts [i].id + ');" /></li>';
 
 			Modalbox.show ('<ul class="alert">' + buffer + '</ul>', { title: '<?= __ ('Alerts') ?>', width: 600 });
-
-			hideWait ();
 		}
 
 		<?php
@@ -359,15 +355,11 @@ header ('Content-Encoding: gzip');
 			?>
 			function showShoppingCart ()
 			{
-				showWait ();
-
 				eval (tAjax.getItemsInShoppingCart ());
 
 				if (!items || !items.length)
 				{
 					Modalbox.show ('<ul class="shopCar"><li class="read last" style="background: url(titan.php?target=loadFile&file=interface/alert/info.gif) no-repeat left;"><div style="margin-left: 40px;"><?= __ ('Your shopping cart is empty!') ?></div></li></ul>', { title: '<?= __ ('Shopping Cart') ?>', width: 950 });
-
-					hideWait ();
 
 					return false;
 				}
@@ -386,8 +378,6 @@ header ('Content-Encoding: gzip');
 				buffer += '<li class="lineOfButtons"><div class="clearShopCar" style="background: url(titan.php?target=loadFile&file=interface/button/ClearShopCar-<?= Localization::singleton ()->getLanguage () ?>.png) center top no-repeat;" onmouseover="JavaScript: this.style.backgroundPosition = \'bottom\';" onmouseout="JavaScript: this.style.backgroundPosition = \'top\';"></div><div class="checkout" style="background: url(titan.php?target=loadFile&file=interface/button/Checkout-<?= Localization::singleton ()->getLanguage () ?>.png) center top no-repeat;" onmouseover="JavaScript: this.style.backgroundPosition = \'bottom\';" onmouseout="JavaScript: this.style.backgroundPosition = \'top\';"></div><div class="final"><div id="_TITAN_SHOP_FINAL_VALUE_">' + '<?= ('You have <b># item(s)</b> with total value<br /><b>$0,00</b>') ?>'.replace ('#', items.length).replace ('$0,00', '<?= Shopping::singleton ()->getCurrencySymbol () ?> ' + formatMoney (total)) + '</div></div></li>';
 
 				Modalbox.show ('<ul class="shopCar">' + buffer + '</ul>', { title: '<?= __ ('Shopping Cart') ?>', width: 950 });
-
-				hideWait ();
 			}
 
 			function updateShoppingCart ()

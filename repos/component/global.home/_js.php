@@ -195,8 +195,6 @@ function strong (obj, e)
 }
 function showSocialNetworks ()
 {
-	showWait ();
-
 	<?php
 	$drivers = array ();
 
@@ -218,16 +216,12 @@ function showSocialNetworks ()
 		?>
 		Modalbox.show ('<ul class="socialNetwork"><li class="last" style="background: url(titan.php?target=loadFile&file=interface/alert/warning.gif) no-repeat left;"><div style="margin-left: 40px;"><?= __ ('No one social network is enable for this application!') ?></div></li></ul>', { title: '<?= __ ('Social Networks') ?>', width: 500 });
 
-		hideWait ();
-
 		return false;
 		<?php
 	}
 	?>
 
 	Modalbox.show ('<ul class="socialNetwork"><?= implode ('', $drivers) ?></ul>', { title: '<?= __ ('Social Networks') ?>', width: 800 });
-
-	hideWait ();
 
 	return false;
 }
@@ -272,8 +266,6 @@ if (isset ($_GET['social']) && (int) $_GET['social'])
 
 function showMobileDevices ()
 {
-	showWait ();
-
 	<?php
 	$list = array ('<li id="_MOBILE_LOADING_" style="background: url(titan.php?target=loadFile&file=interface/alert/info.gif) no-repeat left; display: block;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('Please, wait! Loading...') .'</div></li>',
 				   '<li id="_MOBILE_NONE_" style="background: url(titan.php?target=loadFile&file=interface/alert/warning.gif) no-repeat left; display: none;"><div style="margin-left: 50px; font-weight: bold;">'. __ ('No one mobile device is enable to access your data!') .'</div></li>');
@@ -310,8 +302,6 @@ function showMobileDevices ()
 			$('_MOBILE_LOADING_').style.display = 'none';
 			$('_MOBILE_NONE_').style.display = 'block';
 		}
-
-		hideWait ();
 	});
 
 	return false;

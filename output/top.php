@@ -1,4 +1,5 @@
 <?php
+
 $skin = Skin::singleton ();
 
 $_CHAT ['HEADER'] = '';

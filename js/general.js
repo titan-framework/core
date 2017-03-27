@@ -142,17 +142,17 @@ var titanWaitBlockLayer = null;
 
 function showWait ()
 {
+	$('menuBox').style.left = '-260px';
+
 	if (parent.banner != null)
 	{
 		parent.banner.document.getElementById('idWait').style.display = 'block';
 
 		parent.banner.disableMenu ();
 	}
-	
+
 	if (titanWaitBlockLayer != null && titanWaitBlockLayer.style.display == 'block')
 		return;
-
-	$('menuBox').style.display = 'none';
 
 	if (titanWaitBlockLayer != null)
 		titanWaitBlockLayer.style.display = 'block';
