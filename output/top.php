@@ -284,6 +284,7 @@ header ('Content-Encoding: gzip');
 				<label style="color: #900; font-weight: bold;"></label>
 			</div>
 			<div id="idMenu"><i class="fa fa-refresh fa-spin fa-2x"></i></div>
+			<div id="idMenuDialog" class="cMenuDialog" style="visibility: hidden; opacity: 0;"><div><?= __ ('Menu... start here!') ?></div></div>
 			<?php
 			if (Lucene::singleton ()->isActive ())
 			{
@@ -292,7 +293,7 @@ header ('Content-Encoding: gzip');
 				<?php
 			}
 			?>
-			<div id="idWait" class="cWait" style="display: none;">
+			<div id="idWait" class="cWait" style="visibility: hidden; opacity: 0;">
 				<label><?= __ ('Wait! Working on your request...') ?></label>
 			</div>
 		</div>

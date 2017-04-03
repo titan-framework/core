@@ -123,6 +123,7 @@
 	<message from="Unable to save in Database!" to="¡No se pudo guardar en el Banco de Datos!" />
 	<message from="Logoff successfully executed!" to="¡Sesión cerrada con éxito!" />
 	<message from="Search..." to="Pesquisar..." />
+	<message from="Menu... start here!" to="Menú ... empezar aquí!" />
 
 	<!-- output/upload.php -->
 	<message from="This type of file is not accepted by the system !" to="¡El sistema no acepta este tipo de archivo!" />

@@ -34,7 +34,7 @@ div
 	float: right;
 	position: relative;
 	padding: 5px;
-	color: #FFFFFF;
+	color: #FFF;
 	text-align: right;
 	line-height: 28px;
 	line-height: 22px;
@@ -48,7 +48,7 @@ div
 	float: right;
 	position: relative;
 	padding: 5px;
-	color: #FFFFFF;
+	color: #FFF;
 	text-align: right;
 }
 #idMainSpace
@@ -77,6 +77,7 @@ div
 	height: 30px;
 	width: 40px;
 	background-color: #FFF;
+	z-index: 10;
 }
 #idMenu:hover
 {
@@ -87,22 +88,27 @@ div
 #idMenu i
 {
 	margin: 6px 10px;
+	z-index: 11;
 }
 #idHeader select
 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 10px;
-	color: #555555;
+	color: #555;
 	width: 250px;
 	margin: 6px;
 }
 #idHeader .cWait
 {
-	float: left;
-	position: relative;
-	color: #990000;
+	left: 40px;
+	position: absolute;
+	color: #900;
 	font-weight: bold;
-	margin: 8px;
+	height: 14px;
+	padding: 8px;
+	background-color: #FFF;
+	z-index: 20;
+	transition: 0.5s linear;
 }
 #idHeader .cWait img
 {
@@ -121,13 +127,14 @@ div
 }
 #idHeader .cSearch
 {
-	float: left;
-	position: relative;
+	left: 40px;
+	position: absolute;
 	padding-top: 0px;
 	height: 24px;
 	width: 191px;
 	padding: 3px 6px;
 	background-color: #EEE;
+	z-index: 6;
 }
 #idHeader .cSearch input
 {
@@ -149,6 +156,38 @@ div
 	outline: none;
 	padding: 3px 0px 3px 3px;
 	border: 1px solid #DDD;
+	z-index: 7;
+}
+
+#idHeader .cMenuDialog
+{
+	left: 40px;
+	position: absolute;
+	height: 24px;
+	width: 203px;
+	padding: 3px 0px 3px 0px;
+	background: #FFF url(titan.php?target=loadFile&file=interface/image/menu_dialog_arrow.png) no-repeat left top;
+	z-index: 8;
+	transition: 0.5s linear;
+}
+
+#idHeader .cMenuDialog div
+{
+	float: left;
+	position: relative;
+	height: 18px;
+	padding: 2px 8px 2px 8px;
+	margin-left: 15px;
+	background: #900;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	color: #FFF;
+	border: 1px solid #900;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	box-shadow: 0 0 1px 0px #900 inset, 0 0 1px 0px #900;
+	z-index: 9;
 }
 
 .alertsShiny

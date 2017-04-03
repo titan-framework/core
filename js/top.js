@@ -63,6 +63,26 @@ function disableMenu ()
 	menu.onclick = function () {};
 }
 
+var menuDialogAlreadyShowed = false;
+
+function showMenuDialog ()
+{
+	if (menuDialogAlreadyShowed)
+		return;
+
+	menuDialogAlreadyShowed = true;
+
+	var div = document.getElementById ('idMenuDialog')
+
+	div.style.visibility = 'visible';
+	div.style.opacity = '1';
+
+	setTimeout (function () {
+		div.style.visibility = 'hidden';
+		div.style.opacity = '0';
+	}, 3000);
+}
+
 function urlencode (str)
 {
 	var histogram = {}, tmp_arr = [];

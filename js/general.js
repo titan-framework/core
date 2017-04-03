@@ -146,7 +146,10 @@ function showWait ()
 
 	if (parent.banner != null)
 	{
-		parent.banner.document.getElementById('idWait').style.display = 'block';
+		var wait = parent.banner.document.getElementById('idWait');
+
+		wait.style.visibility = 'visible';
+		wait.style.opacity = '1';
 
 		parent.banner.disableMenu ();
 	}
@@ -169,7 +172,10 @@ function showWait ()
 
 function hideWait ()
 {
-	parent.banner.document.getElementById('idWait').style.display = 'none';
+	var wait = parent.banner.document.getElementById('idWait');
+
+	wait.style.visibility = 'hidden';
+	wait.style.opacity = '0';
 
 	parent.banner.enableMenu ();
 
@@ -178,6 +184,8 @@ function hideWait ()
 
 	if (titanWaitBlockLayer != null)
 		titanWaitBlockLayer.style.display = 'none';
+
+	parent.banner.showMenuDialog ();
 }
 
 var searchParams = false;

@@ -133,6 +133,7 @@
 	<message from="Get Help" to="Ajuda" />
 	<message from="Profile" to="Perfil" />
 	<message from="alert(s)!" to="alerta(s)!" />
+	<message from="Menu... start here!" to="Menu... comece aqui!" />
 
 	<!-- output/upload.php -->
 	<message from="This type of file is not accepted by the system !" to="Este tipo de arquivo não é aceito pelo sistema !" />
