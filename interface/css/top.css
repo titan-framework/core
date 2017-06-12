@@ -1,6 +1,7 @@
 body
 {
 	margin: 0px;
+	padding: 0px;
 }
 div
 {
@@ -18,6 +19,7 @@ div
 	height: 55px;
 	background-image: url(titan.php?target=loadFile&file=interface/image/bar.png);
 	z-index: 3;
+	margin: 0px;
 }
 #idMain .cLogoApp
 {
@@ -26,7 +28,7 @@ div
 }
 #idMain .cLogoApp h1
 {
-	color: #FFFFFF;
+	color: #FFF;
 	margin-left: 5px;
 }
 #idMain .cIcons
@@ -59,11 +61,13 @@ div
 #idHeader
 {
 	clear: both;
-	position: relative;
+	position: fixed;
+	top: 55px;
+	width: 100%;
 	height: 30px;
-	border: #36817C 0px dotted;
-	border-bottom-width: 1px;
+	margin: 0px;
 	background-color: #FFF;
+	overflow: hidden;
 }
 #idHeader .cGroups
 {
@@ -82,8 +86,8 @@ div
 #idMenu:hover
 {
 	cursor: pointer;
-	background-color: #36817C;
-	color: #FFF;
+	color: #36817C;
+	background-color: #EEE;
 }
 #idMenu i
 {
@@ -204,4 +208,14 @@ div
 	-moz-box-shadow: 0 0 10px #FFF;
 	-webkit-box-shadow: 0 0 10px #FFF;
 	box-shadow: 0 0 10px #FFF;
+}
+
+#idDottedSeparator
+{
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 0px;
+	border: #36817C 0px dotted;
+	border-bottom-width: 1px;
 }

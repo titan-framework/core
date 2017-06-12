@@ -15,7 +15,7 @@ $skin = Skin::singleton ();
 		{
 			frames['body'].window.location.href = 'titan.php?target=body&<?= $_SERVER['QUERY_STRING'] ?>';
 		}
-		
+
 		function reloadFrames ()
 		{
 			frames['banner'].window.location.href = frames['banner'].window.location.href;
@@ -23,7 +23,7 @@ $skin = Skin::singleton ();
 		}
 		</script>
 	</head>
-	<frameset id="main" rows="86px,*" frameborder="no" framespacing="0" onload="JavaScript: loadFrame ();">
+	<frameset id="main" rows="86px,*" border="0" frameborder="no" framespacing="0" onload="JavaScript: loadFrame ();">
 		<frame src="titan.php?target=top" name="banner" noresize="noresize" scrolling="no" />
 		<frame src="titan.php?target=blank" name="body" noresize="noresize" scrolling="auto" />
 	</frameset>

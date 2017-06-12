@@ -297,6 +297,7 @@ header ('Content-Encoding: gzip');
 				<label><?= __ ('Wait! Working on your request...') ?></label>
 			</div>
 		</div>
+		<div id="idDottedSeparator"></div>
 		<div id="idChat" style="display: none;">
 			<?= $_CHAT ['BODY'] ?>
 		</div>
