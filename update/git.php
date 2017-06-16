@@ -304,8 +304,8 @@ function updateInstanceByGit ($_path)
 
 					system (GIT .' checkout origin/'. $_branch .' -- '. $_pathToMigrationFiles . $file .'.sql', $return);
 
-					if ($return)
-						throw new PDOException ("CRITICAL > Fail to update specifc migration file [". $_pathToMigrationFiles . $file .".sql] to head revision! \n");
+					// if ($return)
+					//	throw new PDOException ("CRITICAL > Fail to update specifc migration file [". $_pathToMigrationFiles . $file .".sql] to head revision! \n");
 
 					if (file_exists ($_pathToMigrationFiles . $file .'.sql'))
 					{
