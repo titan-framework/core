@@ -22,7 +22,7 @@ try
 
 	$_uri = explode ('/', $_GET['uri']);
 
-	$forRegister = array ('register', 'social', 'browser');
+	$forRegister = array ('register', 'social', 'browser', 'status');
 
 	if (!in_array ($_uri [0], $forRegister))
 		$_auth->authenticate ();
