@@ -55,8 +55,9 @@
 	],
 	"minimum-stability": "stable",
 	"require": {
-		"php": ">=5.2",
-		"dompdf/dompdf": ">=0.7"
+		"php": ">=5.4",
+		"dompdf/dompdf": ">=0.7",
+		"facebook/graph-sdk": ">=5.5"
 	},
 	"config": {
 		"vendor-dir": "vendor"

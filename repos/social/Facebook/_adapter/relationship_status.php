@@ -1,11 +1,12 @@
 <?php
+
 switch ($value)
 {
 	default:
 	case 'Single':
 		return '_SINGL_';
 		break;
-	
+
 	case 'In a relationship':
 	case 'Engaged':
 	case 'Married':
@@ -16,10 +17,9 @@ switch ($value)
 	case 'In a domestic partnership':
 		return '_MARRI_';
 		break;
-	
+
 	case 'Separated':
 	case 'Divorced':
 		return '_DIVOR_';
 		break;
 }
-?>

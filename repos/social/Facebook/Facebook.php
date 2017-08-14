@@ -1,5 +1,4 @@
 <?php
-require dirname (__FILE__) . DIRECTORY_SEPARATOR .'_library'. DIRECTORY_SEPARATOR .'facebook.php';
 
 class FacebookDriver extends SocialDriver
 {
@@ -9,7 +8,48 @@ class FacebookDriver extends SocialDriver
 	{
 		parent::__construct ($array, $path);
 
-		$this->driver = new Facebook (array ('appId' => $this->authId, 'secret' => $this->authSecret));
+		if (isset ($_SESSION ['_TITAN_FACEBOOK_ACCESS_TOKEN_']) && trim ($_SESSION ['_TITAN_FACEBOOK_ACCESS_TOKEN_']) != '')
+		{
+			$token = $_SESSION ['_TITAN_FACEBOOK_ACCESS_TOKEN_'];
+
+			$this->driver = new \Facebook\Facebook ([
+				'app_id' => $this->authId,
+				'app_secret' => $this->authSecret,
+				'default_graph_version' => 'v2.10',
+				'default_access_token' => $token
+			]);
+		}
+		else
+		{
+			$this->driver = new \Facebook\Facebook ([
+				'app_id' => $this->authId,
+				'app_secret' => $this->authSecret,
+				'default_graph_version' => 'v2.10'
+			]);
+
+			$helper = $this->driver->getRedirectLoginHelper ();
+
+			if (isset ($_GET ['state']))
+				$helper->getPersistentDataHandler ()->set ('state', $_GET ['state']);
+
+			try
+			{
+				$token = $helper->getAccessToken ();
+
+				$_SESSION ['_TITAN_FACEBOOK_ACCESS_TOKEN_'] = $token;
+
+				$this->driver = new \Facebook\Facebook ([
+					'app_id' => $this->authId,
+					'app_secret' => $this->authSecret,
+					'default_graph_version' => 'v2.10',
+					'default_access_token' => $token
+				]);
+			}
+			catch(Facebook\Exceptions\FacebookSDKException $e)
+			{
+				toLog (print_r ($e, TRUE));
+			}
+		}
 	}
 
 	public function getIdColumn ()
@@ -26,41 +66,32 @@ class FacebookDriver extends SocialDriver
 	{
 		$profile = $this->loadProfile ();
 
-		if (isset ($profile ['username']) && trim ($profile ['username']) != '')
-			return $profile ['username'];
+		if (isset ($profile ['id']) && trim ($profile ['id']) != '')
+			return $profile ['id'];
 
 		return NULL;
 	}
 
 	public function authenticate ()
 	{
-		$user = $this->driver->getUser ();
-
-		if (!$user)
-			return FALSE;
-
-		/*
-		 * TODO: A verificacao de permissoes esta dando erro constante de access token - necessario arrumar e descomentar
-		 *
-
 		try
 		{
-			$activePermissions = $this->driver->api ('/me/permissions');
+			$response = $this->driver->get ('/me');
 		}
-		catch (FacebookApiException $e)
+		catch (\Facebook\Exceptions\FacebookResponseException $e)
+		{
+			toLog (print_r ($e, TRUE));
+
+			return FALSE;
+		}
+		catch(\Facebook\Exceptions\FacebookSDKException $e)
 		{
 			toLog (print_r ($e, TRUE));
 
 			return FALSE;
 		}
 
-		$requiredPermissions = $this->getRequiredPermissions ();
-
-		if (count (array_intersect ($requiredPermissions, $activePermissions)) != count ($requiredPermissions))
-			return FALSE;
-		*/
-
-		$this->user = $user;
+		$this->user = $response->getDecodedBody ();
 
 		return TRUE;
 	}
@@ -73,24 +104,37 @@ class FacebookDriver extends SocialDriver
 		if (is_array ($this->profile) && !$full)
 			return $this->profile;
 
+		$atts = array ('id', 'name', 'email');
+
+		while ($att = $this->getAttribute ())
+			if (!in_array ($att->getName (), $atts) &&
+				$att->getName () != 'username') // 'username' is deprecated in Facebook SDK 2.+.
+				$atts [] = $att->getName ();
+
 		try
 		{
-			$profile = $this->driver->api ('/me');
-
-			if (!array_key_exists ('username', $profile) || is_null ($profile ['username']) || trim ($profile ['username']) == '')
-				$profile ['username'] = $profile ['id'];
+			$response = $this->driver->get ('/me?fields='. implode (',', $atts));
 		}
-		catch (FacebookApiException $e)
+		catch (\Facebook\Exceptions\FacebookResponseException $e)
 		{
 			toLog (print_r ($e, TRUE));
 
-			return array ();
+			return [];
 		}
+		catch(\Facebook\Exceptions\FacebookSDKException $e)
+		{
+			toLog (print_r ($e, TRUE));
+
+			return [];
+		}
+
+		$profile = $response->getDecodedBody ();
 
 		if ($full)
 			return $profile;
 
-		$profile ['picture'] = $profile ['username'];
+		$profile ['username'] = array_shift (explode ('@', $profile ['email']));
+		$profile ['picture'] = $profile ['id'];
 
 		$this->setProfile ($profile);
 
@@ -103,14 +147,15 @@ class FacebookDriver extends SocialDriver
 
 		if (!array_key_exists ('email', $profile) || trim ($profile ['email']) == '' ||
 			!array_key_exists ('name', $profile) || trim ($profile ['name']) == '' ||
-			!array_key_exists ('username', $profile) || trim ($profile ['username']) == '')
+			!array_key_exists ('username', $profile) || trim ($profile ['username']) == '' ||
+			!array_key_exists ('id', $profile) || is_null ($profile ['id']) || !(int) $profile ['id'])
 			throw new Exception (__ ('Invalid data to search user (id, username, email or name)!'));
 
 		try
 		{
-			User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['username']);
+			User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['id']);
 
-			Log::singleton ()->add ('LOGON', "Using Facebook with username '". $profile ['username'] ."'.", Log::SECURITY, FALSE, TRUE);
+			Log::singleton ()->add ('LOGON', "Using Facebook with ID '". $profile ['id'] ."'.", Log::SECURITY, FALSE, TRUE);
 
 			return TRUE;
 		}
@@ -119,10 +164,10 @@ class FacebookDriver extends SocialDriver
 
 		$this->register ($profile);
 
-		$success = User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['username']);
+		$success = User::singleton ()->authenticateBySocialNetwork ($this->getName (), $profile ['id']);
 
 		if ($success)
-			Log::singleton ()->add ('LOGON', "Using Facebook with username '". $profile ['username'] ."'.", Log::SECURITY, FALSE, TRUE);
+			Log::singleton ()->add ('LOGON', "Using Facebook with ID '". $profile ['id'] ."'.", Log::SECURITY, FALSE, TRUE);
 
 		return $success;
 	}
@@ -135,7 +180,7 @@ class FacebookDriver extends SocialDriver
 
 		$sth = $db->prepare ($sql);
 
-		$sth->bindParam (':facebook', $profile ['username'], PDO::PARAM_STR);
+		$sth->bindParam (':facebook', $profile ['id'], PDO::PARAM_STR);
 
 		$sth->execute ();
 
@@ -161,11 +206,11 @@ class FacebookDriver extends SocialDriver
 			if (!is_object ($type))
 				throw new Exception (__ ('User type not exists! Contact administrator.'));
 
-			$sql = "UPDATE _user SET _facebook = :username WHERE _id = :id";
+			$sql = "UPDATE _user SET _facebook = :facebook WHERE _id = :id";
 
 			$sth = $db->prepare ($sql);
 
-			$sth->bindParam (':username', $profile ['username'], PDO::PARAM_STR);
+			$sth->bindParam (':facebook', $profile ['id'], PDO::PARAM_STR);
 			$sth->bindParam (':id', $obj->_id, PDO::PARAM_INT);
 
 			$sth->execute ();
@@ -260,17 +305,19 @@ class FacebookDriver extends SocialDriver
 			}
 		}
 
-		$fields = array ('_id' 	 	 => array ($_id, PDO::PARAM_INT),
-						 '_login' 	 => array ($_login, PDO::PARAM_STR),
-						 '_name'	 => array ($this->getAttribute ('name')->getValue (), PDO::PARAM_STR),
-						 '_email'	 => array ($this->getAttribute ('email')->getValue (), PDO::PARAM_STR),
-						 '_password' => array (randomHash (13) .'_INVALID_HASH_'. randomHash (13), PDO::PARAM_STR),
-						 '_active'	 => array ('1', PDO::PARAM_STR),
-						 '_deleted'	 => array ('0', PDO::PARAM_STR),
-						 '_type'	 => array ($type->getName (), PDO::PARAM_STR),
-						 '_facebook' => array ($profile ['username'], PDO::PARAM_STR));
+		$fields = array (
+			'_id' 	 	 => array ($_id, PDO::PARAM_INT),
+			'_login' 	 => array ($_login, PDO::PARAM_STR),
+			'_name'	 => array ($this->getAttribute ('name')->getValue (), PDO::PARAM_STR),
+			'_email'	 => array ($this->getAttribute ('email')->getValue (), PDO::PARAM_STR),
+			'_password' => array (randomHash (13) .'_INVALID_HASH_'. randomHash (13), PDO::PARAM_STR),
+			'_active'	 => array ('1', PDO::PARAM_STR),
+			'_deleted'	 => array ('0', PDO::PARAM_STR),
+			'_type'	 => array ($type->getName (), PDO::PARAM_STR),
+			'_facebook' => array ($profile ['id'], PDO::PARAM_STR)
+		);
 
-		$alreadyAtts = array ('username', 'name', 'email');
+		$alreadyAtts = array ('id', 'username', 'name', 'email');
 
 		while ($att = $this->getAttribute ())
 			if (!in_array ($att->getName (), $alreadyAtts))
@@ -321,7 +368,9 @@ class FacebookDriver extends SocialDriver
 
 	public function getLoginUrl ()
 	{
-		return $this->driver->getLoginUrl (array ('scope' => implode (', ', $this->getRequiredPermissions ())));
+		$helper = $this->driver->getRedirectLoginHelper ();
+
+		return $helper->getLoginUrl (Instance::singleton ()->getLoginUrl (), $this->getRequiredPermissions ());
 	}
 
 	public function getConnectUrl ()
@@ -329,7 +378,9 @@ class FacebookDriver extends SocialDriver
 		$section = Business::singleton ()->getSection (Section::TCURRENT)->getName ();
 		$action = Business::singleton ()->getAction (Action::TCURRENT)->getName ();
 
-		return $this->driver->getLoginUrl (array ('scope' => implode (', ', $this->getRequiredPermissions ()), 'redirect_uri' => Instance::singleton ()->getUrl () .'titan.php?target=social&driver='. $this->getName () .'&section='. $section .'&action='. $action));
+		$helper = $this->driver->getRedirectLoginHelper ();
+
+		return $helper->getLoginUrl (Instance::singleton ()->getUrl () .'titan.php?target=social&driver='. $this->getName () .'&section='. $section .'&action='. $action, $this->getRequiredPermissions ());
 	}
 
 	public function getUserUrl ($asLink = TRUE)
@@ -349,4 +400,3 @@ class FacebookDriver extends SocialDriver
 		return '<a href="'. $url .'" target="_blank">'. $url .'</a>';
 	}
 }
-?>
