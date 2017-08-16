@@ -2,10 +2,10 @@
 ob_start ();
 ?>
 <fieldset style="margin: 10px 0px; border: #900 2px solid; background-color: #FFF;">
-	<legend><?= __ ('Edit Item') ?></legend>
+	<legend><?= __ ('Add New Item') ?></legend>
 	<div id="idForm">
-		<form id="collection_form_edit_<?= $fieldId ?>" action="" method="post">
-			<input type="hidden" name="itemId" id="collection_id_<?= $fieldId ?>" value="<?= $itemId ?>" />
+		<form id="collection_form_create_<?= $fieldId ?>" action="" method="post">
+			<input type="hidden" name="itemId" id="collection_id_<?= $fieldId ?>" value="0" />
 			<?php
 			while ($group = $form->getGroup ())
 			{
@@ -90,7 +90,7 @@ ob_start ();
 				<tr height="18px">
 					<td width="20%"></td>
 					<td colspan="2">
-						<input type="button" value="<?= __ ('Save Item') ?>" class="button" onclick="JavaScript: global.Collection.saveEdit ('<?= $itemId ?>', '<?= $fieldId ?>', '<?= $file ?>');" />
+						<input type="button" value="<?= __ ('Save Item') ?>" class="button" onclick="JavaScript: global.Collection.saveCreate ('<?= $fatherId ?>', '<?= $fatherColumn ?>', '<?= $fieldId ?>', '<?= $file ?>');" />
 						<input type="button" value="<?= __ ('Close') ?>" class="button" onclick="JavaScript: global.Collection.close ('<?= $fieldId ?>');" />
 					</td>
 				</tr>

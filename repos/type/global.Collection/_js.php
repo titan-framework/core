@@ -3,7 +3,7 @@
 
 global.Collection.ajax = <?= class_exists ('xCollection', FALSE) ? XOAD_Client::register (new xCollection) : 'null' ?>;
 
-global.Collection.create = function (fieldId, fatherId)
+global.Collection.create = function (fieldId, file, fatherId, fatherColumn)
 {
 	if (!fatherId)
 	{
@@ -12,52 +12,62 @@ global.Collection.create = function (fieldId, fatherId)
 		return false;
 	}
 
-	$('collectionLabelMessage_' + fieldId).innerHTML = '';
+	global.Collection.close (fieldId);
 
-	$('collection_edit_' + fieldId).style.display = 'none';
+	var form = global.Collection.ajax.loadForm ('create', file, 0, fieldId, fatherId, fatherColumn);
 
-	var edit = $('collection_create_' + fieldId);
+	var dom = (new DOMParser ()).parseFromString (form, 'text/html');
 
-	if (edit.style.display == '')
-	{
-		edit.style.display = 'none';
+	var create = $('collection_create_or_edit_' + fieldId);
 
-		$('collection_form_create_' + fieldId).reset ();
-	}
-	else
-	{
-		$('collection_label_' + fieldId).innerHTML = '<?= __ ('Add New Item') ?>';
+	create.appendChild (document.importNode (dom.getElementsByTagName ('body') [0].childNodes [0], true));
 
-		edit.style.display = '';
-	}
+	var regex = /id="([^"]+)"[^>]+onclick="JavaScript: ([^"]+)"/mg;
+
+	var match;
+
+	while ((match = regex.exec (form)) != null)
+		$('collection_form_create_' + fieldId).select ('[id="' + match [1] + '"]') [0].onclick = function (call) {
+			return function () { eval (call); };
+		} (match [2]);
+
+	create.style.display = '';
 }
 
 global.Collection.edit = function (fieldId, file, itemId)
 {
-	$('collectionLabelMessage_' + fieldId).innerHTML = '';
+	global.Collection.close (fieldId);
 
-	$('collection_create_' + fieldId).style.display = 'none';
+	var form = global.Collection.ajax.loadForm ('edit', file, itemId, fieldId, 0, '');
 
-	$('collection_form_create_' + fieldId).reset ();
+	var dom = (new DOMParser ()).parseFromString (form, 'text/html');
 
-	var form = global.Collection.ajax.loadEditForm (file, itemId, fieldId);
+	var edit = $('collection_create_or_edit_' + fieldId);
 
-	var edit = $('collection_edit_' + fieldId);
+	edit.appendChild (document.importNode (dom.getElementsByTagName ('body') [0].childNodes [0], true));
 
-	edit.innerHTML = form;
+	var regex = /id="([^"]+)"[^>]+onclick="JavaScript: ([^"]+)"/mg;
+
+	var match;
+
+	while ((match = regex.exec (form)) != null)
+		$('collection_form_edit_' + fieldId).select ('[id="' + match [1] + '"]') [0].onclick = function (call) {
+			return function () { eval (call); };
+		} (match [2]);
 
 	edit.style.display = '';
 }
 
-global.Collection.closeEdit = function (fieldId)
+global.Collection.close = function (fieldId)
 {
 	$('collectionLabelMessage_' + fieldId).innerHTML = '';
 
-	var edit = $('collection_edit_' + fieldId);
+	var form = $('collection_create_or_edit_' + fieldId);
 
-	edit.innerHTML = '';
+	while (form.firstChild)
+		form.removeChild (form.firstChild);
 
-	edit.style.display = 'none';
+	form.style.display = 'none';
 }
 
 global.Collection.saveCreate = function (fatherId, fatherColumn, fieldId, file)
@@ -147,11 +157,7 @@ global.Collection.saveEdit = function (itemId, fieldId, file)
 
 		global.Collection.ajax.showMessages (fieldId);
 
-		var edit = $('collection_edit_' + fieldId);
-
-		edit.innerHTML = '';
-
-		edit.style.display = 'none';
+		global.Collection.close (fieldId);
 
 		hideWait ();
 	});

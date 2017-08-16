@@ -38,6 +38,8 @@ class FacebookDriver extends SocialDriver
 
 				$_SESSION ['_TITAN_FACEBOOK_ACCESS_TOKEN_'] = $token;
 
+				toLog ('PEGOU O TOKEN: '. $token);
+
 				$this->driver = new \Facebook\Facebook ([
 					'app_id' => $this->authId,
 					'app_secret' => $this->authSecret,
@@ -47,7 +49,7 @@ class FacebookDriver extends SocialDriver
 			}
 			catch(Facebook\Exceptions\FacebookSDKException $e)
 			{
-				toLog (print_r ($e, TRUE));
+				toLog ($e->getMessage () .' ['. $e->getLine () .']');
 			}
 		}
 	}
@@ -80,13 +82,13 @@ class FacebookDriver extends SocialDriver
 		}
 		catch (\Facebook\Exceptions\FacebookResponseException $e)
 		{
-			toLog (print_r ($e, TRUE));
+			toLog ($e->getMessage () .' ['. $e->getLine () .']');
 
 			return FALSE;
 		}
 		catch(\Facebook\Exceptions\FacebookSDKException $e)
 		{
-			toLog (print_r ($e, TRUE));
+			toLog ($e->getMessage () .' ['. $e->getLine () .']');
 
 			return FALSE;
 		}

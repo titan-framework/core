@@ -222,7 +222,7 @@ class xCollection
 		$message->save ();
 	}
 
-	public function loadEditForm ($file, $itemId, $fieldId)
+	public function loadForm ($type, $file, $itemId, $fieldId, $fatherId, $fatherColumn)
 	{
 		$message = Message::singleton ();
 
@@ -240,10 +240,10 @@ class xCollection
 
 			$form = new Form ($file);
 
-			if (!$form->load ($itemId))
+			if ((int) $itemId && !$form->load ($itemId))
 				throw new Exception (__ ('Could not load item data!'));
 
-			$output = require 'edit.php';
+			$output = require $type .'.php';
 		}
 		catch (PDOException $e)
 		{

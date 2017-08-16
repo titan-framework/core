@@ -38,7 +38,7 @@ while ($term = $field->getDocument ())
 								$label = Form::toLabel ($auxField, TRUE);
 								?>
 								<tr height="18px" style="background-color: #<?= $backColor ?>;">
-									<td width="20%" nowrap style="text-align: right;"><b><?= trim ($label) == '&nbsp;' ? '&nbsp;' : $label .':' ?></b></td>
+									<td width="20%" nowrap="nowrap" style="text-align: right;"><b><?= trim ($label) == '&nbsp;' ? '&nbsp;' : $label .':' ?></b></td>
 									<td><?= Form::toForm ($auxField, $term->getId ()) ?></td>
 									<td width="20px" style="vertical-align: top;"><?= Form::toHelp ($auxField); ?></td>
 								</tr>
