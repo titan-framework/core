@@ -42,6 +42,8 @@ abstract class Type
 
 	protected $submittable = TRUE;
 
+	protected $sortable = TRUE;
+
 	protected $bind = FALSE;
 
 	protected $bindType = PDO::PARAM_STR;
@@ -130,6 +132,9 @@ abstract class Type
 
 		if (array_key_exists ('submittable', $field))
 			$this->setSubmittable (strtoupper (trim ($field ['submittable'])) == 'TRUE' ? TRUE : FALSE);
+
+		if (array_key_exists ('sortable', $field))
+			$this->setSortable (strtoupper (trim ($field ['sortable'])) == 'TRUE' ? TRUE : FALSE);
 
 		if (array_key_exists ('use-bind', $field))
 			$this->setBind (strtoupper (trim ($field ['use-bind'])) == 'TRUE' ? TRUE : FALSE);
@@ -423,6 +428,16 @@ abstract class Type
 	public function setSubmittable ($submittable)
 	{
 		$this->submittable = (bool) $submittable;
+	}
+
+	public function isSortable ()
+	{
+		return $this->sortable;
+	}
+
+	public function setSortable ($sortable)
+	{
+		$this->sortable = (bool) $sortable;
 	}
 
 	public function useFullWidth ()

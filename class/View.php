@@ -502,7 +502,7 @@ class View
 	{
 		global $section, $action, $itemId;
 
-		if (!$useOrder)
+		if (!$useOrder || !$field->isSortable ())
 			return $field->getLabel ();
 
 		$order = isset ($_GET['order']) && $field->getAssign () == $_GET['order'] ? TRUE : FALSE;

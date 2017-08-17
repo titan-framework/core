@@ -25,6 +25,8 @@ class Select extends Type
 
 	public function __construct ($table, $field)
 	{
+		$this->setSortable (FALSE);
+		
 		parent::__construct ($table, $field);
 
 		$this->setBind (TRUE);
