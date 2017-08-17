@@ -70,13 +70,14 @@ class xCollection
 			set_error_handler ('logPhpError');
 
 			$view = new View ($file);
-			$form = new Form ($file);
 
-			if (!$form->load ($itemId))
+			if (!$view->load ($view->getPrimary () ." = '". $itemId ."'"))
 				throw new Exception (__ ('Could not load item data!'));
 
+			$view->getItem ();
+
 			$output = array ();
-			while ($field = $form->getField (FALSE))
+			while ($field = $view->getField (FALSE))
 				$output [] = View::toList ($field);
 
 			$icons = array ();
@@ -89,7 +90,7 @@ class xCollection
 			}
 
 			$icons [] = '<img src="titan.php?target=loadFile&file=interface/icon/edit.gif" border="0" title="'. __ ('Edit') .'" style="cursor: pointer;" onclick="JavaScript: global.Collection.edit (\''. $fieldId .'\', \''. $file .'\', \''. $itemId .'\');" />&nbsp;';
-			$icons [] = '<img src="titan.php?target=loadFile&amp;file=interface/icon/delete.gif" border="0" title="'. __ ('Delete') .'" style="cursor: pointer;" onclick="JavaScript: global.Collection.delRow (\''. $fieldId .'\', \''. $form->getFile () .'\', \''. $itemId .'\');" />&nbsp;';
+			$icons [] = '<img src="titan.php?target=loadFile&amp;file=interface/icon/delete.gif" border="0" title="'. __ ('Delete') .'" style="cursor: pointer;" onclick="JavaScript: global.Collection.delRow (\''. $fieldId .'\', \''. $view->getFile () .'\', \''. $itemId .'\');" />&nbsp;';
 
 			$output [] = implode ('\r\n', $icons);
 

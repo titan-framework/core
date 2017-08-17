@@ -81,20 +81,4 @@ class Collection extends Type
 
 		return TRUE;
 	}
-
-	public static function isFile ($field)
-	{
-		$type = get_class ($field);
-
-		do
-		{
-			if ($type == 'File')
-				return TRUE;
-
-			$type = get_parent_class ($type);
-
-		} while ($type != 'Type' && $type !== FALSE);
-
-		return FALSE;
-	}
 }
