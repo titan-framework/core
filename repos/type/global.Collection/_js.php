@@ -3,6 +3,16 @@
 
 global.Collection.ajax = <?= class_exists ('xCollection', FALSE) ? XOAD_Client::register (new xCollection) : 'null' ?>;
 
+global.Collection.chosenConfig = {
+	disable_search_threshold: 10,
+	no_results_text: "<?= __ ('Nothing found!') ?>",
+	placeholder_text_single: "<?= __ ('Select...') ?>",
+	placeholder_text_multiple: "<?= __ ('Select some options...') ?>",
+	allow_single_deselect: true,
+	search_contains: true,
+	width: "506px"
+};
+
 global.Collection.create = function (fieldId, file, fatherId, fatherColumn)
 {
 	if (!fatherId)
@@ -16,11 +26,25 @@ global.Collection.create = function (fieldId, file, fatherId, fatherColumn)
 
 	var form = global.Collection.ajax.loadForm ('create', file, 0, fieldId, fatherId, fatherColumn);
 
+	global.Collection.showForm (fieldId, form);
+}
+
+global.Collection.edit = function (fieldId, file, itemId)
+{
+	global.Collection.close (fieldId);
+
+	var form = global.Collection.ajax.loadForm ('edit', file, itemId, fieldId, 0, '');
+
+	global.Collection.showForm (fieldId, form);
+}
+
+global.Collection.showForm = function (fieldId, form)
+{
 	var dom = (new DOMParser ()).parseFromString (form, 'text/html');
 
-	var create = $('collection_create_or_edit_' + fieldId);
+	var div = $('collection_create_or_edit_' + fieldId);
 
-	create.appendChild (document.importNode (dom.getElementsByTagName ('body') [0].childNodes [0], true));
+	div.appendChild (document.importNode (dom.getElementsByTagName ('body') [0].childNodes [0], true));
 
 	var regex = /id="([^"]+)"[^>]+onclick="JavaScript: ([^"]+)"/mg;
 
@@ -31,31 +55,28 @@ global.Collection.create = function (fieldId, file, fatherId, fatherColumn)
 			return function () { eval (call); };
 		} (match [2]);
 
-	create.style.display = '';
-}
+	var elements = $$('#collection_create_or_edit_' + fieldId + ' select.chosen');
 
-global.Collection.edit = function (fieldId, file, itemId)
-{
-	global.Collection.close (fieldId);
+	for (var i = 0; i < elements.length; i++)
+	{
+		new Chosen (elements [i], global.Collection.chosenConfig);
 
-	var form = global.Collection.ajax.loadForm ('edit', file, itemId, fieldId, 0, '');
+		(function ()
+		{
+			var id = elements[i].id;
 
-	var dom = (new DOMParser ()).parseFromString (form, 'text/html');
+			elements[i].up ('form').addEventListener ('reset', function () {
+				return function (id)
+				{
+					$(id).value = typeof $(id).value === 'string' ? '' : [];
 
-	var edit = $('collection_create_or_edit_' + fieldId);
+					Event.fire ($(id), 'chosen:updated');
+				} (id);
+			}, false);
+		} ());
+	}
 
-	edit.appendChild (document.importNode (dom.getElementsByTagName ('body') [0].childNodes [0], true));
-
-	var regex = /id="([^"]+)"[^>]+onclick="JavaScript: ([^"]+)"/mg;
-
-	var match;
-
-	while ((match = regex.exec (form)) != null)
-		$('collection_form_edit_' + fieldId).select ('[id="' + match [1] + '"]') [0].onclick = function (call) {
-			return function () { eval (call); };
-		} (match [2]);
-
-	edit.style.display = '';
+	div.style.display = '';
 }
 
 global.Collection.close = function (fieldId)
