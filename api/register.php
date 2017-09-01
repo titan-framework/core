@@ -50,8 +50,6 @@ switch ($driver)
 
 	case 'Facebook':
 
-		toLog ('DEFINIDO: '. TITAN_FACEBOOK_ACCESS_TOKEN);
-
 		$social = Social::singleton ()->getSocialNetwork ('Facebook');
 
 		if (!$social->authenticate ())
