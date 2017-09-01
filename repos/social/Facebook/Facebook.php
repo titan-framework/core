@@ -9,8 +9,11 @@ class FacebookDriver extends SocialDriver
 		parent::__construct ($array, $path);
 
 		if (isset ($_SESSION ['_TITAN_FACEBOOK_ACCESS_TOKEN_']) && trim ($_SESSION ['_TITAN_FACEBOOK_ACCESS_TOKEN_']) != '')
+			define ('TITAN_FACEBOOK_ACCESS_TOKEN', $_SESSION ['_TITAN_FACEBOOK_ACCESS_TOKEN_']);
+
+		if (defined ('TITAN_FACEBOOK_ACCESS_TOKEN'))
 		{
-			$token = $_SESSION ['_TITAN_FACEBOOK_ACCESS_TOKEN_'];
+			$token = TITAN_FACEBOOK_ACCESS_TOKEN;
 
 			$this->driver = new \Facebook\Facebook ([
 				'app_id' => $this->authId,
@@ -37,8 +40,6 @@ class FacebookDriver extends SocialDriver
 				$token = $helper->getAccessToken ();
 
 				$_SESSION ['_TITAN_FACEBOOK_ACCESS_TOKEN_'] = $token;
-
-				toLog ('PEGOU O TOKEN: '. $token);
 
 				$this->driver = new \Facebook\Facebook ([
 					'app_id' => $this->authId,
