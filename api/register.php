@@ -4,7 +4,7 @@ if (Api::getHttpRequestMethod () != Api::POST && Api::getHttpRequestMethod () !=
 	throw new ApiException (__ ('Invalid URI request method!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::METHOD_NOT_ALLOWED);
 
 if (!isset ($_POST ['token']) || trim ($_POST ['token']) == '')
-	throw new ApiException (__ ('Invalid parameters (e-mail or token)!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
+	throw new ApiException (__ ('Invalid parameters (token)!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 
 $token = $_auth->decrypt ($_POST ['token']);
 
