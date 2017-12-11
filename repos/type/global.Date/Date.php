@@ -27,7 +27,10 @@ class Date extends Type
 		$this->value = array (0, 0, 0);
 
 		if (array_key_exists ('value', $field))
-			$this->setValue (explode ('-', $field ['value']));
+			if (trim ($field ['value']) == '[now]')
+				$this->setValue (explode ('-', date ('d-m-Y')));
+			else
+				$this->setValue (explode ('-', $field ['value']));
 
 		if (array_key_exists ('first-year', $field))
 			if (!is_numeric ($field ['first-year']) && trim ($field ['first-year']) == '[now]')
