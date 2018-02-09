@@ -17,13 +17,18 @@ $sth = Database::singleton ()->prepare (
 		_type AS type,
 		_language AS language,
 		_timezone AS timezone
-	FROM _user WHERE _id = :id LIMIT 1"
+	FROM _user WHERE _id = :id AND _active = B'1' AND _deleted = B'0' LIMIT 1"
 );
 
 $sth->bindParam (':id', $user, PDO::PARAM_INT);
 
 $sth->execute ();
 
+$obj = $sth->fetch (PDO::FETCH_OBJ);
+
+if (is_null ($obj))
+	throw new ApiException ('User does not exist or is inactive!', ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED);
+
 header ('Content-Type: application/json');
 
-echo json_encode ($sth->fetch (PDO::FETCH_OBJ));
+echo json_encode ($obj);

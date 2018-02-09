@@ -25,7 +25,7 @@ if (!sizeof ($columns))
 	throw new ApiException (__ ('Is not possible to identify your data!'), ApiException::ERROR_SYSTEM, ApiException::SERVICE_UNAVAILABLE, 'This endpoint requires that all entity data have a owner ("_user" and "_author" columns does not exists)!');
 
 if (!$entity->load ($_TIME ." < EXTRACT (EPOCH FROM _update)::integer AND '". $_USER ."' IN (". implode (",", $columns) .")"))
-	throw new Exception (__ ('Unable to load data!'));
+	throw new ApiException (__ ('Unable to load data!'), ApiException::ERROR_SYSTEM, ApiException::INTERNAL_SERVER_ERROR);
 
 $json = array ();
 

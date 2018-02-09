@@ -271,7 +271,7 @@ class EmbrapaAuth extends ApiAuth
 
 			if (in_array (self::C_USER_LOGIN, $this->context))
 			{
-				$sth = $db->prepare ("SELECT _id, _login AS id, _password AS passwd FROM _user WHERE _login = :login LIMIT 1");
+				$sth = $db->prepare ("SELECT _id, _login AS id, _password AS passwd FROM _user WHERE _login = :login AND _active = B'1' AND _deleted = B'0' LIMIT 1");
 
 				$sth->bindParam (':login', $this->userId, PDO::PARAM_STR);
 
@@ -281,7 +281,7 @@ class EmbrapaAuth extends ApiAuth
 			}
 			elseif (in_array (self::C_USER_ID, $this->context))
 			{
-				$sth = $db->prepare ("SELECT _id, _id AS id, _password AS passwd FROM _user WHERE _id = :id LIMIT 1");
+				$sth = $db->prepare ("SELECT _id, _id AS id, _password AS passwd FROM _user WHERE _id = :id AND _active = B'1' AND _deleted = B'0' LIMIT 1");
 
 				$uid = (int) preg_replace ('/[^0-9]/i', '', $this->userId);
 
@@ -296,7 +296,7 @@ class EmbrapaAuth extends ApiAuth
 				if (!Database::isUnique ('_user', '_email'))
 					throw new ApiException (__ ('e-Mail must be unique to authenticate user! Please, report to system administrator.'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 
-				$sth = $db->prepare ("SELECT _id, _email AS id, _password AS passwd FROM _user WHERE _email = :mail LIMIT 1");
+				$sth = $db->prepare ("SELECT _id, _email AS id, _password AS passwd FROM _user WHERE _email = :mail AND _active = B'1' AND _deleted = B'0' LIMIT 1");
 
 				$sth->bindParam (':mail', $this->userId, PDO::PARAM_STR);
 
