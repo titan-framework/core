@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/titan-framework/art/master/logo.png" width="500">
+
 # Titan Framework's Core
 
 About
