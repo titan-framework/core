@@ -1,12 +1,15 @@
 <?php
 
-if (Api::getHttpRequestMethod () != Api::GET || !$_auth->hasContext ('USER', 'USER-BY-ID', 'USER-BY-MAIL', 'CLIENT-AS-USER', 'USER-BROWSER'))
-	exit ();
+if (Api::getHttpRequestMethod () != Api::GET)
+	throw new ApiException (__ ('Invalid URI request method!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::METHOD_NOT_ALLOWED);
+
+if (!$_auth->hasContext ('USER', 'USER-BY-ID', 'USER-BY-MAIL', 'CLIENT-AS-USER', 'USER-BROWSER'))
+	throw new ApiException (__ ('This application does not support user authentication!'), ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED, 'The application API must be configured to client connect as user (add CLIENT-AS-USER context).');
 
 $user = $_auth->getUser ();
 
 if (!is_integer ($user) || !$user)
-	throw new ApiException ('Invalid user!', ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED, 'The application API must be configured to client connect as user (add CLIENT-AS-USER context).');
+	throw new ApiException (__ ('Invalid user!'), ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED, 'The application API must be configured to client connect as user (add CLIENT-AS-USER context).');
 
 $sth = Database::singleton ()->prepare (
 	"SELECT
@@ -26,8 +29,8 @@ $sth->execute ();
 
 $obj = $sth->fetch (PDO::FETCH_OBJ);
 
-if (is_null ($obj))
-	throw new ApiException ('User does not exist or is inactive!', ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED);
+if (!is_object ($obj))
+	throw new ApiException (__ ('User does not exist or is inactive!'), ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED);
 
 header ('Content-Type: application/json');
 

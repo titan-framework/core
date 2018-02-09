@@ -87,7 +87,7 @@ abstract class ApiAuth
 
 	public function setUser ($id)
 	{
-		$this->user = $id;
+		$this->user = (int) $id;
 
 		User::singleton ()->loadById ($id);
 	}
@@ -235,6 +235,8 @@ class EmbrapaAuth extends ApiAuth
 	{
 		$this->requiredParamsIsFilled ();
 
+		$db = Database::singleton ();
+
 		if (time () < $this->timestamp - 180)
 			throw new ApiException (__ ('The time of your device must be correct!'), ApiException::ERROR_REQUEST_TIMESTAMP, ApiException::BAD_REQUEST, 'UNIX timestamp of request is invalid (higher than server time)!');
 
@@ -257,16 +259,25 @@ class EmbrapaAuth extends ApiAuth
 			if ($this->clientSignature != self::signature ($this->timestamp, $client->id, $client->pk))
 				throw new ApiException (__ ('Invalid client credentials!'), ApiException::ERROR_CLIENT_AUTH, ApiException::UNAUTHORIZED);
 
-			MobileDevice::registerDeviceAccess ($this->clientId);
-
 			if (in_array (self::C_CLIENT_USER, $this->context))
+			{
+				$sth = $db->prepare ("SELECT _id FROM _user WHERE _id = :id AND _active = B'1' AND _deleted = B'0' LIMIT 1");
+
+				$sth->bindParam (':id', $client->user, PDO::PARAM_INT);
+
+				$sth->execute ();
+
+				if (!is_object ($sth->fetch (PDO::FETCH_OBJ)))
+					throw new ApiException (__ ('User does not exist or is inactive!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
+
 				$this->setUser ($client->user);
+			}
+
+			MobileDevice::registerDeviceAccess ($this->clientId);
 		}
 
 		if (sizeof (array_intersect (array (self::C_USER_ID, self::C_USER_LOGIN, self::C_USER_MAIL, self::C_USER_BROWSER), $this->context)))
 		{
-			$db = Database::singleton ();
-
 			$user = NULL;
 
 			if (in_array (self::C_USER_LOGIN, $this->context))
@@ -306,7 +317,7 @@ class EmbrapaAuth extends ApiAuth
 			}
 
 			if (!is_object ($user))
-				throw new ApiException (__ ('User not found!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
+				throw new ApiException (__ ('User does not exist or is inactive!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 
 			if (in_array (self::C_USER_BROWSER, $this->context))
 			{

@@ -80,7 +80,7 @@ function showMenuDialog ()
 	setTimeout (function () {
 		div.style.visibility = 'hidden';
 		div.style.opacity = '0';
-	}, 3000);
+	}, 5000);
 }
 
 function urlencode (str)
