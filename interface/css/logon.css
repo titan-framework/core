@@ -56,7 +56,7 @@ input.button
 input:focus
 {
 	box-shadow: 0 0 5px #000;
-	-webkit-box-shadow: 0 0 5px #000; 
+	-webkit-box-shadow: 0 0 5px #000;
 	-moz-box-shadow: 0 0 5px #000;
 }
 input.button:hover
@@ -65,7 +65,7 @@ input.button:hover
 	background-color: #36817C;
 	color: #FFF;
 	box-shadow: 0 0 5px #36817C;
-	-webkit-box-shadow: 0 0 5px #36817C; 
+	-webkit-box-shadow: 0 0 5px #36817C;
 	-moz-box-shadow: 0 0 5px #36817C;
 }
 .labelForm
@@ -142,41 +142,55 @@ input.button:hover
 	height: 235px;
 	padding: 10px;
 }
-#idBody .cError
+#idBody .cError,
+#idBody .cMessageWarning
 {
 	position: relative;
-	margin-bottom: 2px;
-	border: #990000 1px solid;
+	margin-bottom: 4px;
+	border: #900 1px solid;
 	width: 350px;
 	padding: 10px;
 	background-color: #EBCCCC;
-	color: #990000;
+	color: #900;
 	font-weight: bold;
 }
-#idMessage .cError a.cReport
+#idBody .cError a.cReport,
+#idBody .cMessageWarning a.cReport
 {
 	display: none;
 }
-#idBody .cWarning
+#idBody .cMessage,
+#idBody .cMessageSuccess
 {
 	position: relative;
-	margin-bottom: 2px;
-	border: #FFD324 1px solid;
-	width: 350px;
-	padding: 10px;
-	background-color: #FFF6BF;
-	color: #514721;
-	font-weight: bold;
-}
-#idBody .cMessage
-{
-	position: relative;
-	margin-bottom: 2px;
-	border: #009900 1px solid;
+	margin-bottom: 4px;
+	border: #090 1px solid;
 	width: 350px;
 	padding: 10px;
 	background-color: #CCEBCC;
-	color: #009900;
+	color: #090;
+	font-weight: bold;
+}
+#idBody .cMessageAlert
+{
+	position: relative;
+	margin-bottom: 4px;
+	border: #876D3C 1px solid;
+	width: 350px;
+	padding: 10px;
+	background-color: #FBF8E4;
+	color: #876D3C;
+	font-weight: bold;
+}
+#idBody .cMessageInfo
+{
+	position: relative;
+	margin-bottom: 4px;
+	border: #3B709C 1px solid;
+	width: 350px;
+	padding: 10px;
+	background-color: #DBEDF7;
+	color: #3B709C;
 	font-weight: bold;
 }
 #idLogon, #idLost
@@ -253,7 +267,7 @@ div.row
 	padding-top: 10px;
 }
 a
-{    
+{
 	text-decoration: none;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 10px;
@@ -323,7 +337,7 @@ div.unselected div:hover
 	background-color: #575556;
 	color: #FFF;
 	box-shadow: 0 0 10px #575556;
-	-webkit-box-shadow: 0 0 10px #575556; 
+	-webkit-box-shadow: 0 0 10px #575556;
 	-moz-box-shadow: 0 0 10px #575556;
 }
 div.unselected iframe
@@ -464,6 +478,6 @@ div.unselected iframe
 	padding: 10px;
 	z-index: 5;
 	box-shadow: 0 0 5px #606060;
-	-webkit-box-shadow: 0 0 5px #606060; 
+	-webkit-box-shadow: 0 0 5px #606060;
 	-moz-box-shadow: 0 0 5px #606060;
 }
