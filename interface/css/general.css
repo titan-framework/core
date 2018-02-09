@@ -364,18 +364,20 @@ div
 	position: relative;
 }
 
-#idMessage .cError
+#idMessage .cError,
+#idMessage .cMessageWarning
 {
 	position: relative;
 	margin: 0px 8px 8px 8px;
-	border: #990000 1px solid;
+	border: #900 1px solid;
 	padding: 6px;
 	background-color: #EBCCCC;
-	color: #990000;
+	color: #900;
 	font-weight: bold;
 }
 
-#idMessage .cError a.cReport
+#idMessage .cError a.cReport,
+#idMessage .cMessageWarning a.cReport
 {
 	float: right;
 	width: 120px;
@@ -385,14 +387,37 @@ div
 	text-align: right;
 }
 
-#idMessage .cMessage
+#idMessage .cMessage,
+#idMessage .cMessageSuccess
 {
 	position: relative;
 	margin: 0px 8px 8px 8px;
-	border: #009900 1px solid;
+	border: #090 1px solid;
 	padding: 6px;
 	background-color: #CCEBCC;
-	color: #009900;
+	color: #090;
+	font-weight: bold;
+}
+
+#idMessage .cMessageAlert
+{
+	position: relative;
+	margin: 0px 8px 8px 8px;
+	border: #876D3C 1px solid;
+	padding: 6px;
+	background-color: #FBF8E4;
+	color: #876D3C;
+	font-weight: bold;
+}
+
+#idMessage .cMessageInfo
+{
+	position: relative;
+	margin: 0px 8px 8px 8px;
+	border: #3B709C 1px solid;
+	padding: 6px;
+	background-color: #DBEDF7;
+	color: #3B709C;
 	font-weight: bold;
 }
 

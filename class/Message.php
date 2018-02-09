@@ -21,8 +21,13 @@ class Message
 	const TEXT = 0;
 	const HTML = 1;
 
-	const WARNING = 0;
-	const MESSAGE = 1;
+	const SUCCESS = 'SUCCESS';
+	const INFO = 'INFO';
+	const ALERT = 'ALERT';
+	const WARNING = 'WARNING';
+
+	// Legacy
+	const MESSAGE = self::SUCCESS;
 
 	private final function __construct ()
 	{
@@ -52,10 +57,16 @@ class Message
 			$this->array = unserialize ($_SESSION['CACHE_MESSAGES']);
 	}
 
+	public function add ($type, $message)
+	{
+		if (trim ($message) != '' && in_array ($type, array (self::SUCCESS, self::INFO, self::ALERT, self::WARNING)))
+			$this->array [] = array ($type, $message);
+	}
+
 	public function addMessage ($message)
 	{
 		if (trim ($message) != '')
-			$this->array [] = array (self::MESSAGE, $message);
+			$this->array [] = array (self::SUCCESS, $message);
 	}
 
 	public function addWarning ($warning)
@@ -74,10 +85,21 @@ class Message
 		if ($type == self::TEXT)
 			return $this->array [$key][1];
 
-		if ($this->array [$key][0] == self::MESSAGE)
-			return '<div class="cMessage">'. $this->array [$key][1] .'</div>';
+		switch ($this->array [$key][0])
+		{
+			case self::SUCCESS:
+				return '<div class="cMessageSuccess">'. $this->array [$key][1] .'</div>';
 
-		return '<div class="cError">'. $this->array [$key][1] .'<a class="cReport" href="#" onclick="JavaScript: bugReport (\''. str_replace (array ("'", '"'), '', strip_tags ($this->array [$key][1])) .'\');">'. __ ('Technical issue?') .'</a></div>';
+			case self::INFO:
+				return '<div class="cMessageInfo">'. $this->array [$key][1] .'</div>';
+
+			case self::WARNING:
+				return '<div class="cMessageWarning">'. $this->array [$key][1] .'<a class="cReport" href="#" onclick="JavaScript: bugReport (\''. str_replace (array ("'", '"'), '', strip_tags ($this->array [$key][1])) .'\');">'. __ ('Technical issue?') .'</a></div>';
+
+			case self::ALERT:
+			default:
+				return '<div class="cMessageAlert">'. $this->array [$key][1] .'</div>';
+		}
 	}
 
 	public function has ()
