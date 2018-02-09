@@ -32,6 +32,8 @@ $obj = $sth->fetch (PDO::FETCH_OBJ);
 if (!is_object ($obj))
 	throw new ApiException (__ ('User does not exist or is inactive!'), ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED);
 
+Log::singleton ()->add ('LOGON', "User authenticated on API REST using application '". Api::singleton ()->getActiveApp ()->getName () ."'.", Log::SECURITY, FALSE, TRUE);
+
 header ('Content-Type: application/json');
 
 echo json_encode ($obj);

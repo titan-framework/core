@@ -153,7 +153,7 @@ class Log
 					'ip' 		=> array ($_SERVER['REMOTE_ADDR'], PDO::PARAM_STR),
 					'url' 		=> array ($_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'], PDO::PARAM_STR),
 					'benchmark'	=> array ((int) time () - (int) $_SERVER['REQUEST_TIME'], PDO::PARAM_INT),
-					'browser'	=> array ($_SERVER['HTTP_USER_AGENT'], PDO::PARAM_STR));
+					'browser'	=> array (@$_SERVER['HTTP_USER_AGENT'], PDO::PARAM_STR));
 
 		$array = array_merge ($array, $c);
 
