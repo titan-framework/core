@@ -17,6 +17,8 @@ else
 $id = (int) $_GET ['id'];
 $hash = $_GET ['hash'];
 
+$webp = (isset ($_GET['webp']) && $_GET['webp'] == '1') || strpos ($_SERVER ['HTTP_ACCEPT'], 'image/webp') !== FALSE ? TRUE : FALSE;
+
 try
 {	
 	$sth = Database::singleton ()->prepare ("SELECT * FROM _ckeditor WHERE _id = :id AND _hash = :hash");
@@ -67,11 +69,11 @@ if (function_exists ('apache_setenv'))
 switch ($assume)
 {
 	case Archive::IMAGE:
-		if ($width && $height)
-			$file = CKEditor::resize ($id, $obj->_mimetype, $width, $height, TRUE);
+		$file = CKEditor::resize ($id, $obj->_mimetype, $width, $height, ($width && $height), FALSE, FALSE, $webp);
 		
-		if ($width || $height)
-			$file = CKEditor::resize ($id, $obj->_mimetype, $width, $height);
+		header ('Content-Type: '. ($webp ? 'image/webp' : $obj->_mimetype));
+		header ('Content-Disposition: inline; filename=' . fileName ($obj->_name));
+		break;
 		
 	case Archive::OPEN:
 		header ('Content-Type: '. $obj->_mimetype);

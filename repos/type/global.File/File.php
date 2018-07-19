@@ -135,7 +135,7 @@ class File extends Integer
 		return sprintf ("%.{$decimals}f", $bytes / pow (1024, $factor)) .' '. @$size [$factor];
 	}
 
-	public static function resize ($id, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE, $crop = FALSE)
+	public static function resize ($id, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE, $crop = FALSE, $webp = FALSE)
 	{
 		$source = self::getFilePath ($id);
 
@@ -152,7 +152,7 @@ class File extends Integer
 
 		$destination = $cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'resized_' . str_pad ($id, 19, '0', STR_PAD_LEFT) .'_'. $width .'x'. $height .'_'. ($force ? '1' : '0') .'_'. ($bw ? '1' : '0') .'_'. ($crop ? '1' : '0');
 
-		return EncodeMedia::resizeImage ($source, $type, $destination, $width, $height, $force, $bw, $crop);
+		return EncodeMedia::resizeImage ($source, $type, $destination, $width, $height, $force, $bw, $crop, $webp);
 	}
 
 	public static function synopsis ($id, $filter = array (), $dimension = 200)

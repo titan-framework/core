@@ -8,6 +8,8 @@ class Fck extends Phrase
 
 	protected $embeddedImages = FALSE;
 
+	protected $embeddedWebP = FALSE;
+
 	public function __construct ($table, $field)
 	{
 		parent::__construct ($table, $field);
@@ -25,7 +27,12 @@ class Fck extends Phrase
 			$this->setPublic (strtoupper (trim ($field ['public'])) == 'TRUE' ? TRUE : FALSE);
 
 		if (array_key_exists ('embedded-images', $field))
+		{
 			$this->setEmbeddedImages (strtoupper (trim ($field ['embedded-images'])) == 'TRUE' ? TRUE : FALSE);
+		
+			if (array_key_exists ('embedded-force-webp', $field))
+				$this->setEmbeddedWebP (strtoupper (trim ($field ['embedded-force-webp'])) == 'TRUE' ? TRUE : FALSE);
+		}
 	}
 
 	public function setPublic ($public)
@@ -46,6 +53,16 @@ class Fck extends Phrase
 	public function useEmbeddedImages ()
 	{
 		return $this->embeddedImages;
+	}
+
+	public function setEmbeddedWebP ($embeddedWebP)
+	{
+		$this->embeddedWebP = (bool) $embeddedWebP;
+	}
+
+	public function useEmbeddedWebP ()
+	{
+		return $this->embeddedWebP;
 	}
 
 	public function setOwnerOnly ($ownerOnly)

@@ -89,8 +89,79 @@ function removeAccents ($str)
 	return html_entity_decode ($str, ENT_NOQUOTES, 'UTF-8');
 }
 
-function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE)
+function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE, $webp = FALSE)
 {
+	if (!file_exists ($file) || !is_readable ($file) || !(int) filesize ($file))
+		throw new Exception ('Trying to resize inexistent or unreadable image!');
+	
+	if (!(int) $width && !(int) $height && !(bool) $bw && !(bool) $webp)
+	{
+		header ('Content-Type: '. $type);
+		
+		echo file_get_contents ($file);
+
+		exit ();
+	}
+
+	$vetor = getimagesize ($file);
+
+	$atualWidth  = $vetor [0];
+	$atualHeight = $vetor [1];
+
+	if (!$width || !$height)
+	{
+		if (!$width && !$height)
+		{
+			$width = $atualWidth;
+			$height = $atualHeight;
+		}
+		elseif ($width && !$height)
+			$height = ($atualHeight * $width) / $atualWidth;
+		else
+			$width = ($atualWidth * $height) / $atualHeight;
+	}
+
+	if(!$force)
+	{
+		if ($atualWidth < $atualHeight && $width > $height)
+		{
+			$aux = $width;
+			$width = $height;
+			$height = $aux;
+		}
+
+		if ((int) $atualWidth < (int) $width)
+		{
+			$width = $atualWidth;
+
+			$height = ($atualHeight * $width) / $atualWidth;
+		}
+	}
+
+	$width = round ($width);
+	$height = round ($height);
+
+	$padded = array_pop (explode ('_', $file));
+
+	$cache = Instance::singleton ()->getCachePath ();
+
+	if (!file_exists ($cache .'file') && !@mkdir ($cache .'file', 0777))
+		throw new Exception ('Unable create cache directory ['. $cache .'file] for cache WebP images!');
+
+	if (!file_exists ($cache .'file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache .'file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
+		throw new Exception ('Impossible to enhance security for folder ['. $cache .'file].');
+
+	$cached = $cache .'file'. DIRECTORY_SEPARATOR . ($webp ? 'webp' : 'resized') .'_'. $padded .'_'. $width .'x'. $height . ($bw ? '_bw' : '');
+
+	if (file_exists ($cached) && is_readable ($cached) && (int) filesize ($cached))
+	{
+		header ('Content-Type: '. ($webp ? 'image/webp' : $type));
+		
+		echo file_get_contents ($cached);
+
+		exit ();
+	}
+
 	$buffer = FALSE;
 
 	switch ($type)
@@ -109,53 +180,22 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 			imagealphablending ($buffer, TRUE);
 			imagesavealpha ($buffer, TRUE);
 			break;
+		
+		case 'image/webp':
+			$buffer = imagecreatefromwebp ($file);
+			break;
 	}
 
 	if (!$buffer)
-		throw new Exception ('MimeType do arquivo inválido ou a imagem não existe!');
+		throw new Exception ('Invalid image MIME type!');
 
 	if ($bw)
 		@imagefilter ($buffer, IMG_FILTER_GRAYSCALE);
 
-	$vetor = getimagesize ($file);
-
-	$atualWidth  = $vetor [0];
-	$atualHeight = $vetor [1];
-
-	if(!$force)
-	{
-		if (!$width || !$height)
-		{
-			if (!$width && !$height)
-			{
-				$width = $atualWidth;
-				$height = $atualHeight;
-			}
-			elseif ($width && !$height)
-				$height = ($atualHeight * $width) / $atualWidth;
-			else
-				$width = ($atualWidth * $height) / $atualHeight;
-		}
-
-		if ($atualWidth < $atualHeight && $width > $height)
-		{
-			$aux = $width;
-			$width = $height;
-			$height = $aux;
-		}
-
-		if ((int) $atualWidth < (int) $width)
-		{
-			$width = $atualWidth;
-
-			$height = ($atualHeight * $width) / $atualWidth;
-		}
-	}
-
 	if ($type != 'image/gif')
 	{
 		$thumb = imagecreatetruecolor ($width, $height);
-		$color = imagecolorallocatealpha ($thumb, 255, 255, 255, 75);
+		$color = imagecolorallocatealpha ($thumb, 255, 255, 255, 0);
 		imagefill ($thumb, 0, 0, $color);
 	}
 	else
@@ -163,25 +203,55 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 
 	$ok = imagecopyresized ($thumb, $buffer, 0, 0, 0, 0, $width, $height, $atualWidth, $atualHeight);
 
+	imagedestroy ($buffer);
+
 	if (!$ok)
-		throw new Exception ('Impossível redimensionar a imagem!');
-
-	header ('Content-Type: '. $type);
-
-	switch ($type)
+		throw new Exception ('Impossible to resize image!');
+	
+	if ($webp)
 	{
-		case 'image/jpeg':
-		case 'image/pjpeg':
-			imagejpeg ($thumb, NULL, 100);
-			break;
+		/*
+		 * Forcing to WebP means user needs optimize size of images. So, the quality used
+		 * is not 100, but the default of PHP (infering that is the optimal). 
+		 */
 
-		case 'image/gif':
-			imagegif ($thumb);
-			break;
+		header ('Content-Type: image/webp');
 
-		case 'image/png':
-			imagepng ($thumb);
-			break;
+		imagewebp ($thumb, $cached);
+
+		imagewebp ($thumb);
+	}
+	else
+	{
+		header ('Content-Type: '. $type);
+
+		switch ($type)
+		{
+			case 'image/jpeg':
+			case 'image/pjpeg':
+				imagejpeg ($thumb, $cached, 100);
+
+				imagejpeg ($thumb, NULL, 100);
+				break;
+
+			case 'image/gif':
+				imagegif ($thumb, $cached);
+
+				imagegif ($thumb);
+				break;
+
+			case 'image/png':
+				imagepng ($thumb, $cached);
+
+				imagepng ($thumb);
+				break;
+			
+			case 'image/webp':
+				imagewebp ($thumb, $cached, 100);
+
+				imagewebp ($thumb, NULL, 100);
+				break;
+		}
 	}
 
 	imagedestroy ($thumb);

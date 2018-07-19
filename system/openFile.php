@@ -1,4 +1,5 @@
 <?php
+
 if (!isset ($_GET ['fileId']) || !$_GET['fileId'] || !is_numeric ($_GET['fileId']))
 	exit ();
 
@@ -15,6 +16,8 @@ else
 $force = isset ($_GET['force']) && $_GET['force'] == '1' ? TRUE : FALSE;
 
 $bw = isset ($_GET['bw']) && $_GET['bw'] == '1' ? TRUE : FALSE;
+
+$webp = (isset ($_GET['webp']) && $_GET['webp'] == '1') || strpos ($_SERVER ['HTTP_ACCEPT'], 'image/webp') !== FALSE ? TRUE : FALSE;
 
 $fileId = (int) $_GET ['fileId'];
 
@@ -74,8 +77,8 @@ $contentType = $obj->_mimetype;
 switch ($assume)
 {
 	case Archive::IMAGE:
-		if ($width || $height || $bw)
-			resize ($filePath, $contentType, $width, $height, $force, $bw);
+		if ($width || $height || $bw || $webp)
+			resize ($filePath, $contentType, $width, $height, $force, $bw, $webp);
 		
 		header ('Content-Type: '. $contentType);
 		header ('Content-Disposition: inline; filename=' . fileName ($obj->_name));
@@ -113,4 +116,3 @@ try
 }
 catch (PDOException $e)
 {}
-?>
