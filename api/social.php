@@ -37,6 +37,21 @@ switch ($driver)
 		break;
 	
 	case 'Facebook':
+		
+		$url = 'https://graph.facebook.com/me?fields=name,email,locale,gender,picture,link,timezone&access_token='. $token;
+			
+		$json = file_get_contents ($url);
+		
+		if (trim ($json) == '')
+			throw new ApiException (__ ('Invalid token!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
+		
+		$profile = (array) json_decode ($json);
+
+		if (array_key_exists ('picture', $profile) && isset ($profile ['picture']->data->url))
+			$profile ['picture'] = $profile ['picture']->data->url;
+
+		break;
+
 	default:
 		throw new ApiException (__ ('Web application is not capable to register device user! Please, alert support team.'), ApiException::ERROR_SYSTEM, ApiException::SERVICE_UNAVAILABLE, 'The driver for Social Network ['. $driver .'] is not supported yet!');
 }
