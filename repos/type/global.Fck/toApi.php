@@ -41,14 +41,14 @@ foreach ($tags as $tag)
 		if (sizeof ($result) != 3 || !(int) $result [1] || !(int) $result [2])
 			throw new Exception ();
 
-		$path = File::resize ($fileId, $type, $result [2], $result [1], TRUE, FALSE, FALSE, $field->useEmbeddedWebP ());
+		$path = File::resize ($fileId, $type, $result [2], $result [1], TRUE, FALSE, FALSE, $field->useEmbeddedWebP (), $field->useEmbeddedJp2 ());
 	}
 	catch (Exception $e)
 	{}
 
 	$data = file_get_contents ($path);
 
-	$base64 = 'data:'. ($field->useEmbeddedWebP () ? 'image/webp' : $type) .';base64,' . base64_encode ($data);
+	$base64 = 'data:'. mime_content_type ($path) .';base64,' . base64_encode ($data);
 
 	$tag->setAttribute ('src', $base64);
 }

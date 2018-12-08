@@ -16,7 +16,7 @@ class CKEditor extends Fck
 		return Archive::singleton ()->getDataPath () . 'ckeditor_' . str_pad ($id, 19, '0', STR_PAD_LEFT);
 	}
 	
-	public static function resize ($id, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE, $crop = FALSE, $webp = FALSE)
+	public static function resize ($id, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE, $crop = FALSE, $webp = FALSE, $jp2 = FALSE)
 	{
 		$source = self::getFilePath ($id);
 		
@@ -30,7 +30,7 @@ class CKEditor extends Fck
 		
 		$destination = $cache . self::ENCODE_FOLDER . DIRECTORY_SEPARATOR .'resized_' . str_pad ($id, 19, '0', STR_PAD_LEFT) .'_'. $width .'x'. $height .'_'. ($force ? '1' : '0') .'_'. ($bw ? '1' : '0');
 		
-		return EncodeMedia::resizeImage ($source, $type, $destination, $width, $height, $force, $bw, $crop, $webp);
+		return EncodeMedia::resizeImage ($source, $type, $destination, $width, $height, $force, $bw, $crop, $webp, $jp2);
 	}
 	
 	public static function synopsis ($id, $hash)

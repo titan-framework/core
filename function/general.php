@@ -89,12 +89,12 @@ function removeAccents ($str)
 	return html_entity_decode ($str, ENT_NOQUOTES, 'UTF-8');
 }
 
-function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE, $webp = FALSE)
+function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE, $webp = FALSE, $jp2 = FALSE)
 {
 	if (!file_exists ($file) || !is_readable ($file) || !(int) filesize ($file))
 		throw new Exception ('Trying to resize inexistent or unreadable image!');
 	
-	if (!(int) $width && !(int) $height && !(bool) $bw && !(bool) $webp)
+	if (!(int) $width && !(int) $height && !(bool) $bw && !(bool) $webp && !(bool) $jp2)
 	{
 		header ('Content-Type: '. $type);
 		
@@ -150,18 +150,25 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 
 	if (!file_exists ($cache .'file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache .'file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
 		throw new Exception ('Impossible to enhance security for folder ['. $cache .'file].');
+	
+	if ($webp)
+		$qualifier = 'webp';
+	elseif ($jp2)
+		$qualifier = 'jp2';
+	else
+		$qualifier = 'resized';
 
-	$cached = $cache .'file'. DIRECTORY_SEPARATOR . ($webp ? 'webp' : 'resized') .'_'. $padded .'_'. $width .'x'. $height . ($bw ? '_bw' : '');
-
+	$cached = $cache .'file'. DIRECTORY_SEPARATOR . $qualifier .'_'. $padded .'_'. $width .'x'. $height . ($bw ? '_bw' : '');
+	
 	if (file_exists ($cached) && is_readable ($cached) && (int) filesize ($cached))
 	{
-		header ('Content-Type: '. ($webp ? 'image/webp' : $type));
+		header ('Content-Type: '. ($webp || $jp2 ? 'image/'. $qualifier : $type));
 		
 		echo file_get_contents ($cached);
 
 		exit ();
 	}
-
+	
 	$buffer = FALSE;
 
 	switch ($type)
@@ -215,43 +222,112 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 		 * is not 100, but the default of PHP (infering that is the optimal). 
 		 */
 
-		header ('Content-Type: image/webp');
+		$cached = $cache .'file'. DIRECTORY_SEPARATOR . 'webp_'. $padded .'_'. $width .'x'. $height . ($bw ? '_bw' : '');
 
 		imagewebp ($thumb, $cached);
 
+		header ('Content-Type: image/webp');
+
 		imagewebp ($thumb);
+
+		imagedestroy ($thumb);
+
+		exit ();
 	}
-	else
+	
+	if ($jp2)
 	{
-		header ('Content-Type: '. $type);
+		/*
+		 * Forcing to JPEG2000 means user needs optimize size of images. So, the quality used
+		 * is not 100, but 70% (resulting in file size similar to WebP). 
+		 */
 
-		switch ($type)
+		$cached = $cache .'file'. DIRECTORY_SEPARATOR . 'jp2_'. $padded .'_'. $width .'x'. $height . ($bw ? '_bw' : '');
+
+		$jp2conversion = $cached .'-toJPEG2000';
+
+		imagejpeg ($thumb, $jp2conversion, 100);
+
+		// Try use ImageMagick in command line first...
+
+		if (function_exists ('exec') && (`which convert`))
+			@exec ('convert '. realpath ($jp2conversion) .' -quality 70 '. realpath ($cached));
+		
+		if (file_exists ($cached) && is_readable ($cached) && (int) filesize ($cached))
 		{
-			case 'image/jpeg':
-			case 'image/pjpeg':
-				imagejpeg ($thumb, $cached, 100);
-
-				imagejpeg ($thumb, NULL, 100);
-				break;
-
-			case 'image/gif':
-				imagegif ($thumb, $cached);
-
-				imagegif ($thumb);
-				break;
-
-			case 'image/png':
-				imagepng ($thumb, $cached);
-
-				imagepng ($thumb);
-				break;
+			header ('Content-Type: image/jp2');
 			
-			case 'image/webp':
-				imagewebp ($thumb, $cached, 100);
+			echo file_get_contents ($cached);
 
-				imagewebp ($thumb, NULL, 100);
-				break;
+			imagedestroy ($thumb);
+
+			@unlink ($jp2conversion);
+	
+			exit ();
 		}
+
+		// If not success, try use imagick module from PHP...
+
+		if (extension_loaded ('imagick'))
+		{
+			$image = new Imagick ($jp2conversion);
+
+			$image->setImageFormat ('jp2');
+
+			$image->setImageCompression (Imagick::COMPRESSION_JPEG2000);
+
+			$image->setImageCompressionQuality (70);
+
+			$image->stripImage ();
+
+			$image->writeImage ($cached);
+
+			header ('Content-Type: image/jp2');
+
+			echo $image->getImageBlob();
+
+			$image->clear ();
+
+			imagedestroy ($thumb);
+
+			@unlink ($jp2conversion);
+
+			exit ();
+		}
+
+		@unlink ($jp2conversion);
+	}
+
+	$cached = $cache .'file'. DIRECTORY_SEPARATOR . 'resized_'. $padded .'_'. $width .'x'. $height . ($bw ? '_bw' : '');
+
+	header ('Content-Type: '. $type);
+
+	switch ($type)
+	{
+		case 'image/jpeg':
+		case 'image/pjpeg':
+			imagejpeg ($thumb, $cached, 100);
+
+			imagejpeg ($thumb, NULL, 100);
+			break;
+
+		case 'image/gif':
+			imagegif ($thumb, $cached);
+
+			imagegif ($thumb);
+			break;
+
+		case 'image/png':
+			imagepng ($thumb, $cached);
+
+			imagepng ($thumb);
+			break;
+		
+		case 'image/webp':
+			imagewebp ($thumb, $cached, 100);
+
+			imagewebp ($thumb, NULL, 100);
+			break;
 	}
 
 	imagedestroy ($thumb);

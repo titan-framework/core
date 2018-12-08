@@ -10,6 +10,8 @@ class Fck extends Phrase
 
 	protected $embeddedWebP = FALSE;
 
+	protected $embeddedJp2 = FALSE;
+
 	public function __construct ($table, $field)
 	{
 		parent::__construct ($table, $field);
@@ -32,6 +34,9 @@ class Fck extends Phrase
 		
 			if (array_key_exists ('embedded-force-webp', $field))
 				$this->setEmbeddedWebP (strtoupper (trim ($field ['embedded-force-webp'])) == 'TRUE' ? TRUE : FALSE);
+			
+			if (array_key_exists ('embedded-force-jp2', $field))
+				$this->setEmbeddedJp2 (!$this->useEmbeddedWebP () && strtoupper (trim ($field ['embedded-force-jp2'])) == 'TRUE' ? TRUE : FALSE);
 		}
 	}
 
@@ -63,6 +68,16 @@ class Fck extends Phrase
 	public function useEmbeddedWebP ()
 	{
 		return $this->embeddedWebP;
+	}
+
+	public function setEmbeddedJp2 ($embeddedJp2)
+	{
+		$this->embeddedJp2 = (bool) $embeddedJp2;
+	}
+
+	public function useEmbeddedJp2 ()
+	{
+		return $this->embeddedJp2;
 	}
 
 	public function setOwnerOnly ($ownerOnly)
