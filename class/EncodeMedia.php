@@ -335,7 +335,7 @@ class EncodeMedia
 			// Try use ImageMagick in command line first...
 
 			if (function_exists ('exec') && (`which convert`))
-				@exec ('convert '. realpath ($jp2conversion) .' -quality 70 '. realpath ($resized));
+				@exec ('convert '. $jp2conversion .' -quality 70 '. $resized);
 			
 			if (file_exists ($resized) && is_readable ($resized) && (int) filesize ($resized))
 			{
@@ -381,7 +381,7 @@ class EncodeMedia
 		{
 			case 'image/jpeg':
 			case 'image/pjpeg':
-				imagejpeg ($thumb, $resized, 100);
+				imagejpeg ($thumb, $resized);
 				break;
 
 			case 'image/gif':
@@ -393,7 +393,7 @@ class EncodeMedia
 				break;
 			
 			case 'image/webp':
-				imagewebp ($thumb, $resized, 100);
+				imagewebp ($thumb, $resized);
 				break;
 		}
 

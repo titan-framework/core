@@ -249,9 +249,9 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 		imagejpeg ($thumb, $jp2conversion, 100);
 
 		// Try use ImageMagick in command line first...
-
+		
 		if (function_exists ('exec') && (`which convert`))
-			@exec ('convert '. realpath ($jp2conversion) .' -quality 70 '. realpath ($cached));
+			@exec ('convert '. $jp2conversion .' -quality 70 '. $cached);
 		
 		if (file_exists ($cached) && is_readable ($cached) && (int) filesize ($cached))
 		{
@@ -306,9 +306,9 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 	{
 		case 'image/jpeg':
 		case 'image/pjpeg':
-			imagejpeg ($thumb, $cached, 100);
+			imagejpeg ($thumb, $cached);
 
-			imagejpeg ($thumb, NULL, 100);
+			imagejpeg ($thumb);
 			break;
 
 		case 'image/gif':
@@ -324,9 +324,9 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 			break;
 		
 		case 'image/webp':
-			imagewebp ($thumb, $cached, 100);
+			imagewebp ($thumb, $cached);
 
-			imagewebp ($thumb, NULL, 100);
+			imagewebp ($thumb);
 			break;
 	}
 
