@@ -17,6 +17,18 @@ else
 $id = (int) $_GET ['id'];
 $hash = $_GET ['hash'];
 
+$webp = (isset ($_GET['webp']) && $_GET['webp'] == '1') || strpos ($_SERVER ['HTTP_ACCEPT'], 'image/webp') !== FALSE ? TRUE : FALSE;
+
+$jp2 = FALSE;
+
+if ((isset ($_GET['jp2']) && $_GET['jp2'] == '1') || (isset ($_SERVER ['HTTP_USER_AGENT']) && strpos ($_SERVER ['HTTP_USER_AGENT'], 'Safari') !== FALSE))
+{
+	preg_match ('/Version\/(?P<version>[0-9]+)/', $_SERVER ['HTTP_USER_AGENT'], $parameters);
+
+	if ((float) $parameters ['version'] >= 6)
+		$jp2 = TRUE;
+}
+
 try
 {	
 	$sth = Database::singleton ()->prepare ("SELECT * FROM _ckeditor WHERE _id = :id AND _hash = :hash");
@@ -67,11 +79,11 @@ if (function_exists ('apache_setenv'))
 switch ($assume)
 {
 	case Archive::IMAGE:
-		if ($width && $height)
-			$file = CKEditor::resize ($id, $obj->_mimetype, $width, $height, TRUE);
-		
-		if ($width || $height)
-			$file = CKEditor::resize ($id, $obj->_mimetype, $width, $height);
+		$file = CKEditor::resize ($id, $obj->_mimetype, $width, $height, ($width && $height), FALSE, FALSE, $webp, $jp2);
+
+		header ('Content-Type: '. mime_content_type ($file));
+		header ('Content-Disposition: inline; filename=' . fileName ($obj->_name));
+		break;
 		
 	case Archive::OPEN:
 		header ('Content-Type: '. $obj->_mimetype);

@@ -89,8 +89,86 @@ function removeAccents ($str)
 	return html_entity_decode ($str, ENT_NOQUOTES, 'UTF-8');
 }
 
-function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE)
+function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FALSE, $webp = FALSE, $jp2 = FALSE)
 {
+	if (!file_exists ($file) || !is_readable ($file) || !(int) filesize ($file))
+		throw new Exception ('Trying to resize inexistent or unreadable image!');
+	
+	if (!(int) $width && !(int) $height && !(bool) $bw && !(bool) $webp && !(bool) $jp2)
+	{
+		header ('Content-Type: '. $type);
+		
+		echo file_get_contents ($file);
+
+		exit ();
+	}
+
+	$vetor = getimagesize ($file);
+
+	$atualWidth  = $vetor [0];
+	$atualHeight = $vetor [1];
+
+	if (!$width || !$height)
+	{
+		if (!$width && !$height)
+		{
+			$width = $atualWidth;
+			$height = $atualHeight;
+		}
+		elseif ($width && !$height)
+			$height = ($atualHeight * $width) / $atualWidth;
+		else
+			$width = ($atualWidth * $height) / $atualHeight;
+	}
+
+	if(!$force)
+	{
+		if ($atualWidth < $atualHeight && $width > $height)
+		{
+			$aux = $width;
+			$width = $height;
+			$height = $aux;
+		}
+
+		if ((int) $atualWidth < (int) $width)
+		{
+			$width = $atualWidth;
+
+			$height = ($atualHeight * $width) / $atualWidth;
+		}
+	}
+
+	$width = round ($width);
+	$height = round ($height);
+
+	$padded = array_pop (explode ('_', $file));
+
+	$cache = Instance::singleton ()->getCachePath ();
+
+	if (!file_exists ($cache .'file') && !@mkdir ($cache .'file', 0777))
+		throw new Exception ('Unable create cache directory ['. $cache .'file] for cache WebP images!');
+
+	if (!file_exists ($cache .'file'. DIRECTORY_SEPARATOR .'.htaccess') && !file_put_contents ($cache .'file'. DIRECTORY_SEPARATOR .'.htaccess', 'deny from all'))
+		throw new Exception ('Impossible to enhance security for folder ['. $cache .'file].');
+	
+	if ($webp)
+		$qualifier = 'webp';
+	elseif ($jp2)
+		$qualifier = 'jp2';
+	else
+		$qualifier = 'resized';
+
+	$cached = $cache .'file'. DIRECTORY_SEPARATOR . $qualifier .'_'. $padded .'_'. $width .'x'. $height . ($bw ? '_bw' : '');
+	
+	if (file_exists ($cached) && is_readable ($cached) && (int) filesize ($cached))
+	{
+		header ('Content-Type: '. ($webp || $jp2 ? 'image/'. $qualifier : $type));
+		
+		echo file_get_contents ($cached);
+
+		exit ();
+	}
+	
 	$buffer = FALSE;
 
 	switch ($type)
@@ -109,53 +187,22 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 			imagealphablending ($buffer, TRUE);
 			imagesavealpha ($buffer, TRUE);
 			break;
+		
+		case 'image/webp':
+			$buffer = imagecreatefromwebp ($file);
+			break;
 	}
 
 	if (!$buffer)
-		throw new Exception ('MimeType do arquivo inválido ou a imagem não existe!');
+		throw new Exception ('Invalid image MIME type!');
 
 	if ($bw)
 		@imagefilter ($buffer, IMG_FILTER_GRAYSCALE);
 
-	$vetor = getimagesize ($file);
-
-	$atualWidth  = $vetor [0];
-	$atualHeight = $vetor [1];
-
-	if(!$force)
-	{
-		if (!$width || !$height)
-		{
-			if (!$width && !$height)
-			{
-				$width = $atualWidth;
-				$height = $atualHeight;
-			}
-			elseif ($width && !$height)
-				$height = ($atualHeight * $width) / $atualWidth;
-			else
-				$width = ($atualWidth * $height) / $atualHeight;
-		}
-
-		if ($atualWidth < $atualHeight && $width > $height)
-		{
-			$aux = $width;
-			$width = $height;
-			$height = $aux;
-		}
-
-		if ((int) $atualWidth < (int) $width)
-		{
-			$width = $atualWidth;
-
-			$height = ($atualHeight * $width) / $atualWidth;
-		}
-	}
-
 	if ($type != 'image/gif')
 	{
 		$thumb = imagecreatetruecolor ($width, $height);
-		$color = imagecolorallocatealpha ($thumb, 255, 255, 255, 75);
+		$color = imagecolorallocatealpha ($thumb, 255, 255, 255, 0);
 		imagefill ($thumb, 0, 0, $color);
 	}
 	else
@@ -163,8 +210,95 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 
 	$ok = imagecopyresized ($thumb, $buffer, 0, 0, 0, 0, $width, $height, $atualWidth, $atualHeight);
 
+	imagedestroy ($buffer);
+
 	if (!$ok)
-		throw new Exception ('Impossível redimensionar a imagem!');
+		throw new Exception ('Impossible to resize image!');
+	
+	if ($webp)
+	{
+		/*
+		 * Forcing to WebP means user needs optimize size of images. So, the quality used
+		 * is not 100, but the default of PHP (infering that is the optimal). 
+		 */
+
+		$cached = $cache .'file'. DIRECTORY_SEPARATOR . 'webp_'. $padded .'_'. $width .'x'. $height . ($bw ? '_bw' : '');
+
+		imagewebp ($thumb, $cached);
+
+		header ('Content-Type: image/webp');
+
+		imagewebp ($thumb);
+
+		imagedestroy ($thumb);
+
+		exit ();
+	}
+	
+	if ($jp2)
+	{
+		/*
+		 * Forcing to JPEG2000 means user needs optimize size of images. So, the quality used
+		 * is not 100, but 70% (resulting in file size similar to WebP). 
+		 */
+
+		$cached = $cache .'file'. DIRECTORY_SEPARATOR . 'jp2_'. $padded .'_'. $width .'x'. $height . ($bw ? '_bw' : '');
+
+		$jp2conversion = $cached .'-toJPEG2000';
+
+		imagejpeg ($thumb, $jp2conversion, 100);
+
+		// Try use ImageMagick in command line first...
+		
+		if (function_exists ('exec') && (`which convert`))
+			@exec ('convert '. $jp2conversion .' -quality 70 '. $cached);
+		
+		if (file_exists ($cached) && is_readable ($cached) && (int) filesize ($cached))
+		{
+			header ('Content-Type: image/jp2');
+			
+			echo file_get_contents ($cached);
+
+			imagedestroy ($thumb);
+
+			@unlink ($jp2conversion);
+	
+			exit ();
+		}
+
+		// If not success, try use imagick module from PHP...
+
+		if (extension_loaded ('imagick'))
+		{
+			$image = new Imagick ($jp2conversion);
+
+			$image->setImageFormat ('jp2');
+
+			$image->setImageCompression (Imagick::COMPRESSION_JPEG2000);
+
+			$image->setImageCompressionQuality (70);
+
+			$image->stripImage ();
+
+			$image->writeImage ($cached);
+
+			header ('Content-Type: image/jp2');
+
+			echo $image->getImageBlob();
+
+			$image->clear ();
+
+			imagedestroy ($thumb);
+
+			@unlink ($jp2conversion);
+
+			exit ();
+		}
+
+		@unlink ($jp2conversion);
+	}
+
+	$cached = $cache .'file'. DIRECTORY_SEPARATOR . 'resized_'. $padded .'_'. $width .'x'. $height . ($bw ? '_bw' : '');
 
 	header ('Content-Type: '. $type);
 
@@ -172,15 +306,27 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 	{
 		case 'image/jpeg':
 		case 'image/pjpeg':
-			imagejpeg ($thumb, NULL, 100);
+			imagejpeg ($thumb, $cached);
+
+			imagejpeg ($thumb);
 			break;
 
 		case 'image/gif':
+			imagegif ($thumb, $cached);
+
 			imagegif ($thumb);
 			break;
 
 		case 'image/png':
+			imagepng ($thumb, $cached);
+
 			imagepng ($thumb);
+			break;
+		
+		case 'image/webp':
+			imagewebp ($thumb, $cached);
+
+			imagewebp ($thumb);
 			break;
 	}
 

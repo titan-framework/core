@@ -1,4 +1,5 @@
 <?php
+
 if (!isset ($_GET ['fileId']) || !$_GET['fileId'] || !is_numeric ($_GET['fileId']))
 	exit ();
 
@@ -15,6 +16,18 @@ else
 $force = isset ($_GET['force']) && $_GET['force'] == '1' ? TRUE : FALSE;
 
 $bw = isset ($_GET['bw']) && $_GET['bw'] == '1' ? TRUE : FALSE;
+
+$webp = (isset ($_GET['webp']) && $_GET['webp'] == '1') || (isset ($_SERVER ['HTTP_ACCEPT']) && strpos ($_SERVER ['HTTP_ACCEPT'], 'image/webp') !== FALSE) ? TRUE : FALSE;
+
+$jp2 = FALSE;
+
+if ((isset ($_GET['jp2']) && $_GET['jp2'] == '1') || (isset ($_SERVER ['HTTP_USER_AGENT']) && strpos ($_SERVER ['HTTP_USER_AGENT'], 'Safari') !== FALSE))
+{
+	preg_match ('/Version\/(?P<version>[0-9]+)/', $_SERVER ['HTTP_USER_AGENT'], $parameters);
+
+	if ((float) $parameters ['version'] >= 6)
+		$jp2 = TRUE;
+}
 
 $fileId = (int) $_GET ['fileId'];
 
@@ -74,8 +87,8 @@ $contentType = $obj->_mimetype;
 switch ($assume)
 {
 	case Archive::IMAGE:
-		if ($width || $height || $bw)
-			resize ($filePath, $contentType, $width, $height, $force, $bw);
+		if ($width || $height || $bw || $webp || $jp2)
+			resize ($filePath, $contentType, $width, $height, $force, $bw, $webp, $jp2);
 		
 		header ('Content-Type: '. $contentType);
 		header ('Content-Disposition: inline; filename=' . fileName ($obj->_name));
@@ -113,4 +126,3 @@ try
 }
 catch (PDOException $e)
 {}
-?>

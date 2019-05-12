@@ -1,4 +1,5 @@
 <?php
+
 if (!isset ($_GET ['fileId']) || !$_GET['fileId'] || !is_numeric ($_GET['fileId']))
 	die ();
 
@@ -49,39 +50,31 @@ if (!file_exists ($archive->getDataPath () . 'file_' . str_pad ($fileId, 7, '0',
 	!file_exists ($archive->getDataPath () . 'file_' . str_pad ($fileId, 19, '0', STR_PAD_LEFT)))
 	die ();
 
-$filePath = Instance::singleton ()->getCorePath () .'interface/file/' . $archive->getIcon ($obj->_mimetype) . '.gif';
-
-$contentType = 'image/png';
-
-switch ($assume)
+if ($assume == Archive::IMAGE)
 {
-	case Archive::IMAGE:
-		$filePath = $archive->getDataPath () . 'file_' . str_pad ($fileId, 19, '0', STR_PAD_LEFT);
-		
-		if (!file_exists ($filePath))
-			$filePath = $archive->getDataPath () . 'file_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT);
-		
-		$contentType = $obj->_mimetype;
-		
-		if ($width && $height)
-			resize ($filePath, $contentType, $width, $height, TRUE);
-		
-		if ($width || $height)
-			resize ($filePath, $contentType, $width, $height);
-		
-		break;
+	$filePath = $archive->getDataPath () . 'file_' . str_pad ($fileId, 19, '0', STR_PAD_LEFT);
+	
+	if (!file_exists ($filePath))
+		$filePath = $archive->getDataPath () . 'file_' . str_pad ($fileId, 7, '0', STR_PAD_LEFT);
+	
+	$contentType = $obj->_mimetype;
+	
+	resize ($filePath, $contentType, $width, $height, ($width && $height));
 }
+else
+{
+	$filePath = Instance::singleton ()->getCorePath () .'interface/file/' . $archive->getIcon ($obj->_mimetype) . '.gif';
 
-if (!file_exists ($filePath))
-	die ();
+	if (!file_exists ($filePath))
+		die ();
 
-$binary = fopen ($filePath, 'rb');
+	$binary = fopen ($filePath, 'rb');
 
-$buffer = fread ($binary, filesize ($filePath));
+	$buffer = fread ($binary, filesize ($filePath));
 
-fclose ($binary);
+	fclose ($binary);
 
-header ('Content-Type: '. $contentType);
+	header ('Content-Type: image/gif');
 
-echo $buffer;
-?>
+	echo $buffer;
+}

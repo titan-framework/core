@@ -1,4 +1,5 @@
 <?php
+
 $instance = Instance::singleton ();
 
 $file = $instance->getCorePath () . @$_GET ['file'];
@@ -9,10 +10,13 @@ $controlMime = array (	'css' 	=> 'text/css',
 						'jpeg' 	=> 'image/pjpeg',
 						'gif' 	=> 'image/gif',
 						'png' 	=> 'image/png',
+						'webp' 	=> 'image/webp',
 						'js' 	=> 'text/javascript',
 						'ico'	=> 'image/x-icon');
 
-$ext = array_pop (explode ('.', $file));
+$pieces = explode ('.', $file);
+
+$ext = array_pop ($pieces);
 
 if (!array_key_exists ($ext, $controlMime))
 	throw new Exception ('Permission denied for specified file type!');
@@ -43,4 +47,3 @@ if (filesize ($file))
 
 	echo $buffer;
 }
-?>

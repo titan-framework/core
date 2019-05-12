@@ -13,24 +13,19 @@ foreach ($tags as $tag)
 {
 	$src = $tag->getAttribute ('src');
 
-	preg_match ('/target=tScript\&type=File\&file=open\&id=([0-9]+)/i', $src, $result);
+	preg_match ('/target=tScript\&type=CKEditor\&file=open\&id=([0-9]+)/i', $src, $result);
 
 	if (sizeof ($result) != 2 || !(int) $result [1])
 		continue;
 
 	$fileId = $result [1];
 
-	$path = File::getFilePath ($fileId);
+	$path = CKEditor::getFilePath ($fileId);
 
 	if (!file_exists ($path))
-	{
-		$path = File::getLegacyFilePath ($fileId);
+		continue;
 
-		if (!file_exists ($path))
-			continue;
-	}
-
-	$type = Database::singleton ()->query ("SELECT _mimetype FROM _file WHERE _id = '". $fileId ."'")->fetchColumn ();
+	$type = Database::singleton ()->query ("SELECT _mimetype FROM _ckeditor WHERE _id = '". $fileId ."'")->fetchColumn ();
 
 	try
 	{
@@ -41,7 +36,7 @@ foreach ($tags as $tag)
 		if (sizeof ($result) != 3 || !(int) $result [1] || !(int) $result [2])
 			throw new Exception ();
 
-		$path = File::resize ($fileId, $type, $result [2], $result [1], TRUE, FALSE, FALSE, $field->useEmbeddedWebP (), $field->useEmbeddedJp2 ());
+		$path = CKEditor::resize ($fileId, $type, $result [2], $result [1], TRUE, FALSE, FALSE, $field->useEmbeddedWebP (), $field->useEmbeddedJp2 ());
 	}
 	catch (Exception $e)
 	{}
