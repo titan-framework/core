@@ -1,4 +1,4 @@
-<script src="//cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/ckeditor.js"></script>
 <script language="javascript" type="text/javascript">
 'global.Fck'.namespace ();
 
