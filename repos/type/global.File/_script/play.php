@@ -3,7 +3,7 @@
 if (!isset ($_GET ['id']) || !$_GET['id'] || !is_numeric ($_GET['id']))
 	exit ();
 
-ob_clean ();
+ob_end_clean ();
 
 set_time_limit (0);
 

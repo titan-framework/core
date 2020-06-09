@@ -68,7 +68,7 @@ switch ($assume)
 		break;
 }
 
-ob_clean ();
+ob_end_clean ();
 
 if (function_exists ('apache_setenv'))
 	@apache_setenv ('no-gzip', 1);

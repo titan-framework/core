@@ -5,7 +5,7 @@ if (!isset ($_GET ['fileId']) || !$_GET ['fileId'] || !is_numeric ($_GET ['fileI
 
 set_error_handler ('logPhpError');
 
-ob_clean ();
+ob_end_clean ();
 
 set_time_limit (0);
 
