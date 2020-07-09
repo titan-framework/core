@@ -472,7 +472,7 @@ class Lucene
 			throw new Exception (__ ('Impossible to create [[1]].', $path));
 
 		if (!file_exists ($path . $file) || !(int) filesize ($path . $file))
-			@system ('pdftotext -enc Latin1 -nopgbrk -q '. $original .' '. $path . $file .' > '. $path .'log', $trash);
+			@system ('pdftotext -nopgbrk -q '. $original .' '. $path . $file .' > '. $path .'log', $trash);
 
 		if (!file_exists ($path . $file) || !(int) filesize ($path . $file))
 			throw new Exception  (__ ('Impossible to create [[1]].', $path . $file));
