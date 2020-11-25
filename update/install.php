@@ -298,7 +298,24 @@ try
 
 		if (trim ($input) == 'yes')
 		{
-			if (!file_exists ('db'. DIRECTORY_SEPARATOR .'last.sql'))
+			$initializeDB = [
+				$_path . DIRECTORY_SEPARATOR .'db'. DIRECTORY_SEPARATOR .'last.sql',
+				$_path . DIRECTORY_SEPARATOR .'update'. DIRECTORY_SEPARATOR .'db'. DIRECTORY_SEPARATOR .'00000000000000.sql',
+			];
+
+			$initializeDBPath = null;
+
+			foreach ($initializeDB as $trash => $p)
+			{
+				if (!file_exists ($p) || !is_file ($p) || !is_readable ($p))
+					continue;
+
+				$initializeDBPath = $p;
+
+				break;
+			}
+
+			if (is_null ($initializeDBPath))
 				throw new Exception ("[CRITICAL] To install instance is necessary a project with standard folder structure. Thus, is needed a DUMP of initial database data and structure in file [". $_path ."/db/last.sql], but this file does not exists!");
 
 			if (!`su - postgres -c "psql -tAc \"SELECT 1 FROM pg_roles WHERE rolname = '$dbUser';\""`)
@@ -308,7 +325,7 @@ try
 
 			exec ('su - postgres -c "psql -d '. $dbName .' -c \"CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;\""');
 
-			exec ('su - postgres -c "psql -d '. $dbName .' -U '. $dbUser .' < '. $_path . DIRECTORY_SEPARATOR .'db'. DIRECTORY_SEPARATOR .'last.sql"');
+			exec ('su - postgres -c "psql -d '. $dbName .' -U '. $dbUser .' < '. $initializeDBPath .'"');
 		}
 	}
 
