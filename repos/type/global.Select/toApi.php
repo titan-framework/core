@@ -8,9 +8,8 @@ if ($field->getLinkColumn () == $field->getLinkApi ())
 $sth = $db->prepare ("SELECT ". $field->getLinkApi () ." FROM ". $field->getLink () ." WHERE ". $field->getLinkColumn () ." = :value");
 
 $value = $field->getValue ();
-$bind  = $field->getBindType ();
 
-$sth->bindParam (':value', $value, $bind);
+$sth->bindParam (':value', $value);
 
 $sth->execute ();
 

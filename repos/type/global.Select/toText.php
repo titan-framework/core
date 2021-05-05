@@ -5,9 +5,8 @@ if ($field->isEmpty ())
 $sth = $db->prepare ("SELECT ". implode (", ", $field->getColumnsView ()) ." FROM ". $field->getLink () ." WHERE ". $field->getLinkColumn () ." = :value");
 
 $value = $field->getValue ();
-$bind  = $field->getBindType ();
 
-$sth->bindParam (':value', $value, $bind);
+$sth->bindParam (':value', $value);
 
 $sth->execute ();
 

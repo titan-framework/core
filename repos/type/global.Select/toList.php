@@ -11,7 +11,7 @@ if ($color != '')
 
 $sth = $db->prepare ("SELECT ". implode (", ", $columns) ." FROM ". $field->getLink () ." WHERE ". $field->getLinkColumn () ." = :value");
 
-$sth->bindParam (':value', $field->getValue (), $field->getBindType ());
+$sth->bindParam (':value', $field->getValue ());
 
 $sth->execute ();
 
