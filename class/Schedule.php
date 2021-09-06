@@ -6,7 +6,7 @@
  * @category class
  * @package core
  * @subpackage util
- * @copyright 2005-2017 Titan Framework
+ * @copyright 2005-2021 Titan Framework
  * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see Instance, Section, Action
  * @link http://www.titanframework.com/docs/tutorials/scheduler-jobs/
@@ -32,6 +32,9 @@ class Schedule
 					$this->array [$key] = strtoupper ($fromXml [$key]) == 'TRUE' ? TRUE : FALSE;
 				else
 					$this->array [$key] = trim ($fromXml [$key]);
+		
+		if (trim ($this->array ['hash']) == '' && isset ($_ENV ['TITAN_SCHEDULE_HASH']) && trim ($_ENV ['TITAN_SCHEDULE_HASH']) != '')
+			$this->array ['hash'] = $_ENV ['TITAN_SCHEDULE_HASH'];
 	}
 
 	static public function singleton ()

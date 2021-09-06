@@ -7,7 +7,7 @@
  * @category class
  * @package core
  * @subpackage form
- * @copyright 2005-2017 Titan Framework
+ * @copyright 2005-2021 Titan Framework
  * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see View, Form
  */
@@ -96,7 +96,10 @@ class Search
 
 		$search = Instance::singleton ()->getSearch ();
 
-		if (array_key_exists ('hash', $search))
+		if (isset ($_ENV ['TITAN_SEARCH_HASH']) && trim ($_ENV ['TITAN_SEARCH_HASH']) != '')
+			$this->hash = $_ENV ['TITAN_SEARCH_HASH'];
+
+		if (array_key_exists ('hash', $search) && trim ($search ['hash']) != '')
 			$this->hash = $search ['hash'];
 
 		if (array_key_exists ('timeout', $search))

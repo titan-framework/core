@@ -7,7 +7,7 @@
  * @category class
  * @package core
  * @subpackage business
- * @copyright 2005-2017 Titan Framework
+ * @copyright 2005-2021 Titan Framework
  * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see Business, Section, Action
  */
@@ -117,6 +117,9 @@ class Instance
 			$this->array ['timezone'] = $_COOKIE['_TITAN_TIMEZONE_'];
 
 		date_default_timezone_set ($this->array ['timezone']);
+
+		if (trim ($this->array ['session']) == '' && isset ($_ENV ['TITAN_SESSION_NAME']) && trim ($_ENV ['TITAN_SESSION_NAME']) != '')
+			$this->array ['session'] = $_ENV ['TITAN_SESSION_NAME'];
 
 		if (array_key_exists ('database', $array))
 			$this->database = $array ['database'][0];

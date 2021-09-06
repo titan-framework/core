@@ -7,7 +7,7 @@
  * @category class
  * @package core
  * @subpackage database
- * @copyright 2005-2017 Titan Framework
+ * @copyright 2005-2021 Titan Framework
  * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see DatabaseMaker
  */
@@ -59,6 +59,9 @@ class Database
 		foreach ($this->array as $key => $value)
 			if (array_key_exists ($key, $db))
 				$this->array [$key] = (string) $db [$key];
+		
+		if (trim ($this->array ['password']) == '' && isset ($_ENV ['TITAN_DB_PASSWORD']) && trim ($_ENV ['TITAN_DB_PASSWORD']) != '')
+			$this->array ['password'] = $_ENV ['TITAN_DB_PASSWORD'];
 
 		switch ($this->sgbd)
 		{

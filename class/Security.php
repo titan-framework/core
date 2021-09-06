@@ -7,7 +7,7 @@
  * @category class
  * @package core
  * @subpackage security
- * @copyright 2005-2017 Titan Framework
+ * @copyright 2005-2021 Titan Framework
  * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see User, UserType, Group, AjaxLogon, AjaxPasswd, Ldap
  */
@@ -29,7 +29,7 @@ class Security
 
 		$this->array = array (	'xml-path'			=> '',
 								'timeout'			=> 1800,
-								'hash'				=> '24434ca29c539e014f9cbb3191831dc6',
+								'hash'				=> '',
 								'ldap-xml-path'		=> '',
 								'encrypt-on-client'	=> TRUE);
 
@@ -39,6 +39,12 @@ class Security
 					$this->array [$key] = strtoupper ($fromXml [$key]) == 'TRUE' ? TRUE : FALSE;
 				else
 					$this->array [$key] = trim ($fromXml [$key]);
+		
+		if (trim ($this->array ['hash']) == '')
+			if (isset ($_ENV ['TITAN_SECURITY_HASH']) && trim ($_ENV ['TITAN_SECURITY_HASH']) != '')
+				$this->array ['hash'] = $_ENV ['TITAN_SECURITY_HASH'];
+			else
+				$this->array ['hash'] = '24434ca29c539e014f9cbb3191831dc6';
 
 		if (array_key_exists ('ldap-xml-path', $fromXml) && file_exists ($fromXml ['ldap-xml-path']))
 		{
