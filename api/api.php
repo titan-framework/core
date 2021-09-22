@@ -28,6 +28,8 @@ try
 		$_auth->authenticate ();
 	else
 		$_auth->authenticateForRegister ();
+	
+	// throw new Exception (print_r ($_auth));
 
 	if (isset ($_GET['language']) && trim ($_GET['language']) != '')
 		Localization::singleton ()->setLanguage ($_GET['language']);

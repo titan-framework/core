@@ -57,7 +57,8 @@
 	"require": {
 		"php": ">=5.4",
 		"dompdf/dompdf": ">=0.7",
-		"facebook/graph-sdk": ">=5.5"
+		"facebook/graph-sdk": ">=5.5",
+		"firebase/php-jwt": "^5.4"
 	},
 	"config": {
 		"vendor-dir": "vendor"

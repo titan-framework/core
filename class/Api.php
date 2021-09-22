@@ -74,14 +74,10 @@ class Api
 
 	static public function factory ($drive, $array)
 	{
-		/* TODO
 		if (!file_exists (Instance::singleton ()->getReposPath () .'auth/'. $drive .'.php'))
 			return NULL;
 
 		require_once Instance::singleton ()->getReposPath () .'auth/'. $drive .'.php';
-		*/
-
-		require_once Instance::singleton ()->getCorePath () .'class/ApiAuth.php';
 
 		$class = $drive .'Auth';
 
