@@ -41,6 +41,24 @@ try
 			require $corePath .'api/auth.php';
 
 			break;
+		
+		case 'pin':
+
+			require $corePath .'api/pin.php';
+
+			break;
+		
+		case 'login':
+
+			require $corePath .'api/login.php';
+
+			break;
+
+		case 'remove':
+
+			require $corePath .'api/remove.php';
+
+			break;
 
 		case 'register':
 

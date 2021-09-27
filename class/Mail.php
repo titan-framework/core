@@ -14,17 +14,15 @@ class Mail
 {
 	static private $mail = FALSE;
 
-	private $register = array ();
-
-	private $forgot = array ();
-
-	private $create = array ();
+	private $templates = array ();
 
 	private $cacheMails = array ();
 
 	private $tags = array ();
 
 	private $receivers = array ();
+
+	private $types = [ 'register', 'forgot', 'create', 'pin-add', 'pin-del' ];
 
 	private final function __construct ()
 	{
@@ -50,14 +48,9 @@ class Mail
 			xmlCache ($cacheFile, $array);
 		}
 
-		if (array_key_exists ('register', $array))
-			$this->register = $array ['register'][0];
-
-		if (array_key_exists ('forgot', $array))
-			$this->forgot = $array ['forgot'][0];
-
-		if (array_key_exists ('create', $array))
-			$this->create = $array ['create'][0];
+		foreach ($this->types as $trash => $type)
+			if (array_key_exists ($type, $array))
+				$this->templates [$type] = $array [$type][0];
 	}
 
 	static public function singleton ()
@@ -75,10 +68,10 @@ class Mail
 	public function getForgot ($property = FALSE)
 	{
 		if ($property === FALSE)
-			return $this->forgot;
+			return $this->templates ['forgot'];
 
-		if (array_key_exists ($property, $this->forgot))
-			return $this->forgot [$property];
+		if (array_key_exists ($property, $this->templates ['forgot']))
+			return $this->templates ['forgot'][$property];
 
 		return '';
 	}
@@ -86,10 +79,10 @@ class Mail
 	public function getRegister ($property = FALSE)
 	{
 		if ($property === FALSE)
-			return $this->register;
+			return $this->templates ['register'];
 
-		if (array_key_exists ($property, $this->register))
-			return $this->register [$property];
+		if (array_key_exists ($property, $this->templates ['register']))
+			return $this->templates ['register'][$property];
 
 		return '';
 	}
@@ -97,10 +90,24 @@ class Mail
 	public function getCreate ($property = FALSE)
 	{
 		if ($property === FALSE)
-			return $this->create;
+			return $this->templates ['create'];
 
-		if (array_key_exists ($property, $this->create))
-			return $this->create [$property];
+		if (array_key_exists ($property, $this->templates ['create']))
+			return $this->templates ['create'][$property];
+
+		return '';
+	}
+
+	public function getTemplate ($type, $property = FALSE)
+	{
+		if (!array_key_exists ($type, $this->templates))
+			return '';
+		
+		if ($property === FALSE)
+			return $this->templates [$type];
+
+		if (array_key_exists ($property, $this->templates [$type]))
+			return $this->templates [$type][$property];
 
 		return '';
 	}

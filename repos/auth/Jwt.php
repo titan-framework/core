@@ -1,4 +1,7 @@
 <?php
+
+use Firebase\JWT\JWT;
+
 /**
  * This class contains implementation for JWT protocol.
  *
@@ -234,5 +237,15 @@ class JwtAuth extends ApiAuth
 
 		if (sizeof ($ids))
 			MobileDevice::sendNotification ($this->gcmApiKey, $ids, $message);
+	}
+
+	public function encrypt ($payload)
+	{
+		return JWT::encode ($payload, $this->token);
+	}
+
+	public function decrypt ($jwt)
+	{
+		return JWT::decode($jwt, $this->token, array('HS256'));
 	}
 }

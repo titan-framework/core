@@ -26,9 +26,12 @@ class Xml
 	{
 		$regTag = '/<([a-zA-Z0-9-_]*)(\s.*?)?((>(.*?)<\/\\1>)|(\/>))/s';
 		$regDirective = '/([a-zA-Z0-9-_]*)="(.*?)"/s';
-		$regComentary = '/<!--(.*)-->/Uis';
+		$regComentary = '/<!--[\\s\\S]*?(?:-->)?<!---+>?/Uis';
+		$regCData = '/<!\[CDATA\[((?:[^]]|\](?!\]>))*)\]\]>/Uis';
 
 		$text = preg_replace ($regComentary, '', $text);
+
+		$text = preg_replace_callback ($regCData, function ($matches) { return htmlspecialchars ($matches[1]); }, $text);
 
 		preg_match_all ($regTag, $text, $matchTag);
 
