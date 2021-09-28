@@ -24,114 +24,53 @@ class JwtAuth extends ApiAuth
 
 	public function authenticateForRegister ()
 	{
+		$unsupported = [ self::C_USER_LOGIN, self::C_USER_ID, self::C_USER_BROWSER, self::C_CLIENT, self::C_CLIENT_USER ];
+
+		if (sizeof (array_intersect ($unsupported, $this->context)))
+			throw new ApiException (__ ('Unsupported context used! Please, report to system administrator.'), ApiException::ERROR_SYSTEM, ApiException::SERVICE_UNAVAILABLE, 'The REST-Like API bus when using JWT do not support yet the following contexts: '. implode (', ', $unsupported) .'!');
+
 		if ($this->name == '' || $this->token == '')
-			throw new ApiException (__ ('Application credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: Application credentials are incorrect or empty!');
+			throw new ApiException (__ ('Application credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Impossible to load application by header parameter!');
+	
+		if (!Database::isUnique ('_user', '_email'))
+			throw new ApiException (__ ('e-Mail must be unique to authenticate user! Please, report to system administrator.'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 	}
 
 	public function authenticate ()
 	{
-		$this->requiredParamsIsFilled ();
+		$unsupported = [ self::C_USER_LOGIN, self::C_USER_ID, self::C_USER_BROWSER, self::C_CLIENT, self::C_CLIENT_USER ];
 
-		/*
+		if (sizeof (array_intersect ($unsupported, $this->context)))
+			throw new ApiException (__ ('Unsupported context used! Please, report to system administrator.'), ApiException::ERROR_SYSTEM, ApiException::SERVICE_UNAVAILABLE, 'The REST-Like API bus when using JWT do not support yet the following contexts: '. implode (', ', $unsupported) .'!');
+		
+		if ($this->name == '' || $this->token == '')
+			throw new ApiException (__ ('Application credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Impossible to load application by header parameter!');
+		
+		if ($this->signature == '')
+			throw new ApiException (__ ('Application credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: Application or/and Authorization are incorrect or empty!');
+
 		$db = Database::singleton ();
+		
+		if (!Database::isUnique ('_user', '_email'))
+			throw new ApiException (__ ('e-Mail must be unique to authenticate user! Please, report to system administrator.'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 
-		if (time () < $this->timestamp - 180)
-			throw new ApiException (__ ('The time of your device must be correct!'), ApiException::ERROR_REQUEST_TIMESTAMP, ApiException::BAD_REQUEST, 'UNIX timestamp of request is invalid (higher than server time)!');
+		$payload = $this->decrypt ($this->signature);
 
-		if (time () - $this->timestamp > $this->timeout)
-			throw new ApiException (__ ('Request timeout!'), ApiException::ERROR_REQUEST_TIMESTAMP, ApiException::REQUEST_TIME_OUT, 'UNIX timestamp of request is very old!');
+		if (!$payload || !is_object ($payload) || !isset ($payload->email) || trim ($payload->email) == '' || !preg_match('/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/', $payload->email))
+			throw new ApiException (__ ('Invalid bearer!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST);
 
-		if (sizeof (array_intersect (array (self::C_APP), $this->context)) && $this->appSignature != self::signature ($this->timestamp, $this->name, $this->token))
-			throw new ApiException (__ ('Invalid application credentials!'), ApiException::ERROR_APP_AUTH, ApiException::UNAUTHORIZED);
+		$sth = $db->prepare ("SELECT _id, _email AS id, _password AS passwd FROM _user WHERE _email = :mail AND _active = B'1' AND _deleted = B'0' LIMIT 1");
 
-		if (sizeof (array_intersect (array (self::C_CLIENT, self::C_CLIENT_USER), $this->context)))
-		{
-			if (!MobileDevice::isActive ())
-				throw new ApiException (__ ('Register of credentials for mobile devices is not enabled!'), ApiException::ERROR_CLIENT_AUTH, ApiException::UNAUTHORIZED);
+		$sth->bindParam (':mail', $payload->email, PDO::PARAM_STR);
 
-			$client = MobileDevice::getRegisteredDevice ($this->clientId);
+		$sth->execute ();
 
-			if (!is_object ($client))
-				throw new ApiException (__ ('This client is not registered!'), ApiException::ERROR_CLIENT_AUTH, ApiException::UNAUTHORIZED);
+		$user = $sth->fetch (PDO::FETCH_OBJ);
 
-			if ($this->clientSignature != self::signature ($this->timestamp, $client->id, $client->pk))
-				throw new ApiException (__ ('Invalid client credentials!'), ApiException::ERROR_CLIENT_AUTH, ApiException::UNAUTHORIZED);
+		if (!is_object ($user))
+			throw new ApiException (__ ('User does not exist or is inactive!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
 
-			if (in_array (self::C_CLIENT_USER, $this->context))
-			{
-				$sth = $db->prepare ("SELECT _id FROM _user WHERE _id = :id AND _active = B'1' AND _deleted = B'0' LIMIT 1");
-
-				$sth->bindParam (':id', $client->user, PDO::PARAM_INT);
-
-				$sth->execute ();
-
-				if (!is_object ($sth->fetch (PDO::FETCH_OBJ)))
-					throw new ApiException (__ ('User does not exist or is inactive!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
-
-				$this->setUser ($client->user);
-			}
-
-			MobileDevice::registerDeviceAccess ($this->clientId);
-		}
-
-		if (sizeof (array_intersect (array (self::C_USER_ID, self::C_USER_LOGIN, self::C_USER_MAIL, self::C_USER_BROWSER), $this->context)))
-		{
-			$user = NULL;
-
-			if (in_array (self::C_USER_LOGIN, $this->context))
-			{
-				$sth = $db->prepare ("SELECT _id, _login AS id, _password AS passwd FROM _user WHERE _login = :login AND _active = B'1' AND _deleted = B'0' LIMIT 1");
-
-				$sth->bindParam (':login', $this->userId, PDO::PARAM_STR);
-
-				$sth->execute ();
-
-				$user = $sth->fetch (PDO::FETCH_OBJ);
-			}
-			elseif (in_array (self::C_USER_ID, $this->context))
-			{
-				$sth = $db->prepare ("SELECT _id, _id AS id, _password AS passwd FROM _user WHERE _id = :id AND _active = B'1' AND _deleted = B'0' LIMIT 1");
-
-				$uid = (int) preg_replace ('/[^0-9]/i', '', $this->userId);
-
-				$sth->bindParam (':id', $uid, PDO::PARAM_INT);
-
-				$sth->execute ();
-
-				$user = $sth->fetch (PDO::FETCH_OBJ);
-			}
-			elseif (in_array (self::C_USER_MAIL, $this->context) || in_array (self::C_USER_BROWSER, $this->context))
-			{
-				if (!Database::isUnique ('_user', '_email'))
-					throw new ApiException (__ ('e-Mail must be unique to authenticate user! Please, report to system administrator.'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
-
-				$sth = $db->prepare ("SELECT _id, _email AS id, _password AS passwd FROM _user WHERE _email = :mail AND _active = B'1' AND _deleted = B'0' LIMIT 1");
-
-				$sth->bindParam (':mail', $this->userId, PDO::PARAM_STR);
-
-				$sth->execute ();
-
-				$user = $sth->fetch (PDO::FETCH_OBJ);
-			}
-
-			if (!is_object ($user))
-				throw new ApiException (__ ('User does not exist or is inactive!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
-
-			if (in_array (self::C_USER_BROWSER, $this->context))
-			{
-				$pk = BrowserDevice::getKeyForRegisteredUser ($user->_id);
-
-				if ($this->userSignature != self::signature ($this->timestamp, $user->id, $pk))
-					throw new ApiException (__ ('Invalid user credentials!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
-
-				BrowserDevice::registerAccess ($user->_id);
-			}
-			elseif ($this->userSignature != self::signature ($this->timestamp, $user->id, $user->passwd))
-				throw new ApiException (__ ('Invalid user credentials!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED);
-
-			$this->setUser ($user->_id);
-		}
-		*/
+		$this->setUser ($user->_id);
 
 		return TRUE;
 	}
@@ -140,28 +79,13 @@ class JwtAuth extends ApiAuth
 	{
 		$headers = self::getHeaders ();
 
-		$params = array (self::APP => 'app',
-						 self::SIGNATURE => 'signature');
+		$params = [
+			self::APP => 'app',
+			self::SIGNATURE => 'signature'
+		];
 
 		foreach ($params as $key => $param)
 			$this->$param = array_key_exists ($key, $headers) ? self::sanitizeParam ($key, $headers [$key]) : NULL;
-	}
-
-	protected function requiredParamsIsFilled ()
-	{
-		/*
-		if (!$this->timestamp)
-			throw new ApiException (__ ('Has a problem with your device clock! Please, verify.'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: UNIX timestamp is empty!');
-
-		if (sizeof (array_intersect (array (self::C_USER_ID, self::C_USER_LOGIN, self::C_USER_MAIL), $this->context)) && ($this->userId == '' || $this->userSignature == ''))
-			throw new ApiException (__ ('User credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: User credentials are incorrect or empty!');
-
-		if (sizeof (array_intersect (array (self::C_CLIENT, self::C_CLIENT_USER), $this->context)) && ($this->clientId == '' || $this->clientSignature == ''))
-			throw new ApiException (__ ('Client credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: Client credentials are incorrect or empty!');
-
-		if (sizeof (array_intersect (array (self::C_APP), $this->context)) && ($this->name == '' || $this->token == ''))
-			throw new ApiException (__ ('Application credentials are incorrect or empty!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid header parameter: Application credentials are incorrect or empty!');
-		*/
 	}
 
 	public static function getHeaders ()
@@ -177,11 +101,6 @@ class JwtAuth extends ApiAuth
 		return self::$headers;
 	}
 
-	static protected function signature ($timestamp, $id, $signature)
-	{
-		return hash_hmac ('sha1', $timestamp . $id, $signature);
-	}
-
 	static protected function sanitizeParam ($param, $value)
 	{
 		$value = trim ($value);
@@ -190,7 +109,7 @@ class JwtAuth extends ApiAuth
 		{
 			case self::SIGNATURE:
 
-				if (!preg_match ('/^Bearer:\s*([\w-]+\.[\w-]+\.[\w-]+)$/', $value, $match) || sizeof ($match) < 2 || trim ($match [1]) == '')
+				if (!preg_match ('/^Bearer\s+([\w-]+\.[\w-]+\.[\w-]+)$/', $value, $match) || sizeof ($match) < 2 || trim ($match [1]) == '')
 					return NULL;
 
 				return $match [1];

@@ -161,11 +161,7 @@ abstract class ApiAuth
 
 	abstract protected function loadParamsByHeaders ();
 
-	abstract protected function requiredParamsIsFilled ();
-
 	abstract public function isActive ();
-
-	abstract static protected function signature ($timestamp, $id, $signature);
 
 	abstract static protected function sanitizeParam ($param, $value);
 
