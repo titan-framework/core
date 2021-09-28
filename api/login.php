@@ -106,6 +106,17 @@ if (!$sth->fetch (PDO::FETCH_OBJ))
 	}
 }
 
+try
+{
+	$sth = $db->prepare ("DELETE FROM _pin WHERE _email = :email");
+
+	$sth->execute ([ ':email' => $email ]);
+}
+catch (PDOException $e)
+{
+	toLog ($e->getMessage ());
+}
+
 $jwt = $_auth->encrypt ([ 'email' => $email ]);
 
-echo $jwt;
+echo json_encode ((object) [ 'token' => $jwt ]);

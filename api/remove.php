@@ -18,7 +18,7 @@ $db = Database::singleton ();
 
 $db->exec ("DELETE FROM _pin WHERE _type = 'DEL' AND _date < NOW() - INTERVAL '60 MINUTES'");
 
-$sth = $db->prepare ("SELECT u._id FROM _pin AS p JOIN _user AS u ON u._email = p._email WHERE u._id = :user AND p._pin = :pin AND p._type = 'DEL' AND p._date >= NOW() - INTERVAL '60 MINUTES'");
+$sth = $db->prepare ("SELECT u._id, u._email FROM _pin AS p JOIN _user AS u ON u._email = p._email WHERE u._id = :user AND p._pin = :pin AND p._type = 'DEL' AND p._date >= NOW() - INTERVAL '60 MINUTES'");
 
 $sth->bindParam (':user', $_auth->getUser (), PDO::PARAM_INT);
 $sth->bindParam (':pin', $pin, PDO::PARAM_STR, 6);
@@ -33,3 +33,14 @@ if (!$obj || !isset ($obj->_id) || is_null ($obj->_id) || !(int) $obj->_id)
 $sth = $db->prepare ("DELETE FROM _user WHERE _id = :user");
 
 $sth->execute ([ ':user' => (int) $obj->_id ]);
+
+try
+{
+	$sth = $db->prepare ("DELETE FROM _pin WHERE _email = :email");
+
+	$sth->execute ([ ':email' => $obj->_email ]);
+}
+catch (PDOException $e)
+{
+	toLog ($e->getMessage ());
+}
