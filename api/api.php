@@ -37,8 +37,9 @@ try
 	switch ($_uri [0])
 	{
 		case 'auth':
+		case 'user':
 
-			require $corePath .'api/auth.php';
+			require $corePath .'api/user.php';
 
 			break;
 		
