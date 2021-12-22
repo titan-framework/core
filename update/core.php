@@ -64,8 +64,8 @@ function updateCoreBySvn ($_path)
 
 		echo "INFO > Installing (or updating) dependencies (with Composer)... \n";
 
-		exec (COMPOSER .' install --no-dev');
-		exec (COMPOSER .' update --no-dev');
+		exec (COMPOSER .' install --no-dev -n');
+		exec (COMPOSER .' update --no-dev -n');
 
 		setPermission ($_path, octdec ('0775'), octdec ('0664'), 'root', 'staff');
 
