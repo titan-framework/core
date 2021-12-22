@@ -195,7 +195,7 @@ function updateInstanceByGit ($_path)
 
 		exec (GIT .' checkout '. $_last);
 
-		exec (GIT .' checkout stash -- .');
+		exec (GIT .' merge --squash --strategy-option=theirs stash');
 
 		exec (GIT .' stash drop');
 
