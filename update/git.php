@@ -191,11 +191,11 @@ function updateInstanceByGit ($_path)
 
 		exec (GIT .' checkout origin/'. $_branch);
 
-		exec (GIT .' pull origin '. $_branch);
+		exec (GIT .' pull origin '. $_branch .' --rebase');
 
 		exec (GIT .' checkout '. $_last);
 
-		exec (GIT .' merge --squash --strategy-option=theirs stash');
+		exec (GIT .' checkout stash -- .');
 
 		exec (GIT .' stash drop');
 
