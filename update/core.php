@@ -114,11 +114,11 @@ function updateCoreByGit ($_path)
 
 			exec (GIT .' checkout origin/master');
 
-			exec (GIT .' pull origin master');
+			exec (GIT .' pull origin master --rebase');
 
 			exec (GIT .' checkout '. $last);
 
-			exec (GIT .' merge --squash --strategy-option=theirs stash');
+			exec (GIT .' checkout stash -- .');
 
 			exec (GIT .' stash drop');
 
