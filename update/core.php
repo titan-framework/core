@@ -124,8 +124,8 @@ function updateCoreByGit ($_path)
 
 			echo "INFO > Installing (or updating) dependencies (with Composer)... \n";
 
-			exec (COMPOSER .' install --no-dev');
-			exec (COMPOSER .' update --no-dev');
+			exec (COMPOSER .' install --no-dev -n');
+			exec (COMPOSER .' update --no-dev -n');
 
 			echo "INFO > Setting permissions... \n";
 

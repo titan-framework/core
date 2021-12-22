@@ -448,8 +448,8 @@ function updateInstanceBySvn ($_path)
 		{
 			echo "INFO > Installing (or updating) dependencies (with Composer)... \n";
 
-			exec (COMPOSER .' install --no-dev');
-			exec (COMPOSER .' update --no-dev');
+			exec (COMPOSER .' install --no-dev -n');
+			exec (COMPOSER .' update --no-dev -n');
 
 			setPermission ('vendor', $_conf ['dir-mode'], $_conf ['file-mode'], $_conf ['owner'], $_conf ['group']);
 		}
