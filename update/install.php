@@ -108,8 +108,8 @@ try
 	 * Installing composer dependencies
 	 */
 
-	exec (COMPOSER .' install --no-dev', $out);
-	exec (COMPOSER .' update --no-dev', $out);
+	exec (COMPOSER .' install --no-dev -n', $out);
+	exec (COMPOSER .' update --no-dev -n', $out);
 
 	/*
 	 * Open configuration file
