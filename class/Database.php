@@ -281,15 +281,30 @@ class Database
 				toLog ($e->getMessage ());
 			}
 
-		$sql = "SELECT a.adsrc AS seq
+		$sq1 = "SELECT a.adsrc AS seq
 				FROM pg_class c
 				JOIN pg_attrdef a ON c.oid = a.adrelid
 				JOIN pg_namespace n ON c.relnamespace = n.oid
 				WHERE c.relname = '". $table ."' AND n.nspname = '". $schema ."' AND a.adsrc ~ '^nextval'";
 
-		$sth = $db->prepare ($sql);
+		$sq2 = "SELECT pg_get_expr(a.adbin, a.adrelid) AS seq
+				FROM pg_class c
+				JOIN pg_attrdef a ON c.oid = a.adrelid
+				JOIN pg_namespace n ON c.relnamespace = n.oid
+				WHERE c.relname = '". $table ."' AND n.nspname = '". $schema ."' AND pg_get_expr(a.adbin, a.adrelid) ~ '^nextval'";
 
-		$sth->execute ();
+		try
+		{
+			$sth = $db->prepare ($sq1);
+
+			$sth->execute ();
+		}
+		catch (PDOException $e)
+		{
+			$sth = $db->prepare ($sq2);
+
+			$sth->execute ();
+		}
 
 		$result = FALSE;
 
@@ -393,15 +408,30 @@ class Database
 				toLog ($e->getMessage ());
 			}
 
-		$sql = "SELECT a.adsrc AS seq
+		$sq1 = "SELECT a.adsrc AS seq
 				FROM pg_class c
 				JOIN pg_attrdef a ON c.oid = a.adrelid
 				JOIN pg_namespace n ON c.relnamespace = n.oid
 				WHERE c.relname = '". $table ."' AND n.nspname = '". $schema ."' AND a.adsrc ~ '^nextval'";
 
-		$sth = $db->prepare ($sql);
+		$sq2 = "SELECT pg_get_expr(a.adbin, a.adrelid) AS seq
+				FROM pg_class c
+				JOIN pg_attrdef a ON c.oid = a.adrelid
+				JOIN pg_namespace n ON c.relnamespace = n.oid
+				WHERE c.relname = '". $table ."' AND n.nspname = '". $schema ."' AND pg_get_expr(a.adbin, a.adrelid) ~ '^nextval'";
 
-		$sth->execute ();
+		try
+		{
+			$sth = $db->prepare ($sq1);
+
+			$sth->execute ();
+		}
+		catch (PDOException $e)
+		{
+			$sth = $db->prepare ($sq2);
+
+			$sth->execute ();
+		}
 
 		$result = FALSE;
 

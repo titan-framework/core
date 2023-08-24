@@ -93,7 +93,7 @@ class Version
 					adsrc AS value_default
 				FROM (
 						(
-							SELECT attnum, attname, typname, atttypmod, attnotnull, atthasdef, adsrc
+							SELECT attnum, attname, typname, atttypmod, attnotnull, atthasdef, pg_get_expr(adbin, adrelid) AS adsrc
 							FROM pg_attribute, pg_class, pg_type, pg_attrdef
 							WHERE
 								pg_class.oid = attrelid AND
