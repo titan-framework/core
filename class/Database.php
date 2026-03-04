@@ -59,7 +59,7 @@ class Database
 		foreach ($this->array as $key => $value)
 			if (array_key_exists ($key, $db))
 				$this->array [$key] = (string) $db [$key];
-		
+
 		if (trim ($this->array ['password']) == '' && isset ($_ENV ['TITAN_DB_PASSWORD']) && trim ($_ENV ['TITAN_DB_PASSWORD']) != '')
 			$this->array ['password'] = $_ENV ['TITAN_DB_PASSWORD'];
 

@@ -24,6 +24,22 @@ class Xml
 
 	private static function xmlParser ($text)
 	{
+		$text = preg_replace_callback ('/\$\{(TITAN_[A-Z0-9_]+)\}/', function ($matches)
+		{
+			$value = isset ($_ENV [$matches [1]]) ? $_ENV [$matches [1]] : getenv ($matches [1]);
+
+			if ($value === FALSE || trim ($value) === '')
+			{
+				error_log ('Titan XML: environment variable ' . $matches [1] . ' is not defined');
+
+				return '';
+			}
+
+			$value = str_replace (['"', '<', '>'], '', $value);
+
+			return $value;
+		}, $text);
+
 		$regTag = '/<([a-zA-Z0-9-_]*)(\s.*?)?((>(.*?)<\/\\1>)|(\/>))/s';
 		$regDirective = '/([a-zA-Z0-9-_]*)="(.*?)"/s';
 		$regComentary = '/<!--[\\s\\S]*?(?:-->)?<!---+>?/Uis';
