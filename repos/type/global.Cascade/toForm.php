@@ -19,20 +19,26 @@ while ($item = $sth->fetch (PDO::FETCH_OBJ))
 $id = $field->getValue ();
 
 $aux = array ();
+$visited = array ();
 
 while (!is_null ($id))
 {
+	if (isset ($visited [$id]))
+		break;
+
+	$visited [$id] = TRUE;
+
 	$aux [$id] = array ();
-	
+
 	$sth = $db->prepare ("SELECT ". $columns .", ". $field->getLinkColumn () ." FROM ". $field->getLink () ." WHERE ". $field->getFatherColumn () ." = '". $id ."'". ($field->getWhere () != "" ? " AND ". $field->getWhere () : "") ." ORDER BY ". $columns);
-	
+
 	$sth->execute ();
-	
+
 	while ($item = $sth->fetch (PDO::FETCH_OBJ))
 		$aux [$id][$item->$linkColumn] = array ($item->$linkColumn, $field->makeView ($item));
-	
+
 	$query = $db->query ("SELECT ". $field->getFatherColumn () ." FROM ". $field->getLink () ." WHERE ". $field->getLinkColumn () ." = '". $id ."'");
-	
+
 	$id = $query->fetchColumn ();
 }
 
