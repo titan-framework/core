@@ -3,9 +3,25 @@
 if (!$field->useEmbeddedImages () || empty ($field->getValue ()))
 	return $field->getValue ();
 
+/*
+ * O HTML gravado pelo editor pode chegar malformado (ex.: "&" sem escape na URL da imagem,
+ * como "...&type=CKEditor&file=open&id=N"). Sem suprimir os erros do libxml, DOMDocument::loadHTML()
+ * emite E_WARNING ("htmlParseEntityRef: expecting ';'") e o handler da API (apiPhpError) responde
+ * HTTP 500 para a listagem inteira por causa de um único registro. O libxml recupera o HTML mesmo
+ * assim; basta não deixar o warning escapar.
+ */
+$useInternalErrors = libxml_use_internal_errors (TRUE);
+
 $doc = new DOMDocument ();
 
-$doc->loadHTML (mb_convert_encoding ($field->getValue (), 'HTML-ENTITIES', 'UTF-8'));
+$loaded = $doc->loadHTML (mb_convert_encoding ($field->getValue (), 'HTML-ENTITIES', 'UTF-8'));
+
+libxml_clear_errors ();
+
+libxml_use_internal_errors ($useInternalErrors);
+
+if (!$loaded)
+	return $field->getValue ();
 
 $tags = $doc->getElementsByTagName ('img');
 
@@ -13,7 +29,8 @@ foreach ($tags as $tag)
 {
 	$src = $tag->getAttribute ('src');
 
-	preg_match ('/target=tScript\&type=CKEditor\&file=open\&id=([0-9]+)/i', $src, $result);
+	// Aceita "&" cru, "&amp;" e HTML duplamente codificado ("&amp;amp;").
+	preg_match ('/target=tScript&(?:amp;)*type=CKEditor&(?:amp;)*file=open&(?:amp;)*id=([0-9]+)/i', $src, $result);
 
 	if (sizeof ($result) != 2 || !(int) $result [1])
 		continue;
@@ -41,11 +58,23 @@ foreach ($tags as $tag)
 	catch (Exception $e)
 	{}
 
+	// Arquivo ilegível (ou redimensionamento que devolveu caminho inválido) não pode virar warning: mantém a URL original.
+	if (!is_string ($path) || !is_readable ($path))
+		continue;
+
 	$data = file_get_contents ($path);
+
+	if ($data === FALSE)
+		continue;
 
 	$base64 = 'data:'. mime_content_type ($path) .';base64,' . base64_encode ($data);
 
 	$tag->setAttribute ('src', $base64);
 }
 
-return substr ($doc->saveHTML ($doc->getElementsByTagName ('body')->item (0)), 6, -7);
+$body = $doc->getElementsByTagName ('body')->item (0);
+
+if (!$body)
+	return $field->getValue ();
+
+return substr ($doc->saveHTML ($body), 6, -7);
