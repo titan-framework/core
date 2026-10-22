@@ -76,8 +76,8 @@ class XOAD_Cache_Storage_Files extends XOAD_Cache_Storage
 		if (strlen($this->container) >= 3) {
 
 			if (
-			($this->container{1} == ':') &&
-			($this->container{2} == DIRECTORY_SEPARATOR)) {
+			($this->container[1] == ':') &&
+			($this->container[2] == DIRECTORY_SEPARATOR)) {
 
 				return $this->container . DIRECTORY_SEPARATOR . $id;
 			}

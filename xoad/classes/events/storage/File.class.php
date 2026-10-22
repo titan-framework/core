@@ -145,8 +145,8 @@ class XOAD_Events_Storage_File extends XOAD_Events_Storage
 		if (strlen($this->container) >= 3) {
 
 			if (
-			($this->container{1} == ':') &&
-			($this->container{2} == DIRECTORY_SEPARATOR)) {
+			($this->container[1] == ':') &&
+			($this->container[2] == DIRECTORY_SEPARATOR)) {
 
 				return $this->container;
 			}
