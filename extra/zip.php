@@ -125,6 +125,11 @@ class Archive_Zip
     * @param    string  $p_zipname  The name of the zip archive to create
     * @access public
     */
+    // PHP 8: metodos com o nome da classe nao sao mais construtores; __construct delega ao original.
+    function __construct($p_zipname) {
+    	$this->Archive_Zip($p_zipname);
+    }
+
     function Archive_Zip($p_zipname)
     {
 

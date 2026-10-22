@@ -681,6 +681,11 @@ class GroupBarPlot extends BarPlot {
     private $nbrplots=0;
     //---------------
     // CONSTRUCTOR
+    // PHP 8: metodos com o nome da classe nao sao mais construtores; __construct delega ao original.
+    function __construct($plots) {
+    	$this->GroupBarPlot($plots);
+    }
+
     function GroupBarPlot($plots) {
         $this->width=0.7;
         $this->plots = $plots;

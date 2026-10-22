@@ -267,6 +267,11 @@ class FlagImages {
     private $iFlagData ;
     private $iOrdIdx=array();
 
+    // PHP 8: metodos com o nome da classe nao sao mais construtores; __construct delega ao original.
+    function __construct($aSize=FLAGSIZE1) {
+    	$this->FlagImages($aSize);
+    }
+
     function FlagImages($aSize=FLAGSIZE1) {
         switch($aSize) {
             case FLAGSIZE1 :

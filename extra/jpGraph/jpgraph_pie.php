@@ -296,7 +296,7 @@ class PiePlot {
 
         // Make sure we don't plot more values than data points
         // (in case the user added more legends than data points)
-        $n = min(count($this->legends),count($this->data));
+        $n = min(count((array) $this->legends),count((array) $this->data));
         if( $this->legends != "" ) {
             $this->legends = array_reverse(array_slice($this->legends,0,$n));
         }

@@ -610,7 +610,7 @@ try
 
 				imagepng ($img);
 
-				imagedestroy ($im);
+				imagedestroy ($img);
 
 				exit ();
 			}

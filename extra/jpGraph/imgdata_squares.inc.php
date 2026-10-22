@@ -19,6 +19,11 @@ class ImgData_Squares extends ImgData {
     protected $maxidx = 7 ;
     protected $imgdata ;
 
+    // PHP 8: metodos com o nome da classe nao sao mais construtores; __construct delega ao original.
+    function __construct() {
+    	$this->ImgData_Squares();
+    }
+
     function ImgData_Squares () {
         //==========================================================
         //sq_lblue.png
