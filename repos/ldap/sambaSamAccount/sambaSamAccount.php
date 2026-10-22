@@ -32,6 +32,18 @@ class LdapSambaSamAccount extends LdapClass
 		return strtoupper ($p1 . $p2);
 	}
 
+	/**
+	 * Cifra a constante "KGS!@#$%" com DES-ECB usando a chave de 56 bits
+	 * derivada de 7 caracteres da senha (algoritmo LM hash do LAN Manager).
+	 *
+	 * Ate a versao anterior isto usava a extensao mcrypt, removida no PHP 7.2.
+	 * Agora usa OpenSSL. Como o DES simples ("des-ecb") esta no provider
+	 * "legacy" do OpenSSL 3 (indisponivel por padrao), a cifra e feita com
+	 * 3DES ("des-ede3-ecb") usando a mesma chave nas tres rodadas, o que e
+	 * matematicamente identico ao DES simples e esta no provider padrao.
+	 * A saida foi validada contra o vetor conhecido LM("password") =
+	 * E52CAC67419A9A224A3B108F3FA6CB6D nos PHP 7.4, 8.3 e 8.4.
+	 */
 	static protected function lmHashDesEncrypt ($str)
 	{
 		$key = array();
@@ -50,18 +62,54 @@ class LdapSambaSamAccount extends LdapClass
 		$key[] = ($tmp[4] << 3) | ($tmp[5] >> 5);
 		$key[] = ($tmp[5] << 2) | ($tmp[6] >> 6);
 		$key[] = $tmp[6] << 1;
-	  
-		$is = mcrypt_get_iv_size (MCRYPT_DES, MCRYPT_MODE_ECB);
-		$iv = mcrypt_create_iv ($is, MCRYPT_RAND);
 		
 		$key0 = '';
-	  
-		foreach ($key as $trash => $k)
-			$key0 .= chr($k);
 		
-		$crypt = mcrypt_encrypt (MCRYPT_DES, $key0, 'KGS!@#$%', MCRYPT_MODE_ECB, $iv);
+		foreach ($key as $trash => $k)
+			$key0 .= chr ($k & 255);
+		
+		$crypt = self::desEcbEncrypt ($key0, 'KGS!@#$%');
 	
 		return bin2hex ($crypt);
+	}
+
+	/**
+	 * DES-ECB de um unico bloco de 8 bytes, sem padding.
+	 *
+	 * @param string $key   Chave DES de 8 bytes.
+	 * @param string $block Bloco de 8 bytes.
+	 * @return string Bloco cifrado (8 bytes).
+	 * @throws Exception Se nao houver implementacao disponivel.
+	 */
+	static protected function desEcbEncrypt ($key, $block)
+	{
+		if (function_exists ('openssl_encrypt'))
+		{
+			$ciphers = array_map ('strtolower', openssl_get_cipher_methods ());
+
+			$flags = OPENSSL_RAW_DATA | OPENSSL_ZERO_PADDING;
+
+			if (in_array ('des-ede3-ecb', $ciphers))
+			{
+				$crypt = openssl_encrypt ($block, 'des-ede3-ecb', $key . $key . $key, $flags);
+
+				if ($crypt !== FALSE && strlen ($crypt) == 8)
+					return $crypt;
+			}
+
+			if (in_array ('des-ecb', $ciphers))
+			{
+				$crypt = openssl_encrypt ($block, 'des-ecb', $key, $flags);
+
+				if ($crypt !== FALSE && strlen ($crypt) == 8)
+					return $crypt;
+			}
+		}
+
+		if (function_exists ('mcrypt_encrypt'))
+			return mcrypt_encrypt (MCRYPT_DES, $key, $block, MCRYPT_MODE_ECB, str_repeat ("\0", 8));
+
+		throw new Exception ('Impossible to generate Samba LM hash: neither OpenSSL (with DES or 3DES in ECB mode) nor mcrypt is available in this PHP build!');
 	}
 	
 	static protected function ntHash ($str)
