@@ -18,12 +18,14 @@ function translateType ($field)
 	
 	$next = get_parent_class ($type);
 	
-	while (!array_key_exists ($type, $map) && $next != 'Type' && $next !== FALSE)
+	while (!array_key_exists (Instance::singleton ()->getTypeName ($type), $map) && $next != 'Type' && $next !== FALSE)
 	{
 		$type = $next;
 		
 		$next = get_parent_class ($next);
 	}
+	
+	$type = Instance::singleton ()->getTypeName ($type);
 	
 	if (array_key_exists ($type, $map))
 		return $map [$type][0];
@@ -60,6 +62,8 @@ function translateDatabase ($field)
 		
 		$next = get_parent_class ($next);
 	}
+	
+	$type = Instance::singleton ()->getTypeName ($type);
 	
 	if (array_key_exists ($type, $map))
 		return $map [$type][1];

@@ -148,10 +148,12 @@ abstract class Type
 		if (!array_key_exists ('type', $array))
 			return NULL;
 
-		if (!array_key_exists ($array ['type'], Instance::singleton ()->getTypes ()))
+		$class = Instance::singleton ()->getTypeClass ($array ['type']);
+
+		if ($class === NULL)
 			return NULL;
 
-		return new $array ['type'] ($table, $array);
+		return new $class ($table, $array);
 	}
 
 	public function getAssign ()

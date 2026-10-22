@@ -57,6 +57,8 @@ class Instance
 
 	private $types = array ();
 
+	private $typeClasses = array ();
+
 	private $tool = array ();
 
 	private $tools = array ();
@@ -217,7 +219,11 @@ class Instance
 
 		foreach ($aux as $trash => $type)
 			if (array_key_exists ('component', $type) && file_exists ($this->getReposPath () .'type/'. $type ['component'] .'/'. $type ['name'] .'.php') && (!array_key_exists ('legacy', $type) || !is_numeric (trim ($type ['legacy'])) || ((int) trim ($type ['legacy'])) > $noTypeLegacyLevel))
+			{
 				$this->types [$type ['name']] = $this->getReposPath () .'type/'. $type ['component'] .'/';
+
+				$this->typeClasses [$type ['name']] = self::resolveTypeClass ($type);
+			}
 
 		if (is_array ($this->type) && array_key_exists ('xml-path', $this->type) && trim ($this->type ['xml-path']) != '')
 		{
@@ -246,7 +252,11 @@ class Instance
 
 			foreach ($aux as $trash => $type)
 				if (array_key_exists ('path', $type) && file_exists ($type ['path'] . $type ['name'] .'.php'))
+				{
 					$this->types [$type ['name']] = $type ['path'];
+
+					$this->typeClasses [$type ['name']] = self::resolveTypeClass ($type);
+				}
 		}
 
 		reset ($this->types);
@@ -533,9 +543,17 @@ class Instance
 		return $this->types;
 	}
 
+	/**
+	 * Devolve o diretorio do tipo. Aceita tanto o nome do tipo usado nos XMLs
+	 * (p.e. "String") quanto o nome da classe PHP que o implementa (p.e.
+	 * "StringType"), ja que varios pontos do nucleo chamam este metodo com
+	 * get_class ($field) ao percorrer a hierarquia de classes do tipo.
+	 */
 	public function getTypePath ($type)
 	{
-		if (!array_key_exists ($type, $this->types))
+		$type = $this->getTypeName ($type);
+
+		if ($type === NULL)
 			return NULL;
 
 		return $this->types [$type];
@@ -543,7 +561,64 @@ class Instance
 
 	public function typeExists ($type)
 	{
-		return array_key_exists ($type, $this->types);
+		return $this->getTypeName ($type) !== NULL;
+	}
+
+	/**
+	 * Nome do tipo (chave do type.xml) a partir do nome do tipo ou da classe.
+	 * Devolve NULL se nao for um tipo carregado.
+	 */
+	public function getTypeName ($typeOrClass)
+	{
+		if (is_object ($typeOrClass))
+			$typeOrClass = get_class ($typeOrClass);
+
+		if (array_key_exists ($typeOrClass, $this->types))
+			return $typeOrClass;
+
+		$name = array_search ($typeOrClass, $this->typeClasses, TRUE);
+
+		if ($name !== FALSE)
+			return $name;
+
+		foreach ($this->typeClasses as $key => $class)
+			if (strcasecmp ($class, $typeOrClass) == 0)
+				return $key;
+
+		return NULL;
+	}
+
+	/**
+	 * Classe PHP que implementa o tipo. Por padrao e o proprio nome do tipo;
+	 * o atributo "class" do type.xml permite outro nome (caso de "Float" e
+	 * "String", que sao palavras reservadas desde o PHP 7 e sao implementados
+	 * por FloatType e StringType). Devolve NULL se o tipo nao existe.
+	 */
+	public function getTypeClass ($type)
+	{
+		$name = $this->getTypeName ($type);
+
+		if ($name === NULL)
+			return NULL;
+
+		if (array_key_exists ($name, $this->typeClasses))
+			return $this->typeClasses [$name];
+
+		return $name;
+	}
+
+	static private function resolveTypeClass ($type)
+	{
+		if (is_array ($type) && array_key_exists ('class', $type) && trim ($type ['class']) != '')
+			return trim ($type ['class']);
+
+		$name = is_array ($type) ? $type ['name'] : (string) $type;
+
+		// Nomes reservados pelo PHP: a classe recebe o sufixo "Type".
+		if (in_array (strtolower ($name), array ('string', 'float', 'int', 'bool', 'array', 'object', 'mixed', 'iterable', 'void', 'null', 'false', 'true', 'never', 'callable', 'resource', 'numeric')))
+			return $name .'Type';
+
+		return $name;
 	}
 
 	public function getTools ()

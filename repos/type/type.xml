@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <type-mapping>
 	<type name="Phrase" component="global.Phrase" />
-	<type name="String" component="global.String" legacy="2" />
+	<type name="String" component="global.String" class="StringType" legacy="2" />
 	<type name="Integer" component="global.Integer" />
 	<type name="Select" component="global.Select" />
 	<type name="Boolean" component="global.Boolean" />
 	<type name="Date" component="global.Date" />
 	<type name="Time" component="global.Time" />
 	<type name="Double" component="global.Double" />
-	<type name="Float" component="global.Float" legacy="2" />
+	<type name="Float" component="global.Float" class="FloatType" legacy="2" />
 	<type name="File" component="global.File" />
 	<type name="Amount" component="global.Amount" />
 	<type name="Slider" component="global.Slider" />
