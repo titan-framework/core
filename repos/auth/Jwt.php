@@ -1,6 +1,7 @@
 <?php
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 /**
  * This class contains implementation for JWT protocol.
@@ -160,11 +161,11 @@ class JwtAuth extends ApiAuth
 
 	public function encrypt ($payload)
 	{
-		return JWT::encode ($payload, $this->token);
+		return JWT::encode ($payload, $this->token, 'HS256');
 	}
 
 	public function decrypt ($jwt)
 	{
-		return JWT::decode($jwt, $this->token, array('HS256'));
+		return JWT::decode ($jwt, new Key ($this->token, 'HS256'));
 	}
 }
