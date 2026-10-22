@@ -117,7 +117,7 @@ class CloudFile extends File
 		switch ($archive->getAssume ($obj->mime))
 		{
 			case Archive::IMAGE:
-				$alt = $obj->name ." (". File::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
+				$alt = $obj->name ." (". File::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftimeLocal ('%x %X', $obj->taken));
 				?>
 				<a href="titan.php?target=tScript&type=CloudFile&file=open&fileId=<?= $id ?>&auth=1" target="_blank" title="<?= $alt ?>"><img src="titan.php?target=tScript&type=CloudFile&file=thumbnail&fileId=<?= $id ?>&height=<?= $dimension ?>&auth=1" alt="<?= $alt ?>" border="0" /></a>
 				<?php
@@ -138,7 +138,7 @@ class CloudFile extends File
 				}
 				else
 				{
-					$alt = $obj->name ." (". File::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
+					$alt = $obj->name ." (". File::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftimeLocal ('%x %X', $obj->taken));
 					?>
 					<div style="width: 343px; height: 106px;">
 						<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
@@ -167,7 +167,7 @@ class CloudFile extends File
 				}
 				else
 				{
-					$alt = $obj->name ." (". File::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
+					$alt = $obj->name ." (". File::formatFileSizeForHuman ($obj->size) ." &bull; ". $obj->mime .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftimeLocal ('%x %X', $obj->taken));
 					?>
 					<div style="width: 343px; height: 106px;">
 						<div style="position: absolute; width: 100px; height: 100px; top: 3px; left: 3px;">
@@ -195,7 +195,7 @@ class CloudFile extends File
 						<?= $obj->mime ?> <br /><br />
 						<?= $obj->user ?> <br />
 						<?= $obj->email ?> <br />
-						<?= strftime ('%x %X', $obj->taken) ?>
+						<?= strftimeLocal ('%x %X', $obj->taken) ?>
 					</div>
 				</div>
 				<?php

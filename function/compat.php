@@ -94,3 +94,13 @@ function utf8ToLatin1 ($str)
 
 	return utf8_decode ($str);
 }
+
+/**
+ * Substituto de strftime(), deprecada no PHP 8.1: formata no idioma corrente
+ * da instancia com saida identica a da glibc para pt_BR, en_US e es_ES.
+ * Veja class/DateFormatter.php.
+ */
+function strftimeLocal ($format, $timestamp = NULL)
+{
+	return DateFormatter::strftime ($format, $timestamp);
+}

@@ -118,9 +118,9 @@ class User
 		$ud = explode ('-', $obj->_update_date);
 		$ll = explode ('-', $obj->_last_logon);
 
-		$this->createDate  	= strftime ('%c', mktime ((int) $cd [0], (int) $cd [1], (int) $cd [2], (int) $cd [3], (int) $cd [4], (int) $cd [5]));
-		$this->updateDate 	= strftime ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
-		$this->lastLogon 	= strftime ('%c', mktime ((int) $ll [0], (int) $ll [1], (int) $ll [2], (int) $ll [3], (int) $ll [4], (int) $ll [5]));
+		$this->createDate  	= strftimeLocal ('%c', mktime ((int) $cd [0], (int) $cd [1], (int) $cd [2], (int) $cd [3], (int) $cd [4], (int) $cd [5]));
+		$this->updateDate 	= strftimeLocal ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
+		$this->lastLogon 	= strftimeLocal ('%c', mktime ((int) $ll [0], (int) $ll [1], (int) $ll [2], (int) $ll [3], (int) $ll [4], (int) $ll [5]));
 
 		$this->lastAccess = time ();
 
@@ -300,9 +300,9 @@ class User
 		$ud = explode ('-', $obj->_update_date);
 		$ll = explode ('-', $obj->_last_logon);
 
-		$this->createDate  	= strftime ('%c', mktime ((int) $cd [0], (int) $cd [1], (int) $cd [2], (int) $cd [3], (int) $cd [4], (int) $cd [5]));
-		$this->updateDate 	= strftime ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
-		$this->lastLogon 	= strftime ('%c', mktime ((int) $ll [0], (int) $ll [1], (int) $ll [2], (int) $ll [3], (int) $ll [4], (int) $ll [5]));
+		$this->createDate  	= strftimeLocal ('%c', mktime ((int) $cd [0], (int) $cd [1], (int) $cd [2], (int) $cd [3], (int) $cd [4], (int) $cd [5]));
+		$this->updateDate 	= strftimeLocal ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
+		$this->lastLogon 	= strftimeLocal ('%c', mktime ((int) $ll [0], (int) $ll [1], (int) $ll [2], (int) $ll [3], (int) $ll [4], (int) $ll [5]));
 
 		if (!$this->isActive ())
 			throw new Exception (__ ('This user is inactive into the system!'));
@@ -387,9 +387,9 @@ class User
 		$ud = explode ('-', $obj->_update_date);
 		$ll = explode ('-', $obj->_last_logon);
 
-		$this->createDate  	= strftime ('%c', mktime ((int) $cd [0], (int) $cd [1], (int) $cd [2], (int) $cd [3], (int) $cd [4], (int) $cd [5]));
-		$this->updateDate 	= strftime ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
-		$this->lastLogon 	= strftime ('%c', mktime ((int) $ll [0], (int) $ll [1], (int) $ll [2], (int) $ll [3], (int) $ll [4], (int) $ll [5]));
+		$this->createDate  	= strftimeLocal ('%c', mktime ((int) $cd [0], (int) $cd [1], (int) $cd [2], (int) $cd [3], (int) $cd [4], (int) $cd [5]));
+		$this->updateDate 	= strftimeLocal ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
+		$this->lastLogon 	= strftimeLocal ('%c', mktime ((int) $ll [0], (int) $ll [1], (int) $ll [2], (int) $ll [3], (int) $ll [4], (int) $ll [5]));
 
 		if (!$this->isActive ())
 			throw new Exception (__ ('This user is inactive into the system!'));
@@ -454,7 +454,7 @@ class User
 
 		$ud = explode ('-', $obj->_update_date);
 
-		$this->updateDate 	= strftime ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
+		$this->updateDate 	= strftimeLocal ('%c', mktime ((int) $ud [0], (int) $ud [1], (int) $ud [2], (int) $ud [3], (int) $ud [4], (int) $ud [5]));
 
 		return TRUE;
 	}

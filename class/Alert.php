@@ -101,10 +101,10 @@ class Alert
 			$tags ['[DAYS_MISSING]'] = (int) $obj->u_until <= 0 ? 0 : floor (($obj->u_until - time ()) / (60 * 60 * 24));
 
 			$u = explode ('-', $obj->f_until);
-			$tags ['[UNTIL]'] = strftime ('%x', mktime (0, 0, 0, (int) $u [0], (int) $u [1], (int) $u [2]));
+			$tags ['[UNTIL]'] = strftimeLocal ('%x', mktime (0, 0, 0, (int) $u [0], (int) $u [1], (int) $u [2]));
 
 			$d = explode ('-', $obj->f_create);
-			$tags ['[DATE]'] = strftime ('%c', mktime ((int) $d [0], (int) $d [1], (int) $d [2], (int) $d [3], (int) $d [4], (int) $d [5]));
+			$tags ['[DATE]'] = strftimeLocal ('%c', mktime ((int) $d [0], (int) $d [1], (int) $d [2], (int) $d [3], (int) $d [4], (int) $d [5]));
 
 			$uTags = unserialize ($obj->_parameters);
 
@@ -159,10 +159,10 @@ class Alert
 		$tags ['[DAYS_MISSING]'] = (int) $obj->u_until <= 0 ? 0 : floor (($obj->u_until - time ()) / (60 * 60 * 24));
 
 		$u = explode ('-', $obj->f_until);
-		$tags ['[UNTIL]'] = strftime ('%x', mktime (0, 0, 0, (int) $u [0], (int) $u [1], (int) $u [2]));
+		$tags ['[UNTIL]'] = strftimeLocal ('%x', mktime (0, 0, 0, (int) $u [0], (int) $u [1], (int) $u [2]));
 
 		$d = explode ('-', $obj->f_create);
-		$tags ['[DATE]'] = strftime ('%c', mktime ((int) $d [0], (int) $d [1], (int) $d [2], (int) $d [3], (int) $d [4], (int) $d [5]));
+		$tags ['[DATE]'] = strftimeLocal ('%c', mktime ((int) $d [0], (int) $d [1], (int) $d [2], (int) $d [3], (int) $d [4], (int) $d [5]));
 
 		$uTags = unserialize ($obj->_parameters);
 

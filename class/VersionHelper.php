@@ -59,7 +59,7 @@ class VersionHelper
 
 					$this->appBuild = trim ($file ['version']);
 					$this->appEnvironment = trim ($file ['environment']);
-					$this->appDate = strftime ('%x %X', trim ($file ['date']));
+					$this->appDate = strftimeLocal ('%x %X', trim ($file ['date']));
 					$this->appAuthor = trim ($file ['author']);
 				}
 			}

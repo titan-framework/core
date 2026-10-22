@@ -223,7 +223,7 @@ class File extends Integer
 			$hashQueryString = '&hash='. $obj->_hash;
 		}
 
-		$alt = $obj->_name ." (". File::formatFileSizeForHuman ($obj->_size) ." &bull; ". $obj->_mimetype .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken));
+		$alt = $obj->_name ." (". File::formatFileSizeForHuman ($obj->_size) ." &bull; ". $obj->_mimetype .") \n". __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftimeLocal ('%x %X', $obj->taken));
 
 		ob_start ();
 
@@ -305,7 +305,7 @@ class File extends Integer
 						<?= $obj->_mimetype ?> <br /><br />
 						<?= $obj->user ?> <br />
 						<?= $obj->email ?> <br />
-						<?= strftime ('%x %X', $obj->taken) ?>
+						<?= strftimeLocal ('%x %X', $obj->taken) ?>
 					</div>
 				</div>
 				<?php

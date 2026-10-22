@@ -73,7 +73,7 @@ class xFile
 					'name' => $obj->_name,
 					'size' => File::formatFileSizeForHuman ($obj->_size),
 					'mimetype' => $obj->_mimetype,
-					'author' => __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken))
+					'author' => __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftimeLocal ('%x %X', $obj->taken))
 				);
 			}
 			
@@ -141,7 +141,7 @@ class xFile
 					'name' => $obj->_name,
 					'size' => File::formatFileSizeForHuman ($obj->_size),
 					'mimetype' => $obj->_mimetype,
-					'author' => __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftime ('%x %X', $obj->taken))
+					'author' => __ ('By [1] ([2]) on [3].', $obj->user, $obj->email, strftimeLocal ('%x %X', $obj->taken))
 				);
 			}
 			

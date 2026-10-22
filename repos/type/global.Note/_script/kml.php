@@ -71,7 +71,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 			<name><?= $title ?></name>
 			<description>
 				<![CDATA[
-				<?= __ ('Noted by <b>[1]</b> on <b>[2]</b>.', $user, strftime ('%x %X', $date)) ?>
+				<?= __ ('Noted by <b>[1]</b> on <b>[2]</b>.', $user, strftimeLocal ('%x %X', $date)) ?>
 				<br /><br />
 				<?= $text ?>
 				]]>
@@ -88,7 +88,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 			$coordinates [] = $coordinate;
 			?>
 			<Placemark>
-				<name><?= $types [$obj->_type] .' '. strftime ('%x %X', $obj->_date) ?></name>
+				<name><?= $types [$obj->_type] .' '. strftimeLocal ('%x %X', $obj->_date) ?></name>
 				<description>
 					<![CDATA[
 						<?php

@@ -185,10 +185,10 @@ class Date extends Type
 
 		if (sizeof ($this->getValue ()) == 3)
 		{
-			$buffer = strftime ('%x', $this->getUnixTime ());
+			$buffer = strftimeLocal ('%x', $this->getUnixTime ());
 
 			if ($this->showTime ())
-				$buffer .= ' '. strftime ('%X', $this->getUnixTime ());
+				$buffer .= ' '. strftimeLocal ('%X', $this->getUnixTime ());
 
 			if ($this->showAge ())
 			{
@@ -203,8 +203,8 @@ class Date extends Type
 
 		$v = $this->getValue ();
 
-		$from = strftime ('%x', (int) mktime (0, 0, 0, (int) $v [0][1], (int) $v [0][0], (int) $v [0][2]));
-		$to = strftime ('%x', (int) mktime (0, 0, 0, (int) $v [1][1], (int) $v [1][0], (int) $v [1][2]));
+		$from = strftimeLocal ('%x', (int) mktime (0, 0, 0, (int) $v [0][1], (int) $v [0][0], (int) $v [0][2]));
+		$to = strftimeLocal ('%x', (int) mktime (0, 0, 0, (int) $v [1][1], (int) $v [1][0], (int) $v [1][2]));
 
 		return __ ('From') .' '. $from .' '. __ ('to') .' '.$to;
 	}
