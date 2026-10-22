@@ -94,7 +94,7 @@ function translateXml ($source, $destination)
 				switch ($lang)
 				{
 					case 'pt_BR':
-						continue;
+						continue 2;
 					
 					case 'en_US':
 						$pieces ['en_US'] = $gt->translate ($pieces ['pt_BR'], 'en', 'pt-br');
