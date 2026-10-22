@@ -64,3 +64,33 @@ if (!function_exists ('str_ends_with'))
 		return strlen ($haystack) >= strlen ($needle) && substr_compare ($haystack, (string) $needle, -strlen ($needle)) === 0;
 	}
 }
+
+/**
+ * Substitutos de utf8_encode()/utf8_decode(), deprecadas no PHP 8.2.
+ * Convertem apenas entre ISO-8859-1 e UTF-8, exatamente como as originais.
+ */
+function latin1ToUtf8 ($str)
+{
+	$str = (string) $str;
+
+	if (function_exists ('mb_convert_encoding'))
+		return mb_convert_encoding ($str, 'UTF-8', 'ISO-8859-1');
+
+	if (function_exists ('iconv'))
+		return iconv ('ISO-8859-1', 'UTF-8', $str);
+
+	return utf8_encode ($str);
+}
+
+function utf8ToLatin1 ($str)
+{
+	$str = (string) $str;
+
+	if (function_exists ('mb_convert_encoding'))
+		return mb_convert_encoding ($str, 'ISO-8859-1', 'UTF-8');
+
+	if (function_exists ('iconv'))
+		return iconv ('UTF-8', 'ISO-8859-1//IGNORE', $str);
+
+	return utf8_decode ($str);
+}

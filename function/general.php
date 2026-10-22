@@ -749,7 +749,7 @@ function cleanArray (&$item, $key)
 
 function toUtf8 (&$item, $key)
 {
-	$item = utf8_encode ($item);
+	$item = latin1ToUtf8 ($item);
 }
 
 function relevant ($str, $terms)
