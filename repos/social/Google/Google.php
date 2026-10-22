@@ -223,7 +223,7 @@ class GoogleDriver extends SocialDriver
 					throw new Exception (__ ('This user type require LDAP integration! Please, contact administrator.'));
 				}
 
-				$_login = $aux = array_shift (explode ('@', $profile ['email']));
+				$_login = $aux = arrayFirst (explode ('@', $profile ['email']));
 
 				$count = 0;
 
@@ -244,7 +244,7 @@ class GoogleDriver extends SocialDriver
 			}
 			else
 			{
-				$_login = $aux = array_shift (explode ('@', $profile ['email']));
+				$_login = $aux = arrayFirst (explode ('@', $profile ['email']));
 
 				$count = 1;
 

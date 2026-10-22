@@ -374,7 +374,7 @@ class XOAD_Server extends XOAD_Observable
 
 			$callbackResponse = array();
 
-			$storage =& XOAD_Events_Storage::getStorage();
+			$storage = XOAD_Events_Storage::getStorage();
 
 			$callbackResponse['status'] = $storage->postEvent($requestBody['event'], $requestBody['className'], $requestBody['sender'], $requestBody['data'], $requestBody['filter']);
 
@@ -402,7 +402,7 @@ class XOAD_Server extends XOAD_Observable
 
 			$callbackResponse = array();
 
-			$storage =& XOAD_Events_Storage::getStorage();
+			$storage = XOAD_Events_Storage::getStorage();
 
 			$storage->cleanEvents();
 

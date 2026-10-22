@@ -22,18 +22,18 @@ function utf8_char2byte_pos($str,$pos)    {
     $d = -1;
   }
   
-  for( ; strlen($str{$i}) && $n<$p; $i+=$d)    {
-    $c = (int)ord($str{$i});
+  for( ; strlen($str[$i]) && $n<$p; $i+=$d)    {
+    $c = (int)ord($str[$i]);
     if (!($c & 0x80))    // single-byte (0xxxxxx)
       $n++;
     elseif (($c & 0xC0) == 0xC0)    // multi-byte starting byte (11xxxxxx)
       $n++;
   }
-  if (!strlen($str{$i}))    return false; // offset beyond string length
+  if (!strlen($str[$i]))    return false; // offset beyond string length
   
   if ($pos >= 0)    {
     // skip trailing multi-byte data bytes
-    while ((ord($str{$i}) & 0x80) && !(ord($str{$i}) & 0x40)) { $i++; }
+    while ((ord($str[$i]) & 0x80) && !(ord($str[$i]) & 0x40)) { $i++; }
   } else {
     // correct offset
     $i++;

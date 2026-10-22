@@ -28,6 +28,8 @@ require_once(XOAD_CACHE_BASE . '/classes/Cache.class.php');
  */
 require_once(XOAD_CACHE_BASE . '/classes/ServerObserver.class.php');
 
-XOAD_Server::addObserver(new XOAD_Cache_ServerObserver());
+$observer = new XOAD_Cache_ServerObserver();
+
+XOAD_Server::addObserver($observer);
 
 ?>

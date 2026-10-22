@@ -1,5 +1,5 @@
 <?php
-$form =& Form::singleton ('create.xml');
+$form = Form::singleton ('create.xml');
 
 $action = $form->goToAction ('fail');
 
@@ -29,7 +29,7 @@ foreach ($files as $trash => $file)
 	
 	try
 	{
-		if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (array_pop (explode ('.', $fileName)))))
+		if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (arrayLast (explode ('.', $fileName)))))
 			throw new Exception ('O arquivo ['. $fileName .'] não é aceito pelo sistema ('. $fileType .')!');
 		
 		if (!$archive->isAcceptable ($fileType))

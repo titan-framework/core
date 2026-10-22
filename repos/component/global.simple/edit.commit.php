@@ -1,5 +1,5 @@
 <?php
-$form =& FormSimple::singleton ('edit.xml', 'all.xml');
+$form = FormSimple::singleton ('edit.xml', 'all.xml');
 
 $action = $form->goToAction ('fail');
 

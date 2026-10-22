@@ -536,7 +536,7 @@ class Form
 			}
 
 		// Legacy code. Old pattern to save last date of update still used by mandatory '_user' table.
-		if ($useLog && array_pop (explode ('.', $this->getTable ())) == '_user')
+		if ($useLog && arrayLast (explode ('.', $this->getTable ())) == '_user')
 		{
 			$fields [] = '_update_date';
 			$values [] = 'NOW()';

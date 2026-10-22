@@ -222,7 +222,7 @@ class XOAD_Events_Storage_PearDB extends XOAD_Events_Storage
 	 */
 	public function &getConnection()
 	{
-		$connection =& DB::connect($this->pearDSN);
+		$connection = DB::connect($this->pearDSN);
 
 		$connection->setFetchMode(DB_FETCHMODE_ASSOC);
 

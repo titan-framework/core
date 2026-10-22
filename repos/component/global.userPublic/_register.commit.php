@@ -1,5 +1,5 @@
 <?php
-$form =& Form::singleton (Security::singleton ()->getUserType ($section->getName ())->getRegister ());
+$form = Form::singleton (Security::singleton ()->getUserType ($section->getName ())->getRegister ());
 
 if (!$form->recovery ($formData))
 	throw new Exception (__ ('Unable to retrieve the data submitted!'));

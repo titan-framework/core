@@ -31,7 +31,7 @@ if (!is_null ($tagFile) && trim ($tagFile) != '' && file_exists ('section/'. $se
 	}
 }
 
-$form =& FormSimple::singleton ('view.xml', 'all.xml');
+$form = FormSimple::singleton ('view.xml', 'all.xml');
 
 $id = $section->getDirective ('_ID_') ? $section->getDirective ('_ID_') : 'SIMPLE_'. $section->getName ();
 

@@ -104,3 +104,18 @@ function strftimeLocal ($format, $timestamp = NULL)
 {
 	return DateFormatter::strftime ($format, $timestamp);
 }
+
+/**
+ * Primeiro/ultimo elemento de um array recebido por valor. Substituem as
+ * construcoes arrayFirst (explode (...)) e arrayLast (explode (...)), que
+ * geram o aviso "Only variables should be passed by reference".
+ */
+function arrayFirst ($array)
+{
+	return is_array ($array) && sizeof ($array) ? array_shift ($array) : NULL;
+}
+
+function arrayLast ($array)
+{
+	return is_array ($array) && sizeof ($array) ? array_pop ($array) : NULL;
+}

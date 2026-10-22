@@ -45,7 +45,7 @@ ob_start ();
 
 				$db->beginTransaction ();
 
-				if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (array_pop (explode ('.', $file ['name'])))))
+				if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (arrayLast (explode ('.', $file ['name'])))))
 					throw new Exception (__ ('This type of file is not accepted by the system !'));
 
 				if (!$archive->isAcceptable ($fileType))

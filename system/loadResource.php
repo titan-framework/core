@@ -15,7 +15,7 @@ $controlMime = array (
 	'swf'	=> 'application/x-shockwave-flash'
 );
 
-$ext = array_pop (explode ('.', $_file));
+$ext = arrayLast (explode ('.', $_file));
 
 if (!array_key_exists ($ext, $controlMime))
 	throw new Exception ('Permission denied for specified file type!');

@@ -1,5 +1,6 @@
 <?php
 
+#[\AllowDynamicProperties]
 class xCloudFile
 {	
 	public function getFileResume ($id, $dimension = 200)

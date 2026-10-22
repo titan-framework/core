@@ -21,7 +21,7 @@ try
 	
 	$mime = 'image/jpeg';
 	
-	$name = array_pop (explode ('/', $value));
+	$name = arrayLast (explode ('/', $value));
 	
 	$sql = "INSERT INTO _file (_id, _name, _mimetype, _size, _user) VALUES (:id, :name, :mime, :size, :user)";
 	

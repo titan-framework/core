@@ -1,5 +1,6 @@
 <?php
-include Instance::singleton ()->getCorePath () .'system/chat.php';
+if (Instance::singleton ()->useChat ())
+	include Instance::singleton ()->getCorePath () .'system/chat.php';
 
 $skin = Skin::singleton ();
 ?>
@@ -13,7 +14,7 @@ $skin = Skin::singleton ();
 		<script language="javascript" type="text/javascript">
 		function loadFrame ()
 		{
-			frames['body'].window.location.href = 'titan.php?target=body&<?= $_SERVER['QUERY_STRING'] ?>';
+			frames['body'].window.location.href = 'titan.php?target=body&<?= (isset ($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '') ?>';
 		}
 
 		function reloadFrames ()

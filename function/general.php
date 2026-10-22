@@ -143,7 +143,7 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 	$width = round ($width);
 	$height = round ($height);
 
-	$padded = array_pop (explode ('_', $file));
+	$padded = arrayLast (explode ('_', $file));
 
 	$cache = Instance::singleton ()->getCachePath ();
 
@@ -603,7 +603,7 @@ function logPhpError ($errno, $errstr, $errfile, $errline)
 						E_USER_ERROR		=> 'USER ERROR',
 						E_USER_WARNING		=> 'USER WARNING',
 						E_USER_NOTICE		=> 'USER NOTICE',
-						E_STRICT			=> 'STRICT NOTICE',
+						 2048			=> 'STRICT NOTICE', // E_STRICT: constante deprecada no PHP 8.4
 						E_RECOVERABLE_ERROR	=> 'RECOVERABLE ERROR');
 
 	$err = array_key_exists ($errno, $errorType) ? $errorType [$errno] : 'CAUGHT EXCEPTION';
@@ -657,7 +657,7 @@ function apiPhpError ($errno, $errstr, $errfile, $errline)
 						E_USER_ERROR		=> 'USER ERROR',
 						E_USER_WARNING		=> 'USER WARNING',
 						E_USER_NOTICE		=> 'USER NOTICE',
-						E_STRICT			=> 'STRICT NOTICE',
+						 2048			=> 'STRICT NOTICE', // E_STRICT: constante deprecada no PHP 8.4
 						E_RECOVERABLE_ERROR	=> 'RECOVERABLE ERROR');
 
 	$err = array_key_exists ($errno, $errorType) ? $errorType [$errno] : 'CAUGHT EXCEPTION';

@@ -88,7 +88,7 @@ if (!file_exists ($file))
 
 $defaultArray = parse_ini_file ($file, TRUE);
 
-$menu =& Menu::singleton ();
+$menu = Menu::singleton ();
 $menu->addJavaScript ('Adicionar usuário', 'create.png', "showCreateUser ()");
 $menu->addJavaScript ('Preview do Sistema', 'view.png', 'openPopup (\'instance/'. $itemId .'/titan.php?target=login\', \'popup_'. $itemId .'\')');
 ?>

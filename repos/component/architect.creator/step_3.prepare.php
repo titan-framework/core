@@ -83,7 +83,7 @@ else
 	$_SESSION['PACKS_'. $itemId] = $packs;
 }
 
-$menu =& Menu::singleton ();
+$menu = Menu::singleton ();
 $menu->addJavaScript ('Inserir Seção', 'create.png', 'showCreateSection ();');
 $menu->addJavaScript ('Preview do Sistema', 'view.png', 'openPopup (\'instance/'. $itemId .'/titan.php?target=login\', \'popup_'. $itemId .'\')');
 $menu->addJavaScript ('Salvar Ordenação', 'save.png', 'saveSort ()');

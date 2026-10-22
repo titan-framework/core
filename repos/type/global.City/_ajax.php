@@ -1,4 +1,5 @@
 <?php
+#[\AllowDynamicProperties]
 class xCity
 {
 	public function loadCity ($stateId)

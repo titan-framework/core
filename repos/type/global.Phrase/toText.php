@@ -1,3 +1,3 @@
 <?php
-return strip_tags ($field->getValue ());
+return strip_tags ((string) $field->getValue ());
 ?>

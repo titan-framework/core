@@ -1,5 +1,5 @@
 <?php
-$form =& Form::singleton ('permission.xml');
+$form = Form::singleton ('permission.xml');
 
 $action = $form->goToAction ('fail');
 

@@ -1,4 +1,5 @@
 <?php
+#[\AllowDynamicProperties]
 class xNote
 {
 	public function locations ($note)

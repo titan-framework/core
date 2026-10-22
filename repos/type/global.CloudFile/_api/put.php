@@ -75,7 +75,7 @@ else
 	$genericMimes = array ('application/octet-stream', 'binary');
 	
 	if (in_array ($mime, $genericMimes))
-		$mime = $archive->getMimeByExtension (array_pop (explode ('.', $_FILES ['file']['name'])));
+		$mime = $archive->getMimeByExtension (arrayLast (explode ('.', $_FILES ['file']['name'])));
 }
 
 if (!$archive->isAcceptable ($mime))

@@ -90,7 +90,7 @@ function generate ($appication, $package, $section, $model, $xml, $table, $asset
 	$app = $package;
 	
 	if (trim ($appication) == '')
-		$appName = ucwords (array_pop (explode ('.', $app)));
+		$appName = ucwords (arrayLast (explode ('.', $app)));
 	else
 		$appName = $appication;
 	
@@ -104,7 +104,7 @@ function generate ($appication, $package, $section, $model, $xml, $table, $asset
 	$view = new ApiList ($xml);
 	
 	if (trim ($table) == '')
-		$table = array_pop (explode ('.', $view->getTable ()));
+		$table = arrayLast (explode ('.', $view->getTable ()));
 	
 	$useCode = $view->useCode ();
 	

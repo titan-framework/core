@@ -1,4 +1,5 @@
 <?php
+#[\AllowDynamicProperties]
 class xCascade
 {
 	public function load ($table, $primary, $father, $view, $id)

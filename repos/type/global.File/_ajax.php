@@ -1,5 +1,6 @@
 <?php
 
+#[\AllowDynamicProperties]
 class xFile
 {	
 	public function getFileResume ($id, $dimension = 200)

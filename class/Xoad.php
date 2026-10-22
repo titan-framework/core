@@ -10,6 +10,7 @@
  * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see Ajax, AjaxLogon, AjaxPasswd
  */
+#[\AllowDynamicProperties]
 class Xoad
 {
 	public function validate ($file, $formData, $itemId = 0)

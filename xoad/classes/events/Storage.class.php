@@ -9,7 +9,7 @@
  *
  * require_once('xoad.php');
  *
- * $storage =& XOAD_Events_Storage::getStorage();
+ * $storage = XOAD_Events_Storage::getStorage();
  *
  * $storage->postEvent('event', 'class');
  *
@@ -43,7 +43,7 @@
  *
  * // The line below will return a XOAD_Events_Storage_MySQL
  * // class instance.
- * $storage =& XOAD_Events_Storage::getStorage();
+ * $storage = XOAD_Events_Storage::getStorage();
  *
  * $storage->postEvent('event', 'class');
  *
@@ -104,7 +104,7 @@ class XOAD_Events_Storage
 	 *
 	 * require_once('xoad.php');
 	 *
-	 * $storage =& XOAD_Events_Storage::getStorage();
+	 * $storage = XOAD_Events_Storage::getStorage();
 	 *
 	 * $storage->postEvent('event', 'class');
 	 *

@@ -42,7 +42,7 @@ if (!$sth->fetch (PDO::FETCH_OBJ))
 {
 	$id = Database::nextId ('_user', '_id');
 
-    $login = $aux = array_shift (explode ('@', $email));
+    $login = $aux = arrayFirst (explode ('@', $email));
 
     $count = 1;
 

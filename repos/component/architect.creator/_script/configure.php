@@ -39,6 +39,7 @@ function validName ($str)
         return $str;
 }
 
+#[\AllowDynamicProperties]
 class Ajax
 {
         public function nameValidate ($section)

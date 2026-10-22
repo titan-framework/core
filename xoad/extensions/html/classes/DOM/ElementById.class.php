@@ -68,7 +68,7 @@ class XOAD_HTML_DOM_ElementById extends XOAD_HTML_DOM_BaseElement
 	 *
 	 * <p>Example:</p>
 	 * <code>
-	 * $content =& XOAD_HTML::getElementById('content');
+	 * $content = XOAD_HTML::getElementById('content');
 	 *
 	 * $content->blur();
 	 * </code>
@@ -88,7 +88,7 @@ class XOAD_HTML_DOM_ElementById extends XOAD_HTML_DOM_BaseElement
 	 *
 	 * <p>Example:</p>
 	 * <code>
-	 * $content =& XOAD_HTML::getElementById('content');
+	 * $content = XOAD_HTML::getElementById('content');
 	 *
 	 * $content->focus();
 	 * </code>

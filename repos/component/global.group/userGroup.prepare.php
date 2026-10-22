@@ -51,9 +51,9 @@ if ($systemSelected)
 		$arrayRelation [$obj->_id] = $obj->_name .' ('. $obj->_login .')';
 }
 
-$form =& Form::singleton ('user.xml');
+$form = Form::singleton ('user.xml');
 
-$menu =& Menu::singleton ();
+$menu = Menu::singleton ();
 $menu->addJavaScript (__ ('Save'), 'titan.php?target=loadFile&file=interface/menu/save.png', "saveRelation ();");
 $menu->add ($form->goToAction ('cancel')->getName (), __ ('List Groups'), 0, $section->getName (), 'titan.php?target=loadFile&file=interface/menu/list.png');
 ?>

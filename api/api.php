@@ -2,7 +2,7 @@
 
 try
 {
-	set_error_handler ('apiPhpError', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+	set_error_handler ('apiPhpError', E_ALL & ~E_NOTICE & ~E_DEPRECATED);
 
 	if (!isset ($_GET ['uri']))
 		throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid URI!');

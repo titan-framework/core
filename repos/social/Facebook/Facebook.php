@@ -136,7 +136,7 @@ class FacebookDriver extends SocialDriver
 		if ($full)
 			return $profile;
 
-		$profile ['username'] = array_shift (explode ('@', $profile ['email']));
+		$profile ['username'] = arrayFirst (explode ('@', $profile ['email']));
 		$profile ['picture'] = $profile ['id'];
 
 		$this->setProfile ($profile);

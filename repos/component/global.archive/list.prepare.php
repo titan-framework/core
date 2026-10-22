@@ -10,6 +10,6 @@ $sth = $db->prepare ($sql);
 
 $sth->execute ();
 
-$menu =& Menu::singleton ();
+$menu = Menu::singleton ();
 $menu->addJavaScript (__ ('Delete Selected'), 'titan.php?target=loadFile&file=interface/menu/delete.png', "deleteMessage ();");
 ?>

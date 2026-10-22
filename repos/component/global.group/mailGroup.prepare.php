@@ -23,9 +23,9 @@ $arrayHas = array ();
 while ($obj = $sth->fetch (PDO::FETCH_OBJ))
 	$arrayHas [$obj->_name] = $obj->_name;
 
-$form =& Form::singleton ('alert.xml');
+$form = Form::singleton ('alert.xml');
 
-$menu =& Menu::singleton ();
+$menu = Menu::singleton ();
 $menu->addJavaScript (__ ('Save'), 'titan.php?target=loadFile&file=interface/menu/save.png', "document.getElementById ('form_". $form->getAssign () ."').submit ();");
 $menu->add ($form->goToAction ('cancel')->getName (), __ ('List Groups'), 0, $section->getName (), 'titan.php?target=loadFile&file=interface/menu/list.png');
 ?>

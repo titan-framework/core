@@ -26,7 +26,7 @@ try
 	$db->beginTransaction ();
 	
 	if (in_array ($fileType, $genericMimes))
-		$fileType = $archive->getMimeByExtension (array_pop (explode ('.', $value ['name'])));
+		$fileType = $archive->getMimeByExtension (arrayLast (explode ('.', $value ['name'])));
 
 	if (!$archive->isAcceptable ($fileType) || !$field->isAcceptable ($fileType))
 		throw new Exception (__ ('This type of file is not accepted by the system ( [1] ) !', $fileType));

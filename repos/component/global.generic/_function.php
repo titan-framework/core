@@ -54,7 +54,7 @@ function zipFile ($itemId, $table, $fileTemp, $fileSize, $fileType)
 		if (!is_file ($file ['filename']))
 			continue;
 
-		if (!($mimeType = Archive::mimeType ($file ['filename'])) && !($mimeType = $archive->getMimeByExtension (array_pop (explode ('.', $file ['filename'])))))
+		if (!($mimeType = Archive::mimeType ($file ['filename'])) && !($mimeType = $archive->getMimeByExtension (arrayLast (explode ('.', $file ['filename'])))))
 			continue;
 
 		if (!$archive->isAcceptable ($mimeType, Archive::IMAGE))
