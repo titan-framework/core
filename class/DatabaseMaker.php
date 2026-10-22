@@ -120,14 +120,14 @@ class DatabaseMaker
 
 	public function getField ($group = FALSE)
 	{
-		$field = each ($this->fields);
+		$field = arrayEach ($this->fields);
 
 		while ($field !== FALSE)
 		{
 			if ($group === FALSE || (array_key_exists ($group, $this->groups) && in_array ($field ['value']->getAssign (), $this->groups [$group])))
 				return $field ['value'];
 
-			$field = each ($this->fields);
+			$field = arrayEach ($this->fields);
 		}
 
 		reset ($this->fields);
@@ -176,7 +176,7 @@ class DatabaseMaker
 
 	public function getGroup ()
 	{
-		$group = each ($this->groupsInfo);
+		$group = arrayEach ($this->groupsInfo);
 
 		if ($group !== FALSE)
 			return new Group ($group ['value']);

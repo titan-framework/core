@@ -289,7 +289,7 @@ class View
 			else
 				return current ($this->fields);
 
-		$field = each ($this->fields);
+		$field = arrayEach ($this->fields);
 
 		if ($field !== FALSE)
 			return $field ['value'];
@@ -304,7 +304,7 @@ class View
 		if ($onlyLink)
 			return method_exists ($this->getDefaultIcon (), 'getSection') ? Instance::singleton ()->getUrl () . 'titan.php?target=body&amp;toSection='. $this->getDefaultIcon ()->getSection () .'&amp;toAction='. $this->getDefaultIcon ()->getAction () .'&amp;itemId='. $this->itemId : '';
 
-		$field = each ($this->fields);
+		$field = arrayEach ($this->fields);
 
 		if ($field !== FALSE)
 		{
@@ -351,7 +351,7 @@ class View
 
 	public function getIcon ()
 	{
-		$icon = each ($this->icons);
+		$icon = arrayEach ($this->icons);
 
 		if ($icon !== FALSE)
 		{

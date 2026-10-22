@@ -63,7 +63,7 @@ class Document extends Collection
 		if (!is_null ($id) && array_key_exists ($id, $this->terms))
 			return $this->terms [$id];
 
-		$term = each ($this->terms);
+		$term = arrayEach ($this->terms);
 
 		while ($term !== FALSE)
 			return $term ['value'];

@@ -76,7 +76,7 @@ abstract class SocialDriver
 			return $this->attributes [$name];
 		}
 
-		$item = each ($this->attributes);
+		$item = arrayEach ($this->attributes);
 
 		if ($item === FALSE)
 		{

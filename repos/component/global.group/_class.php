@@ -11,7 +11,7 @@ class ViewLog extends View
 		if ($onlyLink)
 			return $this->getDefaultIcon ()->makeLink ($this->getId ());
 
-		$field = each ($this->fields);
+		$field = arrayEach ($this->fields);
 
 		if ($field !== FALSE)
 		{

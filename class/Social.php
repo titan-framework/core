@@ -97,7 +97,7 @@ class Social
 			return $this->networks [$driver];
 		}
 
-		$item = each ($this->networks);
+		$item = arrayEach ($this->networks);
 
 		if ($item === FALSE)
 		{

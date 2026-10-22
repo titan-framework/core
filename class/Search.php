@@ -245,7 +245,7 @@ class Search
 			else
 				return current ($this->fields);
 
-		$field = each ($this->fields);
+		$field = arrayEach ($this->fields);
 
 		if ($field !== FALSE)
 			return $field ['value'];

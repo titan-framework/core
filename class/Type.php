@@ -385,7 +385,7 @@ abstract class Type
 
 	public function getRestrict ()
 	{
-		$perm = each ($this->restrict);
+		$perm = arrayEach ($this->restrict);
 
 		if ($perm !== FALSE)
 			return $perm ['value'];

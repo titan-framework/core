@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname (__FILE__) . DIRECTORY_SEPARATOR .'compat.php';
+
 function autoload ($class)
 {
 	$file = Instance::singleton ()->getCorePath () .'class'. DIRECTORY_SEPARATOR . $class . '.php';

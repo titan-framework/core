@@ -166,7 +166,7 @@ class Section
 	{
 		if ($name === FALSE)
 		{
-			$action = each ($this->actions);
+			$action = arrayEach ($this->actions);
 
 			if ($action !== FALSE)
 			{
@@ -348,7 +348,7 @@ class Section
 	{
 		if ($name === FALSE)
 		{
-			$permission = each ($this->permissions);
+			$permission = arrayEach ($this->permissions);
 
 			if ($permission !== FALSE)
 				return $permission ['value'];
@@ -368,7 +368,7 @@ class Section
 	{
 		if ($name === FALSE)
 		{
-			$directive = each ($this->directives);
+			$directive = arrayEach ($this->directives);
 
 			if ($directive !== FALSE)
 				return $directive ['value'];
