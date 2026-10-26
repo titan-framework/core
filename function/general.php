@@ -671,7 +671,17 @@ function apiPhpError ($errno, $errstr, $errfile, $errline)
 	// responder 500 onde respondia 200, eles continuam só registrados no log.
 	if ($errno == E_WARNING && preg_match ('/^(Undefined (array key|variable|global variable|property|offset)|Trying to access array offset on|Attempt to read property)/', $errstr))
 	{
-		toLog ('[NOTICE] '. $errstr .' [File: '. $errfile .'] [Line: '. $errline .']');
+		// Uma vez por requisição: num laço sobre milhares de registros, o mesmo aviso inundaria o log.
+		static $logged = array ();
+
+		$key = $errfile .':'. $errline .':'. $errstr;
+
+		if (!isset ($logged [$key]))
+		{
+			$logged [$key] = TRUE;
+
+			toLog ('[NOTICE] '. $errstr .' [File: '. $errfile .'] [Line: '. $errline .']');
+		}
 
 		return TRUE;
 	}
