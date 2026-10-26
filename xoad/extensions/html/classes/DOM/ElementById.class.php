@@ -117,7 +117,7 @@ class XOAD_HTML_DOM_ElementById extends XOAD_HTML_DOM_BaseElement
 	 * @static
 	 *
 	 */
-	public function process()
+	public function process($element = null)
 	{
 		$element = $this->getElement();
 

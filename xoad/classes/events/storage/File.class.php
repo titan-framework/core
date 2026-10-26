@@ -117,7 +117,7 @@ class XOAD_Events_Storage_File extends XOAD_Events_Storage
 	 * @static
 	 *
  	 */
-	public static function &getStorage($dsn)
+	public static function &getStorage($dsn = null)
 	{
 		if ( ! isset(self::$instance)) {
 
@@ -179,7 +179,7 @@ class XOAD_Events_Storage_File extends XOAD_Events_Storage
 	 * @return	bool	true on success, false otherwise.
 	 *
 	 */
-	public function postMultipleEvents($eventsData)
+	public function postMultipleEvents(&$eventsData)
 	{
 		$handle = @fopen($this->getFileName(), 'a');
 
@@ -322,7 +322,7 @@ class XOAD_Events_Storage_File extends XOAD_Events_Storage
 	 *					supplied criterias, ordered by time (ascending).
 	 *
 	 */
-	public function filterMultipleEvents($eventsData)
+	public function filterMultipleEvents(&$eventsData)
 	{
 		$events = array();
 

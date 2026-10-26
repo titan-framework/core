@@ -19,7 +19,7 @@ class FormSimple extends Form
 		return $form;
 	}
 	
-	public function load ($id)
+	public function load ($id, $ownOnly = FALSE)
 	{
 		if ($this->isLoaded ())
 			return TRUE;
@@ -53,7 +53,7 @@ class FormSimple extends Form
 		return TRUE;
 	}
 	
-	public function save ($id)
+	public function save ($id = 0, $useLog = TRUE)
 	{
 		$fields = array ();
 		
