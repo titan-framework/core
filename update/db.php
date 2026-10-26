@@ -191,6 +191,9 @@ try
 catch (Exception $e)
 {
 	echo $e->getMessage () ." \n";
+
+	// Código de saída diferente de zero para quem automatiza (entrypoint do contêiner, CI).
+	exit (1);
 }
 
 echo "\n";
