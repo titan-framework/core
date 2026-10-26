@@ -313,7 +313,7 @@ class View
 			$icon = $this->getDefaultIcon ();
 
 			if ($this->default === FALSE || !is_object ($icon) ||
-				(array_key_exists ($icon->getId (), $this->disabledIcons) && is_array ($this->disabledIcons [$icon->getId ()]) && in_array ($this->getId (), $this->disabledIcons [$icon->getId ()])))
+				(array_key_exists ((string) $icon->getId (), $this->disabledIcons) && is_array ($this->disabledIcons [$icon->getId ()]) && in_array ($this->getId (), $this->disabledIcons [$icon->getId ()])))
 				return (string) self::toList ($field, $this->getId ());
 
 			return '<a '. $this->getDefaultIcon ()->makeLink ($this->getId ()) .'>'. self::toList ($field, $this->getId ()) .'</a>';
@@ -360,7 +360,7 @@ class View
 
 			$id = $this->icons [$icon ['key']]->getId ();
 
-			if (array_key_exists ($id, $this->disabledIcons) && is_array ($this->disabledIcons [$id]) && in_array ($this->getId (), $this->disabledIcons [$id]))
+			if (array_key_exists ((string) $id, $this->disabledIcons) && is_array ($this->disabledIcons [$id]) && in_array ($this->getId (), $this->disabledIcons [$id]))
 				return $this->icons [$icon ['key']]->makeIcon (0, TRUE);
 
 			return $this->icons [$icon ['key']]->makeIcon ($this->getId ());

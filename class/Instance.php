@@ -615,7 +615,7 @@ class Instance
 		$name = is_array ($type) ? $type ['name'] : (string) $type;
 
 		// Nomes reservados pelo PHP: a classe recebe o sufixo "Type".
-		if (in_array (strtolower ($name), array ('string', 'float', 'int', 'bool', 'array', 'object', 'mixed', 'iterable', 'void', 'null', 'false', 'true', 'never', 'callable', 'resource', 'numeric')))
+		if (in_array (strtolower ($name), array ('string', 'float', 'int', 'bool', 'array', 'object', 'mixed', 'iterable', 'void', 'null', 'false', 'true', 'never', 'callable')))
 			return $name .'Type';
 
 		return $name;

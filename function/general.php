@@ -252,7 +252,7 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 
 		// Try use ImageMagick in command line first...
 		
-		if (function_exists ('exec') && (`which convert`))
+		if (function_exists ('exec') && shell_exec ('which convert'))
 			@exec ('convert '. $jp2conversion .' -quality 70 '. $cached);
 		
 		if (file_exists ($cached) && is_readable ($cached) && (int) filesize ($cached))

@@ -1,5 +1,5 @@
 <?php
-$field->setValue (explode (';', $value));
+$field->setValue (explode (';', (string) $value));
 
 return $field;
 ?>

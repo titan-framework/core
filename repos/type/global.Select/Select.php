@@ -181,7 +181,7 @@ class Select extends Type
 		$text = $this->getLinkView ();
 
 		foreach ($columns as $key => $column)
-			$text = str_replace ('['. $column .']', $obj->$column, $text);
+			$text = str_replace ('['. $column .']', (string) $obj->$column, $text);
 
 		return $text;
 	}
