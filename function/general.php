@@ -666,6 +666,16 @@ function apiPhpError ($errno, $errstr, $errfile, $errline)
 
 	$err = array_key_exists ($errno, $errorType) ? $errorType [$errno] : 'CAUGHT EXCEPTION';
 
+	// O PHP 8 promoveu a Warning avisos que no PHP 7 eram Notice (e que este handler ignora): chave,
+	// variável ou propriedade indefinida e acesso a índice de valor escalar. Para a API não passar a
+	// responder 500 onde respondia 200, eles continuam só registrados no log.
+	if ($errno == E_WARNING && preg_match ('/^(Undefined (array key|variable|global variable|property|offset)|Trying to access array offset on|Attempt to read property)/', $errstr))
+	{
+		toLog ('[NOTICE] '. $errstr .' [File: '. $errfile .'] [Line: '. $errline .']');
+
+		return TRUE;
+	}
+
 	toLog ('['. $err .'] '. $errstr .' [File: '. $errfile .'] [Line: '. $errline .']');
 
 	header ('HTTP/1.1 500 Internal Server Error');
