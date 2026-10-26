@@ -615,6 +615,10 @@ function logPhpError ($errno, $errstr, $errfile, $errline)
 
 function toLog ($message)
 {
+	// Em contêiner, o log também vai para o stderr (docker logs, Loki) quando TITAN_LOG_STDERR está ligado.
+	if (filter_var (getenv ('TITAN_LOG_STDERR'), FILTER_VALIDATE_BOOLEAN))
+		error_log ('[Titan] '. (isset ($_SERVER['REMOTE_ADDR']) ? '['. $_SERVER['REMOTE_ADDR'] .'] ' : '') . str_replace (array ("\r", "\n"), ' ', $message));
+
 	if (file_exists ('FirePHPCore/FirePHP.class.php'))
 		@include_once ('FirePHPCore/FirePHP.class.php');
 
