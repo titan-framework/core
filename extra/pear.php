@@ -661,7 +661,7 @@ function _PEAR_call_destructors()
         sizeof($_PEAR_destructor_object_list))
     {
         reset($_PEAR_destructor_object_list);
-        while (list($k, $objref) = each($_PEAR_destructor_object_list)) {
+        while (list($k, $objref) = arrayEach($_PEAR_destructor_object_list)) {
             $classname = get_class($objref);
             while ($classname) {
                 $destructor = "_$classname";
