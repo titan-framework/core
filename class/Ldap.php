@@ -18,6 +18,8 @@ class Ldap
 
 	private $connected = FALSE;
 
+	private $passHash = NULL;
+
 	const SHA1 = 'SHA1';
 	const MD5  = 'MD5';
 
@@ -325,6 +327,14 @@ class Ldap
 		set_error_handler ('logPhpError');
 
 		$search = ldap_search ($this->ds, 'ou='. $this->ou .','. $this->dn, $filter, $fields);
+
+		// No PHP 8, ldap_get_entries () lança TypeError quando a busca falha (servidor fora do ar, filtro inválido).
+		if ($search === FALSE)
+		{
+			restore_error_handler ();
+
+			return array ('count' => 0);
+		}
 
 		/*
 		if($orderParam)

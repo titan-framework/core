@@ -69,7 +69,14 @@ class Social
 
 				$class = $driver .'Driver';
 
-				$this->networks [$social ['driver']] = new $class ($social, $path);
+				try
+				{
+					$this->networks [$social ['driver']] = new $class ($social, $path);
+				}
+				catch (Exception $e)
+				{
+					toLog ('Social network ['. $driver .'] disabled: '. $e->getMessage ());
+				}
 			}
 
 		reset ($this->networks);
