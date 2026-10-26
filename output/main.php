@@ -14,7 +14,7 @@ $skin = Skin::singleton ();
 		<script language="javascript" type="text/javascript">
 		function loadFrame ()
 		{
-			frames['body'].window.location.href = 'titan.php?target=body&<?= (isset ($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '') ?>';
+			frames['body'].window.location.href = 'titan.php?target=body&' + <?= json_encode (isset ($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '', JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
 		}
 
 		function reloadFrames ()

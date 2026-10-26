@@ -155,7 +155,7 @@ class XOAD_Server extends XOAD_Observable
 				$requestBody = @unserialize($GLOBALS['HTTP_RAW_POST_DATA']);
 				*/
 
-				$requestBody = @unserialize (file_get_contents ("php://input"));
+				$requestBody = XOAD_Server::unserializeRequest (file_get_contents ("php://input"));
 
 				if ($requestBody == null) {
 
@@ -193,7 +193,7 @@ class XOAD_Server extends XOAD_Observable
 						return false;
 					}
 
-					$requestBody['sender'] = @unserialize($requestBody['sender']);
+					$requestBody['sender'] = XOAD_Server::unserializeRequest($requestBody['sender'], $requestBody['className']);
 
 					if ($requestBody['sender'] === null) {
 
@@ -275,9 +275,9 @@ class XOAD_Server extends XOAD_Observable
 						XOAD_Server::loadClass($requestBody['className']);
 					}
 
-					$requestBody['source'] = @unserialize($requestBody['source']);
+					$requestBody['source'] = XOAD_Server::unserializeRequest($requestBody['source'], $requestBody['className']);
 
-					$requestBody['arguments'] = @unserialize($requestBody['arguments']);
+					$requestBody['arguments'] = XOAD_Server::unserializeRequest($requestBody['arguments'], $requestBody['className']);
 
 					if (
 					($requestBody['source'] === null) ||
@@ -594,6 +594,30 @@ class XOAD_Server extends XOAD_Observable
 	 * @static
 	 *
 	 */
+	public static function unserializeRequest($data, $className = null)
+	{
+		/* By Camilo Carromeu at october 26, 2026 - O corpo da requisição chega
+		 * antes do logon (output/login.php). Sem restringir as classes, o
+		 * unserialize permitia injetar objetos arbitrários (PHP Object
+		 * Injection). Só são aceitos objetos das classes liberadas no XOAD.
+		 */
+		if ( ! is_string($data)) {
+
+			return null;
+		}
+
+		$allowed = false;
+
+		if ($className !== null && XOAD_Server::isClassAllowed($className)) {
+
+			$allowed = isset($GLOBALS['_XOAD_SERVER_ALLOWED_CLASSES']) ? $GLOBALS['_XOAD_SERVER_ALLOWED_CLASSES'] : array();
+
+			$allowed[] = strtolower($className);
+		}
+
+		return @unserialize($data, array('allowed_classes' => $allowed));
+	}
+
 	public static function loadClass($className)
 	{
 		$className = strtolower($className);
