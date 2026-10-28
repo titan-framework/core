@@ -177,22 +177,31 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 	{
 		case 'image/jpeg':
 		case 'image/pjpeg':
-			$buffer = imagecreatefromjpeg ($file);
+			$buffer = @imagecreatefromjpeg ($file);
 			break;
 
 		case 'image/gif':
-			$buffer = imagecreatefromgif ($file);
+			$buffer = @imagecreatefromgif ($file);
 			break;
 
 		case 'image/png':
-			$buffer = imagecreatefrompng ($file);
-			imagealphablending ($buffer, TRUE);
-			imagesavealpha ($buffer, TRUE);
+			$buffer = @imagecreatefrompng ($file);
 			break;
 		
 		case 'image/webp':
 			$buffer = imagecreatefromwebp ($file);
 			break;
+	}
+
+	// Arquivo cujo conteúdo não bate com o MIME registrado (ex.: JPEG enviado como PNG): tenta
+	// detectar o formato pelo conteúdo antes de desistir.
+	if (!$buffer && is_readable ($file))
+		$buffer = @imagecreatefromstring (file_get_contents ($file));
+
+	if ($buffer && $type == 'image/png')
+	{
+		imagealphablending ($buffer, TRUE);
+		imagesavealpha ($buffer, TRUE);
 	}
 
 	if (!$buffer)

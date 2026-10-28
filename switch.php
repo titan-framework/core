@@ -99,7 +99,11 @@ try
 				// For debug
 				// system ('java -jar '. $instance->getCorePath () .'extra/custom_rhino.jar -c '. $path . $assign .'.js > '. $path . $assign .'.pck 2>&1', $trash);
 
-				$commands = array ('java', '/usr/bin/java', '/usr/local/bin/java');
+				// Só tenta os executáveis do Java que existem: sem Java, o JS segue sem minificar, sem
+				// três chamadas de shell com erro a cada requisição.
+				$commands = array_filter (array ('java', '/usr/bin/java', '/usr/local/bin/java'), function ($cmd) {
+					return $cmd == 'java' ? trim ((string) shell_exec ('command -v java 2>/dev/null')) !== '' : is_executable ($cmd);
+				});
 
 				set_error_handler ('logPhpError');
 
