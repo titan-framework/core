@@ -34,7 +34,7 @@ $userType = $_auth->getRegisterType ();
 $sth = $db->prepare ("SELECT _email FROM _user WHERE _email = :email AND _type = :type AND _active = B'1' AND _deleted = B'0'");
 
 $sth->bindParam (':email', $email, PDO::PARAM_STR, 512);
-$sth->bindParam (':type', $userType->getName (), PDO::PARAM_STR, 6);
+$sth->bindValue (':type', $userType->getName (), PDO::PARAM_STR);
 
 $sth->execute ();
 
@@ -87,7 +87,7 @@ if (!$sth->fetch (PDO::FETCH_OBJ))
 
 		$sth = $db->prepare ($sql);
 
-		$sth->bindParam (':type', $userType->getName (), PDO::PARAM_STR);
+		$sth->bindValue (':type', $userType->getName (), PDO::PARAM_STR);
 
 		$sth->execute ();
 

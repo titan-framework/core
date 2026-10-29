@@ -69,7 +69,7 @@ ob_start ();
 				$sth->bindParam (':type', $fileType, PDO::PARAM_STR);
 				$sth->bindParam (':size', $fileSize, PDO::PARAM_INT);
 				$sth->bindParam (':description', $fileDesc, PDO::PARAM_STR);
-				$sth->bindParam (':user', User::singleton ()->getId (), PDO::PARAM_INT);
+				$sth->bindValue (':user', User::singleton ()->getId (), PDO::PARAM_INT);
 				
 				$sth->execute ();
 

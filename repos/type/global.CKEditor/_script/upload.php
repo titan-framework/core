@@ -93,7 +93,7 @@ $media = $_GET['media'];
 				$sth->bindParam (':name', $fileName, PDO::PARAM_STR, 256);
 				$sth->bindParam (':type', $fileType, PDO::PARAM_STR, 256);
 				$sth->bindParam (':size', $fileSize, PDO::PARAM_INT);
-				$sth->bindParam (':user', User::singleton ()->getId (), PDO::PARAM_INT);
+				$sth->bindValue (':user', User::singleton ()->getId (), PDO::PARAM_INT);
 				$sth->bindParam (':hash', $hash, PDO::PARAM_STR, 32);
 				
 				$sth->execute ();

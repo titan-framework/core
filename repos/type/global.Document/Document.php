@@ -89,7 +89,7 @@ class Document extends Collection
 			if (!$term->isAutoCreated ())
 				continue;
 
-			$sth->bindParam (':id', $term->getId (), PDO::PARAM_STR, 128);
+			$sth->bindValue (':id', $term->getId (), PDO::PARAM_STR);
 			$sth->bindParam (':relation', $itemId, PDO::PARAM_INT);
 
 			$sth->execute ();

@@ -91,7 +91,7 @@ class File extends Integer
 
 		$sth = Database::singleton ()->prepare ("SELECT * FROM _file WHERE _id = :id");
 
-		$sth->bindParam (':id', $this->getValue (), PDO::PARAM_INT);
+		$sth->bindValue (':id', $this->getValue (), PDO::PARAM_INT);
 
 		$sth->execute ();
 

@@ -243,7 +243,7 @@ class User
 
 					$sth = $db->prepare ($sql);
 
-					$sth->bindParam (':type', $type->getName (), PDO::PARAM_STR);
+					$sth->bindValue (':type', $type->getName (), PDO::PARAM_STR);
 
 					$sth->execute ();
 

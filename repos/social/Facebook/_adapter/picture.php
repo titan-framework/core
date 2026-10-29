@@ -31,7 +31,7 @@ try
 	$sth->bindParam (':id', $id, PDO::PARAM_INT);
 	$sth->bindParam (':name', $name, PDO::PARAM_STR);
 	$sth->bindParam (':mime', $mime, PDO::PARAM_STR);
-	$sth->bindParam (':size', filesize ($file), PDO::PARAM_INT);
+	$sth->bindValue (':size', filesize ($file), PDO::PARAM_INT);
 	$sth->bindParam (':user', $user, PDO::PARAM_INT);
 
 	$sth->execute ();

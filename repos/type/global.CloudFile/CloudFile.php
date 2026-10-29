@@ -21,7 +21,7 @@ class CloudFile extends File
 
 		$sth = Database::singleton ()->prepare ("SELECT _name, _size, _mimetype FROM _cloud WHERE _id = :id AND _deleted = B'0'");
 
-		$sth->bindParam (':id', $this->getValue (), PDO::PARAM_INT);
+		$sth->bindValue (':id', $this->getValue (), PDO::PARAM_INT);
 
 		$sth->execute ();
 
