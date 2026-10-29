@@ -330,7 +330,7 @@ class DocumentItem
 
 		$fields = array ();
 
-		while ($field =& $form->getField ())
+		while ($field = $form->getField ())
 		{
 			$value = $field->getValue ();
 

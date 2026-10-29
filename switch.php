@@ -837,10 +837,11 @@ try
 
 		case 'setClientTimeZone':
 
-			if (!isset ($_GET['z']) || trim ($_GET['z']) == '' || isset ($_COOKIE['_TITAN_TIMEZONE_']))
+			// Atualiza o cookie sempre que o navegador informa outro fuso (corrige o detectado errado antes).
+			if (!isset ($_GET['z']) || !in_array (trim ($_GET['z']), DateTimeZone::listIdentifiers (DateTimeZone::ALL_WITH_BC), TRUE) || (isset ($_COOKIE['_TITAN_TIMEZONE_']) && $_COOKIE['_TITAN_TIMEZONE_'] === trim ($_GET['z'])))
 				exit ();
 
-			setcookie ('_TITAN_TIMEZONE_', trim ($_GET['z']), time () + 60 * 60 * 24 * 30 * 12);
+			setcookie ('_TITAN_TIMEZONE_', trim ($_GET['z']), array ('expires' => time () + 60 * 60 * 24 * 30 * 12, 'path' => '/', 'httponly' => TRUE, 'samesite' => 'Lax'));
 
 			break;
 

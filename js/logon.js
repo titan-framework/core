@@ -126,9 +126,22 @@ function showValidate (id)
 
 function getTimeZone ()
 {
-	tmSummer = new Date(Date.UTC(2005, 6, 30, 0, 0, 0, 0));
+	// Fuso IANA informado pelo navegador. A tabela abaixo fica só como reserva: ela deduzia o fuso pelos
+	// deslocamentos de 2005 e confundia, por exemplo, America/Campo_Grande (com horário de verão em 2005)
+	// com America/Santiago.
+	try
+	{
+		var tz = Intl.DateTimeFormat ().resolvedOptions ().timeZone;
+
+		if (tz)
+			return tz;
+	}
+	catch (e) {}
+
+	var year = new Date ().getFullYear ();
+	tmSummer = new Date(Date.UTC(year, 6, 30, 0, 0, 0, 0));
 	so = -1 * tmSummer.getTimezoneOffset();
-	tmWinter = new Date(Date.UTC(2005, 12, 30, 0, 0, 0, 0));
+	tmWinter = new Date(Date.UTC(year, 12, 30, 0, 0, 0, 0));
 	wo = -1 * tmWinter.getTimezoneOffset();
 
 	if (-660 == so && -660 == wo) return 'Pacific/Midway';

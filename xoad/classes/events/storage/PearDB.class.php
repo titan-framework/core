@@ -465,9 +465,9 @@ class XOAD_Events_Storage_PearDB extends XOAD_Events_Storage
 
 		$events = array();
 
-		$sqlResult =& $connection->query($sqlQuery);
+		$sqlResult = $connection->query($sqlQuery);
 
-		while (($row =& $sqlResult->fetchRow()) != false) {
+		while (($row = $sqlResult->fetchRow()) != false) {
 
 			$events[] = array(
 			'event'		=>	$row['event'],

@@ -115,7 +115,9 @@ class Instance
 		if (!in_array ($this->array ['timezone'], DateTimeZone::listIdentifiers ()))
 			throw new Exception ('The value of attribute [timezone] of tag &lt;titan-configuration&gt;&lt;/titan-configuration&gt; in [titan.xml] is incorrect.');
 
-		if (isset ($_COOKIE['_TITAN_TIMEZONE_']) && trim ($_COOKIE['_TITAN_TIMEZONE_']) != '')
+		// O cookie vem do navegador e o fuso vai para o SET timezone do banco (Database.php): só um
+		// identificador válido é aceito.
+		if (isset ($_COOKIE['_TITAN_TIMEZONE_']) && in_array ($_COOKIE['_TITAN_TIMEZONE_'], DateTimeZone::listIdentifiers (DateTimeZone::ALL_WITH_BC), TRUE))
 			$this->array ['timezone'] = $_COOKIE['_TITAN_TIMEZONE_'];
 
 		date_default_timezone_set ($this->array ['timezone']);
