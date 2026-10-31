@@ -35,7 +35,7 @@ $table  = $_GET['table'];
 			{
 				$db->beginTransaction ();
 
-				if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (array_pop (explode ('.', $file ['name'])))))
+				if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (arrayLast (explode ('.', $file ['name'])))))
 					throw new Exception (__ ('This file type ( [1] ) is not accept by the system!', $fileType));
 
 				if (in_array ($fileType, array ('application/x-zip-compressed', 'application/zip')))

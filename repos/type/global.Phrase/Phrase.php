@@ -35,7 +35,7 @@ class Phrase extends Type
 	
 	public function isEmpty ()
 	{
-		if (trim ($this->getValue ()) == '')
+		if (trim ((string) $this->getValue ()) == '')
 			return TRUE;
 		
 		return FALSE;

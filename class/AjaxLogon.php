@@ -10,6 +10,7 @@
  * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see User, AjaxPasswd
  */
+#[\AllowDynamicProperties]
 class AjaxLogon
 {
 	public function logon ($formData)

@@ -536,7 +536,7 @@ class Form
 			}
 
 		// Legacy code. Old pattern to save last date of update still used by mandatory '_user' table.
-		if ($useLog && array_pop (explode ('.', $this->getTable ())) == '_user')
+		if ($useLog && arrayLast (explode ('.', $this->getTable ())) == '_user')
 		{
 			$fields [] = '_update_date';
 			$values [] = 'NOW()';
@@ -909,14 +909,14 @@ class Form
 			return $field;
 		}
 
-		$field = each ($this->fields);
+		$field = arrayEach ($this->fields);
 
 		while ($field !== FALSE)
 		{
 			if ($group === FALSE || (array_key_exists ($group, $this->groups) && in_array ($field ['value']->getAssign (), $this->groups [$group])))
 				return $field ['value'];
 
-			$field = each ($this->fields);
+			$field = arrayEach ($this->fields);
 		}
 
 		reset ($this->fields);
@@ -943,7 +943,7 @@ class Form
 			return new Group ($this->groupsInfo [$id]);
 		}
 
-		$group = each ($this->groupsInfo);
+		$group = arrayEach ($this->groupsInfo);
 
 		if ($group !== FALSE)
 			return new Group ($group ['value']);

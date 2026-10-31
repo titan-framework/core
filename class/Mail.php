@@ -131,7 +131,7 @@ class Mail
 
 	public function getReceiver ()
 	{
-		$receiver = each ($this->receivers);
+		$receiver = arrayEach ($this->receivers);
 
 		if ($receiver !== FALSE)
 			return $receiver ['value'];

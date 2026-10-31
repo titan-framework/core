@@ -57,6 +57,6 @@ $obj = $sth->fetch (PDO::FETCH_OBJ);
 
 $logoId = $obj && $obj->_logo ? $obj->_logo : 0;
 
-$menu =& Menu::singleton ();
+$menu = Menu::singleton ();
 $menu->addJavaScript ('Preview do Sistema', 'view.png', "openPopup ('instance/". $itemId ."/titan.php?target=login', 'popup_". $itemId ."');");
 ?>

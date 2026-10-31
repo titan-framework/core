@@ -1,5 +1,5 @@
 <?php
-class String extends Phrase
+class StringType extends Phrase
 {
 	public function __construct ($table, $field)
 	{

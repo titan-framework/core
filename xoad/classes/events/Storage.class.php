@@ -9,7 +9,7 @@
  *
  * require_once('xoad.php');
  *
- * $storage =& XOAD_Events_Storage::getStorage();
+ * $storage = XOAD_Events_Storage::getStorage();
  *
  * $storage->postEvent('event', 'class');
  *
@@ -43,7 +43,7 @@
  *
  * // The line below will return a XOAD_Events_Storage_MySQL
  * // class instance.
- * $storage =& XOAD_Events_Storage::getStorage();
+ * $storage = XOAD_Events_Storage::getStorage();
  *
  * $storage->postEvent('event', 'class');
  *
@@ -104,7 +104,7 @@ class XOAD_Events_Storage
 	 *
 	 * require_once('xoad.php');
 	 *
-	 * $storage =& XOAD_Events_Storage::getStorage();
+	 * $storage = XOAD_Events_Storage::getStorage();
 	 *
 	 * $storage->postEvent('event', 'class');
 	 *
@@ -203,7 +203,7 @@ class XOAD_Events_Storage
 	 */
 	public function postEvent($event, $class, $sender = null, $data = null, $filter = null, $time = null, $lifetime = null)
 	{
-		return $this->postMultipleEvents(array(array(
+		$events = array(array(
 		'event'		=>	$event,
 		'className'	=>	$class,
 		'sender'	=>	$sender,
@@ -211,7 +211,9 @@ class XOAD_Events_Storage
 		'filter'	=>	$filter,
 		'time'		=>	$time,
 		'lifetime'	=>	$lifetime
-		)));
+		));
+
+		return $this->postMultipleEvents($events);
 	}
 
 	/**
@@ -298,12 +300,14 @@ class XOAD_Events_Storage
 	 */
 	public function filterEvents($event, $class, $filter = null, $time = null)
 	{
-		return $this->filterMultipleEvents(array(array(
+		$events = array(array(
 		'event'		=>	$event,
 		'className'	=>	$class,
 		'filter'	=>	$filter,
 		'time'		=>	$time
-		)));
+		));
+
+		return $this->filterMultipleEvents($events);
 	}
 
 	/**

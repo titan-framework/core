@@ -164,7 +164,7 @@
 			if($matches[3] == '-' && preg_match('{^- }', $matches[1]))
 				return $matches[0];
 			
-			$level = $matches[3]{0} == '=' ? 1 : 2;
+			$level = $matches[3][0] == '=' ? 1 : 2;
 			$level += 1;
 			$attr  = $this->_doHeaders_attr($id =& $matches[2]);
 			$block = "<h$level$attr>".$this->runSpanGamut($matches[1])."</h$level>";

@@ -107,6 +107,9 @@ try
 
 	$_versionTable = $schema .'._version';
 
+	// Banco novo: o esquema da tabela de versões ainda não existe (ele nasce na primeira migração).
+	$_db->exec ('CREATE SCHEMA IF NOT EXISTS '. $schema);
+
 	if (!tableExists ($_db, $_versionTable))
 		$_db->exec ("CREATE TABLE ". $_versionTable ." (_version CHAR(14) NOT NULL, _author VARCHAR(64) NOT NULL, _date TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, CONSTRAINT _version_pkey PRIMARY KEY(_version))");
 
@@ -191,6 +194,9 @@ try
 catch (Exception $e)
 {
 	echo $e->getMessage () ." \n";
+
+	// Código de saída diferente de zero para quem automatiza (entrypoint do contêiner, CI).
+	exit (1);
 }
 
 echo "\n";

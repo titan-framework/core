@@ -1,5 +1,5 @@
 <?php
-class Float extends Double
+class FloatType extends Double
 {
 	public function __construct ($table, $field)
 	{

@@ -339,7 +339,7 @@ switch (@$_GET['target'])
 			$sth = Database::singleton ()->prepare ("UPDATE _user SET ". $driver->getIdColumn () ." = :id WHERE _id = :user");
 
 			$sth->bindParam (':id', $id);
-			$sth->bindParam (':user', User::singleton ()->getId (), PDO::PARAM_INT);
+			$sth->bindValue (':user', User::singleton ()->getId (), PDO::PARAM_INT);
 
 			$sth->execute ();
 		}

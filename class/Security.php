@@ -167,7 +167,7 @@ class Security
 			return NULL;
 		}
 
-		$userType = each ($this->userTypes);
+		$userType = arrayEach ($this->userTypes);
 
 		if ($userType !== FALSE)
 			return $userType ['value'];
@@ -187,7 +187,7 @@ class Security
 			return NULL;
 		}
 
-		$ldapHost = each ($this->ldapHosts);
+		$ldapHost = arrayEach ($this->ldapHosts);
 
 		if ($ldapHost !== FALSE)
 			return $ldapHost ['value'];

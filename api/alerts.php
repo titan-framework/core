@@ -14,7 +14,7 @@ $json = array ();
 
 foreach ($array as $key => $value)
 {
-	$icon = strtoupper (array_shift (explode ('.', array_pop (explode ('/', $value ['_ICON_'])))));
+	$icon = strtoupper (arrayFirst (explode ('.', arrayLast (explode ('/', $value ['_ICON_'])))));
 	
 	$json [] = (object) array ('id' => $key, 'message' => $value ['_MESSAGE_'], 'icon' => $icon, 'read' => $value ['_READ_']);
 }

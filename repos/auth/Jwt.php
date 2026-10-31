@@ -1,6 +1,7 @@
 <?php
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 /**
  * This class contains implementation for JWT protocol.
@@ -160,11 +161,23 @@ class JwtAuth extends ApiAuth
 
 	public function encrypt ($payload)
 	{
-		return JWT::encode ($payload, $this->token);
+		return JWT::encode ($payload, $this->token, 'HS256');
 	}
 
 	public function decrypt ($jwt)
 	{
-		return JWT::decode($jwt, $this->token, array('HS256'));
+		// Token expirado, adulterado ou malformado é falha de autenticação (401), não erro do sistema (500).
+		try
+		{
+			return JWT::decode ($jwt, new Key ($this->token, 'HS256'));
+		}
+		catch (UnexpectedValueException $e)
+		{
+			throw new ApiException (__ ('Invalid bearer!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED, $e->getMessage ());
+		}
+		catch (DomainException $e)
+		{
+			throw new ApiException (__ ('Invalid bearer!'), ApiException::ERROR_USER_AUTH, ApiException::UNAUTHORIZED, $e->getMessage ());
+		}
 	}
 }

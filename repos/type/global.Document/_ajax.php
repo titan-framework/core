@@ -1,4 +1,5 @@
 <?php
+#[\AllowDynamicProperties]
 class xDocument
 {
 	public function save ($formData, $fatherId, $id, $relation, $template, $validate)

@@ -13,7 +13,7 @@
  * 	{
  * 		sleep(1);
  *
- * 		$content =& XOAD_HTML::getElementById('content');
+ * 		$content = XOAD_HTML::getElementById('content');
  *
  * 		$content->innerHTML = 'Hello World! How are you?';
  * 	}
@@ -61,7 +61,7 @@
  * 	{
  * 		sleep(1);
  *
- * 		$content =& XOAD_HTML::getElementById('content');
+ * 		$content = XOAD_HTML::getElementById('content');
  *
  * 		$content->innerHTML = XOAD_HTML_CURRENT_VALUE . ' How are you?';
  * 	}
@@ -105,7 +105,7 @@ $GLOBALS['_XOAD_HTML_DATA'] = array();
  * 	{
  * 		sleep(1);
  *
- * 		$content =& XOAD_HTML::getElementById('content');
+ * 		$content = XOAD_HTML::getElementById('content');
  *
  * 		$content->innerHTML = 'Hello World! How are you?';
  * 	}
@@ -147,7 +147,7 @@ class XOAD_HTML
 	 * to get a reference to the element.</p>
 	 * <p>Example:</p>
 	 * <code>
-	 * $content =& XOAD_HTML::getElementById('content');
+	 * $content = XOAD_HTML::getElementById('content');
 	 * </code>
 	 *
 	 * @access	public
@@ -184,7 +184,7 @@ class XOAD_HTML
 	 * to get a reference to the list.</p>
 	 * <p>Example:</p>
 	 * <code>
-	 * $messages =& XOAD_HTML::getElementsByName('message');
+	 * $messages = XOAD_HTML::getElementsByName('message');
 	 * </code>
 	 *
 	 * @access	public
@@ -221,7 +221,7 @@ class XOAD_HTML
 	 * to get a reference to the list.</p>
 	 * <p>Example:</p>
 	 * <code>
-	 * $inputs =& XOAD_HTML::getElementsByTagName('input');
+	 * $inputs = XOAD_HTML::getElementsByTagName('input');
 	 * </code>
 	 *
 	 * @access	public
@@ -258,7 +258,7 @@ class XOAD_HTML
 	 * to get a reference to the list.</p>
 	 * <p>Example:</p>
 	 * <code>
-	 * $messages =& XOAD_HTML::cssQuery('#message, .message-body');
+	 * $messages = XOAD_HTML::cssQuery('#message, .message-body');
 	 * </code>
 	 *
 	 * @access	public

@@ -58,7 +58,7 @@ class MenuSubmenu extends MenuItem
 	
 	private function get ()
 	{
-		$item = each ($this->submenu);
+		$item = arrayEach ($this->submenu);
 
 		if ($item === FALSE)
 		{

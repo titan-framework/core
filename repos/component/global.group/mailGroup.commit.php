@@ -1,5 +1,5 @@
 <?php
-$form =& Form::singleton ('alert.xml');
+$form = Form::singleton ('alert.xml');
 
 $action = $form->goToAction ('fail');
 

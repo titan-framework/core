@@ -90,7 +90,7 @@ class Business
 		{
 			do
 			{
-				$section = each ($this->sections);
+				$section = arrayEach ($this->sections);
 			} while ($section !== FALSE && !$listFake && $section ['value']->isFake ());
 
 			if ($section !== FALSE)

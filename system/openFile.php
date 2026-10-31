@@ -25,7 +25,7 @@ if ((isset ($_GET['jp2']) && $_GET['jp2'] == '1') || (isset ($_SERVER ['HTTP_USE
 {
 	preg_match ('/Version\/(?P<version>[0-9]+)/', $_SERVER ['HTTP_USER_AGENT'], $parameters);
 
-	if ((float) $parameters ['version'] >= 6)
+	if ((float) ($parameters ['version'] ?? 0) >= 6)
 		$jp2 = TRUE;
 }
 

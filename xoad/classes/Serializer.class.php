@@ -129,7 +129,7 @@ class XOAD_Serializer extends XOAD_Observable
 
 			for ($iterator = 0; $iterator < $length; $iterator ++) {
 
-				$char = $var{$iterator};
+				$char = $var[$iterator];
 
 				$charCode = ord($char);
 
@@ -155,7 +155,7 @@ class XOAD_Serializer extends XOAD_Observable
 
 				} else if (($charCode == 0x22) || ($charCode == 0x2F) || ($charCode == 0x5C)) {
 
-					$ascii .= '\\' . $var{$iterator};
+					$ascii .= '\\' . $var[$iterator];
 
 				} else if ($charCode < 128) {
 
@@ -167,7 +167,7 @@ class XOAD_Serializer extends XOAD_Observable
 
 					$iterator ++;
 
-					$char = $var{$iterator};
+					$char = $var[$iterator];
 
 					$charCode = ord($char);
 
@@ -183,7 +183,7 @@ class XOAD_Serializer extends XOAD_Observable
 
 					$iterator ++;
 
-					$char = $var{$iterator};
+					$char = $var[$iterator];
 
 					$charCode = ord($char);
 
@@ -191,7 +191,7 @@ class XOAD_Serializer extends XOAD_Observable
 
 					$iterator ++;
 
-					$char = $var{$iterator};
+					$char = $var[$iterator];
 
 					$charCode = ord($char);
 
@@ -207,7 +207,7 @@ class XOAD_Serializer extends XOAD_Observable
 
 					$iterator ++;
 
-					$char = $var{$iterator};
+					$char = $var[$iterator];
 
 					$charCode = ord($char);
 
@@ -215,7 +215,7 @@ class XOAD_Serializer extends XOAD_Observable
 
 					$iterator ++;
 
-					$char = $var{$iterator};
+					$char = $var[$iterator];
 
 					$charCode = ord($char);
 
@@ -223,7 +223,7 @@ class XOAD_Serializer extends XOAD_Observable
 
 					$iterator ++;
 
-					$char = $var{$iterator};
+					$char = $var[$iterator];
 
 					$charCode = ord($char);
 

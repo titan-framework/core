@@ -1,4 +1,5 @@
 <?php
+#[\AllowDynamicProperties]
 class xNote
 {
 	public function locations ($note)
@@ -23,7 +24,7 @@ class xNote
 			$array = $sth->fetchAll (PDO::FETCH_ASSOC);
 			
 			foreach ($array as $key => $item)
-				$array [$key]['date'] = strftime ('%x %X', $item ['date']);
+				$array [$key]['date'] = strftimeLocal ('%x %X', $item ['date']);
 			
 			$message->save ();
 			

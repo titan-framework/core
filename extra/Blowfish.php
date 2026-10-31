@@ -10,6 +10,7 @@
  * @author Matt Harris
  **/
 
+#[\AllowDynamicProperties]
 class Blowfish {
   # Mode constants
   const BLOWFISH_MODE_EBC     = 10; 
@@ -19,6 +20,12 @@ class Blowfish {
   const BLOWFISH_PADDING_NONE = 20;
   const BLOWFISH_PADDING_RFC  = 21;
   const BLOWFISH_PADDING_ZERO = 22;
+
+  // PHP 8 nao chama mais metodos com o nome da classe como construtor:
+  // __construct delega para o construtor original (estilo PHP 4).
+  function __construct($key, $mode, $padding, $iv=NULL) {
+    $this->Blowfish($key, $mode, $padding, $iv);
+  }
 
   function Blowfish($key, $mode, $padding, $iv=NULL) {
     $this->mode = $mode;
@@ -42,7 +49,7 @@ class Blowfish {
    * @return string Returns the encrypted string. It is recommended you base64encode this for storage.
    * @author Matt Harris
    **/
-  function encrypt($plaintext, $key, $mode=Blowfish::BLOWFISH_MODE_CBC, $padding=Blowfish::BLOWFISH_PADDING_RFC, $iv=NULL) {
+  static function encrypt($plaintext, $key, $mode=Blowfish::BLOWFISH_MODE_CBC, $padding=Blowfish::BLOWFISH_PADDING_RFC, $iv=NULL) {
     if ( $mode == Blowfish::BLOWFISH_MODE_CBC and empty($iv) ) {
       throw new Exception('CBC Mode requires an IV key');
       return;
@@ -79,7 +86,7 @@ class Blowfish {
    * @return string Returns the plaintext string.
    * @author Matt Harris
    **/
-  function decrypt($ciphertext, $key, $mode=Blowfish::BLOWFISH_MODE_CBC, $padding=Blowfish::BLOWFISH_PADDING_RFC, $iv=NULL) {
+  static function decrypt($ciphertext, $key, $mode=Blowfish::BLOWFISH_MODE_CBC, $padding=Blowfish::BLOWFISH_PADDING_RFC, $iv=NULL) {
     if ( $mode == Blowfish::BLOWFISH_MODE_CBC and empty($iv) ) {
       throw new Exception('CBC Mode requires an IV key');
       return;

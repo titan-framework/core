@@ -163,7 +163,7 @@ class ApiEntity
 			else
 				return NULL;
 
-		$field = each ($this->fields);
+		$field = arrayEach ($this->fields);
 
 		if ($field !== FALSE)
 			return $field ['value'];

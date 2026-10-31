@@ -10,6 +10,7 @@
  * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see User, Xoad, AjaxLogon
  */
+#[\AllowDynamicProperties]
 class AjaxPasswd
 {
 	public function changePasswd ($hash, $password, $login)

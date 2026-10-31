@@ -35,6 +35,11 @@ class LinePlot extends Plot{
 
     //---------------
     // CONSTRUCTOR
+    // PHP 8: metodos com o nome da classe nao sao mais construtores; __construct delega ao original.
+    function __construct($datay,$datax=false) {
+    	$this->LinePlot($datay, $datax);
+    }
+
     function LinePlot($datay,$datax=false) {
         parent::__construct($datay,$datax);
         $this->mark = new PlotMark() ;

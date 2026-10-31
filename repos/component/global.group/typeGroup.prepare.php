@@ -44,9 +44,9 @@ if ($typeSelected)
 		$arrayRelation [$obj->_id] = $obj->_name;
 }
 
-$form =& Form::singleton ('type.xml');
+$form = Form::singleton ('type.xml');
 
-$menu =& Menu::singleton ();
+$menu = Menu::singleton ();
 $menu->addJavaScript (__ ('Save'), 'titan.php?target=loadFile&file=interface/menu/save.png', "saveRelation ();");
 $menu->add ($form->goToAction ('cancel')->getName (), __ ('List Groups'), 0, $section->getName (), 'titan.php?target=loadFile&file=interface/menu/list.png');
 ?>

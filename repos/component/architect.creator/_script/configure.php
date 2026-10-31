@@ -39,6 +39,7 @@ function validName ($str)
         return $str;
 }
 
+#[\AllowDynamicProperties]
 class Ajax
 {
         public function nameValidate ($section)
@@ -168,7 +169,7 @@ $_SESSION['SECTION_PROPS_'. $name] = $form;
 
 function utfDecode (&$value, $key)
 {
-        $value = utf8_decode ($value);
+        $value = utf8ToLatin1 ($value);
 }
 
 define ('XOAD_AUTOHANDLE', true);

@@ -1,4 +1,5 @@
 <?php
+#[\AllowDynamicProperties]
 class Ajax
 {
 	public function getBoxes ()
@@ -294,7 +295,7 @@ class Ajax
 			
 			$sth = Database::singleton ()->prepare ("UPDATE _user SET ". $driver->getIdColumn () ." = NULL WHERE _id = :id");
 			
-			$sth->bindParam (':id', User::singleton ()->getId (), PDO::PARAM_INT);
+			$sth->bindValue (':id', User::singleton ()->getId (), PDO::PARAM_INT);
 			
 			$sth->execute ();
 		}
@@ -399,7 +400,7 @@ class Ajax
 			
 			$sth = Database::singleton ()->prepare ("SELECT * FROM _mobile WHERE _user = :user");
 			
-			$sth->bindParam (':user', User::singleton ()->getId ());
+			$sth->bindValue (':user', User::singleton ()->getId ());
 			
 			$sth->execute ();
 			

@@ -63,7 +63,7 @@ class Document extends Collection
 		if (!is_null ($id) && array_key_exists ($id, $this->terms))
 			return $this->terms [$id];
 
-		$term = each ($this->terms);
+		$term = arrayEach ($this->terms);
 
 		while ($term !== FALSE)
 			return $term ['value'];
@@ -89,7 +89,7 @@ class Document extends Collection
 			if (!$term->isAutoCreated ())
 				continue;
 
-			$sth->bindParam (':id', $term->getId (), PDO::PARAM_STR, 128);
+			$sth->bindValue (':id', $term->getId (), PDO::PARAM_STR);
 			$sth->bindParam (':relation', $itemId, PDO::PARAM_INT);
 
 			$sth->execute ();
@@ -330,7 +330,7 @@ class DocumentItem
 
 		$fields = array ();
 
-		while ($field =& $form->getField ())
+		while ($field = $form->getField ())
 		{
 			$value = $field->getValue ();
 

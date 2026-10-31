@@ -50,7 +50,7 @@ class EncodeMedia
 
 				$control = $playable .'.encoding';
 
-				if (!file_put_contents ($control, strftime ('%c'), LOCK_EX))
+				if (!file_put_contents ($control, strftimeLocal ('%c'), LOCK_EX))
 					throw new Exception ('Impossible to create control file!');
 
 				$log = $playable .'.3gp-ogg.log';
@@ -84,7 +84,7 @@ class EncodeMedia
 
 				$control = $playable .'.encoding';
 
-				if (!file_put_contents ($control, strftime ('%c'), LOCK_EX))
+				if (!file_put_contents ($control, strftimeLocal ('%c'), LOCK_EX))
 					throw new Exception ('Impossible to create control file!');
 
 				$log = $playable .'.mov-webm.log';
@@ -114,7 +114,7 @@ class EncodeMedia
 
 				$control = $playable .'.encoding';
 
-				if (!file_put_contents ($control, strftime ('%c'), LOCK_EX))
+				if (!file_put_contents ($control, strftimeLocal ('%c'), LOCK_EX))
 					throw new Exception ('Impossible to create control file!');
 
 				$log = $playable .'.wmv-webm.log';
@@ -144,7 +144,7 @@ class EncodeMedia
 
 				$control = $playable .'.encoding';
 
-				if (!file_put_contents ($control, strftime ('%c'), LOCK_EX))
+				if (!file_put_contents ($control, strftimeLocal ('%c'), LOCK_EX))
 					throw new Exception ('Impossible to create control file!');
 
 				$log = $playable .'.wma-ogg.log';

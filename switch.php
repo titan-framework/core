@@ -99,7 +99,11 @@ try
 				// For debug
 				// system ('java -jar '. $instance->getCorePath () .'extra/custom_rhino.jar -c '. $path . $assign .'.js > '. $path . $assign .'.pck 2>&1', $trash);
 
-				$commands = array ('java', '/usr/bin/java', '/usr/local/bin/java');
+				// Só tenta os executáveis do Java que existem: sem Java, o JS segue sem minificar, sem
+				// três chamadas de shell com erro a cada requisição.
+				$commands = array_filter (array ('java', '/usr/bin/java', '/usr/local/bin/java'), function ($cmd) {
+					return $cmd == 'java' ? trim ((string) shell_exec ('command -v java 2>/dev/null')) !== '' : is_executable ($cmd);
+				});
 
 				set_error_handler ('logPhpError');
 
@@ -610,7 +614,7 @@ try
 
 				imagepng ($img);
 
-				imagedestroy ($im);
+				imagedestroy ($img);
 
 				exit ();
 			}
@@ -833,10 +837,11 @@ try
 
 		case 'setClientTimeZone':
 
-			if (!isset ($_GET['z']) || trim ($_GET['z']) == '' || isset ($_COOKIE['_TITAN_TIMEZONE_']))
+			// Atualiza o cookie sempre que o navegador informa outro fuso (corrige o detectado errado antes).
+			if (!isset ($_GET['z']) || !in_array (trim ($_GET['z']), DateTimeZone::listIdentifiers (DateTimeZone::ALL_WITH_BC), TRUE) || (isset ($_COOKIE['_TITAN_TIMEZONE_']) && $_COOKIE['_TITAN_TIMEZONE_'] === trim ($_GET['z'])))
 				exit ();
 
-			setcookie ('_TITAN_TIMEZONE_', trim ($_GET['z']), time () + 60 * 60 * 24 * 30 * 12);
+			setcookie ('_TITAN_TIMEZONE_', trim ($_GET['z']), array ('expires' => time () + 60 * 60 * 24 * 30 * 12, 'path' => '/', 'httponly' => TRUE, 'samesite' => 'Lax'));
 
 			break;
 

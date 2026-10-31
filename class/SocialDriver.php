@@ -76,7 +76,7 @@ abstract class SocialDriver
 			return $this->attributes [$name];
 		}
 
-		$item = each ($this->attributes);
+		$item = arrayEach ($this->attributes);
 
 		if ($item === FALSE)
 		{
@@ -187,7 +187,7 @@ class SocialDriverAttribute
 
 		$this->name = trim ($array ['name']);
 		$this->column = trim ($array ['column']);
-		$this->permission = trim (@$array ['permission']);
+		$this->permission = array_key_exists ('permission', $array) ? trim ((string) $array ['permission']) : '';
 
 		if (array_key_exists ('adapter', $array) && trim ($array ['adapter']) != '')
 			$adapter = $array ['adapter'];

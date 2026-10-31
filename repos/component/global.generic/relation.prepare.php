@@ -3,7 +3,7 @@ $arrayFrom = array ();
 $arrayItem = array ();
 $arrayFor  = array ();
 
-$form =& Form::singleton ('relation.xml');
+$form = Form::singleton ('relation.xml');
 
 $db = Database::singleton ();
 

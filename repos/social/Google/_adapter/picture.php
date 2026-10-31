@@ -21,7 +21,7 @@ try
 	
 	$mime = 'image/jpeg';
 	
-	$name = array_pop (explode ('/', $value));
+	$name = arrayLast (explode ('/', $value));
 	
 	$sql = "INSERT INTO _file (_id, _name, _mimetype, _size, _user) VALUES (:id, :name, :mime, :size, :user)";
 	
@@ -30,7 +30,7 @@ try
 	$sth->bindParam (':id', $id, PDO::PARAM_INT);
 	$sth->bindParam (':name', $name, PDO::PARAM_STR);
 	$sth->bindParam (':mime', $mime, PDO::PARAM_STR);
-	$sth->bindParam (':size', filesize ($file), PDO::PARAM_INT);
+	$sth->bindValue (':size', filesize ($file), PDO::PARAM_INT);
 	$sth->bindParam (':user', $user, PDO::PARAM_INT);
 	
 	$sth->execute ();

@@ -1,4 +1,5 @@
 <?php
+#[\AllowDynamicProperties]
 class Ajax
 {
 	public function saveSort ($str, $table, $primary)

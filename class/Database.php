@@ -315,7 +315,7 @@ class Database
 
 			$sequence = str_replace (array ('::text', '::regclass', 'nextval(', ':', '(', ')', ' ', '"', '\''), '', trim ($obj->seq));
 
-			$sequence = array_pop (explode ('.', $sequence));
+			$sequence = arrayLast (explode ('.', $sequence));
 
 			try
 			{
@@ -442,7 +442,7 @@ class Database
 
 			$sequence = str_replace (array ('::text', '::regclass', 'nextval(', ':', '(', ')', ' ', '"', '\''), '', trim ($obj->seq));
 
-			$sequence = array_pop (explode ('.', $sequence));
+			$sequence = arrayLast (explode ('.', $sequence));
 
 			try
 			{

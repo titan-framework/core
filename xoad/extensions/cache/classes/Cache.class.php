@@ -226,7 +226,7 @@ class XOAD_Cache
 			}
 		}
 
-		$storage =& XOAD_Cache::getStorage();
+		$storage = XOAD_Cache::getStorage();
 
 		$cacheId = $storage->generateID($cacheId);
 
@@ -282,7 +282,7 @@ class XOAD_Cache
 			return false;
 		}
 
-		$storage =& XOAD_Cache::getStorage();
+		$storage = XOAD_Cache::getStorage();
 
 		$cacheId =& $GLOBALS['_XOAD_CACHE_ARGUMENTS']['id'];
 		$cacheData =& $GLOBALS['_XOAD_CACHE_ARGUMENTS']['data'];

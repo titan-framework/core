@@ -28,7 +28,9 @@ require_once(XOAD_HTML_BASE . '/classes/ServerObserver.class.php');
  */
 require_once(XOAD_HTML_BASE . '/classes/HTML.class.php');
 
-XOAD_Server::addObserver(new XOAD_HTML_ServerObserver());
+$observer = new XOAD_HTML_ServerObserver();
+
+XOAD_Server::addObserver($observer);
 
 XOAD_Utilities::extensionHeader('html', 'js/html.js', 'js/html_optimized.js');
 XOAD_Utilities::customHeader('/extensions/js/cssQuery.js');

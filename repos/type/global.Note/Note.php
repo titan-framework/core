@@ -48,7 +48,7 @@ class Note extends Type
 		if (array_key_exists ('relation-entity', $field) && trim ($field ['relation-entity']) != '')
 			$this->setColumnEntity ($field ['relation-entity']);
 		else
-			$this->setColumnEntity (array_pop (explode ('.', $this->getTable ())));
+			$this->setColumnEntity (arrayLast (explode ('.', $this->getTable ())));
 
 		if (array_key_exists ('relation-note', $field) && trim ($field ['relation-note']) != '')
 			$this->setColumnNote ($field ['relation-note']);

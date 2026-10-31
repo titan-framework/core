@@ -128,7 +128,7 @@ class Api
 			return $this->applications [$name];
 		}
 
-		$app = each ($this->applications);
+		$app = arrayEach ($this->applications);
 
 		if ($app === FALSE)
 		{

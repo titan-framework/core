@@ -151,7 +151,7 @@ class VersionForm extends Form
 		return $this->vPrimary;
 	}
 
-	public function load ($id, $version)
+	public function load ($id, $version = NULL)
 	{
 		if ($this->isLoaded ())
 			return TRUE;

@@ -35,7 +35,7 @@ $owner = (bool) $_GET['owner'];
 				
 				$archive = Archive::singleton ();
 
-				if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (array_pop (explode ('.', $file ['name'])))))
+				if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (arrayLast (explode ('.', $file ['name'])))))
 					throw new Exception (__ ('This file type ([1]) is not supported!', $obj->_mimetype));
 				
 				if ($fileType == 'video/3gpp' && !Archive::is3GPPVideo ($fileTemp))

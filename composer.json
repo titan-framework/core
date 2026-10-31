@@ -55,12 +55,19 @@
 	],
 	"minimum-stability": "stable",
 	"require": {
-		"php": ">=5.4",
-		"dompdf/dompdf": ">=0.7",
-		"facebook/graph-sdk": ">=5.5",
-		"firebase/php-jwt": "^5.4"
+		"php": ">=7.4",
+		"dompdf/dompdf": "^3.1",
+		"firebase/php-jwt": "^6.4 || ^7.0"
+	},
+	"suggest": {
+		"facebook/graph-sdk": "Required by the Facebook social driver (abandoned; does not install on PHP 8)."
 	},
 	"config": {
-		"vendor-dir": "vendor"
+		"vendor-dir": "vendor",
+		"audit": {
+			"ignore": {
+				"PKSA-y2cr-5h3j-g3ys": "CVE-2025-45769 (php-jwt < 7). A 7.x exige PHP 8; no PHP 7.4 das VMs legadas fica a 6.x até a migração para contêiner."
+			}
+		}
 	}
 }

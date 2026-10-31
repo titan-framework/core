@@ -29,7 +29,7 @@ $field = $_GET['field'];
 				
 				$archive = Archive::singleton ();
 
-				if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (array_pop (explode ('.', $file ['name'])))))
+				if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (arrayLast (explode ('.', $file ['name'])))))
 					throw new Exception (__ ('This file type ([1]) is not supported!', $obj->_mimetype));
 				
 				if ($fileType == 'video/3gpp' && !Archive::is3GPPVideo ($fileTemp))
@@ -69,7 +69,7 @@ $field = $_GET['field'];
 				$sth->bindParam (':name', $fileName, PDO::PARAM_STR);
 				$sth->bindParam (':type', $fileType, PDO::PARAM_STR);
 				$sth->bindParam (':size', $fileSize, PDO::PARAM_INT);
-				$sth->bindParam (':user', User::singleton ()->getId (), PDO::PARAM_INT);
+				$sth->bindValue (':user', User::singleton ()->getId (), PDO::PARAM_INT);
 				
 				$sth->execute ();
 				

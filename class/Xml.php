@@ -105,7 +105,7 @@ class Xml
 			$table = array ();
 
 			foreach ($aux as $key => $value)
-				$table [utf8_encode ($key)] = utf8_encode ($value);
+				$table [latin1ToUtf8 ($key)] = latin1ToUtf8 ($value);
 		}
 
 		$table = array_flip ($table);

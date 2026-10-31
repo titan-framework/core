@@ -386,7 +386,7 @@ class Lucene
 						break;
 
 					default:
-						continue;
+						continue 2;
 				}
 			}
 			catch (Exception $e)

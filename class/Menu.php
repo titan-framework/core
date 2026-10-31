@@ -147,7 +147,7 @@ class Menu
 
 	public function get ()
 	{
-		$item = each ($this->array);
+		$item = arrayEach ($this->array);
 
 		if ($item === FALSE)
 		{
@@ -161,7 +161,7 @@ class Menu
 
 	public function getItem ()
 	{
-		$item = each ($this->array);
+		$item = arrayEach ($this->array);
 
 		if ($item === FALSE)
 		{

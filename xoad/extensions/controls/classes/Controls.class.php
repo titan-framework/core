@@ -72,8 +72,8 @@ class XOAD_Controls
 		if (strlen($fileName) >= 3) {
 
 			if (
-			($fileName{1} == ':') &&
-			($fileName{2} == DIRECTORY_SEPARATOR)) {
+			($fileName[1] == ':') &&
+			($fileName[2] == DIRECTORY_SEPARATOR)) {
 
 				return $fileName;
 			}

@@ -125,6 +125,11 @@ class Archive_Zip
     * @param    string  $p_zipname  The name of the zip archive to create
     * @access public
     */
+    // PHP 8: metodos com o nome da classe nao sao mais construtores; __construct delega ao original.
+    function __construct($p_zipname) {
+    	$this->Archive_Zip($p_zipname);
+    }
+
     function Archive_Zip($p_zipname)
     {
 
@@ -673,7 +678,7 @@ class Archive_Zip
   	
       	// ----- Extract error constants from all const.
         for (reset($v_const_list);
-		     list($v_key, $v_value) = each($v_const_list);) {
+		     list($v_key, $v_value) = arrayEach($v_const_list);) {
      	    if (substr($v_key, 0, strlen('ARCHIVE_ZIP_ERR_'))
 			    =='ARCHIVE_ZIP_ERR_') {
     		    $v_error_list[$v_key] = $v_value;
@@ -3240,7 +3245,7 @@ class Archive_Zip
     }
     
     // ----- Check that all the params are valid
-    for (reset($p_params); list($v_key, $v_value) = each($p_params); ) {
+    for (reset($p_params); list($v_key, $v_value) = arrayEach($p_params); ) {
     	if (!isset($p_default[$v_key])) {
             $this->_errorLog(ARCHIVE_ZIP_ERR_INVALID_PARAMETER,
 			                 'Unsupported parameter with key \''.$v_key.'\'');
@@ -3250,7 +3255,7 @@ class Archive_Zip
     }
 
 	// ----- Set the default values
-    for (reset($p_default); list($v_key, $v_value) = each($p_default); ) {
+    for (reset($p_default); list($v_key, $v_value) = arrayEach($p_default); ) {
     	if (!isset($p_params[$v_key])) {
     		$p_params[$v_key] = $p_default[$v_key];
     	}

@@ -95,7 +95,7 @@ class XOAD_HTML_DOM_BaseElement
 	 *
 	 * <p>Example:</p>
 	 * <code>
-	 * $content =& XOAD_HTML::getElementById('content');
+	 * $content = XOAD_HTML::getElementById('content');
 	 *
 	 * $content->removeAttribute('disabled');
 	 * </code>
@@ -120,7 +120,7 @@ class XOAD_HTML_DOM_BaseElement
 	 *
 	 * <p>Example:</p>
 	 * <code>
-	 * $content =& XOAD_HTML::getElementById('content');
+	 * $content = XOAD_HTML::getElementById('content');
 	 *
 	 * $content->setAttribute('disabled', true);
 	 * </code>

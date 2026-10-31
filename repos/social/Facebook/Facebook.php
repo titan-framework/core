@@ -6,6 +6,11 @@ class FacebookDriver extends SocialDriver
 
 	public function __construct ($array, $path)
 	{
+		// O facebook/graph-sdk saiu das dependências do core: está abandonado, não instala no PHP 8
+		// e usa a Graph API v2.10, desativada pelo Facebook em 2019.
+		if (!class_exists ('\\Facebook\\Facebook'))
+			throw new Exception ('Facebook SDK (facebook/graph-sdk) is not installed!');
+
 		parent::__construct ($array, $path);
 
 		if (isset ($_SESSION ['_TITAN_FACEBOOK_ACCESS_TOKEN_']) && trim ($_SESSION ['_TITAN_FACEBOOK_ACCESS_TOKEN_']) != '')
@@ -136,7 +141,7 @@ class FacebookDriver extends SocialDriver
 		if ($full)
 			return $profile;
 
-		$profile ['username'] = array_shift (explode ('@', $profile ['email']));
+		$profile ['username'] = arrayFirst (explode ('@', $profile ['email']));
 		$profile ['picture'] = $profile ['id'];
 
 		$this->setProfile ($profile);
@@ -346,7 +351,7 @@ class FacebookDriver extends SocialDriver
 
 			$sth = $db->prepare ($sql);
 
-			$sth->bindParam (':type', $type->getName (), PDO::PARAM_STR);
+			$sth->bindValue (':type', $type->getName (), PDO::PARAM_STR);
 
 			$sth->execute ();
 

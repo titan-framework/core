@@ -76,8 +76,8 @@ class XOAD_Cache_Storage_Files extends XOAD_Cache_Storage
 		if (strlen($this->container) >= 3) {
 
 			if (
-			($this->container{1} == ':') &&
-			($this->container{2} == DIRECTORY_SEPARATOR)) {
+			($this->container[1] == ':') &&
+			($this->container[2] == DIRECTORY_SEPARATOR)) {
 
 				return $this->container . DIRECTORY_SEPARATOR . $id;
 			}
@@ -160,7 +160,7 @@ class XOAD_Cache_Storage_Files extends XOAD_Cache_Storage
 	 * @return	mixed	The data in the cache with the given ID or null.
 	 *
 	 */
-	public function load($id)
+	public function load($id = null)
 	{
 		$fileName = $this->getFileName($id);
 
@@ -213,7 +213,7 @@ class XOAD_Cache_Storage_Files extends XOAD_Cache_Storage
 	 * @return	bool	True on success, false otherwise.
 	 *
 	 */
-	public function save($id, $expires, $data)
+	public function save($id = null, $expires = null, $data = null)
 	{
 		$fileName = $this->getFileName($id);
 

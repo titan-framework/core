@@ -2,7 +2,7 @@
 
 try
 {
-	set_error_handler ('apiPhpError', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+	set_error_handler ('apiPhpError', E_ALL & ~E_NOTICE & ~E_DEPRECATED);
 
 	if (!isset ($_GET ['uri']))
 		throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Invalid URI!');
@@ -105,7 +105,7 @@ try
 
 		case 'type':
 
-			$_type = ucfirst (preg_replace_callback ("/\-./", create_function ('$matches', 'return strtoupper($matches[0][1]);'), trim (@$_uri [1])));
+			$_type = ucfirst (preg_replace_callback ("/\-./", function ($matches) { return strtoupper ($matches [0][1]); }, trim (@$_uri [1])));
 
 			if (!Instance::singleton ()->typeExists ($_type))
 				throw new ApiException (__ ('Invalid URI!'), ApiException::ERROR_INVALID_PARAMETER, ApiException::BAD_REQUEST, 'Type ['. $_type .'] do not exists!');

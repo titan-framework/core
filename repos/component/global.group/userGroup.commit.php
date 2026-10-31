@@ -1,5 +1,5 @@
 <?php
-$form =& Form::singleton ('user.xml');
+$form = Form::singleton ('user.xml');
 
 $action = $form->goToAction ('fail');
 

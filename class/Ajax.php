@@ -10,6 +10,7 @@
  * @license http://www.titanframework.com/license/ BSD License (3 Clause)
  * @see Instance, Business, Section, Xoad
  */
+#[\AllowDynamicProperties]
 class Ajax
 {
 	public function xoadGetMeta()

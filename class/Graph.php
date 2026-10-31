@@ -204,7 +204,7 @@ class Graph
 
 	public function getGroup ()
 	{
-		$group = each ($this->groupsInfo);
+		$group = arrayEach ($this->groupsInfo);
 
 		if ($group !== FALSE)
 			return new Group ($group ['value']);
@@ -224,14 +224,14 @@ class Graph
 			return NULL;
 		}
 
-		$field = each ($this->fields);
+		$field = arrayEach ($this->fields);
 
 		while ($field !== FALSE)
 		{
 			if ($group === FALSE || (array_key_exists ($group, $this->groups) && in_array ($field ['value']->getAssign (), $this->groups [$group])))
 				return $this->makeGraph ($field ['value'], $where, $type);
 
-			$field = each ($this->fields);
+			$field = arrayEach ($this->fields);
 		}
 
 		reset ($this->fields);

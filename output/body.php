@@ -43,7 +43,7 @@ header ('Content-Encoding: gzip');
 		<script language="javascript" type="text/javascript" src="titan.php?target=packer&amp;files=general,menu,type,boxover,common,actb,ajax,ajax-dynamic-content,modal-message,modalbox&amp;v=<?= VersionHelper::singleton ()->getTitanBuild () ?>"></script>
 		<?php
 		foreach ($types as $type => $trash)
-			if (call_user_func (array ($type, 'usingMap')))
+			if (call_user_func (array (Instance::singleton ()->getTypeClass ($type), 'usingMap')))
 			{
 				?>
 				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>

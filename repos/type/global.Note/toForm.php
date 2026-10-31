@@ -42,13 +42,13 @@ ob_start ();
 			}
 			else
 			{
-				$a = "JavaScript: global.Note.earth ('". $obj->_id ."', '". $fieldId ."', '". $obj->_latitude ."', '". $obj->_longitude ."', '". $obj->_title ."', '". strftime ('%x %X', $obj->_change) ."', '". $obj->_name ."', '". str_replace (array ("'", "\n", "\r"), array ('"', ' ', ''), trim ($obj->_note)) ."');";
+				$a = "JavaScript: global.Note.earth ('". $obj->_id ."', '". $fieldId ."', '". $obj->_latitude ."', '". $obj->_longitude ."', '". $obj->_title ."', '". strftimeLocal ('%x %X', $obj->_change) ."', '". $obj->_name ."', '". str_replace (array ("'", "\n", "\r"), array ('"', ' ', ''), trim ($obj->_note)) ."');";
 				?>
 				<tr class="cTableItem">
 					<td><input type="checkbox" name="<?= $fieldName ?>[]" value="<?= $obj->_code ?>" checked="checked" /></td>
 					<td><a href="#" onclick="<?= $a ?>"><?= $obj->_title ?><a></td>
 					<td><a href="#" onclick="<?= $a ?>"><?= $obj->_note ?></a></td>
-					<td><a href="#" onclick="<?= $a ?>"><?= strftime ('%x %X', $obj->_change) ?></a></td>
+					<td><a href="#" onclick="<?= $a ?>"><?= strftimeLocal ('%x %X', $obj->_change) ?></a></td>
 					<td><a href="#" onclick="<?= $a ?>"><?= $obj->_name ?></a></td>
 					<td class="icon" nowrap="nowrap">
 						<a href="#" onclick="<?= $a ?>"><img src="titan.php?target=tResource&type=Note&file=earth.png" class="icon" border="0" title="<?= __ ('Tracking') ?>" alt="<?= __ ('Tracking') ?>" /></a>&nbsp;

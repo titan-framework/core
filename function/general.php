@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname (__FILE__) . DIRECTORY_SEPARATOR .'compat.php';
+
 function autoload ($class)
 {
 	$file = Instance::singleton ()->getCorePath () .'class'. DIRECTORY_SEPARATOR . $class . '.php';
@@ -141,7 +143,7 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 	$width = round ($width);
 	$height = round ($height);
 
-	$padded = array_pop (explode ('_', $file));
+	$padded = arrayLast (explode ('_', $file));
 
 	$cache = Instance::singleton ()->getCachePath ();
 
@@ -175,22 +177,31 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 	{
 		case 'image/jpeg':
 		case 'image/pjpeg':
-			$buffer = imagecreatefromjpeg ($file);
+			$buffer = @imagecreatefromjpeg ($file);
 			break;
 
 		case 'image/gif':
-			$buffer = imagecreatefromgif ($file);
+			$buffer = @imagecreatefromgif ($file);
 			break;
 
 		case 'image/png':
-			$buffer = imagecreatefrompng ($file);
-			imagealphablending ($buffer, TRUE);
-			imagesavealpha ($buffer, TRUE);
+			$buffer = @imagecreatefrompng ($file);
 			break;
 		
 		case 'image/webp':
 			$buffer = imagecreatefromwebp ($file);
 			break;
+	}
+
+	// Arquivo cujo conteúdo não bate com o MIME registrado (ex.: JPEG enviado como PNG): tenta
+	// detectar o formato pelo conteúdo antes de desistir.
+	if (!$buffer && is_readable ($file))
+		$buffer = @imagecreatefromstring (file_get_contents ($file));
+
+	if ($buffer && $type == 'image/png')
+	{
+		imagealphablending ($buffer, TRUE);
+		imagesavealpha ($buffer, TRUE);
 	}
 
 	if (!$buffer)
@@ -250,7 +261,7 @@ function resize ($file, $type, $width = 0, $height = 0, $force = FALSE, $bw = FA
 
 		// Try use ImageMagick in command line first...
 		
-		if (function_exists ('exec') && (`which convert`))
+		if (function_exists ('exec') && shell_exec ('which convert'))
 			@exec ('convert '. $jp2conversion .' -quality 70 '. $cached);
 		
 		if (file_exists ($cached) && is_readable ($cached) && (int) filesize ($cached))
@@ -601,7 +612,7 @@ function logPhpError ($errno, $errstr, $errfile, $errline)
 						E_USER_ERROR		=> 'USER ERROR',
 						E_USER_WARNING		=> 'USER WARNING',
 						E_USER_NOTICE		=> 'USER NOTICE',
-						E_STRICT			=> 'STRICT NOTICE',
+						 2048			=> 'STRICT NOTICE', // E_STRICT: constante deprecada no PHP 8.4
 						E_RECOVERABLE_ERROR	=> 'RECOVERABLE ERROR');
 
 	$err = array_key_exists ($errno, $errorType) ? $errorType [$errno] : 'CAUGHT EXCEPTION';
@@ -613,6 +624,10 @@ function logPhpError ($errno, $errstr, $errfile, $errline)
 
 function toLog ($message)
 {
+	// Em contêiner, o log também vai para o stderr (docker logs, Loki) quando TITAN_LOG_STDERR está ligado.
+	if (filter_var (getenv ('TITAN_LOG_STDERR'), FILTER_VALIDATE_BOOLEAN))
+		error_log ('[Titan] '. (isset ($_SERVER['REMOTE_ADDR']) ? '['. $_SERVER['REMOTE_ADDR'] .'] ' : '') . str_replace (array ("\r", "\n"), ' ', $message));
+
 	if (file_exists ('FirePHPCore/FirePHP.class.php'))
 		@include_once ('FirePHPCore/FirePHP.class.php');
 
@@ -655,10 +670,30 @@ function apiPhpError ($errno, $errstr, $errfile, $errline)
 						E_USER_ERROR		=> 'USER ERROR',
 						E_USER_WARNING		=> 'USER WARNING',
 						E_USER_NOTICE		=> 'USER NOTICE',
-						E_STRICT			=> 'STRICT NOTICE',
+						 2048			=> 'STRICT NOTICE', // E_STRICT: constante deprecada no PHP 8.4
 						E_RECOVERABLE_ERROR	=> 'RECOVERABLE ERROR');
 
 	$err = array_key_exists ($errno, $errorType) ? $errorType [$errno] : 'CAUGHT EXCEPTION';
+
+	// O PHP 8 promoveu a Warning avisos que no PHP 7 eram Notice (e que este handler ignora): chave,
+	// variável ou propriedade indefinida e acesso a índice de valor escalar. Para a API não passar a
+	// responder 500 onde respondia 200, eles continuam só registrados no log.
+	if ($errno == E_WARNING && preg_match ('/^(Undefined (array key|variable|global variable|property|offset)|Trying to access array offset on|Attempt to read property)/', $errstr))
+	{
+		// Uma vez por requisição: num laço sobre milhares de registros, o mesmo aviso inundaria o log.
+		static $logged = array ();
+
+		$key = $errfile .':'. $errline .':'. $errstr;
+
+		if (!isset ($logged [$key]))
+		{
+			$logged [$key] = TRUE;
+
+			toLog ('[NOTICE] '. $errstr .' [File: '. $errfile .'] [Line: '. $errline .']');
+		}
+
+		return TRUE;
+	}
 
 	toLog ('['. $err .'] '. $errstr .' [File: '. $errfile .'] [Line: '. $errline .']');
 
@@ -747,7 +782,7 @@ function cleanArray (&$item, $key)
 
 function toUtf8 (&$item, $key)
 {
-	$item = utf8_encode ($item);
+	$item = latin1ToUtf8 ($item);
 }
 
 function relevant ($str, $terms)

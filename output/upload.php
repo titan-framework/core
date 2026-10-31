@@ -45,7 +45,7 @@ ob_start ();
 
 				$db->beginTransaction ();
 
-				if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (array_pop (explode ('.', $file ['name'])))))
+				if ($fileType == 'application/save' && !($fileType = $archive->getMimeByExtension (arrayLast (explode ('.', $file ['name'])))))
 					throw new Exception (__ ('This type of file is not accepted by the system !'));
 
 				if (!$archive->isAcceptable ($fileType))
@@ -69,7 +69,7 @@ ob_start ();
 				$sth->bindParam (':type', $fileType, PDO::PARAM_STR);
 				$sth->bindParam (':size', $fileSize, PDO::PARAM_INT);
 				$sth->bindParam (':description', $fileDesc, PDO::PARAM_STR);
-				$sth->bindParam (':user', User::singleton ()->getId (), PDO::PARAM_INT);
+				$sth->bindValue (':user', User::singleton ()->getId (), PDO::PARAM_INT);
 				
 				$sth->execute ();
 

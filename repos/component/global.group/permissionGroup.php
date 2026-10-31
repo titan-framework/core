@@ -51,7 +51,7 @@
 								$arraySection = $arrayMain [$keySection];
 								
 								$breadcrumb = $arraySection ['SECTION'];
-								$nameSection = array_pop (explode (' &raquo; ', $arraySection ['SECTION']));
+								$nameSection = arrayLast (explode (' &raquo; ', $arraySection ['SECTION']));
 								$defaultAction = $arraySection ['ACTION'];
 								
 								unset ($arraySection ['SECTION']);

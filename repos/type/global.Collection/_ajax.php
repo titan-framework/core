@@ -1,5 +1,6 @@
 <?php
 
+#[\AllowDynamicProperties]
 class xCollection
 {
 	public function save ($file, $formData, $fatherId, $fatherColumn, $itemId = 0)

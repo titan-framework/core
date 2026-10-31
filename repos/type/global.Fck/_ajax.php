@@ -1,5 +1,6 @@
 <?php
 
+#[\AllowDynamicProperties]
 class xFck
 {	
 	public function getFileResume ($id)

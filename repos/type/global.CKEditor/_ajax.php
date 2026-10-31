@@ -1,5 +1,6 @@
 <?php
 
+#[\AllowDynamicProperties]
 class xCKEditor
 {	
 	public function getFileResume ($id, $hash)

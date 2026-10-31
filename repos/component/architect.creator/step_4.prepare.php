@@ -4,6 +4,6 @@ if (isset ($_SESSION['UNIX_NAME']) && isset ($_SESSION['DBH_'. $_SESSION['UNIX_N
 else
 	throw new Exception ('Houve perda de variáveis.');
 
-$menu =& Menu::singleton ();
+$menu = Menu::singleton ();
 $menu->addJavaScript ('Preview do Sistema', 'view.png', "openPopup ('instance/". $itemId ."/titan.php?target=login', 'popup_". $itemId ."')");
 ?>

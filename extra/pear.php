@@ -137,6 +137,11 @@ class PEAR
      * @access public
      * @return void
      */
+    // PHP 8: metodos com o nome da classe nao sao mais construtores; __construct delega ao original.
+    function __construct($error_class = null) {
+    	$this->PEAR($error_class);
+    }
+
     function PEAR($error_class = null)
     {
         $classname = get_class($this);
@@ -656,7 +661,7 @@ function _PEAR_call_destructors()
         sizeof($_PEAR_destructor_object_list))
     {
         reset($_PEAR_destructor_object_list);
-        while (list($k, $objref) = each($_PEAR_destructor_object_list)) {
+        while (list($k, $objref) = arrayEach($_PEAR_destructor_object_list)) {
             $classname = get_class($objref);
             while ($classname) {
                 $destructor = "_$classname";
@@ -718,6 +723,12 @@ class PEAR_Error
      * @access public
      *
      */
+    // PHP 8: metodos com o nome da classe nao sao mais construtores; __construct delega ao original.
+    function __construct($message = 'unknown error', $code = null,
+                        $mode = null, $options = null, $userinfo = null) {
+    	$this->PEAR_Error($message, $code, $mode, $options, $userinfo);
+    }
+
     function PEAR_Error($message = 'unknown error', $code = null,
                         $mode = null, $options = null, $userinfo = null)
     {
